@@ -1,0 +1,45 @@
+format: jb-book
+root: intro
+title: Nock Tutorial
+chapters:
+- file: content/specification/index
+  title: The Specification
+  sections:
+  - file: content/specification/detailed-examples
+    title: Detailed Examples
+    
+- file: content/understanding/index
+  title: Understanding Nock
+  sections:
+  - file: content/understanding/combinator-approach
+    title: "Nock: The Combinator Approach"
+  - file: content/understanding/turing-machine-approach
+    title: "Nock: The Turing Machine Approach"
+  - file: content/understanding/lambda-approach
+    title: "Nock: The Lambda Approach"
+  - file: content/understanding/assembly-language-approach
+    title: "Nock: The Assembly Language Approach"
+    
+- file: content/examples/index
+  title: Code Examples
+  sections:
+  - file: content/examples/nouns-and-data
+    title: Nouns & Data
+  - file: content/examples/combinators
+    title: Combinators
+  - file: content/examples/idioms-gates-patterns
+    title: Idioms, Gates, & Design Patterns
+    
+- file: content/compiling/index
+  title: Compiling
+  sections:
+  - file: content/compiling/relationship-to-hoon
+    title: Relationship to Hoon
+  - file: content/compiling/relationship-to-jock
+    title: Relationship to Jock
+    
+- file: content/hints-jetting/index
+  title: Hints & Jetting
+  sections:
+  - file: content/hints-jetting/algorithmic-considerations
+    title: Algorithmic Considerations

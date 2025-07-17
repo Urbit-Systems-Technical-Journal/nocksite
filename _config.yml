@@ -1,0 +1,73 @@
+# Book settings
+title: Nock
+author: Urbit Systems Technical Journal
+logo: logo.png  # Optional: add a logo later
+copyright: "2025"
+
+# Force re-execution of notebooks on each build
+execute:
+  execute_notebooks: force
+  timeout: 30
+  allow_errors: false
+
+# Define the name of the latex output file for PDF builds
+latex:
+  latex_documents:
+    targetname: nock-tutorial.tex
+
+# Add a bibtex file so that we can create citations
+bibtex_bibfiles:
+  - references.bib  # Optional: add later if you want citations
+
+# Information about where the book exists on the web
+repository:
+  url: https://github.com/sigilante/nocksite
+  path_to_book: .
+  branch: master
+
+# Add GitHub buttons to your book
+html:
+  use_issues_button: true
+  use_repository_button: true
+  use_edit_page_button: true
+  home_page_in_navbar: false
+  extra_footer: |
+    <p>This book is powered by <a href="https://jupyterbook.org">Jupyter Book</a></p>
+
+# Sphinx configuration
+sphinx:
+  extra_extensions:
+    - sphinx_copybutton  # Add copy buttons to code blocks
+    - sphinx_togglebutton  # Add toggle buttons for content
+  config:
+    html_theme_options:
+      repository_url: https://github.com/sigilante/nocksite
+      use_repository_button: true
+      use_issues_button: true
+      use_edit_page_button: true
+      use_download_button: true
+      use_fullscreen_button: true
+      home_page_in_navbar: false
+      show_navbar_depth: 2
+    copybutton_prompt_text: "$"
+    copybutton_exclude: ".linenos, .gp"
+
+# Launch buttons for interactive content
+launch_buttons:
+  notebook_interface: jupyterlab
+  binderhub_url: ""  # Add binder URL later if you want cloud execution
+  
+# Parse and render settings
+parse:
+  myst_enable_extensions:
+    - amsmath
+    - colon_fence
+    - deflist
+    - dollarmath
+    - html_admonition
+    - html_image
+    - linkify
+    - replacements
+    - smartquotes
+    - substitution
+    - tasklist
