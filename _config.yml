@@ -21,7 +21,7 @@ bibtex_bibfiles:
 
 # Information about where the book exists on the web
 repository:
-  url: https://github.com/sigilante/nocksite
+  url: https://github.com/Urbit-Systems-Technical-Journal/nocksite
   path_to_book: .
   branch: master
 
@@ -33,6 +33,9 @@ html:
   home_page_in_navbar: false
   extra_footer: |
     <p>This book is powered by <a href="https://jupyterbook.org">Jupyter Book</a></p>
+  # Add custom CSS
+  extra_css:
+    - _static/css/custom.css
 
 # Sphinx configuration
 sphinx:
@@ -41,7 +44,7 @@ sphinx:
     - sphinx_togglebutton  # Add toggle buttons for content
   config:
     html_theme_options:
-      repository_url: https://github.com/sigilante/nocksite
+      repository_url: https://github.com/Urbit-Systems-Technical-Journal/nocksite
       use_repository_button: true
       use_issues_button: true
       use_edit_page_button: true

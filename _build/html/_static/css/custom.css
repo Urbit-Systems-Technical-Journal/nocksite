@@ -1,0 +1,103 @@
+/* Import Urbit fonts */
+@font-face {
+    font-family: 'Urbit Sans Book';
+    src: url('../fonts/UrbitSans-Book.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Urbit Sans';
+    src: url('../fonts/UrbitSans-Bold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Urbit Sans Mono';
+    src: url('../fonts/UrbitSans-SemiBoldMono.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Apply fonts to headers */
+h1, h2, h3, h4, h5, h6,
+.bd-header h1,
+.bd-sidebar h1, .bd-sidebar h2, .bd-sidebar h3, .bd-sidebar h4, .bd-sidebar h5, .bd-sidebar h6 {
+    font-family: 'Urbit Sans Book', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+
+/* Apply monospace font to code */
+code, pre,
+.highlight pre,
+.codehilite pre,
+.jupyter_container .highlight pre,
+.cell_output pre,
+.cell_input pre,
+.input_area pre,
+.output_area pre,
+div.highlight pre,
+.jp-CodeMirrorEditor .CodeMirror {
+    font-family: 'Urbit Sans Mono', 'SFMono-Regular', Menlo, Monaco, Consolas, monospace !important;
+}
+
+/* Background color customization */
+body {
+    background-color: #fafafa; /* Light gray background */
+}
+
+/* Main content area background */
+.bd-main .bd-content {
+    background-color: #ffffff;
+}
+
+/* Sidebar background */
+.bd-sidebar {
+    background-color: #f8f9fa;
+}
+
+/* Code block background */
+.highlight {
+    background-color: #f8f9fa;
+}
+
+/* Header background */
+.bd-header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e9ecef;
+}
+
+/* Navigation background */
+.bd-toc {
+    background-color: #f8f9fa;
+}
+
+/* Notebook cell backgrounds */
+.cell {
+    background-color: #ffffff;
+}
+
+.cell_input {
+    background-color: #f8f9fa;
+}
+
+.cell_output {
+    background-color: #ffffff;
+}
+
+/* Custom colors for Nock/Urbit theme */
+:root {
+    --urbit-green: #00d4aa;
+    --urbit-black: #000000;
+    --urbit-white: #ffffff;
+    --urbit-gray: #f8f9fa;
+}
+
+/* Optional: Use Urbit colors for links */
+a {
+    color: var(--urbit-green);
+}
+
+a:hover {
+    color: #00b894;
+}
