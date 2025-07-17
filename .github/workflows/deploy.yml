@@ -3,26 +3,22 @@ name: Deploy Jupyter Book
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
-  deploy-book:
+  deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
     - uses: actions/checkout@v3
 
-    - name: Set up Python 3.11
+    - name: Setup Python
       uses: actions/setup-python@v4
       with:
-        python-version: 3.11
+        python-version: '3.9'
 
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
-        pip install jupyter-book ghp-import
+        pip install jupyter-book
 
     - name: Build the book
       run: |
@@ -34,4 +30,4 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./_build/html
-
+        cname: nock.is  # This ensures the CNAME file is included
