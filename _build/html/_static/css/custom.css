@@ -109,12 +109,112 @@ a:hover {
     color: var(--urbit-white);
 }
 
-/* Use Urbit colors for navigation links and hover effects */
-.pst-color-link a,
-.pst-color-primary a {
-    color: var(--urbit-green);
+/* Navigation link styling */
+
+/* Sidebar navigation links - more specific selectors */
+.bd-sidebar a,
+.bd-sidebar .toctree-l1 a,
+.bd-sidebar .toctree-l2 a,
+.bd-sidebar .toctree-l3 a,
+nav.bd-sidebar a {
+    color: var(--urbit-black) !important;
+    text-decoration: none;
 }
-.pst-color-link a:hover,
-.pst-color-primary a:hover {
-    color: var(--urbit-white);
+
+.bd-sidebar a:hover,
+.bd-sidebar .toctree-l1 a:hover,
+.bd-sidebar .toctree-l2 a:hover,
+.bd-sidebar .toctree-l3 a:hover,
+nav.bd-sidebar a:hover {
+    color: var(--urbit-green) !important;
+}
+
+/* Active/current page in sidebar */
+.bd-sidebar .current a,
+.bd-sidebar .current > a,
+.bd-sidebar .toctree-l1.current a,
+.bd-sidebar .toctree-l2.current a {
+    color: var(--urbit-green) !important;
+    font-weight: bold;
+}
+
+/* Target the root/index page specifically */
+body[data-page="index"] .bd-sidebar a,
+body[data-page=""] .bd-sidebar a {
+    color: var(--urbit-black) !important;
+}
+
+body[data-page="index"] .bd-sidebar a:hover,
+body[data-page=""] .bd-sidebar a:hover {
+    color: var(--urbit-green) !important;
+}
+
+/* Bottom navigation (Previous/Next) links */
+.prev-next-area a {
+    color: var(--urbit-green) !important;
+    border-color: var(--urbit-green) !important;
+}
+
+.prev-next-area a:hover {
+    background-color: var(--urbit-green) !important;
+    color: var(--urbit-white) !important;
+}
+
+/* Table of contents (right sidebar) links */
+.bd-toc a {
+    color: var(--urbit-white) !important;
+}
+
+.bd-toc a:hover {
+    color: var(--urbit-green) !important;
+}
+
+/* Header navigation links */
+.bd-header a {
+    color: var(--urbit-green) !important;
+}
+
+.bd-header a:hover {
+    color: var(--urbit-green) !important;
+}
+
+/* Breadcrumb navigation */
+.bd-breadcrumbs a {
+    color: var(--urbit-green) !important;
+}
+
+.bd-breadcrumbs a:hover {
+    color: var(--urbit-green) !important;
+}
+
+/* General content links (in main text) */
+.bd-content a {
+    color: var(--urbit-green) !important;
+}
+
+.bd-content a:hover {
+    color: var(--urbit-green) !important;
+    text-decoration: underline;
+}
+/* Force override for all sidebar links - add this at the end */
+.bd-sidebar * a[href],
+.bd-sidebar-primary * a[href],
+.bd-sidebar-secondary * a[href],
+nav[aria-label="main navigation"] a,
+.toctree-wrapper a {
+    color: var(--urbit-black) !important;
+}
+
+.bd-sidebar * a[href]:hover,
+.bd-sidebar-primary * a[href]:hover,
+.bd-sidebar-secondary * a[href]:hover,
+nav[aria-label="main navigation"] a:hover,
+.toctree-wrapper a:hover {
+    color: var(--urbit-green) !important;
+}
+
+/* Nuclear option - override any remaining sidebar links */
+.bd-sidebar, .bd-sidebar * {
+    --pst-color-link: var(--urbit-black) !important;
+    --pst-color-link-hover: var(--urbit-green) !important;
 }

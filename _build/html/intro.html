@@ -35,7 +35,7 @@
     <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=e4f945e4" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=bbccc5ac" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -427,7 +427,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="nock">
 <h1>Nock<a class="headerlink" href="#nock" title="Link to this heading">#</a></h1>
-<p>Nock is a computational specification which can be described as an instruction set architecture, a programming language, or a behavior standard.  Nock seeks a balance of minimalism, which makes it easy to reason about and prove statements about.</p>
+<p>Nock is a computational specification which can be described as an instruction set architecture, a programming language, or a behavior standard.  Nock seeks a balanced minimalism which makes it easy to reason about and prove statements about.  “As simple as viable, and no simpler.”</p>
 <p>Today, Nock is used as the computational layer for <a class="reference external" href="https://urbit.org">Urbit</a> and <a class="reference external" href="https://zorp.io/blog/nockapp-dev-alpha">NockApp</a> (currently shipped as part of <a class="reference external" href="https://www.nockchain.org/">Nockchain</a>).</p>
 <p>This site will interactively teach you about Nock and the high-level languages that compile to it:</p>
 <ul class="simple">
@@ -439,10 +439,11 @@ document.write(`
 <p>Nock is a minimal combinator calculus that serves as the foundation for functional programming systems like Urbit. This tutorial provides multiple perspectives on understanding Nock, from theoretical foundations to practical implementation.</p>
 <p>Nock as a computing platform is:</p>
 <ul class="simple">
-<li><p>Turing-complete.  It’s a real language with all that implies.</p></li>
+<li><p>Turing-complete.  It’s a complete real language with all that implies.</p></li>
 <li><p>Functional-as-in-language.  Necessary side effects are achieved through runtime hints.</p></li>
 <li><p>Homoiconic.  Code and data share the same representation.</p></li>
 <li><p>Solid-state.  Each evaluation is deterministic and self-contained, resulting in a new updated state with no transient state from crashes or system (mis)configuration.</p></li>
+<li><p>Tiny.  Only twelve opcodes are necessary for the full specification, and first-class virtualization allows this capability to be arbitrarily extended.</p></li>
 </ul>
 </section>
 <section id="how-to-use-this-tutorial">
