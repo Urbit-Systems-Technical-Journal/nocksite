@@ -27,6 +27,11 @@ h1, h2, h3, h4, h5, h6,
     font-family: 'Urbit Sans Book', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
 }
 
+/* Apply fonts to body text */
+body, p, li, .bd-content p, .bd-sidebar p {
+    font-family: 'Urbit Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+
 /* Apply monospace font to code */
 code, pre,
 .highlight pre,
@@ -48,12 +53,14 @@ body {
 
 /* Main content area background */
 .bd-main .bd-content {
-    background-color: #F9FFF9; /* Light gray background for main content */
+    background-color: #141A14; /* Dark gray background for main content */
+    color: #f8f9fa; /* Light text color for contrast */
 }
 
 /* Sidebar background */
 .bd-sidebar {
-    background-color: #f8f9fa;
+    background-color: #141A14; /* Dark gray background for sidebar */
+    color: #f8f9fa; /* Light text color for contrast */
 }
 
 /* Code block background */
@@ -64,7 +71,7 @@ body {
 /* Header background */
 .bd-header {
     background-color: #f8f9fa;
-    border-bottom: 1px solid #e9ecef;
+    border-bottom: 1px solid #f8f9fa;
 }
 
 /* Navigation background */
@@ -98,7 +105,16 @@ body {
 a {
     color: var(--urbit-green);
 }
-
 a:hover {
-    color: #AAE68C;
+    color: var(--urbit-white);
+}
+
+/* Use Urbit colors for navigation links and hover effects */
+.pst-color-link a,
+.pst-color-primary a {
+    color: var(--urbit-green);
+}
+.pst-color-link a:hover,
+.pst-color-primary a:hover {
+    color: var(--urbit-white);
 }
