@@ -246,6 +246,6 @@ nav[aria-label="main navigation"] a:hover,
 
 /* Nuclear option - override any remaining sidebar links */
 .bd-sidebar, .bd-sidebar * {
-    --pst-color-link: var(--urbit-gray) !important;
-    --pst-color-link-hover: var(--urbit-green) !important;
+    --pst-color-link: var(--urbit-white) !important;
+    --pst-color-link-hover: var(--urbit-white) !important;
 }
