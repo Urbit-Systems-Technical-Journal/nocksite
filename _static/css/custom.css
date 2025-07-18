@@ -123,6 +123,23 @@ a:hover {
     color: var(--urbit-white);
 }
 
+/* Set links to use Urbit Sans */
+a, a:link, a:visited, a:hover, a:active {
+  font-family: "Urbit Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Also apply to navigation links */
+.bd-navbar a,
+.bd-sidebar a,
+.bd-toc a {
+  font-family: "Urbit Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Footer links */
+.bd-footer a {
+  font-family: "Urbit Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
 /* Navigation link styling */
 
 /* Sidebar navigation links - more specific selectors */
