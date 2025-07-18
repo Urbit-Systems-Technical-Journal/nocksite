@@ -131,12 +131,13 @@ Nock is mathematically complete, but it doesn't seem to have many affordances th
 
 ## Evaluating Nock
 
-So much for the specification itself, but what does it _mean_?  You can treat it like a puzzle and work things out yourself, but we've also prepared four complementary approaches to Nock.  Start with one that best fits your background.
+So much for the specification itself, but what does it _mean_?  You can treat it like a puzzle and work things out yourself, but we've also prepared several complementary approaches to Nock.  Start with one that best fits your background.
 
 1. [ The Combinator Approach](../understanding/combinator-approach.ipynb)
-2. [ The Turing Machine Approach](../understanding/turing-machine-approach.ipynb)
+2. [ The Turing Machine Approach](../understanding/turing-machine-approach.ipynb)
 3. [ The Lambda Calculus Approach](../understanding/lambda-approach.ipynb)
 4. [ The Assembly Language Approach](../understanding/assembly-language-approach.ipynb)
+5. [ The Cellular Automaton Approach]()
 
 
 ## Resources
