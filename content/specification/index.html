@@ -412,7 +412,14 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-spec">The Spec</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commentary">Commentary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commentary">Commentary</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#addressing">Addressing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating">Evaluating</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#whats-missing">What’s Missing?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-nock">Evaluating Nock</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources">Resources</a></li>
 </ul>
             </nav>
         </div>
@@ -427,11 +434,6 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="defining-nock">
 <h1>Defining Nock<a class="headerlink" href="#defining-nock" title="Link to this heading">#</a></h1>
 <p>Nock consists of only twelve opcodes based on a few axiomatic operators for addressing and equality, etc.  The quip is that it’s small enough to fit on a T-shirt—and you can find such T-shirts in circulation!  This situates it in complexity somewhere higher than a lambda calculus or SKI combinator and somewhere lower than an assembly language.</p>
-<p>Everything in Nock is a noun, which means it is an unsigned integer (“atom”) or a pair of nouns (“cell”).  This means that all nouns are binary trees (which gives us some nice properties).  Code and data share the same basic language of nouns, but code means something specific in structure while data can be arbitrary.</p>
-<ul class="simple">
-<li><p><strong>Code</strong> consists of a <em>formula</em> (expression made up of opcodes and data) evaluated against a <em>subject</em> (operating context).</p></li>
-<li><p><strong>Data</strong> means any noun, which can resolve to a structured tree of values (like XML or JSON), a large number (intepreted as a byte array), or even deferred code for future evaluation.</p></li>
-</ul>
 <p>We’ll dig into these in detail as we move along, but let’s start with—</p>
 <section id="the-spec">
 <h2>The Spec<a class="headerlink" href="#the-spec" title="Link to this heading">#</a></h2>
@@ -484,16 +486,82 @@ nock(a)             *a
 *a                  *a
 </pre></div>
 </div>
-<p>The current specification for Nock is 4K, meaning that only four possible revisions are possible.</p>
-<p>Other online versions of the specification match the above but provide additional perspectives and commentary.</p>
+<p>The current specification for Nock is 4K, meaning that only four possible revisions are possible.^[See <code class="docutils literal notranslate"><span class="pre">~lagrev-nocfep</span></code> and <code class="docutils literal notranslate"><span class="pre">~sorreg-namtyv</span></code> (2025) for the history of Nock.]</p>
+</section>
+<section id="commentary">
+<h2>Commentary<a class="headerlink" href="#commentary" title="Link to this heading">#</a></h2>
+<p>While we defer the opcode discussion to our “Understanding Nock” section, the operators merit some explanation.</p>
+<section id="addressing">
+<h3>Addressing<a class="headerlink" href="#addressing" title="Link to this heading">#</a></h3>
+<p>Everything in Nock is a noun, which means it is an unsigned integer (“atom”) or a pair of nouns (“cell”).  This means that all nouns are binary trees (which gives us some nice properties).  Code and data share the same basic language of nouns, but code means something specific in structure while data can be arbitrary.</p>
+<ul class="simple">
+<li><p><strong>Code</strong> consists of a <em>formula</em> (expression made up of opcodes and data) evaluated against a <em>subject</em> (operating context).</p></li>
+<li><p><strong>Data</strong> means any noun, which can resolve to a structured tree of values (like XML or JSON), a large number (intepreted as a byte array), or even deferred code for future evaluation.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">a</span> <span class="n">b</span> <span class="n">c</span><span class="p">]</span>             <span class="p">[</span><span class="n">a</span> <span class="p">[</span><span class="n">b</span> <span class="n">c</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p>For convenience, we omit right-hand cell brackets in our notation.  (Nock branches to the right <em>a lot</em> and so this saves us from Lisp-style end-paren piles.)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+</span><span class="p">[</span><span class="n">a</span> <span class="n">b</span><span class="p">]</span>              <span class="o">+</span><span class="p">[</span><span class="n">a</span> <span class="n">b</span><span class="p">]</span>
+<span class="o">+</span><span class="n">a</span>                  <span class="mi">1</span> <span class="o">+</span> <span class="n">a</span>
+</pre></div>
+</div>
+<p>We can increment atoms, but not cells (which makes sense).  Every natural number (atom) has a successor, so there is no possible crash here (as long as our interpreter actually supports arbitrarily sized integers).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="p">[</span><span class="mi">1</span> <span class="n">a</span><span class="p">]</span>              <span class="n">a</span>
+<span class="o">/</span><span class="p">[</span><span class="mi">2</span> <span class="n">a</span> <span class="n">b</span><span class="p">]</span>            <span class="n">a</span>
+<span class="o">/</span><span class="p">[</span><span class="mi">3</span> <span class="n">a</span> <span class="n">b</span><span class="p">]</span>            <span class="n">b</span>
+<span class="o">/</span><span class="p">[(</span><span class="n">a</span> <span class="o">+</span> <span class="n">a</span><span class="p">)</span> <span class="n">b</span><span class="p">]</span>        <span class="o">/</span><span class="p">[</span><span class="mi">2</span> <span class="o">/</span><span class="p">[</span><span class="n">a</span> <span class="n">b</span><span class="p">]]</span>
+<span class="o">/</span><span class="p">[(</span><span class="n">a</span> <span class="o">+</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="n">b</span><span class="p">]</span>    <span class="o">/</span><span class="p">[</span><span class="mi">3</span> <span class="o">/</span><span class="p">[</span><span class="n">a</span> <span class="n">b</span><span class="p">]]</span>
+<span class="o">/</span><span class="n">a</span>                  <span class="o">/</span><span class="n">a</span>
+</pre></div>
+</div>
+<p>TODO</p>
+<p>One implication of nouns is that an easy way to tell data apart is by their structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>?[a b]              0
+?a                  1
+
+=[a a]              0
+=[a b]              1
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">?</span></code> wut is useful to ask whether a given noun is a cell or an atom.  (Like C’s <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main()</span></code> return type and error codes, <code class="docutils literal notranslate"><span class="pre">0</span></code> means <code class="docutils literal notranslate"><span class="pre">TRUE</span></code> and <code class="docutils literal notranslate"><span class="pre">1</span></code> means <code class="docutils literal notranslate"><span class="pre">FALSE</span></code>.)</p>
+<p><code class="docutils literal notranslate"><span class="pre">=</span></code> tis similarly checks whether two nouns are the same as each other, which means by structure and value.</p>
+</section>
+<section id="evaluating">
+<h3>Evaluating<a class="headerlink" href="#evaluating" title="Link to this heading">#</a></h3>
+<p>The last line of the Nock specification reads:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span><span class="n">a</span>                  <span class="o">*</span><span class="n">a</span>
+</pre></div>
+</div>
+<p>What this means is that a formula which reduces to itself continues to do so, i.e. becomes an infinite loop or “bottom”.  The Nock interpreter should detect this “crash” and yield the result instead of spinning on it forever.</p>
+</section>
+<section id="whats-missing">
+<h3>What’s Missing?<a class="headerlink" href="#whats-missing" title="Link to this heading">#</a></h3>
+<p>Nock is mathematically complete, but it doesn’t seem to have many affordances that programmers expect from a computer.  Nock leaves some pragmatic elements of programming and the computer environment to its evaluator, or runtime environment.</p>
+<ul class="simple">
+<li><p>Boolean logic (<code class="docutils literal notranslate"><span class="pre">AND</span></code>, <code class="docutils literal notranslate"><span class="pre">XOR</span></code>, <code class="docutils literal notranslate"><span class="pre">NOT</span></code>, etc.) must be implemented out of Nock primitives rather than being axiomatically supplied as operators.</p></li>
+<li><p>Side effects (like printing) will be handled by raising special nouns to the Nock evaluator.</p></li>
+<li><p>Memory is entirely handled by the Nock evaluator.</p></li>
+</ul>
+</section>
+</section>
+<section id="evaluating-nock">
+<h2>Evaluating Nock<a class="headerlink" href="#evaluating-nock" title="Link to this heading">#</a></h2>
+<p>So much for the specification itself, but what does it <em>mean</em>?  You can treat it like a puzzle and work things out yourself, but we’ve also prepared four complementary approaches to Nock.  Start with one that best fits your background.</p>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="../understanding/combinator-approach.html"><span class="std std-doc">The Combinator Approach</span></a></p></li>
+<li><p><a class="reference internal" href="../understanding/turing-machine-approach.html"><span class="std std-doc">The Turing Machine Approach</span></a></p></li>
+<li><p><a class="reference internal" href="../understanding/lambda-approach.html"><span class="std std-doc">The Lambda Calculus Approach</span></a></p></li>
+<li><p><a class="reference internal" href="../understanding/assembly-language-approach.html"><span class="std std-doc">The Assembly Language Approach</span></a></p></li>
+</ol>
+</section>
+<section id="resources">
+<h2>Resources<a class="headerlink" href="#resources" title="Link to this heading">#</a></h2>
+<p>Other online versions of the specification match the above but provide additional perspectives and commentary.  Check them out, too.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://docs.urbit.org/nock/what-is-nock">Urbit:  What is Nock?</a></p></li>
 <li><p><a class="reference external" href="https://zorp.io/nock/">Zorp:  Nock Definition</a></p></li>
 </ul>
-</section>
-<section id="commentary">
-<h2>Commentary<a class="headerlink" href="#commentary" title="Link to this heading">#</a></h2>
-<p>A formula that reduces to itself is an infinite loop, which we define as a crash (“bottom” in formal logic). A real interpreter can detect this crash and produce an out-of-band value instead.</p>
 </section>
 <div class="toctree-wrapper compound">
 </div>
@@ -564,7 +632,14 @@ nock(a)             *a
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-spec">The Spec</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commentary">Commentary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commentary">Commentary</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#addressing">Addressing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating">Evaluating</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#whats-missing">What’s Missing?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-nock">Evaluating Nock</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources">Resources</a></li>
 </ul>
   </nav></div>
 
