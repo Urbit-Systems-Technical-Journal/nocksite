@@ -121,11 +121,12 @@ What this means is that a formula which reduces to itself continues to do so, i.
 
 ### What's Missing?
 
-Nock is mathematically complete, but it doesn't seem to have many affordances that programmers expect from a computer.  Nock leaves some pragmatic elements of programming and the computer environment to its evaluator, or runtime environment.
+Nock is mathematically complete, but it doesn't seem to have many affordances that programmers expect from a language.  Nock leaves some pragmatic elements of programming and the computer environment to its evaluator, or runtime environment.
 
 - Boolean logic (`AND`, `XOR`, `NOT`, etc.) must be implemented out of Nock primitives rather than being axiomatically supplied as operators.
-- Side effects (like printing) will be handled by raising special nouns to the Nock evaluator.
+- Side effects (like printing) will be handled by raising special noun patterns to the Nock evaluator.
 - Memory is entirely handled by the Nock evaluator.
+- Evaluation rules are defined, but their implementation is omitted.  You can use a tree-walking interpreter, a bytecode interpreter, or something even more clever to run Nock in practice.  (In fact, you can treat Nock as a spec and not run it at all, as long as you get the same answer!)
 
 
 ## Evaluating Nock
