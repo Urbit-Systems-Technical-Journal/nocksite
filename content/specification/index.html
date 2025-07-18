@@ -537,11 +537,12 @@ nock(a)             *a
 </section>
 <section id="whats-missing">
 <h3>What’s Missing?<a class="headerlink" href="#whats-missing" title="Link to this heading">#</a></h3>
-<p>Nock is mathematically complete, but it doesn’t seem to have many affordances that programmers expect from a computer.  Nock leaves some pragmatic elements of programming and the computer environment to its evaluator, or runtime environment.</p>
+<p>Nock is mathematically complete, but it doesn’t seem to have many affordances that programmers expect from a language.  Nock leaves some pragmatic elements of programming and the computer environment to its evaluator, or runtime environment.</p>
 <ul class="simple">
 <li><p>Boolean logic (<code class="docutils literal notranslate"><span class="pre">AND</span></code>, <code class="docutils literal notranslate"><span class="pre">XOR</span></code>, <code class="docutils literal notranslate"><span class="pre">NOT</span></code>, etc.) must be implemented out of Nock primitives rather than being axiomatically supplied as operators.</p></li>
-<li><p>Side effects (like printing) will be handled by raising special nouns to the Nock evaluator.</p></li>
+<li><p>Side effects (like printing) will be handled by raising special noun patterns to the Nock evaluator.</p></li>
 <li><p>Memory is entirely handled by the Nock evaluator.</p></li>
+<li><p>Evaluation rules are defined, but their implementation is omitted.  You can use a tree-walking interpreter, a bytecode interpreter, or something even more clever to run Nock in practice.  (In fact, you can treat Nock as a spec and not run it at all, as long as you get the same answer!)</p></li>
 </ul>
 </section>
 </section>
