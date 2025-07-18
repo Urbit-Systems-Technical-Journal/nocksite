@@ -56,7 +56,7 @@ nock(a)             *a
 *a                  *a
 ```
 
-The current specification for Nock is 4K, meaning that only four possible revisions are possible.^[See `~lagrev-nocfep` and `~sorreg-namtyv` (2025) for the history of Nock.]
+The current specification for Nock is 4K, meaning that only four possible revisions are possible.{footnote}`See ~lagrev-nocfep and ~sorreg-namtyv (2025) for the history of Nock.`
 
 
 ## Commentary
