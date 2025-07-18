@@ -1,4 +1,16 @@
-# The Nock Specification
+# Defining Nock
+
+Nock consists of only twelve opcodes based on a few axiomatic operators for addressing and equality, etc.  The quip is that it's small enough to fit on a T-shirt—and you can find such T-shirts in circulation!  This situates it in complexity somewhere higher than a lambda calculus or SKI combinator and somewhere lower than an assembly language.
+
+Everything in Nock is a noun, which means it is an unsigned integer ("atom") or a pair of nouns ("cell").  This means that all nouns are binary trees (which gives us some nice properties).  Code and data share the same basic language of nouns, but code means something specific in structure while data can be arbitrary.
+
+* **Code** consists of a _formula_ (expression made up of opcodes and data) evaluated against a _subject_ (operating context).
+
+* **Data** means any noun, which can resolve to a structured tree of values (like XML or JSON), a large number (intepreted as a byte array), or even deferred code for future evaluation.
+
+We'll dig into these in detail as we move along, but let's start with—
+
+##  The Spec
 
 ```
 Nock 4K
