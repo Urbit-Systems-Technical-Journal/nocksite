@@ -233,7 +233,7 @@ body[data-page=""] .bd-sidebar a:hover {
 .bd-sidebar-secondary * a[href],
 nav[aria-label="main navigation"] a,
 .toctree-wrapper a {
-    color: var(--urbit-black) !important;
+    color: var(--urbit-gray) !important;
 }
 
 .bd-sidebar * a[href]:hover,
@@ -246,6 +246,6 @@ nav[aria-label="main navigation"] a:hover,
 
 /* Nuclear option - override any remaining sidebar links */
 .bd-sidebar, .bd-sidebar * {
-    --pst-color-link: var(--urbit-black) !important;
+    --pst-color-link: var(--urbit-gray) !important;
     --pst-color-link-hover: var(--urbit-green) !important;
 }
