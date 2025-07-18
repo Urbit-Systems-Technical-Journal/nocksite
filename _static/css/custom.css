@@ -241,7 +241,7 @@ nav[aria-label="main navigation"] a,
 .bd-sidebar-secondary * a[href]:hover,
 nav[aria-label="main navigation"] a:hover,
 .toctree-wrapper a:hover {
-    color: var(--urbit-green) !important;
+    color: var(--urbit-white) !important;
 }
 
 /* Nuclear option - override any remaining sidebar links */
