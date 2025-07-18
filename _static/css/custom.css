@@ -1,0 +1,220 @@
+/* Import Urbit fonts */
+@font-face {
+    font-family: 'Urbit Sans Book';
+    src: url('../fonts/UrbitSans-Book.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Urbit Sans';
+    src: url('../fonts/UrbitSans-Bold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Urbit Sans Mono';
+    src: url('../fonts/UrbitSans-SemiBoldMono.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Apply fonts to headers */
+h1, h2, h3, h4, h5, h6,
+.bd-header h1,
+.bd-sidebar h1, .bd-sidebar h2, .bd-sidebar h3, .bd-sidebar h4, .bd-sidebar h5, .bd-sidebar h6 {
+    font-family: 'Urbit Sans Book', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+
+/* Apply fonts to body text */
+body, p, li, .bd-content p, .bd-sidebar p {
+    font-family: 'Urbit Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+
+/* Apply monospace font to code */
+code, pre,
+.highlight pre,
+.codehilite pre,
+.jupyter_container .highlight pre,
+.cell_output pre,
+.cell_input pre,
+.input_area pre,
+.output_area pre,
+div.highlight pre,
+.jp-CodeMirrorEditor .CodeMirror {
+    font-family: 'Urbit Sans Mono', 'SFMono-Regular', Menlo, Monaco, Consolas, monospace !important;
+}
+
+/* Background color customization */
+body {
+    background-color: #141A14; /* Dark gray background */
+}
+
+/* Main content area background */
+.bd-main .bd-content {
+    background-color: #141A14; /* Dark gray background for main content */
+    color: #f8f9fa; /* Light text color for contrast */
+}
+
+/* Sidebar background */
+.bd-sidebar {
+    background-color: #141A14; /* Dark gray background for sidebar */
+    color: #f8f9fa; /* Light text color for contrast */
+}
+
+/* Code block background */
+.highlight {
+    background-color: #f8f9fa;
+}
+
+/* Header background */
+.bd-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #f8f9fa;
+}
+
+/* Navigation background */
+.bd-toc {
+    background-color: #141A14; /* Darker gray for navigation */
+    color: #f8f9fa; /* Light text color for contrast */
+}
+
+/* Notebook cell backgrounds */
+.cell {
+    background-color: #F5FFF5; /* Light green background for notebook cells */
+}
+
+.cell_input {
+    background-color: #5A735A; /* Darker green for input cells */
+}
+
+.cell_output {
+    background-color: #383C38; /* Medium gray background for output cells */
+}
+
+/* Custom colors for Nock/Urbit theme */
+:root {
+    --urbit-green: #AAE68C;
+    --urbit-black: #141A14;
+    --urbit-white: #F5FFF5;
+    --urbit-gray: #383C38;
+}
+
+/* Optional: Use Urbit colors for links */
+a {
+    color: var(--urbit-green);
+}
+a:hover {
+    color: var(--urbit-white);
+}
+
+/* Navigation link styling */
+
+/* Sidebar navigation links - more specific selectors */
+.bd-sidebar a,
+.bd-sidebar .toctree-l1 a,
+.bd-sidebar .toctree-l2 a,
+.bd-sidebar .toctree-l3 a,
+nav.bd-sidebar a {
+    color: var(--urbit-black) !important;
+    text-decoration: none;
+}
+
+.bd-sidebar a:hover,
+.bd-sidebar .toctree-l1 a:hover,
+.bd-sidebar .toctree-l2 a:hover,
+.bd-sidebar .toctree-l3 a:hover,
+nav.bd-sidebar a:hover {
+    color: var(--urbit-green) !important;
+}
+
+/* Active/current page in sidebar */
+.bd-sidebar .current a,
+.bd-sidebar .current > a,
+.bd-sidebar .toctree-l1.current a,
+.bd-sidebar .toctree-l2.current a {
+    color: var(--urbit-green) !important;
+    font-weight: bold;
+}
+
+/* Target the root/index page specifically */
+body[data-page="index"] .bd-sidebar a,
+body[data-page=""] .bd-sidebar a {
+    color: var(--urbit-black) !important;
+}
+
+body[data-page="index"] .bd-sidebar a:hover,
+body[data-page=""] .bd-sidebar a:hover {
+    color: var(--urbit-green) !important;
+}
+
+/* Bottom navigation (Previous/Next) links */
+.prev-next-area a {
+    color: var(--urbit-green) !important;
+    border-color: var(--urbit-green) !important;
+}
+
+.prev-next-area a:hover {
+    background-color: var(--urbit-green) !important;
+    color: var(--urbit-white) !important;
+}
+
+/* Table of contents (right sidebar) links */
+.bd-toc a {
+    color: var(--urbit-white) !important;
+}
+
+.bd-toc a:hover {
+    color: var(--urbit-green) !important;
+}
+
+/* Header navigation links */
+.bd-header a {
+    color: var(--urbit-green) !important;
+}
+
+.bd-header a:hover {
+    color: var(--urbit-green) !important;
+}
+
+/* Breadcrumb navigation */
+.bd-breadcrumbs a {
+    color: var(--urbit-green) !important;
+}
+
+.bd-breadcrumbs a:hover {
+    color: var(--urbit-green) !important;
+}
+
+/* General content links (in main text) */
+.bd-content a {
+    color: var(--urbit-green) !important;
+}
+
+.bd-content a:hover {
+    color: var(--urbit-green) !important;
+    text-decoration: underline;
+}
+/* Force override for all sidebar links - add this at the end */
+.bd-sidebar * a[href],
+.bd-sidebar-primary * a[href],
+.bd-sidebar-secondary * a[href],
+nav[aria-label="main navigation"] a,
+.toctree-wrapper a {
+    color: var(--urbit-black) !important;
+}
+
+.bd-sidebar * a[href]:hover,
+.bd-sidebar-primary * a[href]:hover,
+.bd-sidebar-secondary * a[href]:hover,
+nav[aria-label="main navigation"] a:hover,
+.toctree-wrapper a:hover {
+    color: var(--urbit-green) !important;
+}
+
+/* Nuclear option - override any remaining sidebar links */
+.bd-sidebar, .bd-sidebar * {
+    --pst-color-link: var(--urbit-black) !important;
+    --pst-color-link-hover: var(--urbit-green) !important;
+}
