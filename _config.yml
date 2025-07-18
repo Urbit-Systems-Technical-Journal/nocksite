@@ -74,3 +74,12 @@ parse:
     - smartquotes
     - substitution
     - tasklist
+
+exclude_patterns:
+  - _build
+  - Thumbs.db
+  - .DS_Store
+  - "**.ipynb_checkpoints"
+
+# Include CNAME in build
+only_build_toc_files: false

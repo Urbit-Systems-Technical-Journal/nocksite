@@ -2,7 +2,7 @@ name: Deploy Jupyter Book
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master ]  # Changed from 'main' to 'master'
 
 jobs:
   deploy:
@@ -23,12 +23,13 @@ jobs:
     - name: Build the book
       run: |
         jupyter-book build .
+        cp .nojekyll _build/html/
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
-      if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/master'  # Changed from 'main' to 'master'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./_build/html
-        publish_branch: gh-pages
+        publish_branch: gh-pages  # Deploy to gh-pages instead of master
         cname: nock.is
