@@ -16,17 +16,17 @@ Nock is a minimal combinator calculus that serves as the foundation for function
 Nock as a computing platform is:
 
 * Turing-complete.  It's a complete real language with all that implies.
-* Functional-as-in-language.  Necessary side effects are achieved through runtime hints.
+* Functional-as-in-language.  Necessary side effects are achieved through runtime hints.  There is no undefined behavior in the specification.
 * Homoiconic.  Code and data share the same representation.
 * Solid-state.  Each evaluation is deterministic and self-contained, resulting in a new updated state with no transient state from crashes or system (mis)configuration.
 * Tiny.  Only twelve opcodes are necessary for the full specification, and first-class virtualization allows this capability to be arbitrarily extended.
 
 ## How to Use This Tutorial
 
-- [**The Specification**](./content/specification/index.md): Start here to understand the core Nock operations
-- [**Understanding Nock**](./content/understanding/index.md): Explore different mental models for thinking about Nock
-- [**Code Examples**](./content/examples/index.md): Interactive examples you can run and modify
-- [**Compiling**](./content/compiling/index.md): How higher-level languages compile to Nock
-- [**Side Effects**](./content/hints-jetting/index.md): Side effects and performance optimization techniques
+- [**The Specification**](./content/specification/index.md): Start here to understand the core Nock operations.
+- [**Understanding Nock**](./content/understanding/index.md): Explore different mental models for thinking about Nock.
+- [**Code Examples**](./content/examples/index.md): Run and modify interactive examples.
+- [**Compiling**](./content/compiling/index.md): Learn how higher-level languages compile to Nock.
+- [**Side Effects**](./content/hints-jetting/index.md): Create side effects and apply performance optimization techniques.
 
-Let's begin!
+Let's dive in!
