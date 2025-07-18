@@ -148,7 +148,7 @@ a, a:link, a:visited, a:hover, a:active {
 .bd-sidebar .toctree-l2 a,
 .bd-sidebar .toctree-l3 a,
 nav.bd-sidebar a {
-    color: var(--urbit-black) !important;
+    color: var(--urbit-green) !important;
     text-decoration: none;
 }
 
