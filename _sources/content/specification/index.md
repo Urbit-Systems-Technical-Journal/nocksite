@@ -135,9 +135,9 @@ So much for the specification itself, but what does it _mean_?  You can treat it
 
 1. [ The Combinator Approach](../understanding/combinator-approach.ipynb)
 2. [ The Turing Machine Approach](../understanding/turing-machine-approach.ipynb)
-3. [ The Lambda Calculus Approach](../understanding/lambda-approach.ipynb)
+3. [ The Lambda Calculus Approach](../understanding/lambda-approach.ipynb)
 4. [ The Assembly Language Approach](../understanding/assembly-language-approach.ipynb)
-5. [ The Cellular Automaton Approach]()
+5. [ The Cellular Automaton Approach]()
 
 
 ## Resources
