@@ -46,6 +46,20 @@ div.highlight pre,
     font-family: 'Urbit Sans Mono', 'SFMono-Regular', Menlo, Monaco, Consolas, monospace !important;
 }
 
+/* Hide right sidebar on mobile devices */
+@media (max-width: 768px) {
+  .bd-sidebar-secondary {
+    display: none !important;
+  }
+}
+
+/* Adjust main content width when sidebar is hidden */
+@media (max-width: 768px) {
+  .bd-main .bd-content {
+    max-width: 100% !important;
+  }
+}
+
 /* Background color customization */
 body {
     background-color: #141A14; /* Dark gray background */
