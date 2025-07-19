@@ -233,7 +233,7 @@ body[data-page=""] .bd-sidebar a:hover {
 .bd-sidebar-secondary * a[href],
 nav[aria-label="main navigation"] a,
 .toctree-wrapper a {
-    color: var(--urbit-gray) !important;
+    color: var(--urbit-green) !important;
 }
 
 .bd-sidebar * a[href]:hover,
@@ -244,8 +244,8 @@ nav[aria-label="main navigation"] a:hover,
     color: var(--urbit-white) !important;
 }
 
-/* Nuclear option - override any remaining sidebar links */
+/* Nuclear option - override any remaining sidebar links
 .bd-sidebar, .bd-sidebar * {
     --pst-color-link: var(--urbit-white) !important;
     --pst-color-link-hover: var(--urbit-white) !important;
-}
+} */
