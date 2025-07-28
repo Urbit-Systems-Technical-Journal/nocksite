@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>TODO: Add content &#8212; Nock</title>
+    <title>The Assembly Language Approach &#8212; Nock</title>
   
   
   
@@ -399,7 +399,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>TODO: Add content</h1>
+    <h1>The Assembly Language Approach</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -413,8 +413,47 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="todo-add-content">
-<h1>TODO: Add content<a class="headerlink" href="#todo-add-content" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="the-assembly-language-approach">
+<h1>The Assembly Language Approach<a class="headerlink" href="#the-assembly-language-approach" title="Link to this heading">#</a></h1>
+<p>Digital computers run on word-sized streams of bits, which can be broken into commands, values, and memory addresses.  Assembly language is closely related to such machine language, in that it maps one-to-one to control codes, shorthand for memory addresses, and values.   However, assembly language provides affordances like comments and variable names (by size not type).</p>
+<p>Since assembly language maps to a particular machine code, it is the least portable form of program.  Assembly language is closely tied to its chip architecture and today finds its main applications in specialized hardware drivers or other particular niches.</p>
+<p>Consider this example of RISC-V assembly language (due to <a class="reference external" href="https://marz.utk.edu/my-courses/cosc230/book/example-risc-v-assembly-programs/">Stephen Marz</a>):</p>
+<div class="highlight-asm notranslate"><div class="highlight"><pre><span></span><span class="c1"># Determine the length of a C-style string by adding 1 until we find the terminator ‘\0’.</span>
+<span class="na">.section</span><span class="w"> </span><span class="no">.text</span>
+<span class="na">.global</span><span class="w"> </span><span class="no">strlen</span>
+<span class="nl">strlen:</span>
+<span class="w">    </span><span class="c1"># a0 = const char *str</span>
+<span class="w">    </span><span class="nf">li</span><span class="w">     </span><span class="no">t0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w">         </span><span class="c1"># i = 0</span>
+<span class="err">1:</span><span class="w"> </span><span class="c1"># Start of for loop</span>
+<span class="w">    </span><span class="nf">add</span><span class="w">    </span><span class="no">t1</span><span class="p">,</span><span class="w"> </span><span class="no">t0</span><span class="p">,</span><span class="w"> </span><span class="no">a0</span><span class="w">    </span><span class="c1"># Add the byte offset for str[i]</span>
+<span class="w">    </span><span class="nf">lb</span><span class="w">     </span><span class="no">t1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">(</span><span class="no">t1</span><span class="p">)</span><span class="w">     </span><span class="c1"># Dereference str[i]</span>
+<span class="w">    </span><span class="nf">beqz</span><span class="w">   </span><span class="no">t1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="no">f</span><span class="w">        </span><span class="c1"># if str[i] == 0, break for loop</span>
+<span class="w">    </span><span class="nf">addi</span><span class="w">   </span><span class="no">t0</span><span class="p">,</span><span class="w"> </span><span class="no">t0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w">     </span><span class="c1"># Add 1 to our iterator</span>
+<span class="w">    </span><span class="nf">j</span><span class="w">      </span><span class="mi">1</span><span class="no">b</span><span class="w">            </span><span class="c1"># Jump back to condition (1 backwards)</span>
+<span class="err">1:</span><span class="w"> </span><span class="c1"># End of for loop</span>
+<span class="w">    </span><span class="nf">mv</span><span class="w">     </span><span class="no">a0</span><span class="p">,</span><span class="w"> </span><span class="no">t0</span><span class="w">        </span><span class="c1"># Move t0 into a0 to return</span>
+<span class="w">    </span><span class="nf">ret</span><span class="w">                  </span><span class="c1"># Return back via the return address register</span>
+</pre></div>
+</div>
+<p>Now, Nock doesn’t know about many of the things that are first-class elements of assembly language, like memory utilization or layout.  (Everything is a noun, after all:  a binary tree.)  Nock is also portable, not being tied to any particular machine architecture.  (However, it does insist on a <a class="reference external" href="https://en.wikipedia.org/wiki/Bit_numbering#Least_significant_byte">least-significant byte ordering</a>.)</p>
+<p>In that sense, Nock is much more like a <a class="reference external" href="https://en.wikipedia.org/wiki/Bytecode">bytecode</a>, a similar concept designed for execution on a software virtual machine.  (In fact, while Nock isn’t a bytecode for some technical definition reasons like backtracking, it is currently converted to a bytecode for execution in the Vere interpreter in <a class="reference external" href="https://github.com/urbit/vere/blob/develop/pkg/noun/nock.c#L398"><code class="docutils literal notranslate"><span class="pre">nock.c</span></code></a>.)</p>
+<p>Compare Nock’s instantiation of the string length program above:</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[8 [1 0] [1 8 [1 0] 8 [1 6 [5 [1 0] 0 61] [4 0 6] 9 2 10 [30 0 61] 10 [6 4 0 6] 0 1] 9 2 0 1] 0 1]
+::
+[8 [1 0]                            :: default input = empty string
+   [1 8 [1 0]                       :: default counter = zero
+        8 [1 6 [5 [1 0] 0 61]       :: check for zero in string
+               [4 0 6]              :: if so, increment counter and return
+               9 2 10 [30 0 61]     :: otherwise, replace the value with its tail
+                   10 [6 4 0 6]     :: and increment the counter when you loop again
+             0 1]                   :: 
+          9 2 0 1]                  :: 
+   0 1]                             :: 
+</pre></div>
+</div>
+<p>The high-level logic bears some commonalities, but the mechanics of the loop and the return are elided in favor of a description.</p>
+<p>While the assembly program happens to make no reference to values that may already exist in its scope, it certainly could—there’s not a subject-style restriction of scope.  The continuation condition of the program (<code class="docutils literal notranslate"><span class="pre">j</span></code>) and the termination condition (<code class="docutils literal notranslate"><span class="pre">beq</span></code>) are both <code class="docutils literal notranslate"><span class="pre">GOTO</span></code> statements which jump in the scope—and could have jumped anywhere.</p>
+<p>Nock, like assembly language, requires the coder or compiler to take pains to express complex ideas using simple pieces.  Probably the biggest difference between the two, however, is that Nock simply has no idea how its instruction will be instantiated on the metal; it is a specification of equivalent behavior.  This makes Nock feel more declarative (but only a little bit more) than assembly language.</p>
 </section>
 
     <script type="text/x-thebe-config">
