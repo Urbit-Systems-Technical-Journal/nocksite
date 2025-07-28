@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>TODO: Add content &#8212; Nock</title>
+    <title>Turing Machine Approach &#8212; Nock</title>
   
   
   
@@ -61,7 +61,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/understanding/turing-machine-approach';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="TODO: Add content" href="lambda-approach.html" />
+    <link rel="next" title="The Lambda Calculus Approach" href="lambda-approach.html" />
     <link rel="prev" title="The Combinator Approach" href="combinator-approach.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -388,7 +388,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -399,11 +401,19 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>TODO: Add content</h1>
+    <h1>Turing Machine Approach</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#as-interpreter">As Interpreter</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -413,8 +423,38 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="todo-add-content">
-<h1>TODO: Add content<a class="headerlink" href="#todo-add-content" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="turing-machine-approach">
+<h1>Turing Machine Approach<a class="headerlink" href="#turing-machine-approach" title="Link to this heading">#</a></h1>
+<p>The Turing machine</p>
+<p>(Unlike <a class="reference internal" href="combinator-approach.html"><span class="std std-doc">the SKI combinator calculus</span></a> and <a class="reference internal" href="lambda-approach.html"><span class="std std-doc">the lambda calculus</span></a>, the Turing machine does not have a single canonical formulation.  Turing’s original 1936 example was not as atomic and later contributors discovered simplifications.)</p>
+<section id="as-interpreter">
+<h2>As Interpreter<a class="headerlink" href="#as-interpreter" title="Link to this heading">#</a></h2>
+<p>One way to approach Nock is that a Nock expression is like a tape populated with values which signal to the Turing machine head what action it should take next and how it should update the overall system state.  This results in the most primitive Nock interpreter:  the tree-walking interpreter.</p>
+<p>We have to make some allowances for how to represent the noun laid out on the tape, which can be done by mapping tree slots to serial indices on the tape.  Our first attempt would simply define the set of Turing machine symbols as the natural numbers, and the unwrapping of a noun would look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[[40 50] [60 70]]
+  1   2   3   4   5   6   7   8   9  10  11   * * *
+┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
+│   │   │   │ 40│ 50│ 60│ 70│   │   │   │   │ * * *
+└───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┘
+</pre></div>
+</div>
+<p>However, a naïve layout at indices is liable to fail since many indices contain cells; at a minimum you would want a placeholder system for cells to indicate that they are occupied.  There is also an “empty” value for unoccupied cells.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[[40 50] [60 70]]
+  1   2   3   4   5   6   7   8   9  10  11   * * *
+┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
+│ C │ C │ C │ 40│ 50│ 60│ 70│ _ │ _ │ _ │ _ │ * * *
+└───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┘
+</pre></div>
+</div>
+<p>Storing an entire noun in each cell wastes much of the ease of a Turing machine layout.  Thus we will adopt a modified noun system which can <em>structurally</em> distinguish values; every entry is a pair.  If it is a natural number (atom), we write <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">value]</span></code>.  If it is a cell indicator, it is a pair of numbers with zero and the current index for bookkeeping convenience.  If it is an empty cell, it is a <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">0]</span></code> crash.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[[40 50] [60 70]]
+
+┌───────┬───────┬───────┬────┬────┬────┬────┬───────┬───────┐
+│ [0 1] │ [0 2] │ [0 3] │ 40 │ 50 │ 60 │ 70 │ [0 0] │ [0 0] │
+└───────┴───────┴───────┴────┴────┴────┴────┴───────┴───────┘
+</pre></div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -461,7 +501,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">TODO: Add content</p>
+        <p class="prev-next-title">The Lambda Calculus Approach</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -471,6 +511,21 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#as-interpreter">As Interpreter</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
