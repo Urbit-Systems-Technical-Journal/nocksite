@@ -93,7 +93,7 @@ We can increment atoms, but not cells (which makes sense).  Every natural number
 /a                  /a
 ```
 
-TODO
+(TODO graphics of binary trees here)
 
 One implication of nouns is that an easy way to tell data apart is by their structure:
 
@@ -110,6 +110,8 @@ One implication of nouns is that an easy way to tell data apart is by their stru
 `=` tis similarly checks whether two nouns are the same as each other, which means by structure and value.
 
 ### Evaluating
+
+(TODO cell distribution rule, to revisit later in content)
 
 The last line of the Nock specification reads:
 
@@ -138,6 +140,7 @@ So much for the specification itself, but what does it _mean_?  You can treat it
 3. [ The Lambda Calculus Approach](../understanding/lambda-approach.ipynb)
 4. [ The Assembly Language Approach](../understanding/assembly-language-approach.ipynb)
 5. [ The Cellular Automaton Approach]()
+6. [The Alchemy Approach]()
 
 
 ## Resources
