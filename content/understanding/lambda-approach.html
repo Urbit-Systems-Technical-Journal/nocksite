@@ -390,7 +390,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -406,6 +408,14 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-with-nock">Comparison with Nock</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -417,21 +427,56 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="the-lambda-calculus-approach">
 <h1>The Lambda Calculus Approach<a class="headerlink" href="#the-lambda-calculus-approach" title="Link to this heading">#</a></h1>
-<p>The lambda calculus was developed as a computational notation emphasizing variable binding and function application.</p>
-<p>Ultimately, any lambda expression can be converted to a SKI combinator expression [0] [1].  Thence, per standard transformations and equivalencies among combinators, the expression can be further converted to an expression in any combinator system.  The conversion process can be quite verbose; it amounts to replacing the lambda abstractions with combinations of the S, K, and I combinators.</p>
+<p>The lambda calculus was developed as a computational notation emphasizing variable binding and function application [0] [1].  It is based on three constructs:</p>
+<ol class="arabic simple">
+<li><p>Variables, such as <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, <span class="math notranslate nohighlight">\(z\)</span>.</p></li>
+<li><p>Function definitions (abstractions), such as <span class="math notranslate nohighlight">\(\lambda x. E\)</span>  (where <span class="math notranslate nohighlight">\(E\)</span> is any lambda expression).</p></li>
+<li><p>Function applications, such as <span class="math notranslate nohighlight">\(E_1 E_2\)</span>  (where <span class="math notranslate nohighlight">\(E_1\)</span> and <span class="math notranslate nohighlight">\(E_2\)</span> are any lambda expressions).</p></li>
+</ol>
+<p>In practice, you can think of the lambda calculus as a programming language with only one keyword, <span class="math notranslate nohighlight">\(\lambda\)</span> [2].</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(x\)</span> is a variable.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\lambda x.x\)</span> is the identity function, that is, it returns its argument.</p></li>
+<li><p><span class="math notranslate nohighlight">\((\lambda x.x) y\)</span> applies the identity function to <span class="math notranslate nohighlight">\(y\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\lambda x. \lambda y. y;x\)</span> is a function that takes two arguments and returns the second one.</p></li>
+</ul>
+<p>The lambda calculus can be used to represent numbers and boolean logic, and ultimately to express any computable function.  In practice, the expressions can become cumbersome, particularly for numbers and arithmetic operations.  For example, Church numerals represent natural numbers as higher-order functions:</p>
+<ul class="simple">
+<li><p>0 is represented as <span class="math notranslate nohighlight">\(\lambda f. \lambda x. x\)</span>.</p></li>
+<li><p>1 is represented as <span class="math notranslate nohighlight">\(\lambda f. \lambda x. f x\)</span>.</p></li>
+<li><p>2 is represented as <span class="math notranslate nohighlight">\(\lambda f. \lambda x. f (f x)\)</span>.</p></li>
+<li><p>3 is represented as <span class="math notranslate nohighlight">\(\lambda f. \lambda x. f (f (f x)))\)</span>.</p></li>
+<li><p>and so forth.</p></li>
+</ul>
+<p>This program calculates the addition of two Church numerals using the lambda calculus:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{add} ≡ λm.λn.λs.λz.ms(nsz)
+\]</div>
+<p>Ultimately, any lambda expression can be converted to an SKI combinator expression [1] (and thence also to Nock).  (Generally, a combinator in the <span class="math notranslate nohighlight">\(\lambda\text{C}\)</span> is a function with no free variables, such as <span class="math notranslate nohighlight">\(\lambda x.\lambda y. (x y)\)</span>.)  Thence, per standard transformations and equivalencies among combinators, the expression can be further converted to an expression in any combinator system.  The conversion process can be quite verbose; it amounts to replacing the lambda abstractions with combinations of the S, K, and I combinators.</p>
 <p>For example, the lambda expression</p>
 <div class="math notranslate nohighlight">
 \[
 \lambda x. \lambda y. y;x
 \]</div>
-<p>can be represented as the SKI expression</p>
+<p>can be represented (with some manipulation) as the SKI expression</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S</span><span class="p">(</span><span class="n">K</span><span class="p">(</span><span class="n">S</span><span class="p">;</span><span class="n">I</span><span class="p">))</span><span class="n">K</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li><p>[0]:  <a class="reference external" href="https://annas-archive.org/md5/8ee3ae578f20200e78b490cad8785de7">Curry, H. B., Feys, R.  (1958)  <em>Combinatory Logic</em>. Amsterdam:  North-Holland.</a></p></li>
 <li><p>[1]:  <a class="reference external" href="https://okmij.org/ftp/tagless-final/ski.pdf">Kiselyov, O.  (2018)  “<span class="math notranslate nohighlight">\(\lambda\)</span> to SKI, Semantically”</a></p></li>
+<li><p>[2]:  <a class="reference external" href="https://justine.lol/lambda/">Tunney, J.  (2022)  “Lambda Calculus in 383 Bytes”</a></p></li>
 </ul>
+<section id="comparison-with-nock">
+<h2>Comparison with Nock<a class="headerlink" href="#comparison-with-nock" title="Link to this heading">#</a></h2>
+<p>The lambda calculus and Nock are both foundational models of computation, and ultimately equivalent programs can be composed in either system.  However, they differ significantly in their approach and structure:</p>
+<ul class="simple">
+<li><p>The lambda calculus is centered around function definition and application, using variables and abstractions.  It is a minimalist language that can express any computable function through the use of functions as first-class citizens.</p></li>
+<li><p>Nock, on the other hand, is a combinatory system that operates on binary trees (nouns) and uses a small set of combinators to manipulate these trees.  It does not have variables or traditional function definitions; instead, it relies on the structure of the data itself to guide computation.</p></li>
+</ul>
+<p>In other words, they bring different emphases of computation to the fore.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -488,6 +533,21 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-with-nock">Comparison with Nock</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
