@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>TODO: Add content &#8212; Nock</title>
+    <title>Nouns and Data &#8212; Nock</title>
   
   
   
@@ -58,6 +58,8 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/examples/nouns-and-data';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -388,7 +390,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -399,11 +403,31 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>TODO: Add content</h1>
+    <h1>Nouns and Data</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#atoms">Atoms</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#true-false-values-loobeans">True/False Values (“Loobeans”)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#signed-integers">Signed Integers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dates-and-timestamps">Dates and Timestamps</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arrays-and-lists">Arrays and Lists</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structures">Structures</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unit-maybe">Unit/Maybe</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tagged-unions-sum-types">Tagged Unions/Sum Types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vectors-matrices">Vectors/Matrices</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -413,8 +437,127 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="todo-add-content">
-<h1>TODO: Add content<a class="headerlink" href="#todo-add-content" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="nouns-and-data">
+<h1>Nouns and Data<a class="headerlink" href="#nouns-and-data" title="Link to this heading">#</a></h1>
+<p>Nock is homoiconic, meaning that its code and data share the same representation: the noun.  A noun is either an atom (a non-negative integer) or a cell (an ordered pair of two nouns).  This simple structure, like a <a class="reference external" href="https://en.wikipedia.org/wiki/S-expression">Lisp S-expression</a> can represent any data structure.</p>
+<section id="atoms">
+<h2>Atoms<a class="headerlink" href="#atoms" title="Link to this heading">#</a></h2>
+<p>Atoms in Nock are non-negative integers, which can represent a variety of data types depending on the context.  The context is determined by the programmer, who decides on conventions for interpreting atoms in different ways.  For instance, sometimes an atom may represent</p>
+<section id="true-false-values-loobeans">
+<h3>True/False Values (“Loobeans”)<a class="headerlink" href="#true-false-values-loobeans" title="Link to this heading">#</a></h3>
+<p>Nock already supplies a way to represent true/false values using the value of <code class="docutils literal notranslate"><span class="pre">0</span></code> for true and <code class="docutils literal notranslate"><span class="pre">1</span></code> for false (e.g. in opcode 5 and opcode 6).  Because the polarity is flipped relative to conventional boolean logic, we call this “loobean” logic.  (George Boole himself did not assign particular numeric values to true and false—rather, Boole’s use of <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">1</span></code> as symbols for the empty set and the universal set laid the groundwork for this interpretation.  The numerical convention was driven by Claude Shannon’s work on switching circuits, where “closed” circuits were represented by <code class="docutils literal notranslate"><span class="pre">0</span></code> voltage and “open” circuits by <code class="docutils literal notranslate"><span class="pre">1</span></code> voltage.  This use of <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">1</span></code> agrees with Nock’s convention, but the formal exposition of binary logic using <code class="docutils literal notranslate"><span class="pre">+</span></code> for <code class="docutils literal notranslate"><span class="pre">OR</span></code> and <code class="docutils literal notranslate"><span class="pre">×</span></code> for <code class="docutils literal notranslate"><span class="pre">AND</span></code> typically assumes <code class="docutils literal notranslate"><span class="pre">1</span></code> is true and <code class="docutils literal notranslate"><span class="pre">0</span></code> is false.)</p>
+</section>
+<section id="signed-integers">
+<h3>Signed Integers<a class="headerlink" href="#signed-integers" title="Link to this heading">#</a></h3>
+<p>In C, a negative signed integer has a fixed bit width (e.g., 32 or 64 bits), and negative values are represented using two’s complement encoding.  Since Nock atoms are unbounded non-negative integers, we can represent negative integers by using a convention such as mapping negative integers to odd atoms and non-negative integers to even atoms.  (This means you have to be sure what you’re looking at!  There is no structural way to tell these atoms apart.)  For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">0</span>       <span class="p">::</span> <span class="n">represents</span> <span class="n">integer</span> <span class="mi">0</span>
+<span class="mi">1</span>       <span class="p">::</span> <span class="n">represents</span> <span class="n">integer</span> <span class="o">-</span><span class="mi">1</span>
+<span class="mi">2</span>       <span class="p">::</span> <span class="n">represents</span> <span class="n">integer</span> <span class="mi">1</span>
+<span class="mi">3</span>       <span class="p">::</span> <span class="n">represents</span> <span class="n">integer</span> <span class="o">-</span><span class="mi">2</span>
+<span class="mi">4</span>       <span class="p">::</span> <span class="n">represents</span> <span class="n">integer</span> <span class="mi">2</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>This scheme, called <a class="reference external" href="https://protobuf.dev/programming-guides/encoding/#types">ZigZag encoding</a>, allows for arbitrary-width signed integers to be represented as Nock atoms.</p>
+</section>
+<section id="dates-and-timestamps">
+<h3>Dates and Timestamps<a class="headerlink" href="#dates-and-timestamps" title="Link to this heading">#</a></h3>
+<p>Dates and timestamps can be represented as integers counting seconds (or milliseconds, microseconds, etc.) since a fixed epoch (e.g., Unix epoch starting at January 1, 1970).  Nock does not impose any epoch or time unit convention, so the platform must fix this.  Urbit utilizes January 1, 2000 as its epoch, counting in intervals of <span class="math notranslate nohighlight">\(2^{-64}\)</span> seconds since that date.  That means that one second is represented as the atom <span class="math notranslate nohighlight">\(2^{64}\)</span>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mb">0b1</span><span class="mf">.0000.0000.0000.0000.0000.0000.0000.0000.0000.0000.0000.0000.0000.0000.0000.0000</span>
+<span class="mh">0x1</span><span class="mf">.0000.0000.0000.0000</span>
+</pre></div>
+</div>
+<p>For text representations, take a look at the next section.</p>
+</section>
+</section>
+<section id="arrays-and-lists">
+<h2>Arrays and Lists<a class="headerlink" href="#arrays-and-lists" title="Link to this heading">#</a></h2>
+<p>One of the most interesting disjunctions is the difference between a contiguous byte array and a non-contiguous tree structure.  This is highlighted in Nock by representing a text string, which can either be an atom or a list:</p>
+<ol class="arabic">
+<li><p>As an atom, a contiguous series of bytes (ASCII and UTF-8) is represented by an integer.  This feels a bit unconventional, but writing it down in hexadecimal makes it more apparent what’s going on.  For example, the string <code class="docutils literal notranslate"><span class="pre">'hello'</span></code> can be represented as the atom:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mh">0x6f</span><span class="mf">.6</span><span class="n">c6c</span><span class="mf">.6568</span>
+</pre></div>
+</div>
+<p>which is the hexadecimal representation of the ASCII byte values for ‘h’, ‘e’, ‘l’, ‘l’, ‘o’.  Note two things about this representation:</p>
+<ol class="arabic simple">
+<li><p>The bytes are packed in an order such that the least-significant byte is interpreted first.</p></li>
+<li><p>The syntax with <code class="docutils literal notranslate"><span class="pre">0x</span></code> and <code class="docutils literal notranslate"><span class="pre">.</span></code> dot separators is a convenient notation we’ll adopt from the Nock-derived language Hoon.</p></li>
+</ol>
+<p>A Unicode string (<code class="docutils literal notranslate"><span class="pre">'🐝𐐸𐐯𐑊𐐬'</span></code>) would look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mh">0xac90</span><span class="mf">.90</span><span class="n">f0</span><span class="mf">.8</span><span class="n">a91</span><span class="mf">.90</span><span class="n">f0</span><span class="o">.</span><span class="n">af90</span><span class="mf">.90</span><span class="n">f0</span><span class="o">.</span><span class="n">b890</span><span class="mf">.90</span><span class="n">f0</span><span class="mf">.9</span><span class="n">d90</span><span class="mf">.9</span><span class="n">ff0</span>
+</pre></div>
+</div>
+<p>where each Unicode code point is encoded in UTF-8.  For example, the bee emoji ‘🐝’ (U+1F41D) is encoded as the byte sequence <code class="docutils literal notranslate"><span class="pre">0xF0</span> <span class="pre">0x9F</span> <span class="pre">0x90</span> <span class="pre">0x9D</span></code>, which appears in Nock’s little-endian order as <code class="docutils literal notranslate"><span class="pre">0x9d90.f09f</span></code>.</p>
+<p>(By convention, we write such atoms surrounded by single quotes <code class="docutils literal notranslate"><span class="pre">'</span></code> soq.)</p>
+</li>
+<li><p>As a list, we need a regular structural format we can use that breaks things up differently.  Nock conveniently branches cells to the right in its notation, so we adopt that here and elect to use a <code class="docutils literal notranslate"><span class="pre">0x0</span></code> to terminate the list.  Thus, the string <code class="docutils literal notranslate"><span class="pre">&quot;hello&quot;</span></code> can be represented as the noun:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mh">0x68</span> <span class="p">[</span><span class="mh">0x65</span> <span class="p">[</span><span class="mh">0x6c</span> <span class="p">[</span><span class="mh">0x6c</span> <span class="p">[</span><span class="mh">0x6f</span> <span class="mh">0x0</span><span class="p">]]]]]</span>
+<span class="p">[</span><span class="mh">0x68</span> <span class="mh">0x65</span> <span class="mh">0x6c</span> <span class="mh">0x6c</span> <span class="mh">0x6f</span> <span class="mh">0x0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>which is a cell whose head is the atom for ‘h’ (0x68), and whose tail is another cell whose head is ‘e’ (0x65), and so forth, terminating with the atom <code class="docutils literal notranslate"><span class="pre">0x0</span></code>.  The tree representation looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="o">.</span>
+   <span class="o">/</span> \
+ <span class="mh">0x68</span>  <span class="o">.</span>
+      <span class="o">/</span> \
+    <span class="mh">0x65</span>  <span class="o">.</span>
+         <span class="o">/</span> \
+       <span class="mh">0x6c</span>  <span class="o">.</span>
+            <span class="o">/</span> \
+          <span class="mh">0x6c</span>  <span class="o">.</span>
+               <span class="o">/</span> \
+             <span class="mh">0x6f</span> <span class="mh">0x0</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Calculate the address of each character’s atom in the tree.</p></li>
+</ul>
+<p>A Unicode string (<code class="docutils literal notranslate"><span class="pre">&quot;🐝𐐸𐐯𐑊𐐬&quot;</span></code>) would look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mh">0xf0</span> <span class="mh">0x9f</span> <span class="mh">0x90</span> <span class="mh">0x9d</span> <span class="mh">0xf0</span> <span class="mh">0x90</span> <span class="mh">0x90</span> <span class="mh">0xb8</span> <span class="mh">0xf0</span> <span class="mh">0x90</span> <span class="mh">0x90</span> <span class="mh">0xaf</span> <span class="mh">0xf0</span> <span class="mh">0x90</span> <span class="mh">0x91</span> <span class="mh">0x8a</span> <span class="mh">0xf0</span> <span class="mh">0x90</span> <span class="mh">0x90</span> <span class="mh">0xac</span> <span class="mh">0x0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Compare the byte sequence for “🐝” as above:  <code class="docutils literal notranslate"><span class="pre">0xF0</span> <span class="pre">0x9F</span> <span class="pre">0x90</span> <span class="pre">0x9D</span></code>, which now visually appears in order.</p>
+<p>(It’s not obvious that you would separate at the byte level instead of the character level, but this is the convention in both Hoon and Jock.)</p>
+</li>
+</ol>
+</section>
+<section id="structures">
+<h2>Structures<a class="headerlink" href="#structures" title="Link to this heading">#</a></h2>
+<p>Since all data are nouns, it is most straightforward to encode some type metadata in the structural layout of the noun itself.  Just like how a list is a rightward-branching tree terminated by <code class="docutils literal notranslate"><span class="pre">0x0</span></code>, we can define other structures by agreeing on particular layouts.</p>
+<section id="unit-maybe">
+<h3>Unit/Maybe<a class="headerlink" href="#unit-maybe" title="Link to this heading">#</a></h3>
+<p>Sometimes a computation may result in a valid answer, or it may fail in some way (whether expected or not).  Nock can make this distinction with the unit pattern, which is either <code class="docutils literal notranslate"><span class="pre">0x0</span></code> (indicating “no value”) or a cell <code class="docutils literal notranslate"><span class="pre">[0x0</span> <span class="pre">value]</span></code> (indicating “some value”).  This is analogous to the <code class="docutils literal notranslate"><span class="pre">Maybe</span></code> type in Haskell, or <code class="docutils literal notranslate"><span class="pre">Option</span></code> in Rust.</p>
+</section>
+<section id="tagged-unions-sum-types">
+<h3>Tagged Unions/Sum Types<a class="headerlink" href="#tagged-unions-sum-types" title="Link to this heading">#</a></h3>
+<p>Going one step beyond the unit (which always has a head of <code class="docutils literal notranslate"><span class="pre">0x0</span></code>), we can define a tagged union (sum type) by using different atoms in the head position to indicate which variant of the union is present.  For example, suppose we want to represent either an integer or a text string.  We can define the following convention:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mh">0x1</span> <span class="mi">100</span><span class="p">]</span>             <span class="p">::</span> <span class="n">variant</span> <span class="mi">1</span><span class="p">:</span> <span class="n">integer</span>
+<span class="p">[</span><span class="mh">0x2</span> <span class="s1">&#39;hello&#39;</span><span class="p">]</span>         <span class="p">::</span> <span class="n">variant</span> <span class="mi">2</span><span class="p">:</span> <span class="n">text</span> <span class="n">string</span>
+</pre></div>
+</div>
+<p>More commonly, we would prefer to use the ASCII text representation of the tag for readability.  In this case, we can use the atoms <code class="docutils literal notranslate"><span class="pre">0x696e74</span></code> (<code class="docutils literal notranslate"><span class="pre">'int'</span></code>) and <code class="docutils literal notranslate"><span class="pre">0x737472</span></code> (<code class="docutils literal notranslate"><span class="pre">'str'</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;int&#39;</span> <span class="mi">100</span><span class="p">]</span>           <span class="p">::</span> <span class="n">variant</span> <span class="mi">1</span><span class="p">:</span> <span class="n">integer</span>
+<span class="p">[</span><span class="s1">&#39;str&#39;</span> <span class="s1">&#39;hello&#39;</span><span class="p">]</span>       <span class="p">::</span> <span class="n">variant</span> <span class="mi">2</span><span class="p">:</span> <span class="n">text</span> <span class="n">string</span>
+</pre></div>
+</div>
+</section>
+<section id="vectors-matrices">
+<h3>Vectors/Matrices<a class="headerlink" href="#vectors-matrices" title="Link to this heading">#</a></h3>
+<p>What if we wanted to represent a 2D matrix of numbers?  It may even depend <em>what kind of number</em> we want to represent, since mathematics commonly uses integers (including negative numbers), floating-point numbers, and more.  The convention in Hoon uses a structural pair of a type metadata structure and an atom.</p>
+<p>This is a <span class="math notranslate nohighlight">\(2 \times 2\)</span> matrix of unsigned integers with size 1 byte (<span class="math notranslate nohighlight">\(2^3\)</span>) and a type tag of <code class="docutils literal notranslate"><span class="pre">0x746e.6975</span></code> (<code class="docutils literal notranslate"><span class="pre">'uint'</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[[[</span><span class="mi">2</span> <span class="mi">2</span> <span class="mi">0</span><span class="p">]</span> <span class="mi">3</span> <span class="mh">0x746e</span><span class="mf">.6975</span> <span class="mi">0</span><span class="p">]</span> <span class="mh">0x1</span><span class="mf">.0302.0100</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix}
+0 &amp; 1 \\
+2 &amp; 3
+\end{bmatrix}
+\end{split}\]</div>
+<p>One of the interesting consequences of Nock having an arbitrary atom size means that there are no leading zeros possible.  If you want to represent an array of zeros, you have to pin a <code class="docutils literal notranslate"><span class="pre">0b1</span></code> bit at the MSB to preserve the contiguous size.</p>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -471,6 +614,33 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#atoms">Atoms</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#true-false-values-loobeans">True/False Values (“Loobeans”)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#signed-integers">Signed Integers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dates-and-timestamps">Dates and Timestamps</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arrays-and-lists">Arrays and Lists</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structures">Structures</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unit-maybe">Unit/Maybe</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tagged-unions-sum-types">Tagged Unions/Sum Types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vectors-matrices">Vectors/Matrices</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
