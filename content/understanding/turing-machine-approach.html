@@ -415,6 +415,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#as-interpreter">As Interpreter</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generally-recursive-functions">Generally Recursive Functions</a></li>
 </ul>
             </nav>
         </div>
@@ -430,6 +431,14 @@ document.write(`
 <h1>Turing Machine Approach<a class="headerlink" href="#turing-machine-approach" title="Link to this heading">#</a></h1>
 <p>The Turing machine</p>
 <p>(Unlike <a class="reference internal" href="combinator-approach.html"><span class="std std-doc">the SKI combinator calculus</span></a> and <a class="reference internal" href="lambda-approach.html"><span class="std std-doc">the lambda calculus</span></a>, the Turing machine does not have a single canonical formulation.  Turing’s original 1936 example was not as atomic and later contributors discovered simplifications.)</p>
+<p>A Turing machine is a theoretical model of computation that consists of an infinite tape divided into discrete cells, a tape head that can read and write symbols on the tape, and a finite set of states that govern the machine’s behavior.  At each step, the machine reads the symbol under the tape head, consults its transition function to determine what action to take (write a symbol, move the tape head left or right, and change state), and then performs that action.</p>
+<p>Per Hopcroft1979, p. 148, a universal Turing machine has the following components:</p>
+<ul class="simple">
+<li><p>A finite, non-empty set of tape alphabet symbols, including a blank symbol.</p></li>
+<li><p>A finite, non-empty set of states, including a start state and one or more halting states.</p></li>
+<li><p>A transition function that, given the current state and the symbol being read, specifies the next state, the symbol to write, and the direction to move (left or right).</p></li>
+</ul>
+<p>(Since the tape is infinite, there’s a sense in which <em>no</em> Turing machine has ever been built in the real world.  We elide this subtlety.)</p>
 <section id="as-interpreter">
 <h2>As Interpreter<a class="headerlink" href="#as-interpreter" title="Link to this heading">#</a></h2>
 <p>One way to approach Nock is that a Nock expression is like a tape populated with values which signal to the Turing machine head what action it should take next and how it should update the overall system state.  This results in the most primitive Nock interpreter:  the tree-walking interpreter.</p>
@@ -457,14 +466,21 @@ document.write(`
 └───────┴───────┴───────┴────┴────┴────┴────┴───────┴───────┘
 </pre></div>
 </div>
-<p>blah blah blah</p>
+<p>TODO blah blah blah</p>
 <p>What you want to work on here is how to consume tokens by the head</p>
-<p>Turing machine equivalence is established by the fact that we can build a universal Turing machine in Nock.  Per \citet*{Hopcroft1979}, p.~148, a universal Turing machine has the following components:</p>
-<p>\begin{itemize}
-\item  A finite, non-empty set of tape alphabet symbols, including a blank symbol.
-\item  A finite, non-empty set of states, including a start state and one or more halting states.
-\item  A transition function that, given the current state and the symbol being read, specifies the next state, the symbol to write, and the direction to move (left or right).
-\end{itemize}</p>
+<p>A Turing machine interpreter for Nock would implement the Nock evaluation rules as state transitions.  At a high level,</p>
+</section>
+<section id="generally-recursive-functions">
+<h2>Generally Recursive Functions<a class="headerlink" href="#generally-recursive-functions" title="Link to this heading">#</a></h2>
+<p>The minimum requirements for a system to be Turing complete are minimal (Boolos et al., 2002, “6.2 Minimization”, pp. 70–71).  Because computational systems are equivalent, it can be helpful to identify programming language features using another approach, such as a combinator calculus or lambda calculus.  In this case, we can also gesture to the notion of <em>generally recursive functions</em> as explicated by Gödel (1934) and Kleene (1936).  A system need only provide the following operations:</p>
+<ol class="arabic simple">
+<li><p>A constant function (including zero).  Opcode 1 does this.</p></li>
+<li><p>An increment (or successor) function.  Opcode 4 does this.</p></li>
+<li><p>A way to access parameters (or variables).  Opcodes 0 and 9 along with opcodes 7 and 8 do this.</p></li>
+<li><p>A way to compose functions (or concatenate programs).  Opcodes 7 and 8 do this.</p></li>
+<li><p>A way to perform recursion (or looping).  Opcode 0 with, e.g., opcodes 3, 5, and 6 does this.</p></li>
+</ol>
+<p>This frame relates to Turing completeness, but without the mechanical/procedural emphasis.</p>
 </section>
 </section>
 
@@ -533,6 +549,7 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#as-interpreter">As Interpreter</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generally-recursive-functions">Generally Recursive Functions</a></li>
 </ul>
   </nav></div>
 
