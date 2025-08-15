@@ -94,6 +94,24 @@ body {
     color: #f8f9fa; /* Light text color for contrast */
 }
 
+/* Force transparent backgrounds for images */
+.bd-article img {
+    background: rgba(0,0,0,0) !important;
+}
+
+/* For images in markdown content specifically */
+.bd-content .section img,
+div.section img {
+    background-color: transparent !important;
+    background: none !important;
+}
+
+/* Remove background from figure environments */
+figure img,
+.figure img {
+    background: transparent !important;
+}
+
 /* Notebook cell backgrounds */
 .cell {
     background-color: #F5FFF5; /* Light green background for notebook cells */
