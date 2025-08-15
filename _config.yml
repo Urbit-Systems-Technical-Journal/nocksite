@@ -31,6 +31,7 @@ html:
   use_repository_button: true
   use_edit_page_button: true
   home_page_in_navbar: false
+  favicon: "_static/favicon.ico"
   extra_footer: |
     <p>This book is powered by <a href="https://jupyterbook.org">Jupyter Book</a></p>
   # Add custom CSS
