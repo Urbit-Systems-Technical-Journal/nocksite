@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Relationship to Hoon &#8212; Nock</title>
+    <title>Cellular Automaton Approach &#8212; Nock</title>
   
   
   
@@ -58,12 +58,14 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'content/compiling/relationship-to-hoon';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/understanding/cellular-automaton-approach';</script>
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Relationship to Jock" href="relationship-to-jock.html" />
-    <link rel="prev" title="Compiling" href="index.html" />
+    <link rel="next" title="Alchemy Approach" href="alchemy-approach.html" />
+    <link rel="prev" title="The Assembly Language Approach" href="assembly-language-approach.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -178,13 +180,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../specification/detailed-examples.html">Detailed Examples</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../understanding/index.html">Understanding Nock</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../understanding/combinator-approach.html">Nock: The Combinator Approach</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../understanding/turing-machine-approach.html">Nock: The Turing Machine Approach</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../understanding/lambda-approach.html">Nock: The Lambda Approach</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../understanding/assembly-language-approach.html">Nock: The Assembly Language Approach</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../understanding/cellular-automaton-approach.html">Nock: The Cellular Automaton Approach</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../understanding/alchemy-approach.html">Nock: The Alchemy Approach</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Understanding Nock</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="combinator-approach.html">Nock: The Combinator Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="turing-machine-approach.html">Nock: The Turing Machine Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lambda-approach.html">Nock: The Lambda Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assembly-language-approach.html">Nock: The Assembly Language Approach</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Nock: The Cellular Automaton Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alchemy-approach.html">Nock: The Alchemy Approach</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../examples/index.html">Code Examples</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -193,9 +195,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../examples/idioms-gates-patterns.html">Idioms, Gates, &amp; Design Patterns</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Compiling</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Relationship to Hoon</a></li>
-<li class="toctree-l2"><a class="reference internal" href="relationship-to-jock.html">Relationship to Jock</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../compiling/index.html">Compiling</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compiling/relationship-to-hoon.html">Relationship to Hoon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compiling/relationship-to-jock.html">Relationship to Jock</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../hints-jetting/index.html">Hints &amp; Jetting</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -273,7 +275,7 @@
       
       
       
-      <li><a href="https://github.com/Urbit-Systems-Technical-Journal/nocksite/edit/main/content/compiling/relationship-to-hoon.md" target="_blank"
+      <li><a href="https://github.com/Urbit-Systems-Technical-Journal/nocksite/edit/main/content/understanding/cellular-automaton-approach.ipynb" target="_blank"
    class="btn btn-sm btn-source-edit-button dropdown-item"
    title="Suggest edit"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -290,7 +292,7 @@
       
       
       
-      <li><a href="https://github.com/Urbit-Systems-Technical-Journal/nocksite/issues/new?title=Issue%20on%20page%20%2Fcontent/compiling/relationship-to-hoon.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/Urbit-Systems-Technical-Journal/nocksite/issues/new?title=Issue%20on%20page%20%2Fcontent/understanding/cellular-automaton-approach.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -320,7 +322,7 @@
       
       
       
-      <li><a href="../../_sources/content/compiling/relationship-to-hoon.md" target="_blank"
+      <li><a href="../../_sources/content/understanding/cellular-automaton-approach.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -330,7 +332,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.md</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
 </li>
       
@@ -402,7 +404,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Relationship to Hoon</h1>
+    <h1>Cellular Automaton Approach</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -416,14 +418,10 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="relationship-to-hoon">
-<h1>Relationship to Hoon<a class="headerlink" href="#relationship-to-hoon" title="Link to this heading">#</a></h1>
-<p>TODO: Add content for Relationship to Hoon</p>
-<p>This section is under development.</p>
-<p>To quote the <a class="reference external" href="https://docs.urbit.org/hoon/why-hoon">Hoon docs</a>:</p>
-<blockquote>
-<div><p>Subject orientation in Nock … stems partly from minimalism: there’s just one subject, which serves as state, lexical scope, environment, and function argument; partly from a desire to simplify compilation: the type of the subject is a full specification of the compile-time environment for a source file; and partly to give the language a more imperative feel.</p>
-</div></blockquote>
+  <section class="tex2jax_ignore mathjax_ignore" id="cellular-automaton-approach">
+<h1>Cellular Automaton Approach<a class="headerlink" href="#cellular-automaton-approach" title="Link to this heading">#</a></h1>
+<p>A cellular automaton (CA) is a computational model consisting of a grid of cells, each of which can be in one of a finite number of states.  At each discrete time step (<span class="math notranslate nohighlight">\(t\)</span>), the state of each cell updates according to a set of rules including its current state and the states of its neighbors (<span class="math notranslate nohighlight">\(t+1\)</span>).</p>
+<p>Most famously, John Conway introduced the “Game of Life” cellular automaton in 1970, which operates on a two-dimensional grid of cells that can be either “alive” or “dead”.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -439,7 +437,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./content/compiling"
+            path: "./content/understanding"
         },
         predefinedOutput: true
     }
@@ -457,20 +455,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="index.html"
+       href="assembly-language-approach.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Compiling</p>
+        <p class="prev-next-title">The Assembly Language Approach</p>
       </div>
     </a>
     <a class="right-next"
-       href="relationship-to-jock.html"
+       href="alchemy-approach.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Relationship to Jock</p>
+        <p class="prev-next-title">Alchemy Approach</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

@@ -128,6 +128,7 @@ Nock is mathematically complete, but it doesn't seem to have many affordances th
 - Boolean logic (`AND`, `XOR`, `NOT`, etc.) must be implemented out of Nock primitives rather than being axiomatically supplied as operators.
 - Side effects (like printing) will be handled by raising special noun patterns to the Nock evaluator.
 - Memory is entirely handled by the Nock evaluator.
+- Type systems are not part of Nock itself, but can be layered on top of it.
 - Evaluation rules are defined, but their implementation is omitted.  You can use a tree-walking interpreter, a bytecode interpreter, or something even more clever to run Nock in practice.  (In fact, you can treat Nock as a spec and not run it at all, as long as you get the same answer!)
 
 
@@ -139,8 +140,8 @@ So much for the specification itself, but what does it _mean_?  You can treat it
 2. [ The Turing Machine Approach](../understanding/turing-machine-approach.ipynb)
 3. [ The Lambda Calculus Approach](../understanding/lambda-approach.ipynb)
 4. [ The Assembly Language Approach](../understanding/assembly-language-approach.ipynb)
-5. [ The Cellular Automaton Approach]()
-6. [The Alchemy Approach]()
+<!-- 5. [ The Cellular Automaton Approach](../understanding/cellular-automaton-approach.ipynb) -->
+5. [The Alchemy Approach](../understanding/alchemy-approach.ipynb)
 
 
 ## Resources
