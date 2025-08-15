@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>TODO: Add content &#8212; Nock</title>
+    <title>Idioms, Gates, and Design Patterns &#8212; Nock</title>
   
   
   
@@ -391,7 +391,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -402,11 +404,22 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>TODO: Add content</h1>
+    <h1>Idioms, Gates, and Design Patterns</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gates">Gates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cores">Cores</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gate-building-gates">Gate-Building Gates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#doors">Doors</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -416,8 +429,80 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="todo-add-content">
-<h1>TODO: Add content<a class="headerlink" href="#todo-add-content" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="idioms-gates-and-design-patterns">
+<h1>Idioms, Gates, and Design Patterns<a class="headerlink" href="#idioms-gates-and-design-patterns" title="Link to this heading">#</a></h1>
+<p>When one has spent enough time working with Nock, patterns emerge.  While it’s unrealistic to simply sit and read a Nock program at a glance, it is very possible to recognize macroscopic structures that recur.</p>
+<section id="gates">
+<h2>Gates<a class="headerlink" href="#gates" title="Link to this heading">#</a></h2>
+<p>Opcode 9 is built to recall a stored procedure, modify it in a characteristic way, and then invoke it.  This pattern, called a “gate”, occurs frequently in Nock programs as the most convenient way to implement a function or a subroutine.</p>
+<p>Because the gate is intended to be reused, it is stored with an opcode 1 so it can be retrieved and manipulated as a constant noun prior to execution.</p>
+<p>For instance, this Nock program makes a gate that returns its argument incremented by 1:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">8</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span><span class="p">]</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">4</span> <span class="mi">0</span> <span class="mi">6</span><span class="p">]</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>One way to invoke it with an opcode 9 looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">7</span>
+   <span class="p">[</span><span class="mi">8</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span><span class="p">]</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">4</span> <span class="mi">0</span> <span class="mi">6</span><span class="p">]</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]</span>
+   <span class="p">[</span><span class="mi">8</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]</span>
+      <span class="p">[</span><span class="mi">9</span> <span class="mi">2</span>
+         <span class="mi">10</span> <span class="p">[</span><span class="mi">6</span> <span class="mi">7</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">3</span><span class="p">]</span> <span class="mi">1</span> <span class="mi">5</span><span class="p">]</span> <span class="mi">0</span> <span class="mi">2</span><span class="p">]]</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>The meat of the pattern lies in the opcode 9 expression, which we may gloss as follows:</p>
+<p>Retrieve the gate</p>
+<p>We can expand it using the rules for opcodes 7, 8, and 9 (using <code class="docutils literal notranslate"><span class="pre">0</span></code> as an unused placeholder subject):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span><span class="p">[</span><span class="n">a</span> <span class="mi">7</span> <span class="n">b</span> <span class="n">c</span><span class="p">]</span>          <span class="o">*</span><span class="p">[</span><span class="o">*</span><span class="p">[</span><span class="n">a</span> <span class="n">b</span><span class="p">]</span> <span class="n">c</span><span class="p">]</span>
+<span class="o">*</span><span class="p">[</span><span class="n">a</span> <span class="mi">8</span> <span class="n">b</span> <span class="n">c</span><span class="p">]</span>          <span class="o">*</span><span class="p">[[</span><span class="o">*</span><span class="p">[</span><span class="n">a</span> <span class="n">b</span><span class="p">]</span> <span class="n">a</span><span class="p">]</span> <span class="n">c</span><span class="p">]</span>
+<span class="o">*</span><span class="p">[</span><span class="n">a</span> <span class="mi">9</span> <span class="n">b</span> <span class="n">c</span><span class="p">]</span>          <span class="o">*</span><span class="p">[</span><span class="o">*</span><span class="p">[</span><span class="n">a</span> <span class="n">c</span><span class="p">]</span> <span class="mi">2</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]</span> <span class="mi">0</span> <span class="n">b</span><span class="p">]</span>
+
+<span class="o">*</span><span class="p">[</span><span class="mi">0</span> <span class="mi">7</span> <span class="p">[</span><span class="mi">8</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span><span class="p">]</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">4</span> <span class="mi">0</span> <span class="mi">6</span><span class="p">]</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="mi">8</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="mi">9</span> <span class="mi">2</span> <span class="mi">10</span> <span class="p">[</span><span class="mi">6</span> <span class="mi">7</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">3</span><span class="p">]</span> <span class="mi">1</span> <span class="mi">5</span><span class="p">]</span> <span class="mi">0</span> <span class="mi">2</span><span class="p">]]]</span> <span class="o">==</span>
+<span class="o">*</span><span class="p">[</span><span class="o">*</span><span class="p">[</span><span class="mi">0</span> <span class="p">[</span><span class="mi">8</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span><span class="p">]</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">4</span> <span class="mi">0</span> <span class="mi">6</span><span class="p">]</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]]</span> <span class="p">[</span><span class="mi">8</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="mi">9</span> <span class="mi">2</span> <span class="mi">10</span> <span class="p">[</span><span class="mi">6</span> <span class="mi">7</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">3</span><span class="p">]</span> <span class="mi">1</span> <span class="mi">5</span><span class="p">]</span> <span class="mi">0</span> <span class="mi">2</span><span class="p">]]]</span> <span class="o">==</span>
+
+<span class="n">TODO</span>
+
+<span class="o">*</span><span class="p">[</span><span class="mi">8</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]</span> <span class="mi">9</span> <span class="mi">2</span> <span class="mi">10</span> <span class="p">[</span><span class="mi">6</span> <span class="mi">7</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">3</span><span class="p">]</span> <span class="mi">1</span> <span class="mi">5</span><span class="p">]</span> <span class="mi">0</span> <span class="mi">2</span><span class="p">]</span> <span class="o">==</span>
+<span class="o">*</span><span class="p">[</span><span class="o">*</span><span class="p">[</span><span class="n">a</span> <span class="mi">10</span> <span class="p">[</span><span class="mi">6</span> <span class="mi">7</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">3</span><span class="p">]</span> <span class="mi">1</span> <span class="mi">5</span><span class="p">]</span> <span class="mi">0</span> <span class="mi">2</span><span class="p">]</span> <span class="mi">2</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]</span> <span class="mi">0</span> <span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="cores">
+<h2>Cores<a class="headerlink" href="#cores" title="Link to this heading">#</a></h2>
+<p>A gate is a specific instance of a more general pattern called a “core”.  The purpose of a core is to collect a battery of code (even one gate) intended for reuse.  Compare this code, which features two opcode 8 pins, to the prior increment gate:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">8</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">8</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="p">[</span><span class="mi">1</span> <span class="mi">4</span> <span class="mi">0</span> <span class="mi">6</span><span class="p">]</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]</span>
+   <span class="p">[</span><span class="mi">8</span> <span class="p">[</span><span class="mi">9</span> <span class="mi">2</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]</span> <span class="mi">9</span> <span class="mi">2</span> <span class="mi">10</span> <span class="p">[</span><span class="mi">6</span> <span class="mi">7</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">3</span><span class="p">]</span> <span class="mi">1</span> <span class="mi">5</span><span class="p">]</span> <span class="mi">0</span> <span class="mi">2</span><span class="p">]]</span>
+</pre></div>
+</div>
+<!--
+> !=  =>  |%  ++  arm  |=(a=@ +(a))  --  (arm 5)
+[8 [1 8 [1 0] [1 4 0 6] 0 1] 8 [9 2 0 1] 9 2 10 [6 7 [0 3] 1 5] 0 2]
+
+> =>  |%  ++  arm  |=(a=@ +(a))  --  (arm 5)
+6
+-->
+<p>Its standard invocation uses opcode 9 twice:  once to retrieve the core, and once to invoke the target gate.</p>
+<p>We can in fact distinguish two ways of storing data in a core:  as code, using opcode 8 pins, and as data, using opcode 1 pins.  This one, for instance, stores the number 42 as raw data inside the core:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">8</span> <span class="p">[</span><span class="mi">1</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">42</span><span class="p">]</span> <span class="mi">8</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span><span class="p">]</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">4</span> <span class="mi">0</span> <span class="mi">6</span><span class="p">]</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]</span> <span class="mi">8</span> <span class="p">[</span><span class="mi">9</span> <span class="mi">5</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]</span> <span class="mi">9</span> <span class="mi">2</span> <span class="mi">10</span> <span class="p">[</span><span class="mi">6</span> <span class="mi">7</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">3</span><span class="p">]</span> <span class="mi">1</span> <span class="mi">5</span><span class="p">]</span> <span class="mi">0</span> <span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+<!--
+> =>  |%  ++  arm  |=(a=@ +(a))  ++  one  42  --  (arm 5)
+6
+> !=  =>  |%  ++  arm  |=(a=@ +(a))  ++  one  42  --  (arm 5)
+[8 [1 [1 42] 8 [1 0] [1 4 0 6] 0 1] 8 [9 5 0 1] 9 2 10 [6 7 [0 3] 1 5] 0 2]
+> !=  =>  |%  ++  arm  |=(a=@ +(a))  ++  one  42  --  one
+[8 [1 [1 42] 8 [1 0] [1 4 0 6] 0 1] 9 4 0 1]
+-->
+<p>A core is a noun of the form <code class="docutils literal notranslate"><span class="pre">[battery</span> <span class="pre">payload]</span></code>, where the battery is a noun that can be used to compute new cores, and the payload is an arbitrary noun.  (It is worth reiterating at this point that Nock has no preference for this structure; it is simply a convention that Nock programmers use to organize their code.)</p>
+</section>
+<section id="gate-building-gates">
+<h2>Gate-Building Gates<a class="headerlink" href="#gate-building-gates" title="Link to this heading">#</a></h2>
+<p>Besides</p>
+</section>
+<section id="doors">
+<h2>Doors<a class="headerlink" href="#doors" title="Link to this heading">#</a></h2>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -474,6 +559,24 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gates">Gates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cores">Cores</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gate-building-gates">Gate-Building Gates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#doors">Doors</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
