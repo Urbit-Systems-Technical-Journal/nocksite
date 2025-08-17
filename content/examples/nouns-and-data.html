@@ -547,7 +547,7 @@ document.write(`
 <section id="vectors-matrices">
 <h3>Vectors/Matrices<a class="headerlink" href="#vectors-matrices" title="Link to this heading">#</a></h3>
 <p>What if we wanted to represent a 2D matrix of numbers?  It may even depend <em>what kind of number</em> we want to represent, since mathematics commonly uses integers (including negative numbers), floating-point numbers, and more.  The convention in Hoon uses a structural pair of a type metadata structure and an atom.</p>
-<p>This is a <span class="math notranslate nohighlight">\(2 \times 2\)</span> matrix of unsigned integers with size 1 byte (<span class="math notranslate nohighlight">\(2^3\)</span>) and a type tag of <code class="docutils literal notranslate"><span class="pre">0x746e.6975</span></code> (<code class="docutils literal notranslate"><span class="pre">'uint'</span></code>):</p>
+<p>This is a <span class="math notranslate nohighlight">\(2 \times 2\)</span> matrix of unsigned integers with a size of 1 byte each (<span class="math notranslate nohighlight">\(2^3\)</span>) and a type tag of <code class="docutils literal notranslate"><span class="pre">0x746e.6975</span></code> (<code class="docutils literal notranslate"><span class="pre">'uint'</span></code>):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[[[</span><span class="mi">2</span> <span class="mi">2</span> <span class="mi">0</span><span class="p">]</span> <span class="mi">3</span> <span class="mh">0x746e</span><span class="mf">.6975</span> <span class="mi">0</span><span class="p">]</span> <span class="mh">0x1</span><span class="mf">.0302.0100</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -558,7 +558,11 @@ document.write(`
 2 &amp; 3
 \end{bmatrix}
 \end{split}\]</div>
-<p>One of the interesting consequences of Nock having an arbitrary atom size means that there are no leading zeros possible.  If you want to represent an array of zeros, you have to pin a <code class="docutils literal notranslate"><span class="pre">0b1</span></code> bit at the MSB to preserve the contiguous size.</p>
+<ul class="simple">
+<li><p>The data are in row-major order starting with the LSB.</p></li>
+<li><p>One of the interesting consequences of Nock having an arbitrary atom size means that there are no leading zeros possible.  If you want to represent an array of zeros, you have to pin a <code class="docutils literal notranslate"><span class="pre">0b1</span></code> bit at the MSB to preserve the contiguous size.</p></li>
+<li><p>The fourth entry in the metadata structure can be used in various ways depending on the array type; in this case, it is <code class="docutils literal notranslate"><span class="pre">0</span></code> to indicate no special options.</p></li>
+</ul>
 </section>
 </section>
 </section>
