@@ -10,6 +10,13 @@ execute:
   timeout: 30
   allow_errors: false
 
+# Jupyter kernel settings
+jupyter:
+  kernels:
+    - name: nock
+      display_name: Nock 4K
+      language: nock
+
 # Define the name of the latex output file for PDF builds
 latex:
   latex_documents:
