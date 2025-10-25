@@ -502,6 +502,19 @@ document.write(`
 </section>
 <section id="doors">
 <h2>Doors<a class="headerlink" href="#doors" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:subject 42
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Subject set to: 42
+</pre></div>
+</div>
+</div>
+</div>
+<p>:subject 54</p>
 </section>
 </section>
 
@@ -514,16 +527,16 @@ document.write(`
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "python"
+            mode: "nock"
         },
         kernelOptions: {
-            name: "python3",
+            name: "nock",
             path: "./content/examples"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'nock'</script>
 
                 </article>
               
