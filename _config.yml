@@ -54,6 +54,9 @@ sphinx:
     html_theme_options:
       repository_url: https://github.com/Urbit-Systems-Technical-Journal/nocksite
       use_repository_button: true
+      repository_branch: master
+      launch_buttons:
+        binderhub_url: "https://mybinder.org"
       use_issues_button: true
       use_edit_page_button: true
       use_download_button: true
