@@ -65,7 +65,7 @@ sphinx:
 
 # Launch buttons for interactive content
 launch_buttons:
-  notebook_interface: jupyterlab
+  notebook_interface: "jupyterlab"
   binderhub_url: "https://mybinder.org"
 
 # Parse and render settings
