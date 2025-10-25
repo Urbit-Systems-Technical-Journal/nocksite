@@ -66,8 +66,8 @@ sphinx:
 # Launch buttons for interactive content
 launch_buttons:
   notebook_interface: jupyterlab
-  binderhub_url: ""  # Add binder URL later if you want cloud execution
-  
+  binderhub_url: "https://mybinder.org"
+
 # Parse and render settings
 parse:
   myst_enable_extensions:

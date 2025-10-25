@@ -1,0 +1,10 @@
+name: nock-env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+    - jupyter-book
+    - git+https://github.com/sigilante/pinochle.git#subdirectory=packages/pinochle
+    - git+https://github.com/sigilante/pinochle.git#subdirectory=packages/nock_kernel
