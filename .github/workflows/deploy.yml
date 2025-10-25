@@ -28,14 +28,20 @@ jobs:
         # Install nock kernel package
         pip install git+https://github.com/sigilante/pinochle.git#subdirectory=packages/nock_kernel
 
-    - name: Install Nock Kernel Spec
-      run: |
-        # Get the kernelspec path and install it
-        SPEC_DIR=$(python -c "import nock_kernel, os; print(os.path.join(os.path.dirname(nock_kernel.__file__), 'kernelspec'))")
-        jupyter kernelspec install $SPEC_DIR --user --name nock
-        
-        # Verify installation
-        jupyter kernelspec list
+      - name: Install Nock Kernel Spec
+        run: |
+          # Install the kernelspec from inside the package
+          python -c "
+          import nock_kernel
+          import os
+          import subprocess
+
+          spec_dir = os.path.join(os.path.dirname(nock_kernel.__file__), 'kernelspec')
+          print(f'Installing from: {spec_dir}')
+          subprocess.run(['jupyter', 'kernelspec', 'install', spec_dir, '--user', '--name', 'nock'], check=True)
+          "
+          # Verify installation
+          jupyter kernelspec list
 
     - name: Build the book
       run: |
