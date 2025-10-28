@@ -53,23 +53,23 @@ chapters:
   sections:
   - url: https://urbitsystems.tech/article/v02-i01/a-documentary-history-of-the-nock-combinator-calculus
     title: History of Nock
-  - file: content/history/nock-5k.md
+  - file: content/history/nock-5k
     title: Nock 5K
-  - file: content/history/nock-6k.md
+  - file: content/history/nock-6k
     title: Nock 6K
-  - file: content/history/nock-7k.md
+  - file: content/history/nock-7k
     title: Nock 7K
-  - file: content/history/nock-8k.md
+  - file: content/history/nock-8k
     title: Nock 8K
-  - file: content/history/nock-9k.md
+  - file: content/history/nock-9k
     title: Nock 9K
-  - file: content/history/nock-10k.md
+  - file: content/history/nock-10k
     title: Nock 10K
-  - file: content/history/nock-11k.md
+  - file: content/history/nock-11k
     title: Nock 11K
-  - file: content/history/nock-12k.md
+  - file: content/history/nock-12k
     title: Nock 12K
-  - file: content/history/nock-13k.md
+  - file: content/history/nock-13k
     title: Nock 13K
   - file: content/history/u-model
     title: "U: A Small Model"
