@@ -1,7 +1,7 @@
 # Book settings
 title: Nock
 author: Urbit Systems Technical Journal
-logo: logo.png  # Optional: add a logo later
+logo: logo.png
 copyright: "2025"
 
 # Force re-execution of notebooks on each build
