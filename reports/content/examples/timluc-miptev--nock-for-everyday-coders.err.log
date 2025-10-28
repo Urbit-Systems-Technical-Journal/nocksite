@@ -24,7 +24,7 @@ nbclient.exceptions.CellExecutionError: An error occurred while executing the fo
 ----- stderr -----
 Error: fas: first argument must be atom
 Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.11.13/x64/lib/python3.11/site-packages/nock_kernel/kernel.py", line 189, in do_execute
+  File "/opt/hostedtoolcache/Python/3.11.13/x64/lib/python3.11/site-packages/nock_kernel/kernel.py", line 202, in do_execute
     result = nock(self.subject, formula)
              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/opt/hostedtoolcache/Python/3.11.13/x64/lib/python3.11/site-packages/pinochle/nock.py", line 152, in nock
@@ -36,7 +36,7 @@ Exception: fas: first argument must be atom
 ------------------
 
 Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.11.13/x64/lib/python3.11/site-packages/nock_kernel/kernel.py", line 189, in do_execute
+  File "/opt/hostedtoolcache/Python/3.11.13/x64/lib/python3.11/site-packages/nock_kernel/kernel.py", line 202, in do_execute
     result = nock(self.subject, formula)
              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/opt/hostedtoolcache/Python/3.11.13/x64/lib/python3.11/site-packages/pinochle/nock.py", line 152, in nock
