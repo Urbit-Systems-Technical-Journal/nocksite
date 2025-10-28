@@ -395,7 +395,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -411,6 +413,15 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-side-effects">Basic Side Effects</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jetting">Jetting</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -422,8 +433,34 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="hints-jetting">
 <h1>Hints &amp; Jetting<a class="headerlink" href="#hints-jetting" title="Link to this heading">#</a></h1>
-<p>TODO: Add content for Hints &amp; Jetting</p>
-<p>This section is under development.</p>
+<p>Hints are special annotations in Nock code that provide additional information to the Nock interpreter or compiler.  While they have no formal effect within the Nock noun itself, they can result in side effects or performance optimizations when executed in a Nock environment that recognizes them.  For instance, to issue a network request or print to a console, a Nock program can raise a specially structured noun that the evaluator interprets as a command to perform that action.</p>
+<section id="basic-side-effects">
+<h2>Basic Side Effects<a class="headerlink" href="#basic-side-effects" title="Link to this heading">#</a></h2>
+<p>Side effects are bound to a particular Nock runtime environment, so the exact hints available may vary between implementations.  However, some common side effects that Nock runtimes may support include:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">%bout</span></code>, which times calculations.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">%fast</span></code>, which enables jet hinting for performance optimization.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">%live</span></code>, which enables tracks profiling hit counters.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">%meme</span></code>, which calculates and prints memory usage.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">%memo</span></code>, which enables caching for repeated computations.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">%slog</span></code>, which logs a message to the console or a log file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">%spot</span></code>, which generates stack traces for debugging.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">%xray</span></code>, which prints bytecode for inspection.</p></li>
+</ul>
+<p>Some of these are static hints, which use the form of opcode 11 that just accepts a noun.  <code class="docutils literal notranslate"><span class="pre">b</span></code> corresponds to the static hint label and <code class="docutils literal notranslate"><span class="pre">c</span></code> is the continuation of the program.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span><span class="p">[</span><span class="n">a</span> <span class="mi">11</span> <span class="n">b</span> <span class="n">c</span><span class="p">]</span>         <span class="o">*</span><span class="p">[</span><span class="n">a</span> <span class="n">c</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Others are dynamic hints, which use opcode 11 with a formula to evaluate.  <code class="docutils literal notranslate"><span class="pre">b</span></code> corresponds to the dynamic hint label, <code class="docutils literal notranslate"><span class="pre">c</span></code> is the hint’s formula (which is evaluated against the subject and then discarded), and <code class="docutils literal notranslate"><span class="pre">d</span></code> is the continuation of the program.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span><span class="p">[</span><span class="n">a</span> <span class="mi">11</span> <span class="p">[</span><span class="n">b</span> <span class="n">c</span><span class="p">]</span> <span class="n">d</span><span class="p">]</span>     <span class="o">*</span><span class="p">[[</span><span class="o">*</span><span class="p">[</span><span class="n">a</span> <span class="n">c</span><span class="p">]</span> <span class="o">*</span><span class="p">[</span><span class="n">a</span> <span class="n">d</span><span class="p">]]</span> <span class="mi">0</span> <span class="mi">3</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>(The formula cannot be skipped even if the hint is not recognized by the runtime, because it could result in a crash.)</p>
+</section>
+<section id="jetting">
+<h2>Jetting<a class="headerlink" href="#jetting" title="Link to this heading">#</a></h2>
+<p>Jetting is a performance optimization technique used in Nock interpreters where certain frequently used or computationally intensive Nock formulas are replaced with pre-compiled native code implementations, known as “jets” (derived from “jet-accelerated code”).  When the Nock evaluator encounters a formula that has a corresponding jet, it can execute the optimized native code instead of interpreting the Nock formula directly, resulting in significant performance improvements.</p>
+</section>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -482,6 +519,22 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-side-effects">Basic Side Effects</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jetting">Jetting</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
