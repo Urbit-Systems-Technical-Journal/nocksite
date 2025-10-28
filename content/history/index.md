@@ -16,16 +16,16 @@ Specific historical revisions of Nock are mirrored here as documents of historic
 
 ## Nock Versions
 
-Nock versions count _downwards_ following a theory called “kelvin versioning”, in which the protocol “freezes” over time as a commitment to future stability.  While three more revisions are in principle possible, it is unlikely that Nock will ever change again.
+Nock versions count _downwards_ following a theory called “kelvin versioning”, in which the protocol “freezes” over time as a commitment to future stability.  While four more revisions are in principle possible, it is unlikely that Nock will ever change again.
 
 * [Nock 4K (2018)](../specification/index.md), the current specification.
-* [Nock 5K (2012)](nock-5k.md)
-* [Nock 6K (2011)](nock-6k.md)
-* [Nock 7K (2010)](nock-7k.md)
-* [Nock 8K (2010)](nock-8k.md)
-* [Nock 9K (2010)](nock-9k.md)
-* [Nock 10K (2008)](nock-10k.md)
-* [Nock 11K (2008)](nock-11k.md)
-* [Nock 12K (2008)](nock-12k.md)
-* [Nock 13K (2008)](nock-13k.md)
-* [U: a small model (2006)](u-model.md)
+* [Nock 5K (2012)](./nock-5k.md)
+* [Nock 6K (2011)](./nock-6k.md)
+* [Nock 7K (2010)](./nock-7k.md)
+* [Nock 8K (2010)](./nock-8k.md)
+* [Nock 9K (2010)](./nock-9k.md)
+* [Nock 10K (2008)](./nock-10k.md)
+* [Nock 11K (2008)](./nock-11k.md)
+* [Nock 12K (2008)](./nock-12k.md)
+* [Nock 13K (2008)](./nock-13k.md)
+* [U: a small model (2006)](./u-model.md)
