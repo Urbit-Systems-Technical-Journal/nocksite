@@ -175,7 +175,15 @@
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../specification/index.html">The Specification</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../specification/detailed-examples.html">Detailed Examples</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../specification/basic-opcodes.html">Basic Opcodes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../specification/opcode-10.html">Opcode 10: Edit</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../specification/composite-opcodes.html">Composite Opcodes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../specification/opcode-11.html">Opcode 11: Hint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specification/detailed-examples.html">Detailed Examples</a></li>
+</ul>
+</details></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../understanding/index.html">Understanding Nock</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -444,7 +452,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="relationship-to-jock">
 <h1>Relationship to Jock<a class="headerlink" href="#relationship-to-jock" title="Link to this heading">#</a></h1>
-<p>Jock is a scripting language designed to compile from a high-level syntax down to Nock code.  Jock aims to be more user-friendly and accessible than Hoon, making it easier for developers to write and understand code that compiles to Nock.  In particular, Jock models its syntax on Swift and Rust.</p>
+<p><a class="reference external" href="https://jock.org">Jock</a> is a scripting language designed to compile from a high-level syntax down to Nock code.  Jock aims to be more user-friendly and accessible than Hoon, making it easier for developers to write and understand code that compiles to Nock.  In particular, Jock models its syntax on Swift and Rust.</p>
 <p>Jock permits direct expression of Nock concepts while providing syntactic sugar to make common patterns easier to write.  This makes Jock a good choice for developers who want to work with Nock without the complexity of Hoon.</p>
 <p>At the current time, Jock is in its alpha release stage, with ongoing development to expand its features and capabilities.</p>
 <section id="example">

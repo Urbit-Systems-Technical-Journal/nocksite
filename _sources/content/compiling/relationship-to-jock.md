@@ -1,6 +1,6 @@
 # Relationship to Jock
 
-Jock is a scripting language designed to compile from a high-level syntax down to Nock code.  Jock aims to be more user-friendly and accessible than Hoon, making it easier for developers to write and understand code that compiles to Nock.  In particular, Jock models its syntax on Swift and Rust.
+[Jock](https://jock.org) is a scripting language designed to compile from a high-level syntax down to Nock code.  Jock aims to be more user-friendly and accessible than Hoon, making it easier for developers to write and understand code that compiles to Nock.  In particular, Jock models its syntax on Swift and Rust.
 
 Jock permits direct expression of Nock concepts while providing syntactic sugar to make common patterns easier to write.  This makes Jock a good choice for developers who want to work with Nock without the complexity of Hoon.
 

@@ -175,7 +175,15 @@
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../specification/index.html">The Specification</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../specification/detailed-examples.html">Detailed Examples</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../specification/basic-opcodes.html">Basic Opcodes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../specification/opcode-10.html">Opcode 10: Edit</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../specification/composite-opcodes.html">Composite Opcodes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../specification/opcode-11.html">Opcode 11: Hint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specification/detailed-examples.html">Detailed Examples</a></li>
+</ul>
+</details></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../understanding/index.html">Understanding Nock</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -451,7 +459,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="relationship-to-hoon">
 <h1>Relationship to Hoon<a class="headerlink" href="#relationship-to-hoon" title="Link to this heading">#</a></h1>
-<p>Hoon is a systems programming language designed to compile from a high-level syntax down to Nock code.  Because Hoon and Nock developed in tandem, Hoon is very close to a macro over Nock, and an experienced eye can predict much of the particular Nock noun to which a given Hoon expression will correspond.</p>
+<p><a class="reference external" href="https://docs.urbit.org/hoon/">Hoon</a> is a systems programming language designed to compile from a high-level syntax down to Nock code.  Because Hoon and Nock developed in tandem, Hoon is very close to a macro over Nock, and an experienced eye can predict much of the particular Nock noun to which a given Hoon expression will correspond.</p>
 <p>To quote the <a class="reference external" href="https://docs.urbit.org/hoon/why-hoon">Hoon docs</a>:</p>
 <blockquote>
 <div><p>Subject orientation in Nock … stems partly from minimalism: there’s just one subject, which serves as state, lexical scope, environment, and function argument; partly from a desire to simplify compilation: the type of the subject is a full specification of the compile-time environment for a source file; and partly to give the language a more imperative feel.</p>
@@ -552,7 +560,15 @@ document.write(`
 </section>
 <section id="vases">
 <h3>Vases<a class="headerlink" href="#vases" title="Link to this heading">#</a></h3>
-<p>Hoon uses “vases” as a way to package up Nock code along with metadata about its type and structure.  This allows Hoon to maintain strong typing and structure while still compiling down to the untyped Nock specification.</p>
+<p>Hoon uses “vases” as a way to package up Nock code along with metadata about its type and structure. A vase is a cell of <code class="docutils literal notranslate"><span class="pre">[type</span> <span class="pre">value]</span></code> where the type is itself a Nock noun representing Hoon’s type information.</p>
+<p>This allows Hoon to maintain strong typing and structure while still compiling down to the untyped Nock specification. The type information in a vase enables:</p>
+<ul class="simple">
+<li><p>Runtime type checking and validation.</p></li>
+<li><p>Dynamic code generation with type safety.</p></li>
+<li><p>Metaprogramming with full type awareness.</p></li>
+<li><p>Safe composition of separately-compiled code.</p></li>
+</ul>
+<p>Vases are particularly important in Hoon’s compilation model, where the compiler itself operates on vases to type-check and transform code, maintaining the invariant that typed Hoon expressions correspond to correctly-typed Nock nouns.</p>
 </section>
 </section>
 <section id="further-reading">

@@ -175,7 +175,15 @@
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../specification/index.html">The Specification</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../specification/detailed-examples.html">Detailed Examples</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../specification/basic-opcodes.html">Basic Opcodes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../specification/opcode-10.html">Opcode 10: Edit</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../specification/composite-opcodes.html">Composite Opcodes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../specification/opcode-11.html">Opcode 11: Hint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specification/detailed-examples.html">Detailed Examples</a></li>
+</ul>
+</details></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../understanding/index.html">Understanding Nock</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -433,7 +441,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="languages">
 <h1>Languages<a class="headerlink" href="#languages" title="Link to this heading">#</a></h1>
-<p>Nock is Turing-complete, but as you’ve probably come to realize, it’s not exactly a “real” programming language:  it’s too abstruse and economical to be used directly for most programming tasks.  Instead, Nock is best thought of as a compilation target for higher-level languages.</p>
+<p>Nock is Turing-complete, but as you’ve probably come to realize, it’s not exactly a “programming” language:  it’s too abstruse and economical to be used directly for most programming tasks.  Instead, Nock is best thought of as a compilation target for higher-level languages.</p>
 <p>At the current time, the high-level languages under most active development that target Nock are Hoon and Jock.  There is also an Urwasm Nock compatibility layer for executing WebAssembly code on a Nock runtime.</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="relationship-to-hoon.html"><span class="std std-doc">Hoon</span></a> is a mature systems programming language with much syntax and flexibility.</p></li>
