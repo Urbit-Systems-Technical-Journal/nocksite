@@ -90,6 +90,12 @@ The core structure posts its members as pinned constants, which are selected for
 [8 [1 [8 [1 0] [1 8 [9 36 0 16.383] 9 2 10 [6 [0 14] 7 [0 3] 9 5 0 7] 0 2] 0 1] 1 2] 8 [9 4 0 1] 9 2 10 [6 7 [0 3] 1 40] 0 2]
 ```
 
+When you invoke an arm at axis `n` in a core, the Nock computation is essentially `[9 n [0 1]]`—take the formula at axis `n` and evaluate it with the entire core as the subject.
+
+The **battery** is a tree of Nock formulas, each identified by an axis position. These formulas are the “arms” of the core—named computations that can be invoked at need.  Each arm is computed with the entire core as its subject, giving it access to both the code (other arms) and data (payload) of the core.
+
+The **payload** contains the data and context for the battery's operation. It includes the **sample**, or arguments, and the **context**, or overall subject provided such as the standard library.
+
 One last note:  the `[battery payload]` pattern is a Hoon convention:  nothing in Nock requires it, not even opcode 9.
 
 ### Atoms
@@ -97,6 +103,22 @@ One last note:  the `[battery payload]` pattern is a Hoon convention:  nothing i
 Hoon produces untyped Nock, so ultimately all data values must reduce to nouns.  Nock atoms are unsigned integers, so Hoon represents more complex data types (like signed integers, floating-point numbers, and strings) as encoded atoms.  Hoon has a number of affordances to make it easy to work with typed atoms.
 
 For instance, every atom type in Hoon can be written with its own unique syntax.  A date, for instance, cannot be parsed as a floating-point value or an IP address, even in the case in which they all happen to share the same underlying integer representation.
+
+```hoon
+:: as time
+> `@`~m42
+~m42
+
+:: as uint
+> `@`~m42
+46.485.795.065.748.070.072.320
+
+:: as hex
+> `@ux`~m42
+0x9d8.0000.0000.0000.0000
+```
+
+All of these reduce to the Nock noun `46.485.795.065.748.070.072.320`.
 
 ### Head Tags
 
