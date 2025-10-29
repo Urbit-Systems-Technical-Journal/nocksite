@@ -63,7 +63,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Nock 6K" href="nock-6k.html" />
-    <link rel="prev" title="History of Nock" href="index.html" />
+    <link rel="prev" title="Nock 4K" href="nock-4k.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -204,6 +204,7 @@
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">History</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference external" href="https://urbitsystems.tech/article/v02-i01/a-documentary-history-of-the-nock-combinator-calculus">History of Nock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nock-4k.html">Nock 4K</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Nock 5K</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nock-6k.html">Nock 6K</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nock-7k.html">Nock 7K</a></li>
@@ -432,6 +433,54 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="nock-5k">
 <h1>Nock 5K<a class="headerlink" href="#nock-5k" title="Link to this heading">#</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>1 Structures 
+ 
+  A noun is an atom or a cell.  An atom is any natural 
+  number.  A cell is an ordered pair of nouns. 
+ 
+2 Reductions 
+ 
+  nock(a)           *a 
+  [a b c]           [a [b c]] 
+ 
+  ?[a b]            0 
+  ?a                1 
+  +[a b]            +[a b] 
+  +a                1 + a 
+  =[a a]            0 
+  =[a b]            1 
+  =a                =a 
+ 
+  /[1 a]            a 
+  /[2 a b]          a 
+  /[3 a b]          b 
+  /[(a + a) b]      /[2 /[a b]] 
+  /[(a + a + 1) b]  /[3 /[a b]] 
+  /a                /a 
+ 
+  *[a [b c] d]      [*[a b c] *[a d]] 
+ 
+  *[a 0 b]          /[b a] 
+  *[a 1 b]          b 
+  *[a 2 b c]        *[*[a b] *[a c]] 
+  *[a 3 b]          ?*[a b] 
+  *[a 4 b]          +*[a b] 
+  *[a 5 b]          =*[a b] 
+ 
+  *[a 6 b c d]      *[a 2 [0 1] 2 [1 c d] [1 0] 2 
+                                  [1 2 3] [1 0] 4 4 b] 
+  *[a 7 b c]        *[a 2 b 1 c] 
+  *[a 8 b c]        *[a 7 [[7 [0 1] b] 0 1] c] 
+  *[a 9 b c]        *[a 7 c 2 [0 1] 0 b] 
+  *[a 10 [b c] d]   *[a 8 c 7 [0 3] d] 
+  *[a 10 b c]       *[a c] 
+ 
+  *a                *a
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/urbit/archaeology/blob/0b228203e665579848d30c763dda55bb107b0a34/Spec/nock/5.txt">Source</a></p></li>
+</ul>
 </section>
 
     <script type="text/x-thebe-config">
@@ -465,12 +514,12 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="index.html"
+       href="nock-4k.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">History of Nock</p>
+        <p class="prev-next-title">Nock 4K</p>
       </div>
     </a>
     <a class="right-next"

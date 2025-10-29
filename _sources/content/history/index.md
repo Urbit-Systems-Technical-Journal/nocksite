@@ -18,7 +18,7 @@ Specific historical revisions of Nock are mirrored here as documents of historic
 
 Nock versions count _downwards_ following a theory called “kelvin versioning”, in which the protocol “freezes” over time as a commitment to future stability.  While four more revisions are in principle possible, it is unlikely that Nock will ever change again.
 
-* [Nock 4K (2018)](../specification/index.md), the current specification.
+* [Nock 4K (2018)](../nock-4k.md), the current specification.
 * [Nock 5K (2012)](./nock-5k.md)
 * [Nock 6K (2011)](./nock-6k.md)
 * [Nock 7K (2010)](./nock-7k.md)
