@@ -35,24 +35,24 @@ chapters:
       title: "Opcode 9: Invoke"
     - file: content/specification/opcode-11
       title: "Opcode 11: Hint"
-    - file: content/specification/detailed-examples
-      title: Detailed Examples
+  - file: content/specification/detailed-examples
+    title: Examples
     
 - file: content/understanding/index
   title: Understanding Nock
   sections:
   - file: content/understanding/combinator-approach
-    title: "Nock: The Combinator Approach"
-  - file: content/understanding/turing-machine-approach
-    title: "Nock: The Turing Machine Approach"
+    title: "The Combinator Approach"
+  # - file: content/understanding/turing-machine-approach
+  #   title: "The Turing Machine Approach"
   - file: content/understanding/lambda-approach
-    title: "Nock: The Lambda Approach"
+    title: "The Lambda Calculus Approach"
   - file: content/understanding/assembly-language-approach
-    title: "Nock: The Assembly Language Approach"
-  - file: content/understanding/cellular-automaton-approach
-    title: "Nock: The Cellular Automaton Approach"
-  - file: content/understanding/alchemy-approach
-    title: "Nock: The Alchemy Approach"
+    title: "The Assembly Language Approach"
+  # - file: content/understanding/cellular-automaton-approach
+  #   title: "The Cellular Automaton Approach"
+  # - file: content/understanding/alchemy-approach
+  #   title: "The Alchemy Approach"
 
 - file: content/examples/index
   title: Code Examples

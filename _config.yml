@@ -65,6 +65,14 @@ sphinx:
       show_navbar_depth: 2
     copybutton_prompt_text: "$"
     copybutton_exclude: ".linenos, .gp"
+    myst_enable_extensions:
+      - colon_fence
+      - dollarmath
+      - linkify
+      - substitution
+      - tasklist
+    myst_fence_as_directive:
+      - mermaid
 
 # Launch buttons for interactive content
 launch_buttons:
