@@ -58,6 +58,8 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/specification/opcode-0';</script>
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -452,7 +454,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -468,6 +472,25 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-trees">Binary Trees</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><code class="docutils literal notranslate"><span class="pre">[[41</span> <span class="pre">42]</span> <span class="pre">[43</span> <span class="pre">44]]</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><code class="docutils literal notranslate"><span class="pre">[1</span> <span class="pre">[2</span> <span class="pre">3]]</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><code class="docutils literal notranslate"><span class="pre">[[1</span> <span class="pre">2]</span> <span class="pre">3]</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax">Syntax</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binary">Binary</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -479,14 +502,199 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="opcode-0-address">
 <h1>Opcode 0: Address<a class="headerlink" href="#opcode-0-address" title="Link to this heading">#</a></h1>
+<section id="binary-trees">
+<h2>Binary Trees<a class="headerlink" href="#binary-trees" title="Link to this heading">#</a></h2>
 <p>The fundamental data structure of Nock is the noun, which is either an atom (a non-negative integer) or a cell (an ordered pair of two nouns).  Nouns can be visualized as <a class="reference external" href="https://grokipedia.com/page/Binary_tree">binary trees</a>, in which atoms are leaves and cells are internal nodes.</p>
-<p>{mermaid}
-graph TD
-A[“[1 2]”]
-B[“1”]
-C[“2”]
-A –&gt; B
-A –&gt; C</p>
+<p>This leads to a convenient addressing scheme for nouns, for which each noun and sub-noun can be assigned a unique address based on its position in the binary tree. The addressing scheme works as follows:</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>/[1 a]              a
+/[2 a b]            a
+/[3 a b]            b
+/[(a + a) b]        /[2 /[a b]]
+/[(a + a + 1) b]    /[3 /[a b]]
+/a                  /a
+</pre></div>
+</div>
+<p>That is, the left-hand daughter of a cell is addressed by doubling its mother’s address, while the right-hand daughter is addressed by doubling its mother’s address and adding one. The root of the tree is always at address 1.</p>
+<p>Of course, that’s just an addressing scheme:  it tells you how a noun is laid out, but not which positions are actually occupied.  Let’s see some examples.  In these, we will use <code class="docutils literal notranslate"><span class="pre">⬡</span></code> to denote atoms (leaves) and <code class="docutils literal notranslate"><span class="pre">▢</span></code> to denote cells (internal nodes).</p>
+<section id="id1">
+<h3><code class="docutils literal notranslate"><span class="pre">[[41</span> <span class="pre">42]</span> <span class="pre">[43</span> <span class="pre">44]]</span></code><a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+</section>
+<section id="id2">
+<h3><code class="docutils literal notranslate"><span class="pre">[1</span> <span class="pre">[2</span> <span class="pre">3]]</span></code><a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>We often omit the right-hand cells since cells tend to branch strongly right in practice.</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[a b c]             [a [b c]]
+</pre></div>
+</div>
+<p>Thus, <code class="docutils literal notranslate"><span class="pre">[1</span> <span class="pre">[2</span> <span class="pre">3]]</span></code> can be written equivalently as <code class="docutils literal notranslate"><span class="pre">[1</span> <span class="pre">2</span> <span class="pre">3]</span></code>.</p>
+</section>
+<section id="id3">
+<h3><code class="docutils literal notranslate"><span class="pre">[[1</span> <span class="pre">2]</span> <span class="pre">3]</span></code><a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<section id="syntax">
+<h2>Syntax<a class="headerlink" href="#syntax" title="Link to this heading">#</a></h2>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>/[1 a]              a
+/[2 a b]            a
+/[3 a b]            b
+/[(a + a) b]        /[2 /[a b]]
+/[(a + a + 1) b]    /[3 /[a b]]
+/a                  /a
+
+*[a 0 b]            /[b a]
+</pre></div>
+</div>
+</section>
+<section id="explanation">
+<h2>Explanation<a class="headerlink" href="#explanation" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">/</span></code> fas or slot operator describes how to navigate a noun given an address as an atom.  The address is interpreted as a path through the binary tree, starting at the root (address 1).  Each even number indicates a left branch, and each odd number indicates a right branch.  The process continues until the address 1 is reached, at which point the corresponding noun is returned.</p>
+<p>Most of the time, we expand the tree out to the conceptual binary tree map above rather than recursively apply the <code class="docutils literal notranslate"><span class="pre">/</span></code> fas slot rule.</p>
+<p>Since there is no address 0, we use <code class="docutils literal notranslate"><span class="pre">/[0</span> <span class="pre">a]</span></code> or <code class="docutils literal notranslate"><span class="pre">[a</span> <span class="pre">0</span> <span class="pre">0]</span></code> to denote a crash.</p>
+<section id="binary">
+<h3>Binary<a class="headerlink" href="#binary" title="Link to this heading">#</a></h3>
+<p>Addressing becomes particularly easy to read in binary form, in which a 0 bit corresponds to a left branch and a 1 bit corresponds to a right branch.  We ignore the first bit (<span class="math notranslate nohighlight">\(1\)</span>, the root) and read the path in binary:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(7_{10} = 111_2 \rightarrow \text{RRR}\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(5_{10} = 101_2 \rightarrow \text{RLR}\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(4_{10} = 100_2 \rightarrow \text{RLL}\)</span>.</p></li>
+</ul>
+<p>You will notice other patterns, e.g., that the rightmost child at a particular level is equal to a power of 2 minus 1.</p>
+</section>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:subject [[[41 42 [43 44] [45 46] [47 48] [49 50]]] [51 52]]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Subject set to: [[41 42 [43 44] [45 46] [47 48] 49 50] 51 52]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[0 2]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[41 42 [43 44] [45 46] [47 48] 49 50]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[0 3]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[51 52]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[0 11]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[43 44] [45 46] [47 48] 49 50]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[0 47]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[47 48] 49 50]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[0 94]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[47 48]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[0 95]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[49 50]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:subject [40 41 42 43 44 45 46 47 48 49 50]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Subject set to: [40 41 42 43 44 45 46 47 48 49 50]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[0 2]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>40
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[0 6]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>41
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[0 2047]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>50
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -498,16 +706,16 @@ A –&gt; C</p>
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "python"
+            mode: "nock"
         },
         kernelOptions: {
-            name: "python3",
+            name: "nock",
             path: "./content/specification"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'nock'</script>
 
                 </article>
               
@@ -543,6 +751,32 @@ A –&gt; C</p>
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-trees">Binary Trees</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><code class="docutils literal notranslate"><span class="pre">[[41</span> <span class="pre">42]</span> <span class="pre">[43</span> <span class="pre">44]]</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><code class="docutils literal notranslate"><span class="pre">[1</span> <span class="pre">[2</span> <span class="pre">3]]</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><code class="docutils literal notranslate"><span class="pre">[[1</span> <span class="pre">2]</span> <span class="pre">3]</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax">Syntax</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binary">Binary</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
