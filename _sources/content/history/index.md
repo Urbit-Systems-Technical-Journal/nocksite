@@ -10,15 +10,13 @@ Nock is a combinator calculus designed by Curtis Yarvin from 2002 onwards and el
 
 Namespace extension also implies hyper-Turing completeness:  a system architected on Nock can build a virtualization function that has the ability to answer, in certain cases, whether or not the computation will halt.
 
-* [~lagrev-nocfep, ~sorreg-namtyv (2025), “A Documentary History of the Nock Combinator Calculus”](https://urbitsystems.tech/article/v02-i01/a-documentary-history-of-the-nock-combinator-calculus)
-
-Specific historical revisions of Nock are mirrored here as documents of historical significance.
+For a detailed history of Nock, see [~lagrev-nocfep, ~sorreg-namtyv (2025), “A Documentary History of the Nock Combinator Calculus”](https://urbitsystems.tech/article/v02-i01/a-documentary-history-of-the-nock-combinator-calculus).  Specific historical revisions of Nock are mirrored here as documents of historical significance, while commentary is provided at the article.
 
 ## Nock Versions
 
 Nock versions count _downwards_ following a theory called “kelvin versioning”, in which the protocol “freezes” over time as a commitment to future stability.  While four more revisions are in principle possible, it is unlikely that Nock will ever change again.
 
-* [Nock 4K (2018)](../nock-4k.md), the current specification.
+* [Nock 4K (2018)](./nock-4k.md), the current specification.
 * [Nock 5K (2012)](./nock-5k.md)
 * [Nock 6K (2011)](./nock-6k.md)
 * [Nock 7K (2010)](./nock-7k.md)
