@@ -262,8 +262,18 @@ nav[aria-label="main navigation"] a:hover,
     color: var(--urbit-white) !important;
 }
 
-/* Nuclear option - override any remaining sidebar links
-.bd-sidebar, .bd-sidebar * {
-    --pst-color-link: var(--urbit-white) !important;
-    --pst-color-link-hover: var(--urbit-white) !important;
-} */
+/* Change all Mermaid arrow lines */
+.mermaid .edgePath .path {
+    stroke: #AAE68C !important;
+}
+
+/* Change arrowheads */
+.mermaid .arrowheadPath {
+    fill: #AAE68C !important;
+}
+
+/* Change edge labels */
+.mermaid .edgeLabel {
+    color: #AAE68C;
+    background-color: #background-color;
+}
