@@ -35,7 +35,7 @@ chapters:
     title: Idioms, Gates, & Design Patterns
     
 - file: content/compiling/index
-  title: Compiling
+  title: Languages
   sections:
   - file: content/compiling/relationship-to-hoon
     title: Relationship to Hoon
