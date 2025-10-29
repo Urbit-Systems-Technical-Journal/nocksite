@@ -53,6 +53,8 @@ chapters:
   sections:
   - url: https://urbitsystems.tech/article/v02-i01/a-documentary-history-of-the-nock-combinator-calculus
     title: History of Nock
+  - file: content/history/nock-4k
+    title: Nock 4K
   - file: content/history/nock-5k
     title: Nock 5K
   - file: content/history/nock-6k
