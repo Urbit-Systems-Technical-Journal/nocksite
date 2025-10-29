@@ -406,7 +406,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -422,6 +424,15 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further Reading</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -433,8 +444,29 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="relationship-to-jock">
 <h1>Relationship to Jock<a class="headerlink" href="#relationship-to-jock" title="Link to this heading">#</a></h1>
-<p>TODO: Add content for Relationship to Jock</p>
-<p>This section is under development.</p>
+<p>Jock is a scripting language designed to compile from a high-level syntax down to Nock code.  Jock aims to be more user-friendly and accessible than Hoon, making it easier for developers to write and understand code that compiles to Nock.  In particular, Jock models its syntax on Swift and Rust.</p>
+<p>Jock permits direct expression of Nock concepts while providing syntactic sugar to make common patterns easier to write.  This makes Jock a good choice for developers who want to work with Nock without the complexity of Hoon.</p>
+<p>At the current time, Jock is in its alpha release stage, with ongoing development to expand its features and capabilities.</p>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Link to this heading">#</a></h2>
+<p>This Jock program:</p>
+<div class="highlight-jock notranslate"><div class="highlight"><pre><span></span>let a: ? = true;
+a = false;
+a
+</pre></div>
+</div>
+<p>compiles to the following Nock code:</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[8 [1 0] 7 [10 [2 1 1] 0 1] 0 2]
+</pre></div>
+</div>
+</section>
+<section id="further-reading">
+<h2>Further Reading<a class="headerlink" href="#further-reading" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.jock.org">Jock Documentation</a>: The official Jock documentation provides a comprehensive overview of the language and its relationship to Nock.</p></li>
+<li><p><a class="reference external" href="https://github.com/zorp-corp/jock-lang">Jock GitHub Repository</a>: The official GitHub repository.</p></li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -491,6 +523,22 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further Reading</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

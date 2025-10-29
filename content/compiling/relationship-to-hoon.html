@@ -406,7 +406,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -422,6 +424,22 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax">Syntax</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#design-patterns">Design Patterns</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cores">Cores</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#atoms">Atoms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#head-tags">Head Tags</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vases">Vases</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further Reading</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -433,12 +451,101 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="relationship-to-hoon">
 <h1>Relationship to Hoon<a class="headerlink" href="#relationship-to-hoon" title="Link to this heading">#</a></h1>
-<p>TODO: Add content for Relationship to Hoon</p>
-<p>This section is under development.</p>
+<p>Hoon is a systems programming language designed to compile from a high-level syntax down to Nock code.  Because Hoon and Nock developed in tandem, Hoon is very close to a macro over Nock, and an experienced eye can predict much of the particular Nock noun to which a given Hoon expression will correspond.</p>
 <p>To quote the <a class="reference external" href="https://docs.urbit.org/hoon/why-hoon">Hoon docs</a>:</p>
 <blockquote>
 <div><p>Subject orientation in Nock … stems partly from minimalism: there’s just one subject, which serves as state, lexical scope, environment, and function argument; partly from a desire to simplify compilation: the type of the subject is a full specification of the compile-time environment for a source file; and partly to give the language a more imperative feel.</p>
 </div></blockquote>
+<section id="syntax">
+<h2>Syntax<a class="headerlink" href="#syntax" title="Link to this heading">#</a></h2>
+<p>Hoon organizes code by “runes”, which are ASCII digraphs that represent syntactic constructs.  Each rune compiles down to a specific Nock pattern, often involving multiple Nock opcodes.</p>
+<p>For example, the <code class="docutils literal notranslate"><span class="pre">:-</span></code> colhep rune constructs a cell, compiling directly to a Nock cell over its two daughter nouns as a constant.</p>
+<div class="highlight-hoon notranslate"><div class="highlight"><pre><span></span>:-  42
+43
+</pre></div>
+</div>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[1 42 43]
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">?:</span></code> rune implements conditional branching, compiling to Nock opcode 6.</p>
+<div class="highlight-hoon notranslate"><div class="highlight"><pre><span></span>?:  .?  42
+  40
+20
+</pre></div>
+</div>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[6 [3 1 42] [1 40] 1 20]
+</pre></div>
+</div>
+<p>Compare equality using <code class="docutils literal notranslate"><span class="pre">.=</span></code> tisdot, direct Nock opcode 3.</p>
+<div class="highlight-hoon notranslate"><div class="highlight"><pre><span></span>=/  a  42
+?:  .=  a  43
+  %hello
+%world
+</pre></div>
+</div>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[8 [1 42] 6 [5 [0 2] 1 43] [1 478.560.413.032] 1 431.316.168.567]
+</pre></div>
+</div>
+<p>More complex runes like <code class="docutils literal notranslate"><span class="pre">|=</span></code> (gate construction) expand into multi-opcode Nock patterns involving core creation and subject manipulation.</p>
+<p>The regularity of this mapping means that Hoon code maintains a relatively transparent relationship to its Nock representation, making the compilation process predictable and the language suitable for systems programming where understanding the lower-level execution model is valuable.  (In fact, you can directly obtain the Nock code for any Hoon expression using the <code class="docutils literal notranslate"><span class="pre">!=</span></code> zaptis rune in a Hoon interpreter.)</p>
+</section>
+<section id="design-patterns">
+<h2>Design Patterns<a class="headerlink" href="#design-patterns" title="Link to this heading">#</a></h2>
+<section id="cores">
+<h3>Cores<a class="headerlink" href="#cores" title="Link to this heading">#</a></h3>
+<p>Hoon organizes its Nock code into “cores”, which are cells of <code class="docutils literal notranslate"><span class="pre">[battery</span> <span class="pre">payload]</span></code>, essentially code and data.  This produces a clean modularity that is easy to reason about, particularly when constructing a runtime system.  Many of the consequences (and peculiar named structures) of Hoon are direct results of this design pattern.</p>
+<p>Cores consist of named arms and legs (more or less, functions and data accessors) that can be accessed by name in Hoon but reduce to fixed binary tree addresses in Nock.</p>
+<div class="highlight-hoon notranslate"><div class="highlight"><pre><span></span>|%
+++  add-two
+  |=  x=@
+  (add x two)
+++  two
+  2
+--
+</pre></div>
+</div>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[[1 [8 [1 0] [1 8 [9 36 0 16.383] 9 2 10 [6 [0 14] 7 [0 3] 9 5 0 7] 0 2] 0 1] 1 2] 0 1]
+</pre></div>
+</div>
+<p>The core structure posts its members as pinned constants, which are selected for and modified by opcode 9 and 10.  The argument to the function, called the “sample”, is changed based on the invocation.</p>
+<div class="highlight-hoon notranslate"><div class="highlight"><pre><span></span>=&gt;
+  |%
+  ++  add-two
+  |=  x=@
+  (add x two)
+  ++  two
+  2
+  --
+(add-two 40)
+</pre></div>
+</div>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[8 [1 [8 [1 0] [1 8 [9 36 0 16.383] 9 2 10 [6 [0 14] 7 [0 3] 9 5 0 7] 0 2] 0 1] 1 2] 8 [9 4 0 1] 9 2 10 [6 7 [0 3] 1 40] 0 2]
+</pre></div>
+</div>
+<p>One last note:  the <code class="docutils literal notranslate"><span class="pre">[battery</span> <span class="pre">payload]</span></code> pattern is a Hoon convention:  nothing in Nock requires it, not even opcode 9.</p>
+</section>
+<section id="atoms">
+<h3>Atoms<a class="headerlink" href="#atoms" title="Link to this heading">#</a></h3>
+<p>Hoon produces untyped Nock, so ultimately all data values must reduce to nouns.  Nock atoms are unsigned integers, so Hoon represents more complex data types (like signed integers, floating-point numbers, and strings) as encoded atoms.  Hoon has a number of affordances to make it easy to work with typed atoms.</p>
+<p>For instance, every atom type in Hoon can be written with its own unique syntax.  A date, for instance, cannot be parsed as a floating-point value or an IP address, even in the case in which they all happen to share the same underlying integer representation.</p>
+</section>
+<section id="head-tags">
+<h3>Head Tags<a class="headerlink" href="#head-tags" title="Link to this heading">#</a></h3>
+<p>Hoon frequently uses “head tags” (text constants) to label data structures.  These tags are simply atoms that serve as markers to indicate the type or purpose of a given noun.  This allows Hoon to quickly identify and dispatch on different data types at runtime, despite Nock itself being untyped.  Two simple checks can determine many code branches:  whether a noun is a cell, and what its head is.</p>
+</section>
+<section id="vases">
+<h3>Vases<a class="headerlink" href="#vases" title="Link to this heading">#</a></h3>
+<p>Hoon uses “vases” as a way to package up Nock code along with metadata about its type and structure.  This allows Hoon to maintain strong typing and structure while still compiling down to the untyped Nock specification.</p>
+</section>
+</section>
+<section id="further-reading">
+<h2>Further Reading<a class="headerlink" href="#further-reading" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.urbit.org/hoon/">Hoon Documentation</a>: The official Hoon documentation provides a comprehensive overview of the language and its relationship to Nock.</p></li>
+<li><p><a class="reference external" href="https://urbit.org/blog/why-hoon">~rovnys-ricfer (2019), “Why Hoon?”</a>: An article discussing the motivations behind Hoon’s design and its relationship to Nock.</p></li>
+<li><p><a class="reference external" href="https://urbitsystems.tech/article/v02-i01/notes-on-vases">~lagrev-nocfep (2025), “Notes on Vases”</a>: A detailed exploration of Hoon’s vase structure, the compiler’s vase mode, and implications for Nock compilation.</p></li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -495,6 +602,29 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax">Syntax</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#design-patterns">Design Patterns</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cores">Cores</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#atoms">Atoms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#head-tags">Head Tags</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vases">Vases</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further Reading</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
