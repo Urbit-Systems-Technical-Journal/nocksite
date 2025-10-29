@@ -60,6 +60,14 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/specification/opcode-0';</script>
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -514,14 +522,59 @@ document.write(`
 /a                  /a
 </pre></div>
 </div>
-<p>That is, the left-hand daughter of a cell is addressed by doubling its mother’s address, while the right-hand daughter is addressed by doubling its mother’s address and adding one. The root of the tree is always at address 1.</p>
+<pre  class="mermaid">
+        flowchart TD
+    A(1) --&gt; B
+    A(1) --&gt; C
+    B(2) --&gt; D
+    B(2) --&gt; E
+    C(3) --&gt; F
+    C(3) --&gt; G
+    D(4) --&gt; H
+    D(4) --&gt; I
+    E(5) --&gt; J
+    E(5) --&gt; K
+    F(6) --&gt; L
+    F(6) --&gt; M
+    G(7) --&gt; N
+    G(7) --&gt; O
+    H(8)
+    I(9)
+    J(10)
+    K(11)
+    L(12)
+    M(13)
+    N(14)
+    O(15)
+    </pre><p>That is, the left-hand daughter of a cell is addressed by doubling its mother’s address, while the right-hand daughter is addressed by doubling its mother’s address and adding one. The root of the tree is always at address 1.</p>
 <p>Of course, that’s just an addressing scheme:  it tells you how a noun is laid out, but not which positions are actually occupied.  Let’s see some examples.  In these, we will use <code class="docutils literal notranslate"><span class="pre">⬡</span></code> to denote atoms (leaves) and <code class="docutils literal notranslate"><span class="pre">▢</span></code> to denote cells (internal nodes).</p>
 <section id="id1">
 <h3><code class="docutils literal notranslate"><span class="pre">[[41</span> <span class="pre">42]</span> <span class="pre">[43</span> <span class="pre">44]]</span></code><a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
-</section>
+<pre  class="mermaid">
+        flowchart TD
+    A(1) --&gt; B
+    A(1) --&gt; C
+    B(2) --&gt; D
+    B(2) --&gt; E
+    C(3) --&gt; F
+    C(3) --&gt; G
+    D{{41}}
+    E{{42}}
+    F{{43}}
+    G{{44}}
+    </pre></section>
 <section id="id2">
 <h3><code class="docutils literal notranslate"><span class="pre">[1</span> <span class="pre">[2</span> <span class="pre">3]]</span></code><a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
-<p>We often omit the right-hand cells since cells tend to branch strongly right in practice.</p>
+<pre  class="mermaid">
+        flowchart TD
+    A(1) --&gt; B
+    A(1) --&gt; C
+    B{{1}}
+    C(3) --&gt; D
+    C(3) --&gt; E
+    D{{2}}
+    E{{3}}
+    </pre><p>We often omit the right-hand cells since cells tend to branch strongly right in practice.</p>
 <div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[a b c]             [a [b c]]
 </pre></div>
 </div>
@@ -529,7 +582,16 @@ document.write(`
 </section>
 <section id="id3">
 <h3><code class="docutils literal notranslate"><span class="pre">[[1</span> <span class="pre">2]</span> <span class="pre">3]</span></code><a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
-</section>
+<pre  class="mermaid">
+        flowchart TD
+    A(1) --&gt; B
+    A(1) --&gt; C
+    B(2) --&gt; D
+    B(2) --&gt; E
+    C{{3}}
+    D{{1}}
+    E{{2}}
+    </pre></section>
 </section>
 <section id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Link to this heading">#</a></h2>
@@ -562,7 +624,31 @@ document.write(`
 </section>
 <section id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h2>
-<div class="cell docutils container">
+<pre  class="mermaid">
+        flowchart TD
+    A(1) --&gt; B
+    A(1) --&gt; C
+    B(2) --&gt; D{{41}}
+    B(2) --&gt; E
+    C(3) --&gt; G{{51}}
+    C(3) --&gt; H{{52}}
+    E(5) --&gt; J{{42}}
+    E(5) --&gt; K
+    K(11) --&gt; V
+    K(11) --&gt; W
+    V(22) --&gt; VV{{43}}
+    V(22) --&gt; VW{{44}}
+    W(23) --&gt; WL
+    W(24) --&gt; WR
+    WL(46) --&gt; WLL{{45}}
+    WL(46) --&gt; WLR{{46}}
+    WR(47) --&gt; WRL
+    WR(47) --&gt; WRR
+    WRL(94) --&gt; WRLL{{47}}
+    WRL(94) --&gt; WRLR{{48}}
+    WRR(95) --&gt; WRRL{{49}}
+    WRR(95) --&gt; WRRR{{50}}
+    </pre><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:subject [[[41 42 [43 44] [45 46] [47 48] [49 50]]] [51 52]]
 </pre></div>
@@ -646,7 +732,29 @@ document.write(`
 </div>
 </div>
 </div>
-<div class="cell docutils container">
+<pre  class="mermaid">
+        flowchart TD
+    A(1) --&gt; B{{40}}
+    A(1) --&gt; C
+    C(3) --&gt; D{{41}}
+    C(3) --&gt; E
+    E(7) --&gt; F{{42}}
+    E(7) --&gt; G
+    G(15) --&gt; H{{43}}
+    G(15) --&gt; I
+    I(31) --&gt; J{{44}}
+    I(31) --&gt; K
+    K(63) --&gt; L{{45}}
+    K(63) --&gt; M
+    M(127) --&gt; N{{46}}
+    M(127) --&gt; O
+    O(255) --&gt; P{{47}}
+    O(255) --&gt; Q
+    Q(511) --&gt; R{{48}}
+    Q(511) --&gt; S
+    S(1023) --&gt; T{{49}}
+    S(1023) --&gt; U{{50}}
+    </pre><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:subject [40 41 42 43 44 45 46 47 48 49 50]
 </pre></div>
