@@ -522,12 +522,29 @@ document.write(`
 <div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[8 [1 [8 [1 0] [1 8 [9 36 0 16.383] 9 2 10 [6 [0 14] 7 [0 3] 9 5 0 7] 0 2] 0 1] 1 2] 8 [9 4 0 1] 9 2 10 [6 7 [0 3] 1 40] 0 2]
 </pre></div>
 </div>
+<p>When you invoke an arm at axis <code class="docutils literal notranslate"><span class="pre">n</span></code> in a core, the Nock computation is essentially <code class="docutils literal notranslate"><span class="pre">[9</span> <span class="pre">n</span> <span class="pre">[0</span> <span class="pre">1]]</span></code>—take the formula at axis <code class="docutils literal notranslate"><span class="pre">n</span></code> and evaluate it with the entire core as the subject.</p>
+<p>The <strong>battery</strong> is a tree of Nock formulas, each identified by an axis position. These formulas are the “arms” of the core—named computations that can be invoked at need.  Each arm is computed with the entire core as its subject, giving it access to both the code (other arms) and data (payload) of the core.</p>
+<p>The <strong>payload</strong> contains the data and context for the battery’s operation. It includes the <strong>sample</strong>, or arguments, and the <strong>context</strong>, or overall subject provided such as the standard library.</p>
 <p>One last note:  the <code class="docutils literal notranslate"><span class="pre">[battery</span> <span class="pre">payload]</span></code> pattern is a Hoon convention:  nothing in Nock requires it, not even opcode 9.</p>
 </section>
 <section id="atoms">
 <h3>Atoms<a class="headerlink" href="#atoms" title="Link to this heading">#</a></h3>
 <p>Hoon produces untyped Nock, so ultimately all data values must reduce to nouns.  Nock atoms are unsigned integers, so Hoon represents more complex data types (like signed integers, floating-point numbers, and strings) as encoded atoms.  Hoon has a number of affordances to make it easy to work with typed atoms.</p>
 <p>For instance, every atom type in Hoon can be written with its own unique syntax.  A date, for instance, cannot be parsed as a floating-point value or an IP address, even in the case in which they all happen to share the same underlying integer representation.</p>
+<div class="highlight-hoon notranslate"><div class="highlight"><pre><span></span>:: as time
+&gt; `@`~m42
+~m42
+
+:: as uint
+&gt; `@`~m42
+46.485.795.065.748.070.072.320
+
+:: as hex
+&gt; `@ux`~m42
+0x9d8.0000.0000.0000.0000
+</pre></div>
+</div>
+<p>All of these reduce to the Nock noun <code class="docutils literal notranslate"><span class="pre">46.485.795.065.748.070.072.320</span></code>.</p>
 </section>
 <section id="head-tags">
 <h3>Head Tags<a class="headerlink" href="#head-tags" title="Link to this heading">#</a></h3>
