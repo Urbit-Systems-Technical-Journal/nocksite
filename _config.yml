@@ -50,6 +50,7 @@ sphinx:
   extra_extensions:
     - sphinx_copybutton  # Add copy buttons to code blocks
     - sphinx_togglebutton  # Add toggle buttons for content
+    - sphinxcontrib.mermaid
   config:
     html_theme_options:
       repository_url: https://github.com/Urbit-Systems-Technical-Journal/nocksite
