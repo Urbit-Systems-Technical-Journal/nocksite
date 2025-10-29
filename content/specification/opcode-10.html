@@ -63,7 +63,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Composite Opcodes" href="composite-opcodes.html" />
-    <link rel="prev" title="&lt;no title&gt;" href="opcode-5.html" />
+    <link rel="prev" title="Opcode 5: Equality Check" href="opcode-5.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -176,10 +176,20 @@
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">The Specification</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="basic-opcodes.html">Basic Opcodes</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="opcode-0.html">Opcode 0: Address</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opcode-1.html">Opcode 1: Constant</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opcode-2.html">Opcode 2: Evaluate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opcode-3.html">Opcode 3: Cell Check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opcode-4.html">Opcode 4: Increment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opcode-5.html">Opcode 5: Equality Check</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">Opcode 10: Edit</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="composite-opcodes.html">Composite Opcodes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="opcode-6.html">Opcode 6: Conditional</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opcode-7.html">Opcode 7: Compose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opcode-8.html">Opcode 8: Extend</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opcode-9.html">Opcode 9: Invoke</a></li>
 <li class="toctree-l3"><a class="reference internal" href="opcode-11.html">Opcode 11: Hint</a></li>
 <li class="toctree-l3"><a class="reference internal" href="detailed-examples.html">Detailed Examples</a></li>
 </ul>
@@ -501,7 +511,7 @@ document.write(`
 <p>Opcode 10 was implemented relatively late in Nock’s development (Nock 4K) as an expedient for the Vere runtime’s memory management.  Many cells were being produced in memory, and the edit operator allowed for in-place modification of these cells without requiring the allocation of new memory.</p>
 <p>As ~fodwyt-ragful, one of the chief architects of this change, explained,</p>
 <blockquote>
-<div><p>It carries the intent better than the equivalent autocons, which can (and does, in Vere’s case) carry into implementation. Vere’s edit operation checks if the target of the edit is 1) on the current road and 2) has a refcount of 1, and if so it does the edit in-place – meaning, it mutates the memory rather than consing up a new object.</p>
+<div><p>It carries the intent better than the equivalent autocons, which can (and does, in Vere’s case) carry into implementation. Vere’s edit operation checks if the target of the edit is 1) [in the current memory arena] and 2) has a <a class="reference external" href="https://en.wikipedia.org/wiki/Reference_counting">refcount</a> of 1, and if so it does the edit in-place – meaning, it mutates the memory rather than consing up a new object.</p>
 </div></blockquote>
 </section>
 <section id="references">
@@ -511,24 +521,24 @@ document.write(`
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:subject [[42 43] [45 6]]
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:subject [[42 43] [45 46]]
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Subject set to: [[42 43] 45 6]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Subject set to: [[42 43] 45 46]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[10 [2 0 2] 0 1]
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[10 [2 1 47 48] 0 1]
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[42 43] 45 6]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[47 48] 45 46]
 </pre></div>
 </div>
 </div>
@@ -572,7 +582,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">&lt;no title&gt;</p>
+        <p class="prev-next-title">Opcode 5: Equality Check</p>
       </div>
     </a>
     <a class="right-next"
