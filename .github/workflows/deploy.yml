@@ -19,6 +19,7 @@ jobs:
       run: |
         pip install -r requirements.txt
         pip install jupyter-book
+        pip install sphinxcontrib-mermaid
 
     - name: Install Pinochle and Nock Kernel
       run: |
