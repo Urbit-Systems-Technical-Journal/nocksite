@@ -191,18 +191,15 @@
 <li class="toctree-l3"><a class="reference internal" href="opcode-8.html">Opcode 8: Extend</a></li>
 <li class="toctree-l3"><a class="reference internal" href="opcode-9.html">Opcode 9: Invoke</a></li>
 <li class="toctree-l3"><a class="reference internal" href="opcode-11.html">Opcode 11: Hint</a></li>
-<li class="toctree-l3"><a class="reference internal" href="detailed-examples.html">Detailed Examples</a></li>
 </ul>
 </details></li>
+<li class="toctree-l2"><a class="reference internal" href="detailed-examples.html">Examples</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../understanding/index.html">Understanding Nock</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../understanding/combinator-approach.html">Nock: The Combinator Approach</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../understanding/turing-machine-approach.html">Nock: The Turing Machine Approach</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../understanding/lambda-approach.html">Nock: The Lambda Approach</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../understanding/assembly-language-approach.html">Nock: The Assembly Language Approach</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../understanding/cellular-automaton-approach.html">Nock: The Cellular Automaton Approach</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../understanding/alchemy-approach.html">Nock: The Alchemy Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../understanding/combinator-approach.html">The Combinator Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../understanding/lambda-approach.html">The Lambda Calculus Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../understanding/assembly-language-approach.html">The Assembly Language Approach</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../examples/index.html">Code Examples</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -451,7 +448,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commentary">Commentary</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#addressing">Addressing</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating">Evaluating</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#whats-missing">What’s Missing?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-missing">What’s Missing?</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-nock">Evaluating Nock</a></li>
@@ -572,8 +569,8 @@ nock(a)             *a
 </div>
 <p>What this means is that a formula which reduces to itself continues to do so, i.e. becomes an infinite loop or “bottom”.  The Nock interpreter should detect this “crash” and yield the result instead of spinning on it forever.</p>
 </section>
-<section id="whats-missing">
-<h3>What’s Missing?<a class="headerlink" href="#whats-missing" title="Link to this heading">#</a></h3>
+<section id="what-s-missing">
+<h3>What’s Missing?<a class="headerlink" href="#what-s-missing" title="Link to this heading">#</a></h3>
 <p>Nock is mathematically complete, but it doesn’t seem to have many affordances that programmers expect from a language.  Nock leaves some pragmatic elements of programming and the computer environment to its evaluator, or runtime environment.</p>
 <ul class="simple">
 <li><p>Boolean logic (<code class="docutils literal notranslate"><span class="pre">AND</span></code>, <code class="docutils literal notranslate"><span class="pre">XOR</span></code>, <code class="docutils literal notranslate"><span class="pre">NOT</span></code>, etc.) must be implemented out of Nock primitives rather than being axiomatically supplied as operators.</p></li>
@@ -678,7 +675,7 @@ nock(a)             *a
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commentary">Commentary</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#addressing">Addressing</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating">Evaluating</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#whats-missing">What’s Missing?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-missing">What’s Missing?</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-nock">Evaluating Nock</a></li>

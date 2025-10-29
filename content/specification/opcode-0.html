@@ -191,18 +191,15 @@
 <li class="toctree-l3"><a class="reference internal" href="opcode-8.html">Opcode 8: Extend</a></li>
 <li class="toctree-l3"><a class="reference internal" href="opcode-9.html">Opcode 9: Invoke</a></li>
 <li class="toctree-l3"><a class="reference internal" href="opcode-11.html">Opcode 11: Hint</a></li>
-<li class="toctree-l3"><a class="reference internal" href="detailed-examples.html">Detailed Examples</a></li>
 </ul>
 </details></li>
+<li class="toctree-l2"><a class="reference internal" href="detailed-examples.html">Examples</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../understanding/index.html">Understanding Nock</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../understanding/combinator-approach.html">Nock: The Combinator Approach</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../understanding/turing-machine-approach.html">Nock: The Turing Machine Approach</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../understanding/lambda-approach.html">Nock: The Lambda Approach</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../understanding/assembly-language-approach.html">Nock: The Assembly Language Approach</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../understanding/cellular-automaton-approach.html">Nock: The Cellular Automaton Approach</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../understanding/alchemy-approach.html">Nock: The Alchemy Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../understanding/combinator-approach.html">The Combinator Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../understanding/lambda-approach.html">The Lambda Calculus Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../understanding/assembly-language-approach.html">The Assembly Language Approach</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../examples/index.html">Code Examples</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -482,6 +479,14 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="opcode-0-address">
 <h1>Opcode 0: Address<a class="headerlink" href="#opcode-0-address" title="Link to this heading">#</a></h1>
+<p>The fundamental data structure of Nock is the noun, which is either an atom (a non-negative integer) or a cell (an ordered pair of two nouns).  Nouns can be visualized as <a class="reference external" href="https://grokipedia.com/page/Binary_tree">binary trees</a>, in which atoms are leaves and cells are internal nodes.</p>
+<p>{mermaid}
+graph TD
+A[“[1 2]”]
+B[“1”]
+C[“2”]
+A –&gt; B
+A –&gt; C</p>
 </section>
 
     <script type="text/x-thebe-config">
