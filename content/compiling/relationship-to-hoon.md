@@ -1,6 +1,6 @@
 # Relationship to Hoon
 
-Hoon is a systems programming language designed to compile from a high-level syntax down to Nock code.  Because Hoon and Nock developed in tandem, Hoon is very close to a macro over Nock, and an experienced eye can predict much of the particular Nock noun to which a given Hoon expression will correspond.
+[Hoon](https://docs.urbit.org/hoon/) is a systems programming language designed to compile from a high-level syntax down to Nock code.  Because Hoon and Nock developed in tandem, Hoon is very close to a macro over Nock, and an experienced eye can predict much of the particular Nock noun to which a given Hoon expression will correspond.
 
 To quote the [Hoon docs](https://docs.urbit.org/hoon/why-hoon):
 
@@ -126,7 +126,16 @@ Hoon frequently uses “head tags” (text constants) to label data structures. 
 
 ### Vases
 
-Hoon uses “vases” as a way to package up Nock code along with metadata about its type and structure.  This allows Hoon to maintain strong typing and structure while still compiling down to the untyped Nock specification.
+Hoon uses "vases" as a way to package up Nock code along with metadata about its type and structure. A vase is a cell of `[type value]` where the type is itself a Nock noun representing Hoon's type information.
+
+This allows Hoon to maintain strong typing and structure while still compiling down to the untyped Nock specification. The type information in a vase enables:
+
+* Runtime type checking and validation.
+* Dynamic code generation with type safety.
+* Metaprogramming with full type awareness.
+* Safe composition of separately-compiled code.
+
+Vases are particularly important in Hoon's compilation model, where the compiler itself operates on vases to type-check and transform code, maintaining the invariant that typed Hoon expressions correspond to correctly-typed Nock nouns.
 
 ## Further Reading
 

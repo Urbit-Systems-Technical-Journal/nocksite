@@ -5,6 +5,34 @@ chapters:
 - file: content/specification/index
   title: The Specification
   sections:
+  - caption: Basic Opcodes
+    chapters:
+    - file: content/specification/opcode-0
+      title: "Opcode 0: Address"
+    - file: content/specification/opcode-1
+      title: "Opcode 1: Constant"
+    - file: content/specification/opcode-2
+      title: "Opcode 2: Evaluate"
+    - file: content/specification/opcode-3
+      title: "Opcode 3: Cell Check"
+    - file: content/specification/opcode-4
+      title: "Opcode 4: Increment"
+    - file: content/specification/opcode-5
+      title: "Opcode 5: Equality Check"
+  - caption: Composite Opcodes
+    chapters:
+    - file: content/specification/opcode-6
+      title: "Opcode 6: Conditional"
+    - file: content/specification/opcode-7
+      title: "Opcode 7: Compose"
+    - file: content/specification/opcode-8
+      title: "Opcode 8: Extend"
+    - file: content/specification/opcode-9
+      title: "Opcode 9: Invoke"
+    - file: content/specification/opcode-10
+      title: "Opcode 10: Edit"
+    - file: content/specification/opcode-11
+      title: "Opcode 11: Hint"
   - file: content/specification/detailed-examples
     title: Detailed Examples
     
