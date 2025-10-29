@@ -1,4 +1,4 @@
-# Compiling
+# Languages
 
 Nock is Turing-complete, but as you've probably come to realize, it's not exactly a "real" programming language:  it's too abstruse and economical to be used directly for most programming tasks.  Instead, Nock is best thought of as a compilation target for higher-level languages.
 
