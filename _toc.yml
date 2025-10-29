@@ -5,8 +5,9 @@ chapters:
 - file: content/specification/index
   title: The Specification
   sections:
-  - caption: Basic Opcodes
-    chapters:
+  - file: content/specification/basic-opcodes
+    title: Basic Opcodes
+    sections:
     - file: content/specification/opcode-0
       title: "Opcode 0: Address"
     - file: content/specification/opcode-1
@@ -19,8 +20,11 @@ chapters:
       title: "Opcode 4: Increment"
     - file: content/specification/opcode-5
       title: "Opcode 5: Equality Check"
-  - caption: Composite Opcodes
-    chapters:
+    - file: content/specification/opcode-10
+      title: "Opcode 10: Edit"
+  - file: content/specification/composite-opcodes
+    title: Composite Opcodes
+    sections:
     - file: content/specification/opcode-6
       title: "Opcode 6: Conditional"
     - file: content/specification/opcode-7
@@ -29,12 +33,10 @@ chapters:
       title: "Opcode 8: Extend"
     - file: content/specification/opcode-9
       title: "Opcode 9: Invoke"
-    - file: content/specification/opcode-10
-      title: "Opcode 10: Edit"
     - file: content/specification/opcode-11
       title: "Opcode 11: Hint"
-  - file: content/specification/detailed-examples
-    title: Detailed Examples
+    - file: content/specification/detailed-examples
+      title: Detailed Examples
     
 - file: content/understanding/index
   title: Understanding Nock
