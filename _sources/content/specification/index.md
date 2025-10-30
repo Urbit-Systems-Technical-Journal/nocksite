@@ -79,7 +79,11 @@ Everything in Nock is a noun, which means it is an unsigned integer ("atom") or 
 
 * **Data** means any noun, which can resolve to a structured tree of values (like XML or JSON), a large number (intepreted as a byte array), or even deferred code for future evaluation.
 
-<!-- ### Evaluating
+### Evaluating
+
+Nock evaluation continues until a noun is reached that is not a formula (i.e., it does not result in an axiomatic operator including `*` tar).  This noun is then the result of the evaluation.
+
+### Crashing
 
 The last line of the Nock specification reads:
 
@@ -87,7 +91,7 @@ The last line of the Nock specification reads:
 *a                  *a
 ```
 
-What this means is that a formula which reduces to itself continues to do so, i.e. becomes an infinite loop or “bottom”.  The Nock interpreter should detect this and yield the result instead of spinning on it forever. -->
+What this means is that a formula which reduces to itself continues to do so, i.e. becomes an infinite loop or “bottom” in formal logic.
 
 ## Evaluating Nock
 
@@ -101,7 +105,7 @@ So much for the specification itself, but what does it _mean_?  You can treat it
 5. [The Alchemy Approach](../understanding/alchemy-approach.ipynb)
 
 
-## Resources
+## References
 
 Other online versions of the specification match the above but provide additional perspectives and commentary.  Check them out, too.
 

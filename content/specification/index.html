@@ -196,6 +196,7 @@
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="detailed-examples.html">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loobeans.html">Loobeans</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../understanding/index.html">Understanding Nock</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -401,10 +402,12 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commentary">Commentary</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#axiomatic-operators">Axiomatic Operators</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nouns">Nouns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating">Evaluating</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#crashing">Crashing</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-nock">Evaluating Nock</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources">Resources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
             </nav>
         </div>
@@ -494,15 +497,18 @@ nock(a)             *a
 <li><p><strong>Code</strong> consists of a <em>formula</em> (expression made up of opcodes and data) evaluated against a <em>subject</em> (operating context).</p></li>
 <li><p><strong>Data</strong> means any noun, which can resolve to a structured tree of values (like XML or JSON), a large number (intepreted as a byte array), or even deferred code for future evaluation.</p></li>
 </ul>
-<!-- ### Evaluating
-
-The last line of the Nock specification reads:
-
-```nock
-*a                  *a
-```
-
-What this means is that a formula which reduces to itself continues to do so, i.e. becomes an infinite loop or “bottom”.  The Nock interpreter should detect this and yield the result instead of spinning on it forever. -->
+</section>
+<section id="evaluating">
+<h3>Evaluating<a class="headerlink" href="#evaluating" title="Link to this heading">#</a></h3>
+<p>Nock evaluation continues until a noun is reached that is not a formula (i.e., it does not result in an axiomatic operator including <code class="docutils literal notranslate"><span class="pre">*</span></code> tar).  This noun is then the result of the evaluation.</p>
+</section>
+<section id="crashing">
+<h3>Crashing<a class="headerlink" href="#crashing" title="Link to this heading">#</a></h3>
+<p>The last line of the Nock specification reads:</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>*a                  *a
+</pre></div>
+</div>
+<p>What this means is that a formula which reduces to itself continues to do so, i.e. becomes an infinite loop or “bottom” in formal logic.</p>
 </section>
 </section>
 <section id="evaluating-nock">
@@ -519,8 +525,8 @@ What this means is that a formula which reduces to itself continues to do so, i.
 <li><p><a class="reference internal" href="../understanding/alchemy-approach.html"><span class="std std-doc">The Alchemy Approach</span></a></p></li>
 </ol>
 </section>
-<section id="resources">
-<h2>Resources<a class="headerlink" href="#resources" title="Link to this heading">#</a></h2>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
 <p>Other online versions of the specification match the above but provide additional perspectives and commentary.  Check them out, too.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://docs.urbit.org/nock/what-is-nock">Urbit:  What is Nock?</a></p></li>
@@ -599,10 +605,12 @@ What this means is that a formula which reduces to itself continues to do so, i.
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commentary">Commentary</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#axiomatic-operators">Axiomatic Operators</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nouns">Nouns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating">Evaluating</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#crashing">Crashing</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-nock">Evaluating Nock</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources">Resources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
   </nav></div>
 
