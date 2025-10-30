@@ -264,16 +264,16 @@ nav[aria-label="main navigation"] a:hover,
 
 /* Change all Mermaid arrow lines */
 .mermaid .edgePath .path {
-    stroke: #AAE68C !important;
+    stroke: #F5FFF5 !important;
 }
 
 /* Change arrowheads */
 .mermaid .arrowheadPath {
-    fill: #AAE68C !important;
+    fill: #F5FFF5 !important;
 }
 
 /* Change edge labels */
 .mermaid .edgeLabel {
-    color: #AAE68C;
+    color: #F5FFF5;
     background-color: #background-color;
 }
