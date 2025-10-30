@@ -37,6 +37,8 @@ chapters:
       title: "Opcode 11: Hint"
   - file: content/specification/detailed-examples
     title: Examples
+  - file: content/specification/loobeans
+    title: Loobeans
     
 - file: content/understanding/index
   title: Understanding Nock

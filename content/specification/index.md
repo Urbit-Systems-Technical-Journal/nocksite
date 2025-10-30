@@ -2,8 +2,6 @@
 
 Nock consists of only twelve opcodes based on a few axiomatic operators for addressing and equality, etc.  The quip is that it's small enough to fit on a T-shirt—and you can find such T-shirts in circulation!  This situates it in complexity somewhere higher than a lambda calculus or SKI combinator and somewhere lower than an assembly language.
 
-We'll dig into these in detail as we move along, but let's start with—
-
 ##  The Spec
 
 ```
@@ -56,14 +54,24 @@ nock(a)             *a
 *a                  *a
 ```
 
-The current specification for Nock is 4K, meaning that only four possible revisions are possible.{footnote}`See ~lagrev-nocfep and ~sorreg-namtyv (2025) for the history of Nock.`
-
+The current specification for Nock is 4K, meaning that only four possible revisions remain.  (See [History](../history/index.md) for more details.)
 
 ## Commentary
 
-While we defer the opcode discussion to our "Understanding Nock" section, the operators merit some explanation.
+### Axiomatic Operators
 
-### Addressing
+The preface of the Nock specification defines several axiomatic operators that describe the behavior of the Nock opcodes.  These are:
+
+- `*` tar, which evaluates a Nock expression.
+- `?` wut, which tests whether a noun is a cell or an atom.
+- `+` lus, which increments an atom and has no effect on cells (in practice, crashes).
+- `=` tis, which tests whether two nouns are equal.
+- `/` fas, which addresses a noun by a numeric address.
+- `#` hax, which edits a cell.
+
+These will be discussed in detail with the opcodes.
+
+### Nouns
 
 Everything in Nock is a noun, which means it is an unsigned integer ("atom") or a pair of nouns ("cell").  This means that all nouns are binary trees (which gives us some nice properties).  Code and data share the same basic language of nouns, but code means something specific in structure while data can be arbitrary.
 
@@ -71,66 +79,15 @@ Everything in Nock is a noun, which means it is an unsigned integer ("atom") or 
 
 * **Data** means any noun, which can resolve to a structured tree of values (like XML or JSON), a large number (intepreted as a byte array), or even deferred code for future evaluation.
 
-```
-[a b c]             [a [b c]]
-```
-
-For convenience, we omit right-hand cell brackets in our notation.  (Nock branches to the right _a lot_ and so this saves us from Lisp-style end-paren piles.)
-
-```
-+[a b]              +[a b]
-+a                  1 + a
-```
-
-We can increment atoms, but not cells (which makes sense).  Every natural number (atom) has a successor, so there is no possible crash here (as long as our interpreter actually supports arbitrarily sized integers).
-
-```
-/[1 a]              a
-/[2 a b]            a
-/[3 a b]            b
-/[(a + a) b]        /[2 /[a b]]
-/[(a + a + 1) b]    /[3 /[a b]]
-/a                  /a
-```
-
-(TODO graphics of binary trees here)
-
-One implication of nouns is that an easy way to tell data apart is by their structure:
-
-```
-?[a b]              0
-?a                  1
-
-=[a a]              0
-=[a b]              1
-```
-
-`?` wut is useful to ask whether a given noun is a cell or an atom.  (Like C's `int main()` return type and error codes, `0` means `TRUE` and `1` means `FALSE`.)
-
-`=` tis similarly checks whether two nouns are the same as each other, which means by structure and value.
-
-### Evaluating
-
-(TODO cell distribution rule, to revisit later in content)
+<!-- ### Evaluating
 
 The last line of the Nock specification reads:
 
-```
+```nock
 *a                  *a
 ```
 
-What this means is that a formula which reduces to itself continues to do so, i.e. becomes an infinite loop or "bottom".  The Nock interpreter should detect this "crash" and yield the result instead of spinning on it forever.
-
-### What's Missing?
-
-Nock is mathematically complete, but it doesn't seem to have many affordances that programmers expect from a language.  Nock leaves some pragmatic elements of programming and the computer environment to its evaluator, or runtime environment.
-
-- Boolean logic (`AND`, `XOR`, `NOT`, etc.) must be implemented out of Nock primitives rather than being axiomatically supplied as operators.
-- Side effects (like printing) will be handled by raising special noun patterns to the Nock evaluator.
-- Memory is entirely handled by the Nock evaluator.
-- Type systems are not part of Nock itself, but can be layered on top of it.
-- Evaluation rules are defined, but their implementation is omitted.  You can use a tree-walking interpreter, a bytecode interpreter, or something even more clever to run Nock in practice.  (In fact, you can treat Nock as a spec and not run it at all, as long as you get the same answer!)
-
+What this means is that a formula which reduces to itself continues to do so, i.e. becomes an infinite loop or “bottom”.  The Nock interpreter should detect this and yield the result instead of spinning on it forever. -->
 
 ## Evaluating Nock
 
