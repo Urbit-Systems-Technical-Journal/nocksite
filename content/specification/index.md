@@ -81,7 +81,11 @@ Everything in Nock is a noun, which means it is an unsigned integer ("atom") or 
 
 ### Evaluating
 
+> A valid Nock formula is always a cell.  If the head of the formula is a cell, Nock treats both head and tail as formulas, resolves each against the subject, and produces the cell of their products.  In other words, the Lisp program `(cons x y)` becomes the Nock formula `[x y]`.  ([docs.urbit.org](https://docs.urbit.org/nock/definition))
+
 Nock evaluation continues until a noun is reached that is not a formula (i.e., it does not result in an axiomatic operator including `*` tar).  This noun is then the result of the evaluation.
+
+Nock evaluation is formally Turing-complete but will be quite verbose for many tasks.  Even with higher-level abstractions, the resulting nouns may be impractical to compute in a reasonable amount of time.  Thus Nock can be treated as a formal specification of behavior, with [jet-accelerated code](../hints-jetting/index.md) providing enormous performance improvements.
 
 ### Crashing
 
@@ -93,7 +97,7 @@ The last line of the Nock specification reads:
 
 What this means is that a formula which reduces to itself continues to do so, i.e. becomes an infinite loop or “bottom” in formal logic.
 
-## Evaluating Nock
+## Approaching Nock
 
 So much for the specification itself, but what does it _mean_?  You can treat it like a puzzle and work things out yourself, but we've also prepared several complementary approaches to Nock.  Start with one that best fits your background.
 
