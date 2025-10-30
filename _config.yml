@@ -48,8 +48,8 @@ html:
 # Sphinx configuration
 sphinx:
   extra_extensions:
-    - sphinx_copybutton  # Add copy buttons to code blocks
-    - sphinx_togglebutton  # Add toggle buttons for content
+    - sphinx_copybutton
+    - sphinx_togglebutton
     - sphinxcontrib.mermaid
   config:
     html_theme_options:
@@ -78,6 +78,7 @@ sphinx:
       mermaid.initialize({
         theme: 'forest'
       });
+    mermaid_params: ['--theme', 'forest']
 
 # Launch buttons for interactive content
 launch_buttons:
