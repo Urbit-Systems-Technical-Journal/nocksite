@@ -261,19 +261,3 @@ nav[aria-label="main navigation"] a:hover,
 .toctree-wrapper a:hover {
     color: var(--urbit-white) !important;
 }
-
-/* Change all Mermaid arrow lines */
-.mermaid .edgePath .path {
-    stroke: #F5FFF5 !important;
-}
-
-/* Change arrowheads */
-.mermaid .arrowheadPath {
-    fill: #F5FFF5 !important;
-}
-
-/* Change edge labels */
-.mermaid .edgeLabel {
-    color: #F5FFF5;
-    background-color: #background-color;
-}
