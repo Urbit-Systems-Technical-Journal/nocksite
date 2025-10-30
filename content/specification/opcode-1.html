@@ -403,7 +403,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -419,6 +421,15 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax">Syntax</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -430,6 +441,67 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="opcode-1-constant">
 <h1>Opcode 1: Constant<a class="headerlink" href="#opcode-1-constant" title="Link to this heading">#</a></h1>
+<section id="syntax">
+<h2>Syntax<a class="headerlink" href="#syntax" title="Link to this heading">#</a></h2>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>*[a 1 b]            b
+</pre></div>
+</div>
+</section>
+<section id="explanation">
+<h2>Explanation<a class="headerlink" href="#explanation" title="Link to this heading">#</a></h2>
+<p>In many respects, opcode 1 is the simplest conceivable Nock operation:  it simply returns its argument <code class="docutils literal notranslate"><span class="pre">b</span></code>, ignoring its subject <code class="docutils literal notranslate"><span class="pre">a</span></code> entirely.</p>
+<p>Opcode 1 is used to store data for use in later computations.  This can either be conventional data as atoms (including byte arrays) and structured data in a cell format; or it can be Nock code itself, which can be retrieved and executed later using <a class="reference internal" href="opcode-9.html"><span class="std std-doc">opcode 9</span></a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:subject 42
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Subject set to: 42
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[1 1000]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1000
+</pre></div>
+</div>
+</div>
+</div>
+<p>While you haven’t seen the full Nock specification for the other opcodes yet, observe how evaluating a stored noun with opcode 1 results in an executable Nock expression.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[1 4 0 1]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[4 0 1]
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this expression, we use opcode 2 to evaluate the noun stored in the subject <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">1]</span></code>, then we retrieve the constant code stored using opcode 1, and finally we execute that code with the result of the first evaluation as its subject.  A bit roundabout, in this case, but it demonstrates how stored code can be executed later.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[2 [0 1] [1 4 4 4 0 1]]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>45
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -441,16 +513,16 @@ document.write(`
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "python"
+            mode: "nock"
         },
         kernelOptions: {
-            name: "python3",
+            name: "nock",
             path: "./content/specification"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'nock'</script>
 
                 </article>
               
@@ -486,6 +558,22 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax">Syntax</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
