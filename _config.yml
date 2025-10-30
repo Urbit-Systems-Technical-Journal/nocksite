@@ -58,10 +58,10 @@ sphinx:
       repository_branch: master
       launch_buttons:
         binderhub_url: "https://mybinder.org"
-      use_issues_button: true
-      use_edit_page_button: true
-      use_download_button: true
-      use_fullscreen_button: true
+      # use_issues_button: true
+      # use_edit_page_button: true
+      # use_download_button: true
+      # use_fullscreen_button: true
       home_page_in_navbar: false
       show_navbar_depth: 2
     copybutton_prompt_text: "$"
@@ -74,11 +74,9 @@ sphinx:
       - tasklist
     myst_fence_as_directive:
       - mermaid
-    mermaid_init_js: |
-      mermaid.initialize({
-        theme: 'forest'
-      });
-    mermaid_params: ['--theme', 'forest']
+    mermaid_version: "latest"
+    mermaid_cmd: "mmdc"
+    mermaid_cmd_args: ["-t", "forest", "-b", "transparent"]
 
 # Launch buttons for interactive content
 launch_buttons:
