@@ -76,15 +76,7 @@ sphinx:
       - mermaid
     mermaid_init_js: |
       mermaid.initialize({
-        theme: 'base',
-        themeVariables: {
-          primaryColor: '#F5FFF5',
-          primaryTextColor: '#141A14',
-          primaryBorderColor: '#AAE68C',
-          lineColor: '#AAE68C',
-          secondaryColor: '#383C38',
-          tertiaryColor: '#141A14'
-        }
+        theme: 'forest'
       });
 
 # Launch buttons for interactive content
