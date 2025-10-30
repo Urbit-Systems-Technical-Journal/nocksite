@@ -74,6 +74,18 @@ sphinx:
       - tasklist
     myst_fence_as_directive:
       - mermaid
+    mermaid_init_js: |
+      mermaid.initialize({
+        theme: 'base',
+        themeVariables: {
+          primaryColor: '#F5FFF5',
+          primaryTextColor: '#141A14',
+          primaryBorderColor: '#AAE68C',
+          lineColor: '#AAE68C',
+          secondaryColor: '#383C38',
+          tertiaryColor: '#141A14'
+        }
+      });
 
 # Launch buttons for interactive content
 launch_buttons:
