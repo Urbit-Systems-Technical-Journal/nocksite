@@ -528,7 +528,10 @@ flowchart TD
     C(3) --&gt; E
     D{{2}}
     E{{3}}
-    </pre><p>We often omit the right-hand cells since cells tend to branch strongly right in practice.</p>
+    </pre><div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[a b c]             [a [b c]]
+</pre></div>
+</div>
+<p>We often omit the right-hand cells since cells tend to branch strongly right in practice.  (This saves us from Lisp-style end-paren piles.)</p>
 <div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[a b c]             [a [b c]]
 </pre></div>
 </div>

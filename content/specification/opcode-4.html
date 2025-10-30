@@ -430,6 +430,11 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="opcode-4-increment">
 <h1>Opcode 4: Increment<a class="headerlink" href="#opcode-4-increment" title="Link to this heading">#</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+</span><span class="p">[</span><span class="n">a</span> <span class="n">b</span><span class="p">]</span>              <span class="o">+</span><span class="p">[</span><span class="n">a</span> <span class="n">b</span><span class="p">]</span>
+<span class="o">+</span><span class="n">a</span>                  <span class="mi">1</span> <span class="o">+</span> <span class="n">a</span>
+</pre></div>
+</div>
+<p>We can increment atoms, but not cells (which makes sense).  Every natural number (atom) has a successor, so there is no possible crash here (as long as our interpreter actually supports arbitrarily sized integers).</p>
 </section>
 
     <script type="text/x-thebe-config">

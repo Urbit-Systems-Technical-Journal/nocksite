@@ -427,7 +427,10 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-axiomatic-operators">The Axiomatic Operators</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-basic-opcodes">The Basic Opcodes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-basic-opcodes">The Basic Opcodes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-missing">What’s Missing?</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -474,6 +477,20 @@ document.write(`
 </div>
 </div>
 </div>
+<section id="what-s-missing">
+<h3>What’s Missing?<a class="headerlink" href="#what-s-missing" title="Link to this heading">#</a></h3>
+<p>Nock is mathematically complete, but it doesn’t seem to have many affordances that programmers expect from a language.  Nock leaves some pragmatic elements of programming and the computer environment to its evaluator, or runtime environment.</p>
+<ul class="simple">
+<li><p>Boolean logic (<code class="docutils literal notranslate"><span class="pre">AND</span></code>, <code class="docutils literal notranslate"><span class="pre">XOR</span></code>, <code class="docutils literal notranslate"><span class="pre">NOT</span></code>, etc.) must be implemented out of Nock primitives rather than being axiomatically supplied as operators.</p></li>
+<li><p>Side effects (like printing) will be handled by raising special noun patterns to the Nock evaluator.</p></li>
+<li><p>Memory is entirely handled by the Nock evaluator.</p></li>
+<li><p>Type systems are not part of Nock itself, but can be layered on top of it.</p></li>
+<li><p>Evaluation rules are defined, but their implementation is omitted.  You can use a tree-walking interpreter, a bytecode interpreter, or something even more clever to run Nock in practice.  (In fact, you can treat Nock as a spec and not run it at all, as long as you get the same answer!)</p></li>
+</ul>
+<ul class="simple">
+<li><p>How would you implement the Boolean operators in Nock?  (Properly “loobeans”, since <code class="docutils literal notranslate"><span class="pre">0</span></code> is <code class="docutils literal notranslate"><span class="pre">TRUE</span></code> and <code class="docutils literal notranslate"><span class="pre">1</span></code> is <code class="docutils literal notranslate"><span class="pre">FALSE</span></code> in Nock.)</p></li>
+</ul>
+</section>
 </section>
 </section>
 
@@ -542,7 +559,10 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-axiomatic-operators">The Axiomatic Operators</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-basic-opcodes">The Basic Opcodes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-basic-opcodes">The Basic Opcodes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-missing">What’s Missing?</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

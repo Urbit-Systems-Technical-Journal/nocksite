@@ -430,6 +430,16 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="opcode-3-cell-check">
 <h1>Opcode 3: Cell Check<a class="headerlink" href="#opcode-3-cell-check" title="Link to this heading">#</a></h1>
+<p>One implication of nouns is that an easy way to tell data apart is by their structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>?[a b]              0
+?a                  1
+
+=[a a]              0
+=[a b]              1
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">?</span></code> wut is useful to ask whether a given noun is a cell or an atom.  (Like C’s <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main()</span></code> return type and error codes, <code class="docutils literal notranslate"><span class="pre">0</span></code> means <code class="docutils literal notranslate"><span class="pre">TRUE</span></code> and <code class="docutils literal notranslate"><span class="pre">1</span></code> means <code class="docutils literal notranslate"><span class="pre">FALSE</span></code>.)</p>
+<p><code class="docutils literal notranslate"><span class="pre">=</span></code> tis similarly checks whether two nouns are the same as each other, which means by structure and value.</p>
 </section>
 
     <script type="text/x-thebe-config">
