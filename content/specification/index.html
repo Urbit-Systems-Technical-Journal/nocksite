@@ -406,7 +406,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#crashing">Crashing</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-nock">Evaluating Nock</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approaching-nock">Approaching Nock</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
             </nav>
@@ -500,7 +500,11 @@ nock(a)             *a
 </section>
 <section id="evaluating">
 <h3>Evaluating<a class="headerlink" href="#evaluating" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p>A valid Nock formula is always a cell.  If the head of the formula is a cell, Nock treats both head and tail as formulas, resolves each against the subject, and produces the cell of their products.  In other words, the Lisp program <code class="docutils literal notranslate"><span class="pre">(cons</span> <span class="pre">x</span> <span class="pre">y)</span></code> becomes the Nock formula <code class="docutils literal notranslate"><span class="pre">[x</span> <span class="pre">y]</span></code>.  (<a class="reference external" href="https://docs.urbit.org/nock/definition">docs.urbit.org</a>)</p>
+</div></blockquote>
 <p>Nock evaluation continues until a noun is reached that is not a formula (i.e., it does not result in an axiomatic operator including <code class="docutils literal notranslate"><span class="pre">*</span></code> tar).  This noun is then the result of the evaluation.</p>
+<p>Nock evaluation is formally Turing-complete but will be quite verbose for many tasks.  Even with higher-level abstractions, the resulting nouns may be impractical to compute in a reasonable amount of time.  Thus Nock can be treated as a formal specification of behavior, with <a class="reference internal" href="../hints-jetting/index.html"><span class="std std-doc">jet-accelerated code</span></a> providing enormous performance improvements.</p>
 </section>
 <section id="crashing">
 <h3>Crashing<a class="headerlink" href="#crashing" title="Link to this heading">#</a></h3>
@@ -511,8 +515,8 @@ nock(a)             *a
 <p>What this means is that a formula which reduces to itself continues to do so, i.e. becomes an infinite loop or “bottom” in formal logic.</p>
 </section>
 </section>
-<section id="evaluating-nock">
-<h2>Evaluating Nock<a class="headerlink" href="#evaluating-nock" title="Link to this heading">#</a></h2>
+<section id="approaching-nock">
+<h2>Approaching Nock<a class="headerlink" href="#approaching-nock" title="Link to this heading">#</a></h2>
 <p>So much for the specification itself, but what does it <em>mean</em>?  You can treat it like a puzzle and work things out yourself, but we’ve also prepared several complementary approaches to Nock.  Start with one that best fits your background.</p>
 <ol class="arabic simple">
 <li><p><a class="reference internal" href="../understanding/combinator-approach.html"><span class="std std-doc"> The Combinator Approach</span></a></p></li>
@@ -609,7 +613,7 @@ nock(a)             *a
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#crashing">Crashing</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-nock">Evaluating Nock</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approaching-nock">Approaching Nock</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
   </nav></div>
