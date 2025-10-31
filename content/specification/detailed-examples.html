@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Detailed Examples &#8212; Nock</title>
+    <title>Examples &#8212; Nock</title>
   
   
   
@@ -417,7 +417,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Detailed Examples</h1>
+    <h1>Examples</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -427,8 +427,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-axiomatic-operators">The Axiomatic Operators</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-basic-opcodes">The Basic Opcodes</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#incrementing-a-number">Incrementing a Number</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decrementing-a-number">Decrementing a Number</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detecting-even-odd-numbers">Detecting Even/Odd Numbers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#addition-and-subtraction">Addition and Subtraction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cores">Cores</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-missing">What’s Missing?</a></li>
 </ul>
 </li>
@@ -443,32 +446,236 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="detailed-examples">
-<h1>Detailed Examples<a class="headerlink" href="#detailed-examples" title="Link to this heading">#</a></h1>
-<p>Nock’s opcodes supply a Turing-complete instruction set for computation.  This section highlights how each opcode works.</p>
-<section id="the-axiomatic-operators">
-<h2>The Axiomatic Operators<a class="headerlink" href="#the-axiomatic-operators" title="Link to this heading">#</a></h2>
-<p>Prior to even writing Nock, we must define what the operators used in Nock’s expression mean.</p>
-<p>These are the fundamental building blocks of computation in Nock, and all other operations can be constructed from them.</p>
-</section>
-<section id="the-basic-opcodes">
-<h2>The Basic Opcodes<a class="headerlink" href="#the-basic-opcodes" title="Link to this heading">#</a></h2>
-<p>Opcodes 0 through 5 are primitive instantiations of the axiomatic operators.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h1>
+<p>Building Nock expressions from scratch can be a challenge, but it is invaluable to understanding how Nock works in practice.  It also helps you understand why compilers make the decisions they do.</p>
+<section id="incrementing-a-number">
+<h2>Incrementing a Number<a class="headerlink" href="#incrementing-a-number" title="Link to this heading">#</a></h2>
+<p>Nock provides only one built-in arithmetic operator:  opcode 4, which adds one to a number.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:subject 42
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:subject 41
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Subject set to: 42
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Subject set to: 41
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:formula [4 0 1]
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[4 0 1]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>42
+</pre></div>
+</div>
+</div>
+</div>
+<p>That means to grab the value in the subject at address 1 (the entire subject) and increment it directly.</p>
+</section>
+<section id="decrementing-a-number">
+<h2>Decrementing a Number<a class="headerlink" href="#decrementing-a-number" title="Link to this heading">#</a></h2>
+<p>A decrement operator is more involved.  (The algorithm itself is <a class="reference external" href="https://moronlab.blogspot.com/2010/01/decrement-in-reck.html">a classic problem</a> in Nock’s history.)</p>
+<p>The high-level idea is that if you only have the ability to increment and check for equality, then you can build a decrement operator by counting up from zero and checking whether adding one to the current number equals the source number.  If it does, then the current number is one less than the source number, thus its decrement.</p>
+<p>We need a few pieces of Nock code to put this together.  Let’s call the source number <code class="docutils literal notranslate"><span class="pre">a</span></code> and the other working variable number <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p>
+<p>First off, we can pin a constant to start counting from using opcode 1:</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[1 0]
+</pre></div>
+</div>
+<p>We can compare the increment of a number <code class="docutils literal notranslate"><span class="pre">b</span></code> to <code class="docutils literal notranslate"><span class="pre">a</span></code> using opcode 5:</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[5 a [4 b]]
+</pre></div>
+</div>
+<p>(We ignore for a moment how we get <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>; they will be parts of the subject retrieved with opcode 0 or supplied as constants with opcode 1.)</p>
+<p>We need two different paths based on whether the comparison is true or false, mediated by opcode 6.</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[6 [5 a [4 b]] &lt;true-path&gt; &lt;false-path&gt;]
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">true-path</span></code> is easy:  we just return <code class="docutils literal notranslate"><span class="pre">b</span></code>, since we’ve found the decrement.  The <code class="docutils literal notranslate"><span class="pre">false-path</span></code> is more involved:  we need to increment <code class="docutils literal notranslate"><span class="pre">b</span></code> and try again.  We can do this by recursively calling our decrement operator with the same <code class="docutils literal notranslate"><span class="pre">a</span></code> and the incremented <code class="docutils literal notranslate"><span class="pre">b</span></code>.  How do we invoke our own operator recursively?  We use an opcode 9 with an opcode 10 to alter the subject for the recursive call.</p>
+<p>Finally, we need the ability to pin new variables such as the starting value <code class="docutils literal notranslate"><span class="pre">b</span></code>.  We’ll do this using opcode 8, after which point we can refer to the new variable at address 2.</p>
+<p>Let’s build this piece by piece.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:a [1 43]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Variable &#39;a&#39; set to: [1 43]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:b [1 0]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Variable &#39;b&#39; set to: [1 0]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:test [5 a [4 b]]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Variable &#39;test&#39; set to: [5 [1 43] 4 1 0]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Check the test case (should return false):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>test
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:show test
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>test = [5 [1 43] 4 1 0]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The source constant <code class="docutils literal notranslate"><span class="pre">a</span></code> is hardcoded as 43, but that’s okay for now.  We won’t be able to work with <code class="docutils literal notranslate"><span class="pre">b</span></code> as a constant, however, so we’ll come back to this expression later.</p>
+<p>The next bit we need is how to edit an atom, where <code class="docutils literal notranslate"><span class="pre">x</span></code> is the address of <code class="docutils literal notranslate"><span class="pre">b</span></code> (rather than its value):</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[10 [x 4 b] 0 1]
+</pre></div>
+</div>
+<p>This edits the noun and returns that entire edited noun.  That yields something like this, adjusted against the reference subject:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[10 [1 4 1 0] 0 1]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally, we need to recurse on the edited value:</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[9 2 10 [x 4 b] 0 1]
+</pre></div>
+</div>
+<p>If opcode 9 is <code class="docutils literal notranslate"><span class="pre">*[a</span> <span class="pre">9</span> <span class="pre">b</span> <span class="pre">c]</span></code>, then here <code class="docutils literal notranslate"><span class="pre">b</span></code> is the memory slot of the new subject formed with <code class="docutils literal notranslate"><span class="pre">c</span></code>, which is the edited noun from above.</p>
+<p>(We can’t demonstrate the opcode 9 in isolation.)</p>
+<p>Putting it all together, we get the full decrement operator:</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>        [8 [1 6 [5 a [4 2]] 2 [9 2 10 [2 4 2] 0 1]]]
+[8 [1 0] 8 [1 6 [5 [1 43] 4 0 6] [0 6] 9 2 10 [6 4 0 6] 0 1] 9 2 0 1]
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">[9</span> <span class="pre">2</span> <span class="pre">0</span> <span class="pre">1]</span></code> at the tail is the actual evaluation:  from the entire unedited subject, execute the arm at address 2, which is the operator we just built.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[8 [1 0] 8 [1 6 [5 [1 43] 4 0 6] [0 6] 9 2 10 [6 4 0 6] 0 1] 9 2 0 1]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>42
+</pre></div>
+</div>
+</div>
+</div>
+<p>That works!  It’s still too brittle:  the constant <code class="docutils literal notranslate"><span class="pre">a</span></code> is hardcoded, so we want to make it flexible by supplying the sample positionally rather than as a constant.  We can do that by changing how we pin <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> at the start and referring to the sample at address 6 via <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">6]</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[8 [1 43] 8 [1 0] 8 [1 6 [5 [0 14] 4 0 6] [0 6] 9 2 10 [6 4 0 6] 0 1] 9 2 0 1]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>42
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="detecting-even-odd-numbers">
+<h2>Detecting Even/Odd Numbers<a class="headerlink" href="#detecting-even-odd-numbers" title="Link to this heading">#</a></h2>
+<p>There are a number of “obvious” nearby operators that solve relevant simple problems in arithmetic; one of these is detecting whether a number is even or odd.</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[8 [1 0] [8 [1 [6 [5 [0 7] [0 6]] [1 0] [6 [5 [0 7] [4 0 6]] [1 1] [9 2 [[0 2] [4 4 0 6] [0 7]]]]]] [9 2 0 1]]]
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[8 [1 0] [8 [1 [6 [5 [0 7] [0 6]] [1 0] [6 [5 [0 7] [4 0 6]] [1 1] [9 2 [[0 2] [4 4 0 6] [0 7]]]]]] [9 2 0 1]]]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="addition-and-subtraction">
+<h2>Addition and Subtraction<a class="headerlink" href="#addition-and-subtraction" title="Link to this heading">#</a></h2>
+</section>
+<section id="cores">
+<h2>Cores<a class="headerlink" href="#cores" title="Link to this heading">#</a></h2>
+<p>The idea of a core is that a collection of constant executable Nock formulas can be bundled with references to each other in a consistent layout, allowing for more complex behavior.  That is, if you know where a function is located in a core, you can call it from another function in the same core by referring to its address.  Thus you can compose arbitrarily complex behavior from a set of simpler formulas.</p>
+<p>(How to order the functions in a core depends on decisions made by the higher-level language compiler; Hoon, for instance, builds a complex data structure called a <code class="docutils literal notranslate"><span class="pre">$set</span></code> which orders arms by the hash of their names.)</p>
+<p>Here is an example of a core which has two constants (42 at address 22 and 43 at address 23) and an executable formula or arm at address 10 that increments its sample:</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[[1 [8 [1 0] [1 4 0 6] 0 1] [1 42] 1 43] 0 1]
+</pre></div>
+</div>
+<p>Note that with two opcode 1 formula pins, we will need to evaluate the core <em>twice</em> to actually run the target arm.  This is why we distinguish an <em>arm</em> (which requires two evaluations with opcode 9) from a <em>leg</em> (which requires only an opcode 0 lookup).</p>
+<p>An evaluation of a leg requires pinning the core with opcode 8 then looking up the leg with opcode 0 adjusted for the relative address:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:subject 43
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Subject set to: 43
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[8 [1 [8 [1 0] [1 4 0 6] 0 1] [1 43] 1 43] 0 10]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1 43]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The leg is invoked with a pair of opcodes 9 and a composited subject:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[8 [1 [8 [1 0] [1 4 0 6] 0 1] [1 42] 1 43] 8 [9 4 0 1] 9 2 10 [6 7 [0 3] 9 10 0 1] 0 2]
 </pre></div>
 </div>
 </div>
@@ -559,8 +766,11 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-axiomatic-operators">The Axiomatic Operators</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-basic-opcodes">The Basic Opcodes</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#incrementing-a-number">Incrementing a Number</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decrementing-a-number">Decrementing a Number</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detecting-even-odd-numbers">Detecting Even/Odd Numbers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#addition-and-subtraction">Addition and Subtraction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cores">Cores</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-missing">What’s Missing?</a></li>
 </ul>
 </li>
