@@ -1,6 +1,6 @@
 # History of Nock
 
-Nock is a combinator calculus designed by Curtis Yarvin from 2002 onwards and elaborated subsequently by other contributors (including ~rovnys-ricfer and ~fodwyt-ragful for 4K).  While it has undergone several revisions, all have in common these design principles:
+Nock is a combinator calculus designed by ~sorreg-namtyv from 2002 onwards and elaborated subsequently by other contributors (including ~rovnys-ricfer and ~fodwyt-ragful for 4K).  While it has undergone several revisions, all have in common these design principles:
 
 1. Pragmatic minimalism:  as simple as viable, and no simpler.
 2. Functional purity:  no undefined behavior, no side effects except via explicit runtime hints.
