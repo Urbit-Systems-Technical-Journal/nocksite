@@ -65,6 +65,28 @@ jobs:
           exit 1
         fi
 
+    - name: Debug - Check repository structure
+      run: |
+        echo "=== Current directory ==="
+        pwd
+        echo ""
+        echo "=== Directory contents ==="
+        ls -la
+        echo ""
+        echo "=== Check if nested ==="
+        if [ -d "nocksite" ]; then
+          echo "Found nocksite subdirectory!"
+          ls -la nocksite/
+        fi
+        echo ""
+        echo "=== Check for _config.yml ==="
+        if [ -f "_config.yml" ]; then
+          echo "Found _config.yml in current directory"
+        else
+          echo "_config.yml NOT in current directory"
+          find . -name "_config.yml"
+        fi
+
     - name: Build the book
       run: |
         # Clean any previous build artifacts
