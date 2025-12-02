@@ -404,7 +404,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -420,6 +422,15 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax">Syntax</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -431,6 +442,30 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="opcode-9-invoke">
 <h1>Opcode 9: Invoke<a class="headerlink" href="#opcode-9-invoke" title="Link to this heading">#</a></h1>
+<section id="syntax">
+<h2>Syntax<a class="headerlink" href="#syntax" title="Link to this heading">#</a></h2>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>*[a 9 b c]          *[*[a c] 2 [0 1] 0 b]
+</pre></div>
+</div>
+</section>
+<section id="explanation">
+<h2>Explanation<a class="headerlink" href="#explanation" title="Link to this heading">#</a></h2>
+<p>Opcode 9 enables the invocation pattern.  Produce a core (code + data bundle) from formula c, then execute the arm (code) at axis b within that core, with the core itself as subject.</p>
+<p>Briefly, a core in Nock/Hoon is a cell [battery payload]:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">battery</span></code> (address 2):  one or more formulas (the “arms”) as a noun.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">payload</span></code> (address 3):  the data upon which the formulas operate.</p></li>
+</ul>
+<p>Opcode 9 is how you call a core’s arm.</p>
+<ol class="arabic simple">
+<li><p>Evaluate <code class="docutils literal notranslate"><span class="pre">c</span></code> against the subject to produce a new core.</p></li>
+<li><p>Look up the formula at address <code class="docutils literal notranslate"><span class="pre">b</span></code> in the core (the arm).</p></li>
+<li><p>Evaluate that formula with the core as subject.</p></li>
+<li><p>Return the result.</p></li>
+</ol>
+<p>(Note, however, that there is nothing intrinsic to Nock about the core, <code class="docutils literal notranslate"><span class="pre">[battery</span> <span class="pre">payload]</span></code>.  It’s a convenient pattern to repeat and reason over, but Nock itself does not enforce any special semantics on it.  See <a class="reference internal" href="detailed-examples.html"><span class="std std-doc">Detailed Examples</span></a> and <a class="reference internal" href="../examples/idioms-gates-patterns.html"><span class="std std-doc">Idioms, Gates, Patterns</span></a> for further discussion.)</p>
+<p>While understanding cores is key to understanding Hoon and Jock, we will defer deeper discussion of cores and arms until later in the tutorial.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -487,6 +522,22 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax">Syntax</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

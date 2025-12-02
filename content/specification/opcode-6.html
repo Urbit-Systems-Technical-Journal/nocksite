@@ -404,7 +404,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -420,6 +422,15 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax">Syntax</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -431,6 +442,29 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="opcode-6-conditional">
 <h1>Opcode 6: Conditional<a class="headerlink" href="#opcode-6-conditional" title="Link to this heading">#</a></h1>
+<section id="syntax">
+<h2>Syntax<a class="headerlink" href="#syntax" title="Link to this heading">#</a></h2>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>*[a 6 b c d]       *[a *[[c d] 0 *[[2 3] 0 *[a 4 4 b]]]]
+</pre></div>
+</div>
+</section>
+<section id="explanation">
+<h2>Explanation<a class="headerlink" href="#explanation" title="Link to this heading">#</a></h2>
+<p>Opcode 6 implements a conditional branch.  Evaluate test formula b; if true (0), evaluate and return c; if false (1), evaluate and return d. Crashes on non-boolean test results.</p>
+<ol class="arabic simple">
+<li><p>Evaluate <code class="docutils literal notranslate"><span class="pre">b</span></code> against the subject, which must produce 0 or 1.</p></li>
+<li><p>If 0 (true): evaluate <code class="docutils literal notranslate"><span class="pre">c</span></code> against subject and return.</p></li>
+<li><p>If 1 (false): evaluate <code class="docutils literal notranslate"><span class="pre">d</span></code> against subject and return.</p></li>
+</ol>
+<p>Any other value crashes (as enforced by the macro expansion).</p>
+<p>In fact, much of the weirdness of the macro expression can be explained by its parsimonious use of the boolean result.  From right to left:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">*[a</span> <span class="pre">4</span> <span class="pre">4</span> <span class="pre">b]</span></code> evaluates b, then adds 2 (so 0 → 2, 1 → 3).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*[[2</span> <span class="pre">3]</span> <span class="pre">0</span> <span class="pre">...]</span></code> uses the result as an address into <code class="docutils literal notranslate"><span class="pre">[2</span> <span class="pre">3]</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*[[c</span> <span class="pre">d]</span> <span class="pre">0</span> <span class="pre">...]</span></code> uses 2 or 3 as address into <code class="docutils literal notranslate"><span class="pre">[c</span> <span class="pre">d]</span></code>.</p></li>
+</ol>
+<p>This cleverly selects <code class="docutils literal notranslate"><span class="pre">c</span></code> (at address 2) for true, <code class="docutils literal notranslate"><span class="pre">d</span></code> (at address 3) for false.  (It does not pass through directly to avoid other results selecting other possible slots.)</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -442,16 +476,16 @@ document.write(`
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "python"
+            mode: "nock"
         },
         kernelOptions: {
-            name: "python3",
+            name: "nock",
             path: "./content/specification"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'nock'</script>
 
                 </article>
               
@@ -487,6 +521,22 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax">Syntax</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

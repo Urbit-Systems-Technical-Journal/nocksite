@@ -404,7 +404,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -420,6 +422,15 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax">Syntax</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -431,6 +442,65 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="opcode-8-extend">
 <h1>Opcode 8: Extend<a class="headerlink" href="#opcode-8-extend" title="Link to this heading">#</a></h1>
+<section id="syntax">
+<h2>Syntax<a class="headerlink" href="#syntax" title="Link to this heading">#</a></h2>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>*[a 8 b c]          *[[*[a b] a] c]
+</pre></div>
+</div>
+</section>
+<section id="explanation">
+<h2>Explanation<a class="headerlink" href="#explanation" title="Link to this heading">#</a></h2>
+<p>Opcode 8 pins a new value to the head of the subject, then evaluate the body.  This is how Nock implements variable binding—the new value becomes accessible at address 2.</p>
+<ol class="arabic simple">
+<li><p>Evaluate <code class="docutils literal notranslate"><span class="pre">b</span></code> against subject to produce a new value.</p></li>
+<li><p>Construct <code class="docutils literal notranslate"><span class="pre">[new-value</span> <span class="pre">subject]</span></code> as the extended subject.</p></li>
+<li><p>Evaluate <code class="docutils literal notranslate"><span class="pre">c</span></code> against the extended subject.</p></li>
+</ol>
+<p>After opcode 8, addresses shift:</p>
+<ul class="simple">
+<li><p>Address 2 → the new pinned value</p></li>
+<li><p>Address 3 → the original subject</p></li>
+<li><p>Address 6 → what was address 2</p></li>
+<li><p>Address 7 → what was address 3</p></li>
+</ul>
+<p>Opcode 8 extends the subject, while <a class="reference internal" href="opcode-7.html"><span class="std std-doc">opcode 7</span></a> replaces it:</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>*[a 7 b c]  →  *[*[a b] c]       :: New subject is *[a b]
+*[a 8 b c]  →  *[[*[a b] a] c]   :: New subject is [*[a b] a]
+</pre></div>
+</div>
+<p>There are two primary patterns for using opcode 8.  In the first, a local variable is bound for use in a computation:</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>*[data [8 [compute-value] [body-using-value-at-+2]]]
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:subject 42
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Subject set to: 42
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[8 [1 41] [[0 2] [0 3]]]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[41 42]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The other, more complex, pattern is to pin a core and its arms to the subject for invocation later.  We’ll see this pattern in detail in <a class="reference internal" href="opcode-9.html"><span class="std std-doc">opcode 9</span></a>’s discussion.</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>*[context [8 [1 battery] [9 2 [0 1]]]]
+</pre></div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -442,16 +512,16 @@ document.write(`
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "python"
+            mode: "nock"
         },
         kernelOptions: {
-            name: "python3",
+            name: "nock",
             path: "./content/specification"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'nock'</script>
 
                 </article>
               
@@ -487,6 +557,22 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax">Syntax</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

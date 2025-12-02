@@ -472,23 +472,17 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[11 %]
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[11 42 0 1]
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Error: unrecognized character % at 4
-Traceback (most recent call last):
-  File &quot;/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/nock_kernel/kernel.py&quot;, line 200, in do_execute
-    formula = parse(code)
-              ^^^^^^^^^^^
-  File &quot;/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/pinochle/noun.py&quot;, line 268, in parse
-    raise ValueError(&#39;unrecognized character %s at %d&#39; % (c, i))
-ValueError: unrecognized character % at 4
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>42
 </pre></div>
 </div>
 </div>
 </div>
+<p>This Python interpreter for Nock does not currently implement any hints, so all hints are effectively no-ops.  However, they must be computed since they could crash.</p>
 </section>
 </section>
 

@@ -18,15 +18,19 @@ Nock as a computing platform is:
 * Turing-complete.  It's a complete real language with all that implies.
 * Functional-as-in-language.  Necessary side effects are achieved through runtime hints.  There is no undefined behavior in the specification.
 * Homoiconic.  Code and data share the same representation.
-* Solid-state.  Each evaluation is deterministic and self-contained, resulting in a new updated state with no transient state from crashes or system (mis)configuration.
 * Tiny.  Only twelve opcodes are necessary for the full specification, and first-class virtualization allows this capability to be arbitrarily extended.
+
+Most Nock interpreters have the additional virtue of being:
+
+* Solid-state.  Each evaluation is deterministic and self-contained, resulting in a new updated state with no transient state from crashes or system (mis)configuration.
+* Verifiable.  The entire state of a Nock system can be captured in a single data structure, allowing for easy auditing and verification.
 
 ## How to Use This Tutorial
 
+The website can be traversed from several starting points, depending on your background:
+
 - [**The Specification**](./content/specification/index.md): Start here to understand the core Nock operations.
-- [**Understanding Nock**](./content/understanding/index.md): Explore different mental models for thinking about Nock.
-- [**Code Examples**](./content/examples/index.md): Run and modify interactive examples.
-- [**Compiling**](./content/compiling/index.md): Learn how higher-level languages compile to Nock.
-- [**Side Effects**](./content/hints-jetting/index.md): Create side effects and apply performance optimization techniques.
+- [**Understanding Nock**](./content/understanding/index.md): Start here if you want to start from different mental models to think about Nock.
+- [**Code Examples**](./content/examples/index.md): Start here to run and modify interactive examples.
 
 Let's dive in!

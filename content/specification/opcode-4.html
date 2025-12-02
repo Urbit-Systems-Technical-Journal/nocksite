@@ -58,6 +58,8 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/specification/opcode-4';</script>
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -404,7 +406,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -420,6 +424,15 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax">Syntax</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -431,11 +444,111 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="opcode-4-increment">
 <h1>Opcode 4: Increment<a class="headerlink" href="#opcode-4-increment" title="Link to this heading">#</a></h1>
+<section id="syntax">
+<h2>Syntax<a class="headerlink" href="#syntax" title="Link to this heading">#</a></h2>
+<p>Opcode 4 implements the idiomatic <code class="docutils literal notranslate"><span class="pre">+</span></code> lus increment operator, which adds 1 to an atom.</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>*[a 4 b]            +*[a b]
+</pre></div>
+</div>
+</section>
+<section id="explanation">
+<h2>Explanation<a class="headerlink" href="#explanation" title="Link to this heading">#</a></h2>
+<p>Opcode 4 adds 1 to the product of formula <code class="docutils literal notranslate"><span class="pre">b</span></code>. This is Nock’s only arithmetic primitive—all other arithmetic must be built from increment.</p>
+<ol class="arabic simple">
+<li><p>Evaluate <code class="docutils literal notranslate"><span class="pre">b</span></code> against the subject, which must produce an atom.</p></li>
+<li><p>Return that atom plus 1.</p></li>
+</ol>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+</span><span class="p">[</span><span class="n">a</span> <span class="n">b</span><span class="p">]</span>              <span class="o">+</span><span class="p">[</span><span class="n">a</span> <span class="n">b</span><span class="p">]</span>
 <span class="o">+</span><span class="n">a</span>                  <span class="mi">1</span> <span class="o">+</span> <span class="n">a</span>
 </pre></div>
 </div>
 <p>We can increment atoms, but not cells (which makes sense).  Every natural number (atom) has a successor, so there is no possible crash here (as long as our interpreter actually supports arbitrarily sized integers).</p>
+<p>Since increment is the only arithmetic operation, other arithmetic operations must be built from it.  For instance, decrement requires counting up from 0, and addition requires repeated incrementing.  Thus all arithmetic in Nock is theoretically <span class="math notranslate nohighlight">\(O(n)\)</span> or worse, where n is the size of the numbers involved.  In practice, interpreters “jet” (accelerate) known arithmetic patterns (see <a class="reference internal" href="opcode-11.html"><span class="std std-doc">opcode 11</span></a> and <a class="reference internal" href="../hints-jetting/index.html"><span class="std std-doc">jet-accelerated code</span></a>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:subject 42
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Subject set to: 42
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[4 0 1]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>43
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[4 4 4 4 4 4 4 4 4 0 1]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>51
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[4 1 42]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>43
+</pre></div>
+</div>
+</div>
+</div>
+<p>Expect failure on incrementing a cell:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[4 1 [42 43]]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Error: fail: cell
+Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/nock_kernel/kernel.py&quot;, line 201, in do_execute
+    result = nock(self.subject, formula)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/pinochle/nock.py&quot;, line 178, in nock
+    return lus(result)
+           ^^^^^^^^^^^
+  File &quot;/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/pinochle/nock.py&quot;, line 69, in lus
+    raise Exception(&quot;fail: cell&quot;)
+Exception: fail: cell
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this interpreter, which is written in Python, there are only practical limits (the size of RAM) to integers and thus to atom size.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[4 1 999999999999999999999999999999999999999999999999999999999]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1000000000000000000000000000000000000000000000000000000000
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -447,16 +560,16 @@ document.write(`
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "python"
+            mode: "nock"
         },
         kernelOptions: {
-            name: "python3",
+            name: "nock",
             path: "./content/specification"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'nock'</script>
 
                 </article>
               
@@ -492,6 +605,22 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax">Syntax</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

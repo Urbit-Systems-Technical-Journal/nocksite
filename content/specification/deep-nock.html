@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Opcode 2: Evaluate &#8212; Nock</title>
+    <title>Nock, Deeper &#8212; Nock</title>
   
   
   
@@ -58,12 +58,10 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'content/specification/opcode-2';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/specification/deep-nock';</script>
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Opcode 3: Cell Check" href="opcode-3.html" />
-    <link rel="prev" title="Opcode 1: Constant" href="opcode-1.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -126,6 +124,8 @@
       
       
       
+        
+      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -173,12 +173,12 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">The Specification</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 current active has-children"><a class="reference internal" href="basic-opcodes.html">Basic Opcodes</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="index.html">The Specification</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="basic-opcodes.html">Basic Opcodes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="opcode-0.html">Opcode 0: Address</a></li>
 <li class="toctree-l3"><a class="reference internal" href="opcode-1.html">Opcode 1: Constant</a></li>
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">Opcode 2: Evaluate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opcode-2.html">Opcode 2: Evaluate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="opcode-3.html">Opcode 3: Cell Check</a></li>
 <li class="toctree-l3"><a class="reference internal" href="opcode-4.html">Opcode 4: Increment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="opcode-5.html">Opcode 5: Equality Check</a></li>
@@ -276,37 +276,6 @@
 <div class="article-header-buttons">
 
 
-
-
-
-<div class="dropdown dropdown-launch-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
-    <i class="fas fa-rocket"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="https://mybinder.org/v2/gh/Urbit-Systems-Technical-Journal/nocksite/master?urlpath=tree/content/specification/opcode-2.ipynb" target="_blank"
-   class="btn btn-sm dropdown-item"
-   title="Launch on Binder"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  
-    <img alt="Binder logo" src="../../_static/images/logo_binder.svg">
-  </span>
-<span class="btn__text-container">Binder</span>
-</a>
-</li>
-      
-  </ul>
-</div>
-
-
-
 <a href="https://github.com/Urbit-Systems-Technical-Journal/nocksite" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
@@ -333,7 +302,7 @@
       
       
       
-      <li><a href="../../_sources/content/specification/opcode-2.ipynb" target="_blank"
+      <li><a href="../../_sources/content/specification/deep-nock.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -343,7 +312,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.ipynb</span>
+<span class="btn__text-container">.md</span>
 </a>
 </li>
       
@@ -417,7 +386,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Opcode 2: Evaluate</h1>
+    <h1>Nock, Deeper</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -427,8 +396,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax">Syntax</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
             </nav>
         </div>
@@ -440,99 +408,32 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="opcode-2-evaluate">
-<h1>Opcode 2: Evaluate<a class="headerlink" href="#opcode-2-evaluate" title="Link to this heading">#</a></h1>
-<section id="syntax">
-<h2>Syntax<a class="headerlink" href="#syntax" title="Link to this heading">#</a></h2>
-<p>Opcode 2 implements the <code class="docutils literal notranslate"><span class="pre">*</span></code> tar evaluate operator, which dynamically computes a new subject and formula, then evaluates the formula against the subject.</p>
-<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>*[a 2 b c]          *[*[a b] *[a c]]
-</pre></div>
-</div>
-</section>
-<section id="explanation">
-<h2>Explanation<a class="headerlink" href="#explanation" title="Link to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">eval</span></code> of Nock, opcode 2 computes a new subject from formula <code class="docutils literal notranslate"><span class="pre">b</span></code>, compute a new formula from formula <code class="docutils literal notranslate"><span class="pre">c</span></code>, then nock the results together.  This enables dynamic code execution.</p>
-<ol class="arabic simple">
-<li><p>Evaluate <code class="docutils literal notranslate"><span class="pre">b</span></code> against the subject to produce a noun (new subject).</p></li>
-<li><p>Evaluate <code class="docutils literal notranslate"><span class="pre">c</span></code> against the subject to produce a noun (new formula).</p></li>
-<li><p>Evaluate the new formula against the new subject to yield the final product.</p></li>
-</ol>
-<p>Opcode 2 is the foundation for function calls, code generation, and metaprogramming in Nock.  However, it is not used directly by the Hoon and Jock compiler, which instead use opcode 2 via the opcode 9 macro.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:subject 42
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Subject set to: 42
-</pre></div>
-</div>
-</div>
-</div>
-<p>This simple formula computes the constant function that always returns 100, then returns its subject (now 100).</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[2 [1 100] [1 [0 1]]]
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100
-</pre></div>
-</div>
-</div>
-</div>
-<p>This formula acts as a dynamic formula selection, which sets the subject to 5 and then calculates its increment.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:subject [5 [4 0 1]]
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Subject set to: [5 4 0 1]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[2 [0 2] [0 3]]
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6
-</pre></div>
-</div>
-</div>
-</div>
-<p>This is a Y-combinator style self-application, in which a formula is retrieved and applied to TODO</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:subject [[4 0 1] 42]
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Subject set to: [[4 0 1] 42]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[2 [0 3] [0 2]]
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>43
-</pre></div>
-</div>
-</div>
-</div>
+  <section class="tex2jax_ignore mathjax_ignore" id="nock-deeper">
+<h1>Nock, Deeper<a class="headerlink" href="#nock-deeper" title="Link to this heading">#</a></h1>
+<p>Nock is a combinator calculus designed to be a minimal, universal low-level computation model.  While related to the SKI combinator calculus and lambda calculus, Nock is distinct in its design goals and implementation details.</p>
+<p>For instance, Nock was designed from the beginning to make itself easy to extend via virtualization and to be a satisfactory instruction set architecture for higher-level languages.  It was also designed to be simple enough to reason about formally, while still being practical enough to implement real systems.</p>
+<blockquote>
+<div><p>Nock’s simplicity and unity of expression make it amenable to proof-based reasoning and guarantees of correctness. Its Lisp-like nature surfaces the ability to introspect on the code itself, a property which higher-level languages compiling to it can exploit. Yet for all this, Nock was not born from a purely mathematical approach, but found its roots in practical systems engineering.  (~lagrev-nocfep, ~sorreg-namtyv, 2025, op. cit.)</p>
+</div></blockquote>
+<p>Nock bears these characteristics:</p>
+<ul>
+<li><p>Turing-complete. Put formally, Turing completeness (and thus the ability to evaluate anything we would call a computation) is exemplified by the
+-recursive functions. In practice, these amount to operations for constant, increment, variable access, program concatenation, and looping (Reitzig, 2012). Nock supports these directly through its primitive opcodes.</p></li>
+<li><p>Functional (as in language). Nock is a pure function of its arguments. In practice, the Urbit operating system provides a simulated global scope for userspace applications, but this virtualized environment reduces to garden-variety Nock. (See ~lacnes, pp. 71–97 in this volume, for details of a Nock virtualized interpreter.)</p></li>
+<li><p>Subject-oriented. Nock evaluation consists of a formula as a noun to be evaluated against a subject as a noun. Taken together, these constitute the entire set of inputs to a pure function.</p>
+<p>Some Nock opcodes alter the subject (for instance a variable declaration) by producing a new subject which is utilized for subsequent axis lookups.</p>
+</li>
+<li><p>Homoiconic. Nock unifies code and data under a single representation. A Nock atom is a natural number, and a Nock cell is a pair of nouns. Every Nock noun is acyclic, and every Nock expression is a binary tree. For example, Nock expressions intended to be evaluated as code are often pinned as data by the constant opcode until they are retrieved by evaluating the constant opcode at that axis.</p></li>
+<li><p>Untyped. Nock is untyped, meaning that it does not impose any type system on the expressions it evaluates. Nock “knows” about the natural numbers in two senses: such are used for addressing axes in the binary tree of a noun, and such are manipulated and compared using the increment and equality opcodes.</p></li>
+<li><p>Solid-state. A Nock interpreter is a solid-state machine, meaning that it operates from a state to a new state strictly according to inputs as a pure lifecycle function. The Nock interpreter must commit the results of a successful computation as the new state before subsequent computations, or events, can be evaluated. Transient evaluations (uncompleted events) and crashes (invalid evaluations) may be lost without consequence, and the Nock interpreter layer persists the underlying state of the machine.</p></li>
+</ul>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://urbitsystems.tech/article/v02-i01/metacircular-virtualization-and-practical-nock-interpretation">~lacnes (2025) “Metacircular Virtualization &amp; Practical Nock Interpretation”, <em>Urbit Systems Technical Journal 2</em>: 1.</a></p></li>
+<li><p><a class="reference external" href="https://urbitsystems.tech/article/v02-i01/a-documentary-history-of-the-nock-combinator-calculus">~lagrev-nocfep, ~sorreg-namtyv (2025) “A Documentary History of the Nock Combinator Calculus”, <em>Urbit Systems Technical Journal 2</em>: 1.</a></p></li>
+<li><p><a class="reference external" href="https://docs.urbit.org/nock/definition">Urbit Docs, ”Nock Definition”</a></p></li>
+</ul>
 </section>
 </section>
 
@@ -545,16 +446,16 @@ document.write(`
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "nock"
+            mode: "python"
         },
         kernelOptions: {
-            name: "nock",
+            name: "python3",
             path: "./content/specification"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'nock'</script>
+    <script>kernelName = 'python3'</script>
 
                 </article>
               
@@ -566,24 +467,6 @@ document.write(`
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="opcode-1.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Opcode 1: Constant</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="opcode-3.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Opcode 3: Cell Check</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
@@ -600,8 +483,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax">Syntax</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
   </nav></div>
 

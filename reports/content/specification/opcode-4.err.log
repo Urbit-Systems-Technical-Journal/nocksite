@@ -18,26 +18,32 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-[11 %]
+[4 1 [42 43]]
 ------------------
 
 ----- stderr -----
-Error: unrecognized character % at 4
+Error: fail: cell
 Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/nock_kernel/kernel.py", line 200, in do_execute
-    formula = parse(code)
-              ^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/pinochle/noun.py", line 268, in parse
-    raise ValueError('unrecognized character %s at %d' % (c, i))
-ValueError: unrecognized character % at 4
+  File "/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/nock_kernel/kernel.py", line 201, in do_execute
+    result = nock(self.subject, formula)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/pinochle/nock.py", line 178, in nock
+    return lus(result)
+           ^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/pinochle/nock.py", line 69, in lus
+    raise Exception("fail: cell")
+Exception: fail: cell
 ------------------
 
 Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/nock_kernel/kernel.py", line 200, in do_execute
-    formula = parse(code)
-              ^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/pinochle/noun.py", line 268, in parse
-    raise ValueError('unrecognized character %s at %d' % (c, i))
-ValueError: unrecognized character % at 4
+  File "/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/nock_kernel/kernel.py", line 201, in do_execute
+    result = nock(self.subject, formula)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/pinochle/nock.py", line 178, in nock
+    return lus(result)
+           ^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/pinochle/nock.py", line 69, in lus
+    raise Exception("fail: cell")
+Exception: fail: cell
 
 

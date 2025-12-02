@@ -403,6 +403,48 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="basic-opcodes">
 <h1>Basic Opcodes<a class="headerlink" href="#basic-opcodes" title="Link to this heading">#</a></h1>
 <p>The basic opcodes provide fundamental operations on nouns: addressing into tree structures, creating constants, evaluation, structure checking, arithmetic, comparison, and editing. These are the primitive building blocks upon which the composite opcodes are constructed.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Opcode</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Signature</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="opcode-0.html"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">0</span></code></span></a></p></td>
+<td><p><a class="reference internal" href="opcode-0.html"><span class="std std-doc">Slot</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">b]</span></code></p></td>
+<td><p>Tree address lookup.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="opcode-1.html"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">1</span></code></span></a></p></td>
+<td><p><a class="reference internal" href="opcode-1.html"><span class="std std-doc">Constant</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[1</span> <span class="pre">b]</span></code></p></td>
+<td><p>Return literal value.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="opcode-2.html"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">2</span></code></span></a></p></td>
+<td><p><a class="reference internal" href="opcode-2.html"><span class="std std-doc">Evaluate</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[2</span> <span class="pre">b</span> <span class="pre">c]</span></code></p></td>
+<td><p>Dynamic nock.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="opcode-3.html"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">3</span></code></span></a></p></td>
+<td><p><a class="reference internal" href="opcode-3.html"><span class="std std-doc">Cell?</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[3</span> <span class="pre">b]</span></code></p></td>
+<td><p>Test if cell.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="opcode-4.html"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">4</span></code></span></a></p></td>
+<td><p><a class="reference internal" href="opcode-4.html"><span class="std std-doc">Increment</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[4</span> <span class="pre">b]</span></code></p></td>
+<td><p>Add 1 to atom.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="opcode-5.html"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">5</span></code></span></a></p></td>
+<td><p><a class="reference internal" href="opcode-5.html"><span class="std std-doc">Equal?</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[5</span> <span class="pre">b</span> <span class="pre">c]</span></code></p></td>
+<td><p>Deep equality test.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="toctree-wrapper compound">
 </div>
 </section>
