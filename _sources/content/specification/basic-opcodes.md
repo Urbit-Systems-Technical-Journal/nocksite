@@ -10,3 +10,4 @@ The basic opcodes provide fundamental operations on nouns: addressing into tree 
 | [`3`](opcode-3.ipynb) | [Cell?](opcode-3.ipynb) | `[3 b]` | Test if cell. |
 | [`4`](opcode-4.ipynb) | [Increment](opcode-4.ipynb) | `[4 b]` | Add 1 to atom. |
 | [`5`](opcode-5.ipynb) | [Equal?](opcode-5.ipynb) | `[5 b c]` | Deep equality test. |
+| [`10`](opcode-10.ipynb) | [Edit](opcode-10.ipynb) | `[10 [b c] d]` | Functional update |
