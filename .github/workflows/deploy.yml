@@ -92,8 +92,19 @@ jobs:
         # Clean any previous build artifacts
         rm -rf _build
 
-        # Build the book
-        jupyter-book build .
+        # Verify jupyter-book installation
+        jupyter-book --version
+
+        # List all files to ensure nothing is missing
+        echo "Files in current directory:"
+        ls -la
+
+        # Build the book with verbose output and explicit builder
+        jupyter-book build . --builder html --verbose 2>&1 | tee build.log || {
+          echo "Build failed! Showing last 50 lines of output:"
+          tail -50 build.log
+          exit 1
+        }
 
         # Copy nojekyll file
         cp .nojekyll _build/html/
