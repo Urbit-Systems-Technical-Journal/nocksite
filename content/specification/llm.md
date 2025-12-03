@@ -180,11 +180,6 @@ The "eval" of Nock. Compute a new subject from formula `b`, compute a new formul
 *[[5 [4 0 1]] 2 [0 2] [0 3]]
   → *[5 [4 0 1]]           :: New subject is 5, formula is [4 0 1]
   → 6                       :: Increment 5
-
-:: Self-application (Y-combinator style)
-*[[[4 0 1] 42] 2 [0 3] [0 2]]
-  → *[42 [4 0 1]]          :: Apply increment formula to 42
-  → 43
 ```
 
 ### Common Patterns
