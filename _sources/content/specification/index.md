@@ -134,3 +134,4 @@ Other online versions of the specification match the above but provide additiona
 
 - [Urbit:  What is Nock?](https://docs.urbit.org/nock/what-is-nock)
 - [Zorp:  Nock Definition](https://zorp.io/nock/)
+- [Assimakis Kattis, Brian Klatt, Philip Quirk, Logan Allen. (2025). "A Framework for Compiling Custom Languages as Efficiently Verifiable Virtual Machines"](https://eprint.iacr.org/2025/1110) (Nock opcodes as zero-knowledge circuit components)
