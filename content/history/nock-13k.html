@@ -399,82 +399,82 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="nock-13k">
 <h1>Nock 13K<a class="headerlink" href="#nock-13k" title="Link to this heading">#</a></h1>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Author</span><span class="p">:</span> <span class="n">Curtis</span> <span class="n">Yarvin</span> <span class="p">(</span><span class="n">curtis</span><span class="o">.</span><span class="n">yarvin</span><span class="nd">@gmail</span><span class="o">.</span><span class="n">com</span><span class="p">)</span> 
-<span class="n">Date</span><span class="p">:</span> <span class="mi">3</span><span class="o">/</span><span class="mi">8</span><span class="o">/</span><span class="mi">2008</span> 
-<span class="n">Version</span><span class="p">:</span> <span class="mf">0.13</span> 
- 
-<span class="mf">1.</span> <span class="n">Manifest</span> 
- 
-    <span class="n">This</span> <span class="n">file</span> <span class="n">defines</span> <span class="n">one</span> <span class="n">Turing</span><span class="o">-</span><span class="n">complete</span> <span class="n">function</span><span class="p">,</span> 
-    <span class="s2">&quot;nock.&quot;</span> 
- 
-    <span class="n">nock</span> <span class="ow">is</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">public</span> <span class="n">domain</span><span class="o">.</span>  <span class="n">So</span> <span class="n">far</span> <span class="k">as</span> <span class="n">I</span> <span class="n">know</span><span class="p">,</span> 
-    <span class="n">it</span> <span class="ow">is</span> <span class="n">neither</span> <span class="n">patentable</span> <span class="n">nor</span> <span class="n">patented</span><span class="o">.</span>  <span class="n">Use</span> <span class="n">it</span> <span class="n">at</span> 
-    <span class="n">your</span> <span class="n">own</span> <span class="n">risk</span><span class="o">.</span> 
- 
-<span class="mf">2.</span> <span class="n">Data</span> 
- 
-    <span class="n">Both</span> <span class="n">the</span> <span class="n">domain</span> <span class="ow">and</span> <span class="nb">range</span> <span class="n">of</span> <span class="n">nock</span> <span class="n">are</span> <span class="s2">&quot;nouns.&quot;</span> 
- 
-    <span class="n">A</span> <span class="s2">&quot;noun&quot;</span> <span class="ow">is</span> <span class="n">either</span> <span class="n">an</span> <span class="s2">&quot;atom&quot;</span> <span class="ow">or</span> <span class="n">a</span> <span class="s2">&quot;cell.&quot;</span>  <span class="n">An</span> 
-    <span class="s2">&quot;atom&quot;</span> <span class="ow">is</span> <span class="n">an</span> <span class="n">unsigned</span> <span class="n">integer</span> <span class="n">of</span> <span class="nb">any</span> <span class="n">size</span><span class="o">.</span>  <span class="n">A</span> 
-    <span class="s2">&quot;cell&quot;</span> <span class="ow">is</span> <span class="n">an</span> <span class="n">ordered</span> <span class="n">pair</span> <span class="n">of</span> <span class="nb">any</span> <span class="n">two</span> <span class="n">nouns</span><span class="p">,</span> <span class="n">the</span> 
-    <span class="s2">&quot;head&quot;</span> <span class="ow">and</span> <span class="s2">&quot;tail.&quot;</span> 
- 
-<span class="mf">3.</span> <span class="n">Pseudocode</span> 
- 
-    <span class="n">nock</span> <span class="ow">is</span> <span class="n">defined</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">pattern</span><span class="o">-</span><span class="n">matching</span> <span class="n">pseudocode</span><span class="o">.</span> 
- 
-    <span class="n">Match</span> <span class="n">precedence</span> <span class="ow">is</span> <span class="n">top</span><span class="o">-</span><span class="n">down</span><span class="o">.</span>  <span class="n">Operators</span> <span class="n">are</span> 
-    <span class="n">prefix</span><span class="o">.</span>  <span class="n">Parens</span> <span class="n">denote</span> <span class="n">cells</span><span class="p">,</span> <span class="ow">and</span> <span class="n">group</span> <span class="n">right</span><span class="p">:</span> 
-    <span class="p">(</span><span class="n">a</span> <span class="n">b</span> <span class="n">c</span><span class="p">)</span> <span class="ow">is</span> <span class="p">(</span><span class="n">a</span> <span class="p">(</span><span class="n">b</span> <span class="n">c</span><span class="p">))</span><span class="o">.</span> 
- 
-<span class="mf">4.</span> <span class="n">Definition</span> 
- 
-<span class="mf">4.1</span> <span class="n">Transformations</span> 
- 
-      <span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="mi">0</span> <span class="n">b</span> <span class="n">c</span><span class="p">)</span>   <span class="o">=&gt;</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="n">b</span><span class="p">)</span> <span class="n">c</span><span class="p">)</span> 
-      <span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="mi">0</span> <span class="n">b</span><span class="p">)</span>     <span class="o">=&gt;</span> <span class="o">/</span><span class="p">(</span><span class="n">b</span> <span class="n">a</span><span class="p">)</span> 
-      <span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="mi">1</span> <span class="n">b</span><span class="p">)</span>     <span class="o">=&gt;</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span> 
-      <span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="mi">2</span> <span class="n">b</span><span class="p">)</span>     <span class="o">=&gt;</span> <span class="o">**</span><span class="p">(</span><span class="n">a</span> <span class="n">b</span><span class="p">)</span> 
-      <span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="mi">3</span> <span class="n">b</span><span class="p">)</span>     <span class="o">=&gt;</span> <span class="o">&amp;*</span><span class="p">(</span><span class="n">a</span> <span class="n">b</span><span class="p">)</span> 
-      <span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="mi">4</span> <span class="n">b</span><span class="p">)</span>     <span class="o">=&gt;</span> <span class="o">^*</span><span class="p">(</span><span class="n">a</span> <span class="n">b</span><span class="p">)</span> 
-      <span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="mi">5</span> <span class="n">b</span><span class="p">)</span>     <span class="o">=&gt;</span> <span class="o">=*</span><span class="p">(</span><span class="n">a</span> <span class="n">b</span><span class="p">)</span> 
-      <span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="mi">6</span> <span class="n">b</span> <span class="n">c</span> <span class="n">d</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="mi">2</span> <span class="p">(</span><span class="mi">0</span> <span class="mi">1</span><span class="p">)</span> 
-                            <span class="mi">2</span> <span class="p">(</span><span class="mi">1</span> <span class="n">c</span> <span class="n">d</span><span class="p">)</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">0</span><span class="p">)</span> 
-                            <span class="mi">2</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">)</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">4</span> <span class="mi">4</span> <span class="n">b</span><span class="p">)</span> 
-      <span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="n">b</span> <span class="n">c</span><span class="p">)</span>     <span class="o">=&gt;</span> <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="n">c</span><span class="p">))</span> 
-      <span class="o">*</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>         <span class="o">=&gt;</span> <span class="o">*</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> 
- 
-<span class="mf">4.2</span> <span class="n">Operators</span> 
- 
-<span class="mf">4.2.1</span> <span class="n">Goto</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span> 
- 
-      <span class="o">*</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>             <span class="o">-&gt;</span> <span class="n">nock</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> 
- 
-<span class="mf">4.2.2</span> <span class="n">Deep</span> <span class="p">(</span><span class="o">&amp;</span><span class="p">)</span> 
- 
-      <span class="o">&amp;</span><span class="p">(</span><span class="n">a</span> <span class="n">b</span><span class="p">)</span>           <span class="o">-&gt;</span> <span class="mi">0</span> 
-      <span class="o">&amp;</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>             <span class="o">-&gt;</span> <span class="mi">1</span> 
- 
-<span class="mf">4.2.3</span> <span class="n">Bump</span> <span class="p">(</span><span class="o">^</span><span class="p">)</span> 
- 
-      <span class="o">^</span><span class="p">(</span><span class="n">a</span> <span class="n">b</span><span class="p">)</span>           <span class="o">-&gt;</span> <span class="o">^</span><span class="p">(</span><span class="n">a</span> <span class="n">b</span><span class="p">)</span> 
-      <span class="o">^</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>             <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span> 
- 
-<span class="mf">4.2.4</span> <span class="n">Same</span> <span class="p">(</span><span class="o">=</span><span class="p">)</span> 
- 
-      <span class="o">=</span><span class="p">(</span><span class="n">a</span> <span class="n">a</span><span class="p">)</span>           <span class="o">-&gt;</span> <span class="mi">0</span> 
-      <span class="o">=</span><span class="p">(</span><span class="n">a</span> <span class="n">b</span><span class="p">)</span>           <span class="o">-&gt;</span> <span class="mi">1</span> 
-      <span class="o">=</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>             <span class="o">-&gt;</span> <span class="o">=</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> 
- 
-<span class="mf">4.2.5</span> <span class="n">Snip</span> <span class="p">(</span><span class="o">/</span><span class="p">)</span> 
- 
-      <span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="n">a</span><span class="p">)</span>           <span class="o">-&gt;</span> <span class="n">a</span> 
-      <span class="o">/</span><span class="p">(</span><span class="mi">2</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span>         <span class="o">-&gt;</span> <span class="n">a</span> 
-      <span class="o">/</span><span class="p">(</span><span class="mi">3</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span>         <span class="o">-&gt;</span> <span class="n">b</span> 
-      <span class="o">/</span><span class="p">((</span><span class="n">a</span> <span class="o">+</span> <span class="n">a</span><span class="p">)</span> <span class="n">b</span><span class="p">)</span>     <span class="o">-&gt;</span> <span class="o">/</span><span class="p">(</span><span class="mi">2</span> <span class="o">/</span><span class="p">(</span><span class="n">a</span> <span class="n">b</span><span class="p">))</span> 
-      <span class="o">/</span><span class="p">((</span><span class="n">a</span> <span class="o">+</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">/</span><span class="p">(</span><span class="mi">3</span> <span class="o">/</span><span class="p">(</span><span class="n">a</span> <span class="n">b</span><span class="p">))</span> 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Author</span><span class="p">:</span> <span class="n">Curtis</span> <span class="n">Yarvin</span> <span class="p">(</span><span class="n">curtis</span><span class="o">.</span><span class="n">yarvin</span><span class="nd">@gmail</span><span class="o">.</span><span class="n">com</span><span class="p">)</span>
+<span class="n">Date</span><span class="p">:</span> <span class="mi">3</span><span class="o">/</span><span class="mi">8</span><span class="o">/</span><span class="mi">2008</span>
+<span class="n">Version</span><span class="p">:</span> <span class="mf">0.13</span>
+
+<span class="mf">1.</span> <span class="n">Manifest</span>
+
+    <span class="n">This</span> <span class="n">file</span> <span class="n">defines</span> <span class="n">one</span> <span class="n">Turing</span><span class="o">-</span><span class="n">complete</span> <span class="n">function</span><span class="p">,</span>
+    <span class="s2">&quot;nock.&quot;</span>
+
+    <span class="n">nock</span> <span class="ow">is</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">public</span> <span class="n">domain</span><span class="o">.</span>  <span class="n">So</span> <span class="n">far</span> <span class="k">as</span> <span class="n">I</span> <span class="n">know</span><span class="p">,</span>
+    <span class="n">it</span> <span class="ow">is</span> <span class="n">neither</span> <span class="n">patentable</span> <span class="n">nor</span> <span class="n">patented</span><span class="o">.</span>  <span class="n">Use</span> <span class="n">it</span> <span class="n">at</span>
+    <span class="n">your</span> <span class="n">own</span> <span class="n">risk</span><span class="o">.</span>
+
+<span class="mf">2.</span> <span class="n">Data</span>
+
+    <span class="n">Both</span> <span class="n">the</span> <span class="n">domain</span> <span class="ow">and</span> <span class="nb">range</span> <span class="n">of</span> <span class="n">nock</span> <span class="n">are</span> <span class="s2">&quot;nouns.&quot;</span>
+
+    <span class="n">A</span> <span class="s2">&quot;noun&quot;</span> <span class="ow">is</span> <span class="n">either</span> <span class="n">an</span> <span class="s2">&quot;atom&quot;</span> <span class="ow">or</span> <span class="n">a</span> <span class="s2">&quot;cell.&quot;</span>  <span class="n">An</span>
+    <span class="s2">&quot;atom&quot;</span> <span class="ow">is</span> <span class="n">an</span> <span class="n">unsigned</span> <span class="n">integer</span> <span class="n">of</span> <span class="nb">any</span> <span class="n">size</span><span class="o">.</span>  <span class="n">A</span>
+    <span class="s2">&quot;cell&quot;</span> <span class="ow">is</span> <span class="n">an</span> <span class="n">ordered</span> <span class="n">pair</span> <span class="n">of</span> <span class="nb">any</span> <span class="n">two</span> <span class="n">nouns</span><span class="p">,</span> <span class="n">the</span>
+    <span class="s2">&quot;head&quot;</span> <span class="ow">and</span> <span class="s2">&quot;tail.&quot;</span>
+
+<span class="mf">3.</span> <span class="n">Pseudocode</span>
+
+    <span class="n">nock</span> <span class="ow">is</span> <span class="n">defined</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">pattern</span><span class="o">-</span><span class="n">matching</span> <span class="n">pseudocode</span><span class="o">.</span>
+
+    <span class="n">Match</span> <span class="n">precedence</span> <span class="ow">is</span> <span class="n">top</span><span class="o">-</span><span class="n">down</span><span class="o">.</span>  <span class="n">Operators</span> <span class="n">are</span>
+    <span class="n">prefix</span><span class="o">.</span>  <span class="n">Parens</span> <span class="n">denote</span> <span class="n">cells</span><span class="p">,</span> <span class="ow">and</span> <span class="n">group</span> <span class="n">right</span><span class="p">:</span>
+    <span class="p">(</span><span class="n">a</span> <span class="n">b</span> <span class="n">c</span><span class="p">)</span> <span class="ow">is</span> <span class="p">(</span><span class="n">a</span> <span class="p">(</span><span class="n">b</span> <span class="n">c</span><span class="p">))</span><span class="o">.</span>
+
+<span class="mf">4.</span> <span class="n">Definition</span>
+
+<span class="mf">4.1</span> <span class="n">Transformations</span>
+
+      <span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="mi">0</span> <span class="n">b</span> <span class="n">c</span><span class="p">)</span>   <span class="o">=&gt;</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="n">b</span><span class="p">)</span> <span class="n">c</span><span class="p">)</span>
+      <span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="mi">0</span> <span class="n">b</span><span class="p">)</span>     <span class="o">=&gt;</span> <span class="o">/</span><span class="p">(</span><span class="n">b</span> <span class="n">a</span><span class="p">)</span>
+      <span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="mi">1</span> <span class="n">b</span><span class="p">)</span>     <span class="o">=&gt;</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span>
+      <span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="mi">2</span> <span class="n">b</span><span class="p">)</span>     <span class="o">=&gt;</span> <span class="o">**</span><span class="p">(</span><span class="n">a</span> <span class="n">b</span><span class="p">)</span>
+      <span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="mi">3</span> <span class="n">b</span><span class="p">)</span>     <span class="o">=&gt;</span> <span class="o">&amp;*</span><span class="p">(</span><span class="n">a</span> <span class="n">b</span><span class="p">)</span>
+      <span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="mi">4</span> <span class="n">b</span><span class="p">)</span>     <span class="o">=&gt;</span> <span class="o">^*</span><span class="p">(</span><span class="n">a</span> <span class="n">b</span><span class="p">)</span>
+      <span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="mi">5</span> <span class="n">b</span><span class="p">)</span>     <span class="o">=&gt;</span> <span class="o">=*</span><span class="p">(</span><span class="n">a</span> <span class="n">b</span><span class="p">)</span>
+      <span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="mi">6</span> <span class="n">b</span> <span class="n">c</span> <span class="n">d</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="mi">2</span> <span class="p">(</span><span class="mi">0</span> <span class="mi">1</span><span class="p">)</span>
+                            <span class="mi">2</span> <span class="p">(</span><span class="mi">1</span> <span class="n">c</span> <span class="n">d</span><span class="p">)</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">0</span><span class="p">)</span>
+                            <span class="mi">2</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">)</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">4</span> <span class="mi">4</span> <span class="n">b</span><span class="p">)</span>
+      <span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="n">b</span> <span class="n">c</span><span class="p">)</span>     <span class="o">=&gt;</span> <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="n">c</span><span class="p">))</span>
+      <span class="o">*</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>         <span class="o">=&gt;</span> <span class="o">*</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+<span class="mf">4.2</span> <span class="n">Operators</span>
+
+<span class="mf">4.2.1</span> <span class="n">Goto</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span>
+
+      <span class="o">*</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>             <span class="o">-&gt;</span> <span class="n">nock</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+<span class="mf">4.2.2</span> <span class="n">Deep</span> <span class="p">(</span><span class="o">&amp;</span><span class="p">)</span>
+
+      <span class="o">&amp;</span><span class="p">(</span><span class="n">a</span> <span class="n">b</span><span class="p">)</span>           <span class="o">-&gt;</span> <span class="mi">0</span>
+      <span class="o">&amp;</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>             <span class="o">-&gt;</span> <span class="mi">1</span>
+
+<span class="mf">4.2.3</span> <span class="n">Bump</span> <span class="p">(</span><span class="o">^</span><span class="p">)</span>
+
+      <span class="o">^</span><span class="p">(</span><span class="n">a</span> <span class="n">b</span><span class="p">)</span>           <span class="o">-&gt;</span> <span class="o">^</span><span class="p">(</span><span class="n">a</span> <span class="n">b</span><span class="p">)</span>
+      <span class="o">^</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>             <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="mf">4.2.4</span> <span class="n">Same</span> <span class="p">(</span><span class="o">=</span><span class="p">)</span>
+
+      <span class="o">=</span><span class="p">(</span><span class="n">a</span> <span class="n">a</span><span class="p">)</span>           <span class="o">-&gt;</span> <span class="mi">0</span>
+      <span class="o">=</span><span class="p">(</span><span class="n">a</span> <span class="n">b</span><span class="p">)</span>           <span class="o">-&gt;</span> <span class="mi">1</span>
+      <span class="o">=</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>             <span class="o">-&gt;</span> <span class="o">=</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+<span class="mf">4.2.5</span> <span class="n">Snip</span> <span class="p">(</span><span class="o">/</span><span class="p">)</span>
+
+      <span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="n">a</span><span class="p">)</span>           <span class="o">-&gt;</span> <span class="n">a</span>
+      <span class="o">/</span><span class="p">(</span><span class="mi">2</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span>         <span class="o">-&gt;</span> <span class="n">a</span>
+      <span class="o">/</span><span class="p">(</span><span class="mi">3</span> <span class="n">a</span> <span class="n">b</span><span class="p">)</span>         <span class="o">-&gt;</span> <span class="n">b</span>
+      <span class="o">/</span><span class="p">((</span><span class="n">a</span> <span class="o">+</span> <span class="n">a</span><span class="p">)</span> <span class="n">b</span><span class="p">)</span>     <span class="o">-&gt;</span> <span class="o">/</span><span class="p">(</span><span class="mi">2</span> <span class="o">/</span><span class="p">(</span><span class="n">a</span> <span class="n">b</span><span class="p">))</span>
+      <span class="o">/</span><span class="p">((</span><span class="n">a</span> <span class="o">+</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">/</span><span class="p">(</span><span class="mi">3</span> <span class="o">/</span><span class="p">(</span><span class="n">a</span> <span class="n">b</span><span class="p">))</span>
       <span class="o">/</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>             <span class="o">-&gt;</span> <span class="o">/</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 </pre></div>
 </div>
