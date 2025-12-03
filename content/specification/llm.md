@@ -2,6 +2,8 @@
 
 > A comprehensive guide to Nock's twelve opcodes, designed for both human understanding and LLM processing.
 
+Humans:  paste this into an LLM for context when you want to work with Nock.
+
 ## Foundational Concepts
 
 Before examining individual opcodes, understand these core principles:

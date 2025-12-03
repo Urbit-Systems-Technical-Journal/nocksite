@@ -55,6 +55,8 @@ chapters:
   #   title: "The Cellular Automaton Approach"
   # - file: content/understanding/alchemy-approach
   #   title: "The Alchemy Approach"
+  - file: content/specification/llm
+    title: Nock for LLMs
 
 - file: content/examples/index
   title: Code Examples
@@ -65,6 +67,8 @@ chapters:
     title: Combinators
   - file: content/examples/idioms-gates-patterns
     title: Idioms, Gates, & Design Patterns
+  - file: content/examples/timluc-miptev--nock-for-everyday-coders
+    title: "Nock for Everyday Coders (Tutorial)"
     
 - file: content/compiling/index
   title: Languages
@@ -77,8 +81,8 @@ chapters:
 - file: content/hints-jetting/index
   title: Hints & Jetting
   sections:
-  - file: content/hints-jetting/algorithmic-considerations
-    title: Algorithmic Considerations
+  # - file: content/hints-jetting/algorithmic-considerations
+  #   title: Algorithmic Considerations
 
 - file: content/history/index
   title: History
