@@ -1,5 +1,5 @@
 # Code Examples
 
-TODO: Add content for Code Examples
-
-This section is under development.
+* [Nouns and Data](./nouns-and-data.ipynb)
+* [Idioms, Gates, & Design Patterns](./idioms-gates-patterns.ipynb)
+* [Nock for Everyday Coders (Tutorial)](./timluc-miptev--nock-for-everyday-coders.ipynb)
