@@ -63,8 +63,8 @@ chapters:
   sections:
   - file: content/examples/nouns-and-data
     title: Nouns & Data
-  - file: content/examples/combinators
-    title: Combinators
+  # - file: content/examples/combinators
+  #   title: Combinators
   - file: content/examples/idioms-gates-patterns
     title: Idioms, Gates, & Design Patterns
   - file: content/examples/timluc-miptev--nock-for-everyday-coders
