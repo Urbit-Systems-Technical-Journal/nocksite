@@ -104,6 +104,8 @@ Nock evaluation continues until a noun is reached that is not a formula (i.e., i
 
 Nock evaluation is formally Turing-complete but will be quite verbose for many tasks.  Even with higher-level abstractions, the resulting nouns may be impractical to compute in a reasonable amount of time.  Thus Nock can be treated as a formal specification of behavior, with [jet-accelerated code](../hints-jetting/index.md) providing enormous performance improvements.
 
+[Cell distribution](cell-distribution.ipynb) provides more details on how Nock evaluation works with multiple opcodes against a single subject.
+
 ### Crashing
 
 The last line of the Nock specification reads:

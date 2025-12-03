@@ -1,0 +1,1978 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Nock Opcode Reference (Nock 4K) &#8212; Nock</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=301bb366" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=df42334f"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/specification/llm';</script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Nock - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Nock - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="index.html">The Specification</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="basic-opcodes.html">Basic Opcodes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="opcode-0.html">Opcode 0: Address</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opcode-1.html">Opcode 1: Constant</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opcode-2.html">Opcode 2: Evaluate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opcode-3.html">Opcode 3: Cell Check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opcode-4.html">Opcode 4: Increment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opcode-5.html">Opcode 5: Equality Check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opcode-10.html">Opcode 10: Edit</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="composite-opcodes.html">Composite Opcodes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="opcode-6.html">Opcode 6: Conditional</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opcode-7.html">Opcode 7: Compose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opcode-8.html">Opcode 8: Extend</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opcode-9.html">Opcode 9: Invoke</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opcode-11.html">Opcode 11: Hint</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="detailed-examples.html">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loobeans.html">Loobeans</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../understanding/index.html">Understanding Nock</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../understanding/combinator-approach.html">The Combinator Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../understanding/lambda-approach.html">The Lambda Calculus Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../understanding/assembly-language-approach.html">The Assembly Language Approach</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../examples/index.html">Code Examples</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/nouns-and-data.html">Nouns &amp; Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/combinators.html">Combinators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/idioms-gates-patterns.html">Idioms, Gates, &amp; Design Patterns</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../compiling/index.html">Languages</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compiling/relationship-to-hoon.html">Relationship to Hoon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compiling/relationship-to-jock.html">Relationship to Jock</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../hints-jetting/index.html">Hints &amp; Jetting</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../hints-jetting/algorithmic-considerations.html">Algorithmic Considerations</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../history/index.html">History</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference external" href="https://urbitsystems.tech/article/v02-i01/a-documentary-history-of-the-nock-combinator-calculus">History of Nock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../history/nock-4k.html">Nock 4K</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../history/nock-5k.html">Nock 5K</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../history/nock-6k.html">Nock 6K</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../history/nock-7k.html">Nock 7K</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../history/nock-8k.html">Nock 8K</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../history/nock-9k.html">Nock 9K</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../history/nock-10k.html">Nock 10K</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../history/nock-11k.html">Nock 11K</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../history/nock-12k.html">Nock 12K</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../history/nock-13k.html">Nock 13K</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../history/u-model.html">U: A Small Model</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/Urbit-Systems-Technical-Journal/nocksite" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/content/specification/llm.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Nock Opcode Reference (Nock 4K)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#foundational-concepts">Foundational Concepts</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-nock-evaluation-model">The Nock Evaluation Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-model-nouns">Data Model: Nouns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tree-addressing">Tree Addressing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#boolean-convention">Boolean Convention</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#crash-semantics">Crash Semantics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#primitive-opcodes-05">Primitive Opcodes (0–5)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opcode-0-slot-tree-addressing">Opcode 0: Slot (Tree Addressing)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#formal-definition">Formal Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#human-description">Human Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#detailed-behavior">Detailed Behavior</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-patterns">Common Patterns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-implementation-notes">LLM Implementation Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opcode-1-constant-quote">Opcode 1: Constant (Quote)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Formal Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Human Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Detailed Behavior</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Common Patterns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">LLM Implementation Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opcode-2-evaluate-nock">Opcode 2: Evaluate (Nock)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Formal Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Human Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Detailed Behavior</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Common Patterns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">LLM Implementation Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opcode-3-cell-test-is-cell">Opcode 3: Cell Test (Is Cell?)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Formal Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Human Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">Detailed Behavior</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">Common Patterns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">LLM Implementation Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opcode-4-increment">Opcode 4: Increment</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">Formal Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">Human Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">Detailed Behavior</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">Common Patterns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arithmetic-note">Arithmetic Note</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">LLM Implementation Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opcode-5-equality-test">Opcode 5: Equality Test</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">Formal Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">Human Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">Detailed Behavior</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">Common Patterns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">LLM Implementation Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#macro-opcodes-611">Macro Opcodes (6–11)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opcode-6-conditional-if-then-else">Opcode 6: Conditional (If-Then-Else)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">Formal Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simplified-semantics">Simplified Semantics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">Human Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">Detailed Behavior</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">Common Patterns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-the-complex-macro">Why the Complex Macro?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id36">LLM Implementation Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opcode-7-compose-sequential">Opcode 7: Compose (Sequential)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id37">Formal Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id38">Human Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id39">Detailed Behavior</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id41">Common Patterns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#relationship-to-opcode-2">Relationship to Opcode 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id42">LLM Implementation Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opcode-8-extend-push">Opcode 8: Extend (Push)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id43">Formal Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id44">Human Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id45">Detailed Behavior</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id46">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#address-shift">Address Shift</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id47">Common Patterns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#relationship-to-opcode-7">Relationship to Opcode 7</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id48">LLM Implementation Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opcode-9-invoke-call">Opcode 9: Invoke (Call)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id49">Formal Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expanded-form">Expanded Form</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id50">Human Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-cores">Understanding Cores</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id51">Detailed Behavior</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id52">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-pattern-the-gate-call">Common Pattern: The Gate Call</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id53">LLM Implementation Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opcode-10-edit-replace">Opcode 10: Edit (Replace)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id54">Formal Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id55">Human Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id56">Detailed Behavior</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id57">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id58">Common Patterns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#relationship-to-gate-calls">Relationship to Gate Calls</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id59">LLM Implementation Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opcode-11-hint">Opcode 11: Hint</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id60">Formal Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id61">Human Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#static-hints">Static Hints</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-hints">Dynamic Hints</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id62">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-hint-tags-in-urbit">Common Hint Tags (in Urbit)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-dynamic-hints-evaluate-the-clue">Why Dynamic Hints Evaluate the Clue</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id63">LLM Implementation Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribution-implicit-cons">Distribution (Implicit Cons)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id64">Formal Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id65">Human Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id66">Detailed Behavior</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id67">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id68">Common Patterns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id69">LLM Implementation Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opcode-composition-patterns">Opcode Composition Patterns</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pattern-function-application">Pattern: Function Application</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pattern-loop-recursion">Pattern: Loop/Recursion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pattern-let-binding">Pattern: Let Binding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pattern-conditional-expression">Pattern: Conditional Expression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pattern-sequential-computation">Pattern: Sequential Computation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complete-nock-4k-specification">Complete Nock 4K Specification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-reference-table">Quick Reference Table</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further Reading</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="nock-opcode-reference-nock-4k">
+<h1>Nock Opcode Reference (Nock 4K)<a class="headerlink" href="#nock-opcode-reference-nock-4k" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p>A comprehensive guide to Nock’s twelve opcodes, designed for both human understanding and LLM processing.</p>
+</div></blockquote>
+<section id="foundational-concepts">
+<h2>Foundational Concepts<a class="headerlink" href="#foundational-concepts" title="Link to this heading">#</a></h2>
+<p>Before examining individual opcodes, understand these core principles:</p>
+<section id="the-nock-evaluation-model">
+<h3>The Nock Evaluation Model<a class="headerlink" href="#the-nock-evaluation-model" title="Link to this heading">#</a></h3>
+<p>Nock is a pure function from <strong>noun</strong> to <strong>noun</strong>. The evaluation function <code class="docutils literal notranslate"><span class="pre">*</span></code> (pronounced “nock”) takes a cell <code class="docutils literal notranslate"><span class="pre">[subject</span> <span class="pre">formula]</span></code> and produces a <strong>product</strong>:</p>
+<ul class="simple">
+<li><p><strong>Subject</strong>: The data environment (analogous to scope/context)</p></li>
+<li><p><strong>Formula</strong>: The code to execute (always a cell with an opcode head)</p></li>
+<li><p><strong>Product</strong>: The result of evaluation</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>*[subject formula] → product
+</pre></div>
+</div>
+</section>
+<section id="data-model-nouns">
+<h3>Data Model: Nouns<a class="headerlink" href="#data-model-nouns" title="Link to this heading">#</a></h3>
+<p>All data in Nock is a <strong>noun</strong>:</p>
+<ul class="simple">
+<li><p>An <strong>atom</strong> is any natural number (0, 1, 2, 3, …)</p></li>
+<li><p>A <strong>cell</strong> is an ordered pair of nouns: <code class="docutils literal notranslate"><span class="pre">[noun</span> <span class="pre">noun]</span></code></p></li>
+</ul>
+<p>There are no other types. Strings, lists, trees, code—everything is nouns.</p>
+</section>
+<section id="tree-addressing">
+<h3>Tree Addressing<a class="headerlink" href="#tree-addressing" title="Link to this heading">#</a></h3>
+<p>Nouns form binary trees. Every position has an address:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>        <span class="mi">1</span>           <span class="p">(</span><span class="n">root</span><span class="p">)</span>
+       <span class="o">/</span> \
+      <span class="mi">2</span>   <span class="mi">3</span>         <span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="n">tail</span><span class="p">)</span>
+     <span class="o">/</span> \ <span class="o">/</span> \
+    <span class="mi">4</span>  <span class="mi">5</span> <span class="mi">6</span>  <span class="mi">7</span>
+   <span class="o">/</span>\
+  <span class="mi">8</span>  <span class="mi">9</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Address 1 is the root (entire noun)</p></li>
+<li><p>Address 2 is the head (left child)</p></li>
+<li><p>Address 3 is the tail (right child)</p></li>
+<li><p>Address 2n is head of node n</p></li>
+<li><p>Address 2n+1 is tail of node n</p></li>
+</ul>
+</section>
+<section id="boolean-convention">
+<h3>Boolean Convention<a class="headerlink" href="#boolean-convention" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code> = yes/true</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1</span></code> = no/false</p></li>
+</ul>
+<p>This follows Unix convention (0 for success).</p>
+</section>
+<section id="crash-semantics">
+<h3>Crash Semantics<a class="headerlink" href="#crash-semantics" title="Link to this heading">#</a></h3>
+<p>Nock is “crash-only.” Invalid operations (incrementing a cell, addressing into an atom) don’t throw exceptions—they cause non-termination. Practical interpreters detect these and halt.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="primitive-opcodes-05">
+<h2>Primitive Opcodes (0–5)<a class="headerlink" href="#primitive-opcodes-05" title="Link to this heading">#</a></h2>
+<p>These six opcodes provide Turing-complete computation. Everything else is syntactic sugar.</p>
+</section>
+<hr class="docutils" />
+<section id="opcode-0-slot-tree-addressing">
+<h2>Opcode 0: Slot (Tree Addressing)<a class="headerlink" href="#opcode-0-slot-tree-addressing" title="Link to this heading">#</a></h2>
+<section id="formal-definition">
+<h3>Formal Definition<a class="headerlink" href="#formal-definition" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>*[subject 0 b] → /[b subject]
+</pre></div>
+</div>
+</section>
+<section id="human-description">
+<h3>Human Description<a class="headerlink" href="#human-description" title="Link to this heading">#</a></h3>
+<p>Retrieve the noun at address <code class="docutils literal notranslate"><span class="pre">b</span></code> within the subject. This is Nock’s fundamental data access operation—the only way to read from the subject.</p>
+</section>
+<section id="detailed-behavior">
+<h3>Detailed Behavior<a class="headerlink" href="#detailed-behavior" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code> must be a positive atom (the address)</p></li>
+<li><p>Returns the subtree at that address in the subject</p></li>
+<li><p>Crashes if the address doesn’t exist (e.g., addressing into an atom)</p></li>
+</ul>
+</section>
+<section id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h3>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>*[[10 20] 0 1]     → [10 20]     :: Address 1 = entire subject
+*[[10 20] 0 2]     → 10          :: Address 2 = head
+*[[10 20] 0 3]     → 20          :: Address 3 = tail
+*[[[1 2] 3] 0 4]   → 1           :: Address 4 = head of head
+*[[[1 2] 3] 0 5]   → 2           :: Address 5 = tail of head
+*[[1 [2 3]] 0 7]   → 3           :: Address 7 = tail of tail
+</pre></div>
+</div>
+</section>
+<section id="common-patterns">
+<h3>Common Patterns<a class="headerlink" href="#common-patterns" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Address</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Hoon Equivalent</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">1]</span></code></p></td>
+<td><p>Entire subject</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">2]</span></code></p></td>
+<td><p>Head (battery of core)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-</span></code> or <code class="docutils literal notranslate"><span class="pre">+2</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">3]</span></code></p></td>
+<td><p>Tail (payload of core)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">+</span></code> or <code class="docutils literal notranslate"><span class="pre">+3</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">6]</span></code></p></td>
+<td><p>Sample of gate</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">+6</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">7]</span></code></p></td>
+<td><p>Context of gate</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">+7</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="llm-implementation-notes">
+<h3>LLM Implementation Notes<a class="headerlink" href="#llm-implementation-notes" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Always validate that <code class="docutils literal notranslate"><span class="pre">b</span></code> is a positive atom</p></li>
+<li><p>Implement tree traversal: even addresses go left, odd go right</p></li>
+<li><p>Return crash/bottom for invalid addresses</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="opcode-1-constant-quote">
+<h2>Opcode 1: Constant (Quote)<a class="headerlink" href="#opcode-1-constant-quote" title="Link to this heading">#</a></h2>
+<section id="id1">
+<h3>Formal Definition<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>*[subject 1 b] → b
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>Human Description<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>Return <code class="docutils literal notranslate"><span class="pre">b</span></code> unchanged, completely ignoring the subject. This is how you embed literal values in Nock code.</p>
+</section>
+<section id="id3">
+<h3>Detailed Behavior<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The subject is entirely ignored</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code> is returned as-is (not evaluated)</p></li>
+<li><p>Works for any noun <code class="docutils literal notranslate"><span class="pre">b</span></code> (atom or cell)</p></li>
+</ul>
+</section>
+<section id="id4">
+<h3>Examples<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>*[999 1 42]        → 42          :: Ignores subject, returns constant
+*[[1 2] 1 [3 4]]   → [3 4]       :: Returns cell constant
+*[0 1 0]           → 0           :: Even 0 works as a constant
+*[42 1 [0 1]]      → [0 1]       :: Returns formula literally (not evaluated)
+</pre></div>
+</div>
+</section>
+<section id="id5">
+<h3>Common Patterns<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>Opcode 1 is essential for:</p>
+<ul class="simple">
+<li><p>Embedding literal data in formulas</p></li>
+<li><p>Quoting code that should not be evaluated</p></li>
+<li><p>Building data structures within computations</p></li>
+</ul>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:: Build a cell of constants
+*[x [[1 10] [1 20]]]  → [10 20]    :: Distribution + constants
+</pre></div>
+</div>
+</section>
+<section id="id6">
+<h3>LLM Implementation Notes<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Simplest opcode: just return the argument</p></li>
+<li><p>No subject access, no evaluation</p></li>
+<li><p>Critical for constructing values and quoting formulas</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="opcode-2-evaluate-nock">
+<h2>Opcode 2: Evaluate (Nock)<a class="headerlink" href="#opcode-2-evaluate-nock" title="Link to this heading">#</a></h2>
+<section id="id7">
+<h3>Formal Definition<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>*[subject 2 b c] → *[*[subject b] *[subject c]]
+</pre></div>
+</div>
+</section>
+<section id="id8">
+<h3>Human Description<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>The “eval” of Nock. Compute a new subject from formula <code class="docutils literal notranslate"><span class="pre">b</span></code>, compute a new formula from formula <code class="docutils literal notranslate"><span class="pre">c</span></code>, then nock the results together. This enables dynamic code execution and is how Nock achieves Turing completeness.</p>
+</section>
+<section id="id9">
+<h3>Detailed Behavior<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Evaluate <code class="docutils literal notranslate"><span class="pre">b</span></code> against the subject → produces a noun (new subject)</p></li>
+<li><p>Evaluate <code class="docutils literal notranslate"><span class="pre">c</span></code> against the subject → produces a noun (new formula)</p></li>
+<li><p>Evaluate the new formula against the new subject → final product</p></li>
+</ol>
+</section>
+<section id="id10">
+<h3>Examples<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:: Simple: constant subject, constant formula
+*[42 2 [1 100] [1 [0 1]]]
+  → *[100 [0 1]]           :: Compute *[100 0 1]
+  → 100                     :: Returns the subject
+
+:: Dynamic formula selection
+*[[5 [4 0 1]] 2 [0 2] [0 3]]
+  → *[5 [4 0 1]]           :: New subject is 5, formula is [4 0 1]
+  → 6                       :: Increment 5
+
+:: Self-application (Y-combinator style)
+*[[[4 0 1] 42] 2 [0 3] [0 2]]
+  → *[42 [4 0 1]]          :: Apply increment formula to 42
+  → 43
+</pre></div>
+</div>
+</section>
+<section id="id11">
+<h3>Common Patterns<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p>Opcode 2 is the foundation for:</p>
+<ul class="simple">
+<li><p>Function calls</p></li>
+<li><p>Code generation and metaprogramming</p></li>
+<li><p>Implementing higher-order patterns</p></li>
+</ul>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:: Pattern: Apply a stored formula to data
+*[[formula data] 2 [0 3] [0 2]]  :: Apply formula at +3 to data at +2
+</pre></div>
+</div>
+</section>
+<section id="id12">
+<h3>LLM Implementation Notes<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>This is recursive: both <code class="docutils literal notranslate"><span class="pre">b</span></code> and <code class="docutils literal notranslate"><span class="pre">c</span></code> are formulas that must be evaluated</p></li>
+<li><p>The inner evaluations happen first, then the outer nock</p></li>
+<li><p>Be careful with evaluation order: left-to-right for the inner nocks</p></li>
+<li><p>This is where infinite loops typically originate</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="opcode-3-cell-test-is-cell">
+<h2>Opcode 3: Cell Test (Is Cell?)<a class="headerlink" href="#opcode-3-cell-test-is-cell" title="Link to this heading">#</a></h2>
+<section id="id13">
+<h3>Formal Definition<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>*[subject 3 b] → ?*[subject b]
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">?</span></code> is the cell test operator:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>?[a b] → 0    (cells are true)
+?a     → 1    (atoms are false)
+</pre></div>
+</div>
+</section>
+<section id="id14">
+<h3>Human Description<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>Test whether the product of formula <code class="docutils literal notranslate"><span class="pre">b</span></code> is a cell or an atom. Returns <code class="docutils literal notranslate"><span class="pre">0</span></code> (yes) if it’s a cell, <code class="docutils literal notranslate"><span class="pre">1</span></code> (no) if it’s an atom.</p>
+</section>
+<section id="id15">
+<h3>Detailed Behavior<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Evaluate <code class="docutils literal notranslate"><span class="pre">b</span></code> against the subject → produces a noun</p></li>
+<li><p>Test if that noun is a cell</p></li>
+<li><p>Return <code class="docutils literal notranslate"><span class="pre">0</span></code> if cell, <code class="docutils literal notranslate"><span class="pre">1</span></code> if atom</p></li>
+</ol>
+</section>
+<section id="id16">
+<h3>Examples<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>*[[1 2] 3 [0 1]]   → 0      :: [1 2] is a cell
+*[42 3 [0 1]]      → 1      :: 42 is an atom
+*[[1 2] 3 [0 2]]   → 1      :: Head of [1 2] is 1, an atom
+*[[[1 2] 3] 3 [0 2]] → 0    :: Head is [1 2], a cell
+</pre></div>
+</div>
+</section>
+<section id="id17">
+<h3>Common Patterns<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
+<p>Opcode 3 is used for:</p>
+<ul class="simple">
+<li><p>Type discrimination (before pattern matching)</p></li>
+<li><p>Conditional logic based on structure</p></li>
+<li><p>Validating data shapes</p></li>
+</ul>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:: Pattern: Check if slot contains a cell
+*[data [3 [0 n]]]  :: Is the noun at address n a cell?
+</pre></div>
+</div>
+</section>
+<section id="id18">
+<h3>LLM Implementation Notes<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Simple boolean test after evaluation</p></li>
+<li><p>Remember: 0 means “yes, it’s a cell”</p></li>
+<li><p>Often combined with opcode 6 for branching</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="opcode-4-increment">
+<h2>Opcode 4: Increment<a class="headerlink" href="#opcode-4-increment" title="Link to this heading">#</a></h2>
+<section id="id19">
+<h3>Formal Definition<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>*[subject 4 b] → +*[subject b]
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">+</span></code> is the increment operator:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>+a → 1 + a    (for atoms only)
++[a b] → crash
+</pre></div>
+</div>
+</section>
+<section id="id20">
+<h3>Human Description<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
+<p>Add 1 to the product of formula <code class="docutils literal notranslate"><span class="pre">b</span></code>. This is Nock’s only arithmetic primitive—all other arithmetic must be built from increment.</p>
+</section>
+<section id="id21">
+<h3>Detailed Behavior<a class="headerlink" href="#id21" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Evaluate <code class="docutils literal notranslate"><span class="pre">b</span></code> against the subject → must produce an atom</p></li>
+<li><p>Return that atom plus 1</p></li>
+<li><p>Crashes if the product is a cell</p></li>
+</ol>
+</section>
+<section id="id22">
+<h3>Examples<a class="headerlink" href="#id22" title="Link to this heading">#</a></h3>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>*[42 4 [0 1]]      → 43     :: Increment the subject
+*[[10 20] 4 [0 2]] → 11     :: Increment the head
+*[0 4 [0 1]]       → 1      :: Increment zero
+*[[1 2] 4 [0 1]]   → crash  :: Can&#39;t increment a cell
+</pre></div>
+</div>
+</section>
+<section id="id23">
+<h3>Common Patterns<a class="headerlink" href="#id23" title="Link to this heading">#</a></h3>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:: Double increment
+*[5 [4 [4 [0 1]]]]  → 7
+
+:: Increment a constant
+*[x [4 [1 99]]]     → 100
+</pre></div>
+</div>
+</section>
+<section id="arithmetic-note">
+<h3>Arithmetic Note<a class="headerlink" href="#arithmetic-note" title="Link to this heading">#</a></h3>
+<p>Since increment is the only arithmetic operation:</p>
+<ul class="simple">
+<li><p>Decrement requires counting up from 0</p></li>
+<li><p>Addition is repeated increment</p></li>
+<li><p>All arithmetic is theoretically O(n) or worse</p></li>
+</ul>
+<p>In practice, interpreters “jet” (accelerate) known arithmetic patterns.</p>
+</section>
+<section id="id24">
+<h3>LLM Implementation Notes<a class="headerlink" href="#id24" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Must validate product is an atom before incrementing</p></li>
+<li><p>This is a crash point for type errors</p></li>
+<li><p>Foundation for all numeric computation</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="opcode-5-equality-test">
+<h2>Opcode 5: Equality Test<a class="headerlink" href="#opcode-5-equality-test" title="Link to this heading">#</a></h2>
+<section id="id25">
+<h3>Formal Definition<a class="headerlink" href="#id25" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>*[subject 5 b c] → =[*[subject b] *[subject c]]
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">=</span></code> is the equality test:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>=[a a] → 0    (equal → true)
+=[a b] → 1    (not equal → false)
+</pre></div>
+</div>
+</section>
+<section id="id26">
+<h3>Human Description<a class="headerlink" href="#id26" title="Link to this heading">#</a></h3>
+<p>Test whether the products of formulas <code class="docutils literal notranslate"><span class="pre">b</span></code> and <code class="docutils literal notranslate"><span class="pre">c</span></code> are structurally identical. Returns <code class="docutils literal notranslate"><span class="pre">0</span></code> if equal, <code class="docutils literal notranslate"><span class="pre">1</span></code> if not.</p>
+</section>
+<section id="id27">
+<h3>Detailed Behavior<a class="headerlink" href="#id27" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Evaluate <code class="docutils literal notranslate"><span class="pre">b</span></code> against the subject → noun X</p></li>
+<li><p>Evaluate <code class="docutils literal notranslate"><span class="pre">c</span></code> against the subject → noun Y</p></li>
+<li><p>Return <code class="docutils literal notranslate"><span class="pre">0</span></code> if X and Y are identical nouns, <code class="docutils literal notranslate"><span class="pre">1</span></code> otherwise</p></li>
+</ol>
+<p>Equality is deep structural comparison: two cells are equal iff their heads are equal and their tails are equal.</p>
+</section>
+<section id="id28">
+<h3>Examples<a class="headerlink" href="#id28" title="Link to this heading">#</a></h3>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>*[[5 5] 5 [0 2] [0 3]]     → 0      :: 5 equals 5
+*[[5 6] 5 [0 2] [0 3]]     → 1      :: 5 doesn&#39;t equal 6
+*[42 5 [0 1] [1 42]]       → 0      :: Subject equals constant 42
+*[[[1 2] [1 2]] 5 [0 2] [0 3]] → 0  :: Deep equality works
+</pre></div>
+</div>
+</section>
+<section id="id29">
+<h3>Common Patterns<a class="headerlink" href="#id29" title="Link to this heading">#</a></h3>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:: Pattern: Check if value equals a constant
+*[x [5 [0 1] [1 target]]]   :: Does x equal target?
+
+:: Pattern: Compare two slots
+*[data [5 [0 a] [0 b]]]     :: Do slots a and b hold equal values?
+</pre></div>
+</div>
+</section>
+<section id="id30">
+<h3>LLM Implementation Notes<a class="headerlink" href="#id30" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Deep structural comparison, not pointer equality</p></li>
+<li><p>Both arguments are formulas (must be evaluated first)</p></li>
+<li><p>Essential for conditional branching (combined with opcode 6)</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="macro-opcodes-611">
+<h2>Macro Opcodes (6–11)<a class="headerlink" href="#macro-opcodes-611" title="Link to this heading">#</a></h2>
+<p>Opcodes 6–11 are “sugar”—they can be expressed in terms of opcodes 0–5 but exist for efficiency and convenience.</p>
+</section>
+<hr class="docutils" />
+<section id="opcode-6-conditional-if-then-else">
+<h2>Opcode 6: Conditional (If-Then-Else)<a class="headerlink" href="#opcode-6-conditional-if-then-else" title="Link to this heading">#</a></h2>
+<section id="id31">
+<h3>Formal Definition<a class="headerlink" href="#id31" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>*[subject 6 b c d] → *[subject *[[c d] 0 *[[2 3] 0 *[subject 4 4 b]]]]
+</pre></div>
+</div>
+</section>
+<section id="simplified-semantics">
+<h3>Simplified Semantics<a class="headerlink" href="#simplified-semantics" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">If</span> <span class="o">*</span><span class="p">[</span><span class="n">subject</span> <span class="n">b</span><span class="p">]</span> <span class="n">equals</span> <span class="mi">0</span><span class="p">:</span>  <span class="k">return</span> <span class="o">*</span><span class="p">[</span><span class="n">subject</span> <span class="n">c</span><span class="p">]</span>
+<span class="n">If</span> <span class="o">*</span><span class="p">[</span><span class="n">subject</span> <span class="n">b</span><span class="p">]</span> <span class="n">equals</span> <span class="mi">1</span><span class="p">:</span>  <span class="k">return</span> <span class="o">*</span><span class="p">[</span><span class="n">subject</span> <span class="n">d</span><span class="p">]</span>
+<span class="n">Otherwise</span><span class="p">:</span> <span class="n">crash</span>
+</pre></div>
+</div>
+</section>
+<section id="id32">
+<h3>Human Description<a class="headerlink" href="#id32" title="Link to this heading">#</a></h3>
+<p>The conditional branch. Evaluate test formula <code class="docutils literal notranslate"><span class="pre">b</span></code>; if true (0), evaluate and return <code class="docutils literal notranslate"><span class="pre">c</span></code>; if false (1), evaluate and return <code class="docutils literal notranslate"><span class="pre">d</span></code>. Crashes on non-boolean test results.</p>
+</section>
+<section id="id33">
+<h3>Detailed Behavior<a class="headerlink" href="#id33" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Evaluate <code class="docutils literal notranslate"><span class="pre">b</span></code> against the subject → must produce 0 or 1</p></li>
+<li><p>If 0 (true): evaluate <code class="docutils literal notranslate"><span class="pre">c</span></code> against subject and return</p></li>
+<li><p>If 1 (false): evaluate <code class="docutils literal notranslate"><span class="pre">d</span></code> against subject and return</p></li>
+<li><p>Any other value crashes (enforced by the macro expansion)</p></li>
+</ol>
+</section>
+<section id="id34">
+<h3>Examples<a class="headerlink" href="#id34" title="Link to this heading">#</a></h3>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:: If 0 (true), return 10; else return 20
+*[0 6 [0 1] [1 10] [1 20]]  → 10
+
+:: If 1 (false), return 10; else return 20
+*[1 6 [0 1] [1 10] [1 20]]  → 20
+
+:: Conditional on cell test
+*[[1 2] 6 [3 [0 1]] [1 &quot;cell&quot;] [1 &quot;atom&quot;]]  → &quot;cell&quot;
+*[42 6 [3 [0 1]] [1 &quot;cell&quot;] [1 &quot;atom&quot;]]     → &quot;atom&quot;
+</pre></div>
+</div>
+</section>
+<section id="id35">
+<h3>Common Patterns<a class="headerlink" href="#id35" title="Link to this heading">#</a></h3>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:: Pattern: If x equals y, then a, else b
+*[subject [6 [5 [0 x] [0 y]] formula-a formula-b]]
+
+:: Pattern: If slot is a cell, then a, else b
+*[subject [6 [3 [0 n]] formula-cell formula-atom]]
+
+:: Pattern: Guard against zero (for decrement)
+*[n [6 [5 [0 1] [1 0]] [1 crash] [decrement-formula]]]
+</pre></div>
+</div>
+</section>
+<section id="why-the-complex-macro">
+<h3>Why the Complex Macro?<a class="headerlink" href="#why-the-complex-macro" title="Link to this heading">#</a></h3>
+<p>The macro <code class="docutils literal notranslate"><span class="pre">*[a</span> <span class="pre">*[[c</span> <span class="pre">d]</span> <span class="pre">0</span> <span class="pre">*[[2</span> <span class="pre">3]</span> <span class="pre">0</span> <span class="pre">*[a</span> <span class="pre">4</span> <span class="pre">4</span> <span class="pre">b]]]]</span></code> works by:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">*[a</span> <span class="pre">4</span> <span class="pre">4</span> <span class="pre">b]</span></code> → evaluates b, then adds 2 (so 0→2, 1→3)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*[[2</span> <span class="pre">3]</span> <span class="pre">0</span> <span class="pre">...]</span></code> → uses result as address into <code class="docutils literal notranslate"><span class="pre">[2</span> <span class="pre">3]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*[[c</span> <span class="pre">d]</span> <span class="pre">0</span> <span class="pre">...]</span></code> → uses 2 or 3 as address into <code class="docutils literal notranslate"><span class="pre">[c</span> <span class="pre">d]</span></code></p></li>
+</ol>
+<p>This cleverly selects <code class="docutils literal notranslate"><span class="pre">c</span></code> (at address 2) for true, <code class="docutils literal notranslate"><span class="pre">d</span></code> (at address 3) for false.</p>
+</section>
+<section id="id36">
+<h3>LLM Implementation Notes<a class="headerlink" href="#id36" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The test MUST produce exactly 0 or 1</p></li>
+<li><p>Only one branch is evaluated (short-circuit)</p></li>
+<li><p>The Hoon rune <code class="docutils literal notranslate"><span class="pre">?:</span></code> compiles to opcode 6</p></li>
+<li><p>Crashes enforce boolean discipline</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="opcode-7-compose-sequential">
+<h2>Opcode 7: Compose (Sequential)<a class="headerlink" href="#opcode-7-compose-sequential" title="Link to this heading">#</a></h2>
+<section id="id37">
+<h3>Formal Definition<a class="headerlink" href="#id37" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>*[subject 7 b c] → *[*[subject b] c]
+</pre></div>
+</div>
+</section>
+<section id="id38">
+<h3>Human Description<a class="headerlink" href="#id38" title="Link to this heading">#</a></h3>
+<p>Function composition. Evaluate <code class="docutils literal notranslate"><span class="pre">b</span></code> against the subject, then use that result as the subject for evaluating <code class="docutils literal notranslate"><span class="pre">c</span></code>. The classic “pipe” pattern.</p>
+</section>
+<section id="id39">
+<h3>Detailed Behavior<a class="headerlink" href="#id39" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Evaluate <code class="docutils literal notranslate"><span class="pre">b</span></code> against subject → intermediate noun</p></li>
+<li><p>Evaluate <code class="docutils literal notranslate"><span class="pre">c</span></code> against that intermediate → final product</p></li>
+</ol>
+</section>
+<section id="id40">
+<h3>Examples<a class="headerlink" href="#id40" title="Link to this heading">#</a></h3>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:: Compose two increments
+*[5 7 [4 0 1] [4 0 1]]     → 7    :: 5 → 6 → 7
+
+:: Transform subject, then extract
+*[[1 2] 7 [0 3] [0 1]]     → 2    :: Get tail, then get whole (which is 2)
+
+:: Build structure, then index
+*[42 7 [[0 1] [1 10]] [0 3]]  → 10  :: Make [42 10], get tail
+</pre></div>
+</div>
+</section>
+<section id="id41">
+<h3>Common Patterns<a class="headerlink" href="#id41" title="Link to this heading">#</a></h3>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:: Pattern: Chain transformations
+*[x [7 transform1 [7 transform2 transform3]]]
+
+:: Pattern: Set up context, then compute
+*[input [7 [build-context] [main-computation]]]
+</pre></div>
+</div>
+</section>
+<section id="relationship-to-opcode-2">
+<h3>Relationship to Opcode 2<a class="headerlink" href="#relationship-to-opcode-2" title="Link to this heading">#</a></h3>
+<p>Opcode 7 is opcode 2 with a quoted formula:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>*[a 7 b c] ≡ *[a 2 b [1 c]]
+</pre></div>
+</div>
+<p>Opcode 7 exists because this pattern is extremely common.</p>
+</section>
+<section id="id42">
+<h3>LLM Implementation Notes<a class="headerlink" href="#id42" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Think of it as “then” or “pipe”</p></li>
+<li><p>First formula changes the subject, second operates on new subject</p></li>
+<li><p>The Hoon rune <code class="docutils literal notranslate"><span class="pre">=&gt;</span></code> compiles to opcode 7</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="opcode-8-extend-push">
+<h2>Opcode 8: Extend (Push)<a class="headerlink" href="#opcode-8-extend-push" title="Link to this heading">#</a></h2>
+<section id="id43">
+<h3>Formal Definition<a class="headerlink" href="#id43" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>*[subject 8 b c] → *[[*[subject b] subject] c]
+</pre></div>
+</div>
+</section>
+<section id="id44">
+<h3>Human Description<a class="headerlink" href="#id44" title="Link to this heading">#</a></h3>
+<p>Pin a new value to the head of the subject, then evaluate the body. This is how Nock implements variable binding—the new value becomes accessible at address 2.</p>
+</section>
+<section id="id45">
+<h3>Detailed Behavior<a class="headerlink" href="#id45" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Evaluate <code class="docutils literal notranslate"><span class="pre">b</span></code> against subject → new value</p></li>
+<li><p>Construct <code class="docutils literal notranslate"><span class="pre">[new-value</span> <span class="pre">subject]</span></code> as the extended subject</p></li>
+<li><p>Evaluate <code class="docutils literal notranslate"><span class="pre">c</span></code> against the extended subject</p></li>
+</ol>
+</section>
+<section id="id46">
+<h3>Examples<a class="headerlink" href="#id46" title="Link to this heading">#</a></h3>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:: Pin 10 to head, then get it
+*[42 8 [1 10] [0 2]]        → 10   :: 10 is now at +2
+
+:: Pin 10, still access original subject at +3
+*[42 8 [1 10] [0 3]]        → 42   :: Original subject at +3
+
+:: Pin computation result
+*[5 8 [4 0 1] [0 2]]        → 6    :: Pin (5+1), return it
+
+:: Pin and use both
+*[5 8 [4 0 1] [[0 2] [0 3]]] → [6 5]  :: [pinned, original]
+</pre></div>
+</div>
+</section>
+<section id="address-shift">
+<h3>Address Shift<a class="headerlink" href="#address-shift" title="Link to this heading">#</a></h3>
+<p>After opcode 8, addresses shift:</p>
+<ul class="simple">
+<li><p>Address 2 → the new pinned value</p></li>
+<li><p>Address 3 → the original subject</p></li>
+<li><p>Address 6 → what was address 2</p></li>
+<li><p>Address 7 → what was address 3</p></li>
+</ul>
+</section>
+<section id="id47">
+<h3>Common Patterns<a class="headerlink" href="#id47" title="Link to this heading">#</a></h3>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:: Pattern: Local variable
+*[data [8 [compute-value] [body-using-value-at-+2]]]
+
+:: Pattern: Build a core (battery + payload)
+*[context [8 [1 battery] [9 2 [0 1]]]]  :: Create core, invoke arm
+</pre></div>
+</div>
+</section>
+<section id="relationship-to-opcode-7">
+<h3>Relationship to Opcode 7<a class="headerlink" href="#relationship-to-opcode-7" title="Link to this heading">#</a></h3>
+<p>Opcode 8 extends the subject; opcode 7 replaces it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>*[a 7 b c]  →  *[*[a b] c]        :: New subject is *[a b]
+*[a 8 b c]  →  *[[*[a b] a] c]   :: New subject is [*[a b] a]
+</pre></div>
+</div>
+</section>
+<section id="id48">
+<h3>LLM Implementation Notes<a class="headerlink" href="#id48" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Primary mechanism for variable binding</p></li>
+<li><p>Creates nested scope structure</p></li>
+<li><p>The Hoon runes <code class="docutils literal notranslate"><span class="pre">=+</span></code>, <code class="docutils literal notranslate"><span class="pre">=/</span></code>, <code class="docutils literal notranslate"><span class="pre">=|</span></code> compile to opcode 8</p></li>
+<li><p>Essential for understanding core/gate construction</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="opcode-9-invoke-call">
+<h2>Opcode 9: Invoke (Call)<a class="headerlink" href="#opcode-9-invoke-call" title="Link to this heading">#</a></h2>
+<section id="id49">
+<h3>Formal Definition<a class="headerlink" href="#id49" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>*[subject 9 b c] → *[*[subject c] 2 [0 1] 0 b]
+</pre></div>
+</div>
+</section>
+<section id="expanded-form">
+<h3>Expanded Form<a class="headerlink" href="#expanded-form" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>*[subject 9 b c] → *[*[subject c] *[*[subject c] [0 b]]]
+</pre></div>
+</div>
+</section>
+<section id="id50">
+<h3>Human Description<a class="headerlink" href="#id50" title="Link to this heading">#</a></h3>
+<p>The core invocation pattern. Produce a <strong>core</strong> (code + data bundle) from formula <code class="docutils literal notranslate"><span class="pre">c</span></code>, then execute the <strong>arm</strong> (code) at axis <code class="docutils literal notranslate"><span class="pre">b</span></code> within that core, with the core itself as subject.</p>
+</section>
+<section id="understanding-cores">
+<h3>Understanding Cores<a class="headerlink" href="#understanding-cores" title="Link to this heading">#</a></h3>
+<p>A <strong>core</strong> in Nock/Hoon is a cell <code class="docutils literal notranslate"><span class="pre">[battery</span> <span class="pre">payload]</span></code>:</p>
+<ul class="simple">
+<li><p><strong>Battery</strong> (address 2): One or more formulas (the “arms”)</p></li>
+<li><p><strong>Payload</strong> (address 3): Data the formulas operate on</p></li>
+</ul>
+<p>Opcode 9 is how you “call” a core’s arm.</p>
+</section>
+<section id="id51">
+<h3>Detailed Behavior<a class="headerlink" href="#id51" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Evaluate <code class="docutils literal notranslate"><span class="pre">c</span></code> against subject → produces a core</p></li>
+<li><p>Look up the formula at address <code class="docutils literal notranslate"><span class="pre">b</span></code> in the core (the arm)</p></li>
+<li><p>Evaluate that formula with the core as subject</p></li>
+<li><p>Return the result</p></li>
+</ol>
+</section>
+<section id="id52">
+<h3>Examples<a class="headerlink" href="#id52" title="Link to this heading">#</a></h3>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:: Simple: core with one arm that returns payload
+*[42 9 2 [1 [[0 3] 100]]]
+  :: Core is [[0 3] 100] (battery=[0 3], payload=100)
+  :: Arm at +2 is [0 3], which gets the payload
+  → 100
+
+:: Increment arm
+*[5 9 2 [1 [[4 0 3] 5]]]
+  :: Core is [[4 0 3] 5]
+  :: Arm [4 0 3] increments slot 3 (the payload)
+  → 6
+
+:: Multi-arm core
+*[10 9 4 [1 [[[0 3] [4 0 3]] 10]]]
+  :: Battery has two arms: [[0 3] [4 0 3]]
+  :: Arm at +4 (head of head of battery... wait, +4 is head of battery head)
+  :: Actually: +2 = battery, +4 = head of battery = [0 3]
+  → 10
+</pre></div>
+</div>
+</section>
+<section id="common-pattern-the-gate-call">
+<h3>Common Pattern: The Gate Call<a class="headerlink" href="#common-pattern-the-gate-call" title="Link to this heading">#</a></h3>
+<p>A <strong>gate</strong> is a core with a specific structure for function calls:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">formula</span> <span class="p">[</span><span class="n">sample</span> <span class="n">context</span><span class="p">]]</span>
+   <span class="o">+</span><span class="mi">2</span>       <span class="o">+</span><span class="mi">6</span>     <span class="o">+</span><span class="mi">7</span>
+</pre></div>
+</div>
+<p>Calling a gate:</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>*[gate-core 9 2 [0 1]]  :: Invoke arm at +2 with core as subject
+</pre></div>
+</div>
+</section>
+<section id="id53">
+<h3>LLM Implementation Notes<a class="headerlink" href="#id53" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Opcode 9 is the standard function call mechanism</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code> is typically 2 (the main arm)</p></li>
+<li><p>The Hoon expression <code class="docutils literal notranslate"><span class="pre">(gate</span> <span class="pre">arg)</span></code> compiles to opcode 9</p></li>
+<li><p>Understanding cores is key to understanding Hoon</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="opcode-10-edit-replace">
+<h2>Opcode 10: Edit (Replace)<a class="headerlink" href="#opcode-10-edit-replace" title="Link to this heading">#</a></h2>
+<section id="id54">
+<h3>Formal Definition<a class="headerlink" href="#id54" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>*[subject 10 [b c] d] → #[b *[subject c] *[subject d]]
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">#</span></code> is the edit operator:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#[1 a b]           → a                           :: Replace whole</span>
+<span class="c1">#[(a + a) b c]     → #[a [b /[(a + a + 1) c]] c] :: Edit head path</span>
+<span class="c1">#[(a + a + 1) b c] → #[a [/[(a + a) c] b] c]     :: Edit tail path</span>
+</pre></div>
+</div>
+</section>
+<section id="id55">
+<h3>Human Description<a class="headerlink" href="#id55" title="Link to this heading">#</a></h3>
+<p>Produce a modified copy of a noun by replacing the value at a specific address. This is how Nock achieves functional update—creating new versions with targeted changes.</p>
+</section>
+<section id="id56">
+<h3>Detailed Behavior<a class="headerlink" href="#id56" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code> is the target address (atom)</p></li>
+<li><p>Evaluate <code class="docutils literal notranslate"><span class="pre">c</span></code> against subject → the replacement value</p></li>
+<li><p>Evaluate <code class="docutils literal notranslate"><span class="pre">d</span></code> against subject → the target structure</p></li>
+<li><p>Return target with address <code class="docutils literal notranslate"><span class="pre">b</span></code> replaced by replacement</p></li>
+</ol>
+</section>
+<section id="id57">
+<h3>Examples<a class="headerlink" href="#id57" title="Link to this heading">#</a></h3>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:: Replace head of [1 2]
+*[[[1 2] 99] 10 [2 [0 3]] [0 2]]  → [99 2]
+  :: b=2, c=[0 3] produces 99, d=[0 2] produces [1 2]
+  :: Replace address 2 of [1 2] with 99
+
+:: Replace tail
+*[[[1 2] 99] 10 [3 [0 3]] [0 2]]  → [1 99]
+
+:: Replace deeply nested
+*[[[[1 2] 3] 99] 10 [4 [0 3]] [0 2]]  → [[[99 2] 3]]
+  :: Address 4 is head of head
+</pre></div>
+</div>
+</section>
+<section id="id58">
+<h3>Common Patterns<a class="headerlink" href="#id58" title="Link to this heading">#</a></h3>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:: Pattern: Update a slot in a structure
+*[[old-data new-value] [10 [target-addr [0 3]] [0 2]]]
+
+:: Pattern: Modify sample of a gate (for function call)
+*[[gate arg] [10 [6 [0 3]] [0 2]]]  :: Put arg at +6 of gate
+</pre></div>
+</div>
+</section>
+<section id="relationship-to-gate-calls">
+<h3>Relationship to Gate Calls<a class="headerlink" href="#relationship-to-gate-calls" title="Link to this heading">#</a></h3>
+<p>The full Hoon function call <code class="docutils literal notranslate"><span class="pre">(gate</span> <span class="pre">arg)</span></code> is roughly:</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[9 2 [10 [6 [1 arg]] [0 gate-addr]]]
+:: Get gate, put arg in sample slot (+6), invoke
+</pre></div>
+</div>
+</section>
+<section id="id59">
+<h3>LLM Implementation Notes<a class="headerlink" href="#id59" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Functional update: original is unchanged, new copy returned</p></li>
+<li><p>Address must be valid in the target structure</p></li>
+<li><p>The Hoon rune <code class="docutils literal notranslate"><span class="pre">%=</span></code> compiles to opcode 10</p></li>
+<li><p>Essential for modifying cores before invocation</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="opcode-11-hint">
+<h2>Opcode 11: Hint<a class="headerlink" href="#opcode-11-hint" title="Link to this heading">#</a></h2>
+<section id="id60">
+<h3>Formal Definition<a class="headerlink" href="#id60" title="Link to this heading">#</a></h3>
+<p>Two forms:</p>
+<p><strong>Static hint (atom hint):</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>*[subject 11 b c] → *[subject c]
+</pre></div>
+</div>
+<p><strong>Dynamic hint (cell hint):</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>*[subject 11 [b c] d] → *[[*[subject c] *[subject d]] 0 3]
+</pre></div>
+</div>
+<p>Which simplifies to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>*[subject 11 [b c] d] → *[subject d]  (after computing c)
+</pre></div>
+</div>
+</section>
+<section id="id61">
+<h3>Human Description<a class="headerlink" href="#id61" title="Link to this heading">#</a></h3>
+<p>Provide metadata to the interpreter without changing the computation result. Hints can trigger optimizations (jets), debugging output, or other interpreter-specific behaviors.</p>
+</section>
+<section id="static-hints">
+<h3>Static Hints<a class="headerlink" href="#static-hints" title="Link to this heading">#</a></h3>
+<p>When <code class="docutils literal notranslate"><span class="pre">b</span></code> is an atom, it’s a simple tag that the interpreter may recognize:</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>*[subject 11 tag formula]  → *[subject formula]
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">tag</span></code> is noted by the interpreter, then <code class="docutils literal notranslate"><span class="pre">formula</span></code> is evaluated normally.</p>
+</section>
+<section id="dynamic-hints">
+<h3>Dynamic Hints<a class="headerlink" href="#dynamic-hints" title="Link to this heading">#</a></h3>
+<p>When the second argument is a cell <code class="docutils literal notranslate"><span class="pre">[tag</span> <span class="pre">clue]</span></code>:</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>*[subject 11 [tag clue] formula]
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">clue</span></code> formula is evaluated (its result may be used by the interpreter)</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">formula</span></code> is evaluated and returned</p></li>
+<li><p>The hint tag and clue value are available to the interpreter</p></li>
+</ol>
+</section>
+<section id="id62">
+<h3>Examples<a class="headerlink" href="#id62" title="Link to this heading">#</a></h3>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:: Static hint (interpreter may or may not recognize 12345)
+*[42 11 12345 [4 0 1]]  → 43
+
+:: Dynamic hint (compute a clue, then proceed)
+*[42 11 [12345 [1 &quot;debugging&quot;]] [4 0 1]]  → 43
+</pre></div>
+</div>
+</section>
+<section id="common-hint-tags-in-urbit">
+<h3>Common Hint Tags (in Urbit)<a class="headerlink" href="#common-hint-tags-in-urbit" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tag</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Usage</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%fast</span></code></p></td>
+<td><p>Jet registration</p></td>
+<td><p>Mark code for acceleration</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%memo</span></code></p></td>
+<td><p>Memoization</p></td>
+<td><p>Cache results</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%slog</span></code></p></td>
+<td><p>Side-effect output</p></td>
+<td><p>Print debugging info</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%mean</span></code></p></td>
+<td><p>Error annotation</p></td>
+<td><p>Add context to crashes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%spot</span></code></p></td>
+<td><p>Source location</p></td>
+<td><p>Stack traces</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="why-dynamic-hints-evaluate-the-clue">
+<h3>Why Dynamic Hints Evaluate the Clue<a class="headerlink" href="#why-dynamic-hints-evaluate-the-clue" title="Link to this heading">#</a></h3>
+<p>The clue formula might crash! A correct Nock interpreter cannot skip it:</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>*[0 11 [1234 [4 0 1]] [1 99]]
+:: Must attempt to evaluate [4 0 1] against 0 (crashes)
+:: Even though the final result would be 99
+</pre></div>
+</div>
+</section>
+<section id="id63">
+<h3>LLM Implementation Notes<a class="headerlink" href="#id63" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Hints don’t change semantic results</p></li>
+<li><p>Practical interpreters use hints for jets (native code acceleration)</p></li>
+<li><p>Dynamic hints: clue is evaluated first, then discarded</p></li>
+<li><p>The Hoon <code class="docutils literal notranslate"><span class="pre">~</span></code> sig runes compile to opcode 11</p></li>
+<li><p>Critical for performance but semantically transparent</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="distribution-implicit-cons">
+<h2>Distribution (Implicit Cons)<a class="headerlink" href="#distribution-implicit-cons" title="Link to this heading">#</a></h2>
+<section id="id64">
+<h3>Formal Definition<a class="headerlink" href="#id64" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>*[subject [b c] d] → [*[subject b c] *[subject d]]
+</pre></div>
+</div>
+</section>
+<section id="id65">
+<h3>Human Description<a class="headerlink" href="#id65" title="Link to this heading">#</a></h3>
+<p>When a formula’s head is a cell (not an atom/opcode), Nock treats both parts as separate formulas and returns a cell of their results.</p>
+</section>
+<section id="id66">
+<h3>Detailed Behavior<a class="headerlink" href="#id66" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>If formula is <code class="docutils literal notranslate"><span class="pre">[[x</span> <span class="pre">y]</span> <span class="pre">z]</span></code> where <code class="docutils literal notranslate"><span class="pre">[x</span> <span class="pre">y]</span></code> is a cell</p></li>
+<li><p>Evaluate <code class="docutils literal notranslate"><span class="pre">[x</span> <span class="pre">y]</span></code> as a formula → result A</p></li>
+<li><p>Evaluate <code class="docutils literal notranslate"><span class="pre">z</span></code> as a formula → result B</p></li>
+<li><p>Return <code class="docutils literal notranslate"><span class="pre">[A</span> <span class="pre">B]</span></code></p></li>
+</ul>
+</section>
+<section id="id67">
+<h3>Examples<a class="headerlink" href="#id67" title="Link to this heading">#</a></h3>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:: Two constants
+*[42 [[1 10] [1 20]]]  → [10 20]
+
+:: Slot and increment
+*[5 [[0 1] [4 0 1]]]   → [5 6]
+
+:: Nested distribution
+*[1 [[[0 1] [0 1]] [4 0 1]]]  → [[1 1] 2]
+</pre></div>
+</div>
+</section>
+<section id="id68">
+<h3>Common Patterns<a class="headerlink" href="#id68" title="Link to this heading">#</a></h3>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:: Build a cell of computed values
+*[data [[compute-a] [compute-b]]]
+
+:: Duplicate a value
+*[x [[0 1] [0 1]]]  → [x x]
+</pre></div>
+</div>
+</section>
+<section id="id69">
+<h3>LLM Implementation Notes<a class="headerlink" href="#id69" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>This is NOT an opcode—it’s a structural pattern</p></li>
+<li><p>Enables building data structures within formulas</p></li>
+<li><p>Equivalent to Lisp’s <code class="docutils literal notranslate"><span class="pre">cons</span></code> as implicit operation</p></li>
+<li><p>Recognizable by cell-headed formulas</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="opcode-composition-patterns">
+<h2>Opcode Composition Patterns<a class="headerlink" href="#opcode-composition-patterns" title="Link to this heading">#</a></h2>
+<section id="pattern-function-application">
+<h3>Pattern: Function Application<a class="headerlink" href="#pattern-function-application" title="Link to this heading">#</a></h3>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:: Apply gate to argument
+[9 2 [10 [6 [1 arg]] [0 gate-slot]]]
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>Get gate from subject</p></li>
+<li><p>Replace sample (slot 6) with argument</p></li>
+<li><p>Invoke arm at slot 2</p></li>
+</ol>
+</section>
+<section id="pattern-loop-recursion">
+<h3>Pattern: Loop/Recursion<a class="headerlink" href="#pattern-loop-recursion" title="Link to this heading">#</a></h3>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:: Build core with loop body, invoke
+[8 [1 loop-body] [9 2 [0 1]]]
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>Pin loop body to subject (creates core)</p></li>
+<li><p>Invoke the body with core as subject</p></li>
+<li><p>Body can recurse via <code class="docutils literal notranslate"><span class="pre">[9</span> <span class="pre">2</span> <span class="pre">[0</span> <span class="pre">1]]</span></code></p></li>
+</ol>
+</section>
+<section id="pattern-let-binding">
+<h3>Pattern: Let Binding<a class="headerlink" href="#pattern-let-binding" title="Link to this heading">#</a></h3>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:: Bind x = expr, then body
+[8 expr body-using-x-at-+2]
+</pre></div>
+</div>
+</section>
+<section id="pattern-conditional-expression">
+<h3>Pattern: Conditional Expression<a class="headerlink" href="#pattern-conditional-expression" title="Link to this heading">#</a></h3>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:: If test then a else b
+[6 test-formula formula-a formula-b]
+</pre></div>
+</div>
+</section>
+<section id="pattern-sequential-computation">
+<h3>Pattern: Sequential Computation<a class="headerlink" href="#pattern-sequential-computation" title="Link to this heading">#</a></h3>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:: Do A, then do B with result
+[7 formula-a formula-b]
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="complete-nock-4k-specification">
+<h2>Complete Nock 4K Specification<a class="headerlink" href="#complete-nock-4k-specification" title="Link to this heading">#</a></h2>
+<p>For reference, here is the complete specification:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Nock 4K
+
+A noun is an atom or a cell.
+An atom is a natural number.
+A cell is an ordered pair of nouns.
+
+Reduce by the first matching pattern; variables match any noun.
+
+nock(a)            *a
+[a b c]            [a [b c]]
+
+?[a b]             0
+?a                 1
++[a b]             +[a b]
++a                 1 + a
+=[a a]             0
+=[a b]             1
+
+/[1 a]             a
+/[2 a b]           a
+/[3 a b]           b
+/[(a + a) b]       /[2 /[a b]]
+/[(a + a + 1) b]   /[3 /[a b]]
+/a                 /a
+
+#[1 a b]           a
+#[(a + a) b c]     #[a [b /[(a + a + 1) c]] c]
+#[(a + a + 1) b c] #[a [/[(a + a) c] b] c]
+#a                 #a
+
+*[a [b c] d]       [*[a b c] *[a d]]
+
+*[a 0 b]           /[b a]
+*[a 1 b]           b
+*[a 2 b c]         *[*[a b] *[a c]]
+*[a 3 b]           ?*[a b]
+*[a 4 b]           +*[a b]
+*[a 5 b c]         =[*[a b] *[a c]]
+
+*[a 6 b c d]       *[a *[[c d] 0 *[[2 3] 0 *[a 4 4 b]]]]
+*[a 7 b c]         *[*[a b] c]
+*[a 8 b c]         *[[*[a b] a] c]
+*[a 9 b c]         *[*[a c] 2 [0 1] 0 b]
+*[a 10 [b c] d]    #[b *[a c] *[a d]]
+*[a 11 [b c] d]    *[[*[a c] *[a d]] 0 3]
+*[a 11 b c]        *[a c]
+
+*a                 *a
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="quick-reference-table">
+<h2>Quick Reference Table<a class="headerlink" href="#quick-reference-table" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Op</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Signature</p></th>
+<th class="head"><p>Purpose</p></th>
+<th class="head"><p>Hoon</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>Slot</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">b]</span></code></p></td>
+<td><p>Tree address lookup</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.</span></code> <code class="docutils literal notranslate"><span class="pre">+n</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>Constant</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[1</span> <span class="pre">b]</span></code></p></td>
+<td><p>Return literal value</p></td>
+<td><p>Literals</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>Evaluate</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[2</span> <span class="pre">b</span> <span class="pre">c]</span></code></p></td>
+<td><p>Dynamic nock</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.*</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>Cell?</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[3</span> <span class="pre">b]</span></code></p></td>
+<td><p>Test if cell</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.?</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>Increment</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[4</span> <span class="pre">b]</span></code></p></td>
+<td><p>Add 1 to atom</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.+</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>Equal?</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[5</span> <span class="pre">b</span> <span class="pre">c]</span></code></p></td>
+<td><p>Deep equality test</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.=</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>6</p></td>
+<td><p>If</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[6</span> <span class="pre">b</span> <span class="pre">c</span> <span class="pre">d]</span></code></p></td>
+<td><p>Conditional branch</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">?:</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>7</p></td>
+<td><p>Compose</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[7</span> <span class="pre">b</span> <span class="pre">c]</span></code></p></td>
+<td><p>Sequential/pipe</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">=&gt;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>8</p></td>
+<td><p>Extend</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[8</span> <span class="pre">b</span> <span class="pre">c]</span></code></p></td>
+<td><p>Pin to subject</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">=+</span></code> <code class="docutils literal notranslate"><span class="pre">=/</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>9</p></td>
+<td><p>Invoke</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[9</span> <span class="pre">b</span> <span class="pre">c]</span></code></p></td>
+<td><p>Core arm call</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">%-</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>10</p></td>
+<td><p>Edit</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[10</span> <span class="pre">[b</span> <span class="pre">c]</span> <span class="pre">d]</span></code></p></td>
+<td><p>Functional update</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">%=</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>11</p></td>
+<td><p>Hint</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[11</span> <span class="pre">b</span> <span class="pre">c]</span></code></p></td>
+<td><p>Interpreter hint</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">~</span></code> runes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="further-reading">
+<h2>Further Reading<a class="headerlink" href="#further-reading" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.urbit.org/nock/specification">Urbit Documentation: Nock Specification</a></p></li>
+<li><p><a class="reference external" href="https://docs.urbit.org/build-on-urbit/core-academy/ca00">Urbit Core Academy: Evaluating Nock</a></p></li>
+<li><p><a class="reference external" href="https://docs.nockchain.org/nockapp/what-is-nock-isa">Nockchain: What is Nock ISA?</a></p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/specification"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#foundational-concepts">Foundational Concepts</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-nock-evaluation-model">The Nock Evaluation Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-model-nouns">Data Model: Nouns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tree-addressing">Tree Addressing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#boolean-convention">Boolean Convention</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#crash-semantics">Crash Semantics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#primitive-opcodes-05">Primitive Opcodes (0–5)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opcode-0-slot-tree-addressing">Opcode 0: Slot (Tree Addressing)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#formal-definition">Formal Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#human-description">Human Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#detailed-behavior">Detailed Behavior</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-patterns">Common Patterns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-implementation-notes">LLM Implementation Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opcode-1-constant-quote">Opcode 1: Constant (Quote)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Formal Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Human Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Detailed Behavior</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Common Patterns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">LLM Implementation Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opcode-2-evaluate-nock">Opcode 2: Evaluate (Nock)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Formal Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Human Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Detailed Behavior</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Common Patterns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">LLM Implementation Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opcode-3-cell-test-is-cell">Opcode 3: Cell Test (Is Cell?)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Formal Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Human Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">Detailed Behavior</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">Common Patterns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">LLM Implementation Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opcode-4-increment">Opcode 4: Increment</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">Formal Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">Human Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">Detailed Behavior</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">Common Patterns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arithmetic-note">Arithmetic Note</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">LLM Implementation Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opcode-5-equality-test">Opcode 5: Equality Test</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">Formal Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">Human Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">Detailed Behavior</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">Common Patterns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">LLM Implementation Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#macro-opcodes-611">Macro Opcodes (6–11)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opcode-6-conditional-if-then-else">Opcode 6: Conditional (If-Then-Else)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">Formal Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simplified-semantics">Simplified Semantics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">Human Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">Detailed Behavior</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">Common Patterns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-the-complex-macro">Why the Complex Macro?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id36">LLM Implementation Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opcode-7-compose-sequential">Opcode 7: Compose (Sequential)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id37">Formal Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id38">Human Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id39">Detailed Behavior</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id41">Common Patterns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#relationship-to-opcode-2">Relationship to Opcode 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id42">LLM Implementation Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opcode-8-extend-push">Opcode 8: Extend (Push)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id43">Formal Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id44">Human Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id45">Detailed Behavior</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id46">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#address-shift">Address Shift</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id47">Common Patterns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#relationship-to-opcode-7">Relationship to Opcode 7</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id48">LLM Implementation Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opcode-9-invoke-call">Opcode 9: Invoke (Call)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id49">Formal Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expanded-form">Expanded Form</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id50">Human Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-cores">Understanding Cores</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id51">Detailed Behavior</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id52">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-pattern-the-gate-call">Common Pattern: The Gate Call</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id53">LLM Implementation Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opcode-10-edit-replace">Opcode 10: Edit (Replace)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id54">Formal Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id55">Human Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id56">Detailed Behavior</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id57">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id58">Common Patterns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#relationship-to-gate-calls">Relationship to Gate Calls</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id59">LLM Implementation Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opcode-11-hint">Opcode 11: Hint</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id60">Formal Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id61">Human Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#static-hints">Static Hints</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-hints">Dynamic Hints</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id62">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-hint-tags-in-urbit">Common Hint Tags (in Urbit)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-dynamic-hints-evaluate-the-clue">Why Dynamic Hints Evaluate the Clue</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id63">LLM Implementation Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribution-implicit-cons">Distribution (Implicit Cons)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id64">Formal Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id65">Human Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id66">Detailed Behavior</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id67">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id68">Common Patterns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id69">LLM Implementation Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opcode-composition-patterns">Opcode Composition Patterns</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pattern-function-application">Pattern: Function Application</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pattern-loop-recursion">Pattern: Loop/Recursion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pattern-let-binding">Pattern: Let Binding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pattern-conditional-expression">Pattern: Conditional Expression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pattern-sequential-computation">Pattern: Sequential Computation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complete-nock-4k-specification">Complete Nock 4K Specification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-reference-table">Quick Reference Table</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further Reading</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Urbit Systems Technical Journal
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

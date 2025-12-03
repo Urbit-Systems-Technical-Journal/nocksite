@@ -465,6 +465,33 @@ document.write(`
 </ol>
 <p>(Note, however, that there is nothing intrinsic to Nock about the core, <code class="docutils literal notranslate"><span class="pre">[battery</span> <span class="pre">payload]</span></code>.  It’s a convenient pattern to repeat and reason over, but Nock itself does not enforce any special semantics on it.  See <a class="reference internal" href="detailed-examples.html"><span class="std std-doc">Detailed Examples</span></a> and <a class="reference internal" href="../examples/idioms-gates-patterns.html"><span class="std std-doc">Idioms, Gates, Patterns</span></a> for further discussion.)</p>
 <p>While understanding cores is key to understanding Hoon and Jock, we will defer deeper discussion of cores and arms until later in the tutorial.</p>
+<p>This example subject pins a bit of operational code as a constant for later use:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:subject [1 4 1 0]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Subject set to: [1 4 1 0]
+</pre></div>
+</div>
+</div>
+</div>
+<p>This code retrieves and evaluates it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[9 1 [0 3]]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+</pre></div>
+</div>
+</div>
+</div>
+<p>There are more complicated patterns to build on top of this once we look at cores in detail.</p>
 </section>
 </section>
 
@@ -477,16 +504,16 @@ document.write(`
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "python"
+            mode: "nock"
         },
         kernelOptions: {
-            name: "python3",
+            name: "nock",
             path: "./content/specification"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'nock'</script>
 
                 </article>
               

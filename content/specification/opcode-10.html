@@ -457,6 +457,14 @@ document.write(`
 </section>
 <section id="explanation">
 <h2>Explanation<a class="headerlink" href="#explanation" title="Link to this heading">#</a></h2>
+<p>Opcode 10 takes four arguments: a subject <code class="docutils literal notranslate"><span class="pre">a</span></code>, an address <code class="docutils literal notranslate"><span class="pre">b</span></code>, a replacement expression <code class="docutils literal notranslate"><span class="pre">c</span></code>, and a target structure <code class="docutils literal notranslate"><span class="pre">d</span></code>.</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code> is the target address (atom).</p></li>
+<li><p>Evaluate <code class="docutils literal notranslate"><span class="pre">c</span></code> against subject to produce the replacement value.</p></li>
+<li><p>Evaluate <code class="docutils literal notranslate"><span class="pre">d</span></code> against subject to produce the target structure.</p></li>
+<li><p>Return the target with address <code class="docutils literal notranslate"><span class="pre">b</span></code> replaced by replacement.</p></li>
+</ol>
+<p>Opcode 10 is important for gate calls (function calls), which require looking up a stored procedure noun, modifying its arguments at a fixed address, and then evaluating the modified noun.</p>
 <p>Opcode 10 was implemented relatively late in Nock’s development (Nock 4K) as an expedient for the Vere runtime’s memory management.  Many cells were being produced in memory, and the edit operator allowed for in-place modification of these cells without requiring the allocation of new memory.</p>
 <p>As ~fodwyt-ragful, one of the chief architects of this change, explained,</p>
 <blockquote>

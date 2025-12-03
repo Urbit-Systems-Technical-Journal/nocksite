@@ -435,6 +435,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-missing">What’s Missing?</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quines">Quines</a></li>
 </ul>
             </nav>
         </div>
@@ -709,9 +710,39 @@ document.write(`
 <li><p>Evaluation rules are defined, but their implementation is omitted.  You can use a tree-walking interpreter, a bytecode interpreter, or something even more clever to run Nock in practice.  (In fact, you can treat Nock as a spec and not run it at all, as long as you get the same answer!)</p></li>
 </ul>
 <ul class="simple">
-<li><p>How would you implement the Boolean operators in Nock?  (Properly “loobeans”, since <code class="docutils literal notranslate"><span class="pre">0</span></code> is <code class="docutils literal notranslate"><span class="pre">TRUE</span></code> and <code class="docutils literal notranslate"><span class="pre">1</span></code> is <code class="docutils literal notranslate"><span class="pre">FALSE</span></code> in Nock.)</p></li>
+<li><p>How would you implement the Boolean operators in Nock?  (Properly “loobeans”, since <code class="docutils literal notranslate"><span class="pre">0</span></code> is <code class="docutils literal notranslate"><span class="pre">TRUE</span></code> and <code class="docutils literal notranslate"><span class="pre">1</span></code> is <code class="docutils literal notranslate"><span class="pre">FALSE</span></code> in Nock.)  See <a class="reference internal" href="opcode-6.html"><span class="std std-doc">Opcode 6</span></a> for a starting point.</p></li>
 </ul>
 </section>
+</section>
+<section id="quines">
+<h2>Quines<a class="headerlink" href="#quines" title="Link to this heading">#</a></h2>
+<p>Nock quines are Nock expressions that evaluate to themselves.  They result trivially from <a class="reference internal" href="opcode-0.html"><span class="std std-doc">opcode 0</span></a>, which simply looks up a part of the subject.  If the subject is the expression itself, then looking up address 1 returns the entire expression.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:subject [0 1]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Subject set to: [0 1]
+</pre></div>
+</div>
+</div>
+</div>
+<p>This formula will reproduce itself from that subject:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[[0 1] [0 1]]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0 1] 0 1]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Other quines are possible as well, and left as an exercise for the reader.</p>
 </section>
 </section>
 
@@ -787,6 +818,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-missing">What’s Missing?</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quines">Quines</a></li>
 </ul>
   </nav></div>
 

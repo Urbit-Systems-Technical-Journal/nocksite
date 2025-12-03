@@ -464,6 +464,56 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">*[[c</span> <span class="pre">d]</span> <span class="pre">0</span> <span class="pre">...]</span></code> uses 2 or 3 as address into <code class="docutils literal notranslate"><span class="pre">[c</span> <span class="pre">d]</span></code>.</p></li>
 </ol>
 <p>This cleverly selects <code class="docutils literal notranslate"><span class="pre">c</span></code> (at address 2) for true, <code class="docutils literal notranslate"><span class="pre">d</span></code> (at address 3) for false.  (It does not pass through directly to avoid other results selecting other possible slots.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:subject 42
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Subject set to: 42
+</pre></div>
+</div>
+</div>
+</div>
+<p>You need an expression that results in 0 or 1 to use as the test.  For example, to test whether the subject is equal to a value such as 42, use opcode 5:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[6 [5 [1 42] [0 1]] [1 100] [1 0]]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is how to implement a <code class="docutils literal notranslate"><span class="pre">NOT</span></code> operator on a loobean value:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:subject 0
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Subject set to: 0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[6 [5 [1 0] [0 1]] [1 1] [1 0]]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 

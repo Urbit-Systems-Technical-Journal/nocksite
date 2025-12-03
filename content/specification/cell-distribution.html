@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Opcode 11: Hint &#8212; Nock</title>
+    <title>Cell Distribution Rule &#8212; Nock</title>
   
   
   
@@ -58,12 +58,10 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'content/specification/opcode-11';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/specification/cell-distribution';</script>
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Examples" href="detailed-examples.html" />
-    <link rel="prev" title="Opcode 9: Invoke" href="opcode-9.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -126,6 +124,8 @@
       
       
       
+        
+      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -173,8 +173,8 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">The Specification</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="index.html">The Specification</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="basic-opcodes.html">Basic Opcodes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="opcode-0.html">Opcode 0: Address</a></li>
 <li class="toctree-l3"><a class="reference internal" href="opcode-1.html">Opcode 1: Constant</a></li>
@@ -185,12 +185,12 @@
 <li class="toctree-l3"><a class="reference internal" href="opcode-10.html">Opcode 10: Edit</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2 current active has-children"><a class="reference internal" href="composite-opcodes.html">Composite Opcodes</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="composite-opcodes.html">Composite Opcodes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="opcode-6.html">Opcode 6: Conditional</a></li>
 <li class="toctree-l3"><a class="reference internal" href="opcode-7.html">Opcode 7: Compose</a></li>
 <li class="toctree-l3"><a class="reference internal" href="opcode-8.html">Opcode 8: Extend</a></li>
 <li class="toctree-l3"><a class="reference internal" href="opcode-9.html">Opcode 9: Invoke</a></li>
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">Opcode 11: Hint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opcode-11.html">Opcode 11: Hint</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="detailed-examples.html">Examples</a></li>
@@ -287,7 +287,7 @@
       
       
       
-      <li><a href="https://mybinder.org/v2/gh/Urbit-Systems-Technical-Journal/nocksite/master?urlpath=tree/content/specification/opcode-11.ipynb" target="_blank"
+      <li><a href="https://mybinder.org/v2/gh/Urbit-Systems-Technical-Journal/nocksite/master?urlpath=tree/content/specification/cell-distribution.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Binder"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -333,7 +333,7 @@
       
       
       
-      <li><a href="../../_sources/content/specification/opcode-11.ipynb" target="_blank"
+      <li><a href="../../_sources/content/specification/cell-distribution.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -417,7 +417,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Opcode 11: Hint</h1>
+    <h1>Cell Distribution Rule</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -440,24 +440,24 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="opcode-11-hint">
-<h1>Opcode 11: Hint<a class="headerlink" href="#opcode-11-hint" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="cell-distribution-rule">
+<h1>Cell Distribution Rule<a class="headerlink" href="#cell-distribution-rule" title="Link to this heading">#</a></h1>
 <section id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Link to this heading">#</a></h2>
-<p>Opcode 11 comes in two forms, the first a “dynamic hint” which involves an evaluation, and the second a “static hint” which simply provides a bare noun as a runtime hint.</p>
-<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>*[a 11 [b c] d]     *[[*[a c] *[a d]] 0 3]
-*[a 11 b c]         *[a c]
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>*[a [b c] d]        [*[a b c] *[a d]] 
 </pre></div>
 </div>
-<p>Note that even if <code class="docutils literal notranslate"><span class="pre">b</span></code> is not retained, the computation of <code class="docutils literal notranslate"><span class="pre">b</span></code> must still be performed, as it could result in a crash itself or other nested side effects.</p>
 </section>
 <section id="explanation">
 <h2>Explanation<a class="headerlink" href="#explanation" title="Link to this heading">#</a></h2>
-<p>Hints are a way to attach metadata to Nock expressions without affecting their evaluation.  They signal to the runtime to produce certain side effects or optimizations, but the hint itself does not change the result of the computation.</p>
-<p>Hints are intended to queue a particular Nock runtime environment, so the exact hints available may vary across runtimes.</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="../hints-jetting/index.html"><span class="std std-doc">Hints and Jetting</span></a></p></li>
-</ul>
+<p>When a formula’s head is a cell (not an atom/opcode), Nock treats both parts as separate formulas and returns a cell of their results.</p>
+<ol class="arabic simple">
+<li><p>If the formula is <code class="docutils literal notranslate"><span class="pre">[[b</span> <span class="pre">c]</span> <span class="pre">d]</span></code> where <code class="docutils literal notranslate"><span class="pre">[b</span> <span class="pre">c]</span></code> is a cell.</p></li>
+<li><p>Evaluate <code class="docutils literal notranslate"><span class="pre">[b</span> <span class="pre">c]</span></code> as a formula to produce a result <code class="docutils literal notranslate"><span class="pre">A</span></code>.</p></li>
+<li><p>Evaluate <code class="docutils literal notranslate"><span class="pre">d</span></code> as a formula to produce a result <code class="docutils literal notranslate"><span class="pre">B</span></code>.</p></li>
+<li><p>Return the cell <code class="docutils literal notranslate"><span class="pre">[A</span> <span class="pre">B]</span></code>.</p></li>
+</ol>
+<p>This is equivalent to Lisp’s <code class="docutils literal notranslate"><span class="pre">cons</span></code> as an implicit operation.  It’s recognizable by cell-headed formulas slots.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:subject 42
@@ -470,33 +470,45 @@ document.write(`
 </div>
 </div>
 </div>
-<p>Static hints are simple tags for the interpreter to recognize:</p>
-<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>*[subject 11 tag formula]  → *[subject formula]
-</pre></div>
-</div>
+<p>Evaluate with two constants:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[11 42 0 1]
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[[1 10] [1 20]]
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>42
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[10 20]
 </pre></div>
 </div>
 </div>
 </div>
-<p>Dynamic hints actively generate data for the runtime:</p>
-<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>*[subject 11 [tag clue] formula]
+<p>Pair a slot and an increment:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[[0 1] [4 0 1]]
 </pre></div>
 </div>
-<ol class="arabic simple">
-<li><p>The <code class="docutils literal notranslate"><span class="pre">clue</span></code> formula is evaluated (its result may be used by the interpreter).</p></li>
-<li><p>The <code class="docutils literal notranslate"><span class="pre">formula</span></code> is evaluated and returned.</p></li>
-<li><p>The hint <code class="docutils literal notranslate"><span class="pre">tag</span></code> and <code class="docutils literal notranslate"><span class="pre">clue</span></code> value are available to the interpreter for side effects.</p></li>
-</ol>
-<p>Hint tags tend to be expressed in code as ASCII text, which reduces unambiguously to a numerical atom in Nock as a byte pattern.</p>
-<p>This Python interpreter for Nock does not currently implement any hints, so all hints are effectively no-ops.  However, they must be computed since they could crash.</p>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[42 43]
+</pre></div>
+</div>
+</div>
+</div>
+<p>A more complex nested distribution:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[[[0 1] [0 1]] [4 0 1]]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[42 42] 43]
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 
@@ -530,24 +542,6 @@ document.write(`
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="opcode-9.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Opcode 9: Invoke</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="detailed-examples.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Examples</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
