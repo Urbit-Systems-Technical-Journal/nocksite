@@ -51,6 +51,7 @@ sphinx:
     - sphinx_copybutton
     - sphinx_togglebutton
     - sphinxcontrib.mermaid
+    - sphinxcontrib.youtube
   config:
     html_theme_options:
       repository_url: https://github.com/Urbit-Systems-Technical-Journal/nocksite
@@ -74,9 +75,9 @@ sphinx:
       - tasklist
     myst_fence_as_directive:
       - mermaid
-    mermaid_version: "latest"
-    mermaid_cmd: "mmdc"
-    mermaid_cmd_args: ["-t", "forest", "-b", "transparent"]
+    mermaid_version: "10.6.1"
+    # mermaid_cmd: "mmdc"
+    # mermaid_cmd_args: ["-t", "forest", "-b", "transparent"]
 
 # Launch buttons for interactive content
 launch_buttons:
