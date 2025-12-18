@@ -22,6 +22,8 @@ chapters:
       title: "Opcode 5: Equality Check"
     - file: content/specification/opcode-10
       title: "Opcode 10: Edit"
+    - file: content/specification/cell-distribution
+      title: Cell Distribution
   - file: content/specification/composite-opcodes
     title: Composite Opcodes
     sections:
