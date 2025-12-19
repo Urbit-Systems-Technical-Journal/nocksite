@@ -428,6 +428,7 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#incrementing-a-number">Incrementing a Number</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decrementing-a-number">Decrementing a Number</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#length-of-a-list">Length of a List</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cores">Cores</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-missing">What’s Missing?</a></li>
 </ul>
@@ -614,6 +615,96 @@ document.write(`
 </div>
 </div>
 </section>
+<section id="length-of-a-list">
+<h2>Length of a List<a class="headerlink" href="#length-of-a-list" title="Link to this heading">#</a></h2>
+<p>A Nock <code class="docutils literal notranslate"><span class="pre">list</span></code> is a rightwards-branching tuple, where at each point there is a head and a tail until a terminating atom (<code class="docutils literal notranslate"><span class="pre">0</span></code>, sometimes written as <code class="docutils literal notranslate"><span class="pre">~</span></code>).</p>
+<p>The following are equivalent representations of a list of five elements:</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[1 [2 [3 [4 [5 0]]]]]
+[1 2 3 4 5 0]
+</pre></div>
+</div>
+<p>Thus to get the length, we need the following components:</p>
+<ol class="arabic simple">
+<li><p>A way to check if the list is populated (i.e., is a cell).</p></li>
+<li><p>A way to get the tail of the list.</p></li>
+<li><p>A way to increment a counter.</p></li>
+<li><p>A way to recurse until the list is empty (i.e., is an atom).</p></li>
+</ol>
+<p>With those pieces, it’s not hard to see an algorithm:</p>
+<ol class="arabic simple">
+<li><p>Start with a counter at 0.</p></li>
+<li><p>If the list is a cell, increment the counter and recurse on the tail.</p></li>
+<li><p>If the list is an atom and that atom is zero, return the counter.</p></li>
+</ol>
+<p>Let’s build this piece by piece.</p>
+<ol class="arabic">
+<li><p>We start by pinning a counter at 0 using opcode 1:</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[1 0]
+</pre></div>
+</div>
+<p>(We’ll compose it in using an opcode 8.)</p>
+</li>
+<li><p>We branch conditionally using opcode 6:</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[list 6 &lt;cell-check&gt; &lt;true-path&gt; &lt;false-path&gt;]
+</pre></div>
+</div>
+</li>
+<li><p>To check if the list is a cell, we can use opcode 3:</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[list 3 0 1]
+</pre></div>
+</div>
+</li>
+<li><p>To get the tail of the list, we can use opcode 2:</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[list 0 3]
+</pre></div>
+</div>
+</li>
+<li><p>To increment the counter, we can use opcode 4:</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[4 0 &lt;address-of-counter&gt;]
+</pre></div>
+</div>
+</li>
+<li><p>To recurse, we can use opcode 9 with an opcode 10 to alter the subject for the recursive call:</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[9 &lt;address-of-operator&gt; 10 [&lt;address-of-list&gt; 0 3] 0 &lt;address-of-counter&gt;]
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Let’s put it all together.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>:subject [1 2 3 4 5 0]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Subject set to: [1 2 3 4 5 0]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[8 [1 0] 8 [1 6 [3 0 7] [9 2 10 [7 0 15] 10 [6 4 0 6] 0 1] [0 6]] 9 2 0 1]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5
+</pre></div>
+</div>
+</div>
+</div>
+<p>This full formula deserves a bit more commentary because of the nested opcodes 10 and the trailing 9.</p>
+<ul class="simple">
+<li><p>Both the list in question and the counter need to be changed; so the tail of the list is taken as the new list before recursing <code class="docutils literal notranslate"><span class="pre">[10</span> <span class="pre">[7</span> <span class="pre">0</span> <span class="pre">15]</span> <span class="pre">...]</span></code>, and the counter is incremented before recursing <code class="docutils literal notranslate"><span class="pre">[10</span> <span class="pre">[6</span> <span class="pre">4</span> <span class="pre">0</span> <span class="pre">4]</span> <span class="pre">...]</span></code>.</p></li>
+<li><p>The entire static formula pinned at <code class="docutils literal notranslate"><span class="pre">2</span></code> is retrieved by the trailing <code class="docutils literal notranslate"><span class="pre">9</span></code> and evaluated against the incoming subject at <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">1]</span></code>.</p></li>
+</ul>
+<p>Interestingly, the reference version of <code class="docutils literal notranslate"><span class="pre">+lent</span></code> uses a slightly different approach, using opcode 5 to check for equality with zero rather than opcode 3 to check for being a cell.  This works because the only atom that can terminate a list is zero.  Thus we can check if the rest of the list is equal to zero directly.</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[5 [1 0] 0 7]
+</pre></div>
+</div>
+</section>
 <section id="cores">
 <h2>Cores<a class="headerlink" href="#cores" title="Link to this heading">#</a></h2>
 <p>The idea of a core is that a collection of constant executable Nock formulas can be bundled with references to each other in a consistent layout, allowing for more complex behavior.  That is, if you know where a function is located in a core, you can call it from another function in the same core by referring to its address.  Thus you can compose arbitrarily complex behavior from a set of simpler formulas.</p>
@@ -787,6 +878,7 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#incrementing-a-number">Incrementing a Number</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decrementing-a-number">Decrementing a Number</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#length-of-a-list">Length of a List</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cores">Cores</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-missing">What’s Missing?</a></li>
 </ul>

@@ -120,13 +120,12 @@ What this means is that a formula which reduces to itself continues to do so, i.
 
 So much for the specification itself, but what does it _mean_?  You can treat it like a puzzle and work things out yourself, but we've also prepared several complementary approaches to Nock.  Start with one that best fits your background.
 
-1. [ The Combinator Approach](../understanding/combinator-approach.ipynb)
-<!-- 2. [ The Turing Machine Approach](../understanding/turing-machine-approach.ipynb) -->
-3. [ The Lambda Calculus Approach](../understanding/lambda-approach.ipynb)
-4. [ The Assembly Language Approach](../understanding/assembly-language-approach.ipynb)
-<!-- 5. [ The Cellular Automaton Approach](../understanding/cellular-automaton-approach.ipynb) -->
-<!-- 5. [The Alchemy Approach](../understanding/alchemy-approach.ipynb) -->
-
+1. [ The Combinator Approach](../understanding/combinator-approach.ipynb), for functional programmers.
+<!-- 2. [ The Turing Machine Approach](../understanding/turing-machine-approach.ipynb), for classical computer scientists. -->
+3. [ The Lambda Calculus Approach](../understanding/lambda-approach.ipynb), for those with a Scheme or Lisp background.
+4. [ The Assembly Language Approach](../understanding/assembly-language-approach.ipynb), for systems programmers.
+<!-- 5. [ The Cellular Automaton Approach](../understanding/cellular-automaton-approach.ipynb), for the recreationally mathematically inclined -->
+<!-- 5. [The Alchemy Approach](../understanding/alchemy-approach.ipynb), for esotericists. -->
 
 ## References
 
