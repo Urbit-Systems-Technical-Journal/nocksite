@@ -32,3 +32,5 @@ Others are dynamic hints, which use opcode 11 with a formula to evaluate.  `b` c
 ## Jetting
 
 Jetting is a performance optimization technique used in Nock interpreters where certain frequently used or computationally intensive Nock formulas are replaced with pre-compiled native code implementations, known as “jets” (derived from “jet-accelerated code”).  When the Nock evaluator encounters a formula that has a corresponding jet, it can execute the optimized native code instead of interpreting the Nock formula directly, resulting in significant performance improvements.
+
+Jetted code must exactly match the behavior of the original Nock formula to ensure correctness.  Jets are typically implemented for operations that are computationally expensive or frequently used, such as arithmetic operations, data structure manipulations, and cryptographic functions.  If a jet does not exactly reproduce the Nock standard's behavior, it is called  “jet mismatch”, which will lead to incorrect program behavior.

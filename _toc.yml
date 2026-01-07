@@ -82,9 +82,6 @@ chapters:
     
 - file: content/hints-jetting/index
   title: Hints & Jetting
-  # sections:
-  # - file: content/hints-jetting/algorithmic-considerations
-  #   title: Algorithmic Considerations
 
 - file: content/history/index
   title: History
