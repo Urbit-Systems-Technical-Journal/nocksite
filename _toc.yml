@@ -113,3 +113,6 @@ chapters:
     title: Nock 13K
   - file: content/history/u-model
     title: "U: A Small Model"
+
+- file: content/about
+  title: About
