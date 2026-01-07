@@ -10,6 +10,6 @@ The site is built using [Jupyter Book](https://jupyterbook.org/), an open-source
 The kernel used for interactive code examples is [Pinochle](https://github.com/sigilante/pinochle), a Python-based Nock interpreter.
 
 * [GitHub](https://github.com/sigilante/pinochle)
-* [PyPI](https://pypi.org/project/pinochle/)
+* [PyPI](https://pypi.org/project/nock_kernel/)
 
 Urbit Systems Technical Journal is a project of the [Groundwire Foundation](https://groundwire.io), a 501(c)(3) nonprofit organization dedicated to the research and development of open, user-owned personal computing systems.
