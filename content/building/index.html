@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>The Combinator Approach &#8212; Nock</title>
+    <title>Building with Nock &#8212; Nock</title>
   
   
   
@@ -58,12 +58,12 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'content/understanding/combinator-approach';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/building/index';</script>
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="The Lambda Calculus Approach" href="lambda-approach.html" />
-    <link rel="prev" title="Understanding Nock" href="index.html" />
+    <link rel="next" title="Kernels" href="kernel.html" />
+    <link rel="prev" title="Hints &amp; Jetting" href="../hints-jetting/index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -198,10 +198,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../specification/loobeans.html">Loobeans</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Understanding Nock</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">The Combinator Approach</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lambda-approach.html">The Lambda Calculus Approach</a></li>
-<li class="toctree-l2"><a class="reference internal" href="assembly-language-approach.html">The Assembly Language Approach</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../understanding/index.html">Understanding Nock</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../understanding/combinator-approach.html">The Combinator Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../understanding/lambda-approach.html">The Lambda Calculus Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../understanding/assembly-language-approach.html">The Assembly Language Approach</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../specification/llm.html">Nock for LLMs</a></li>
 </ul>
 </details></li>
@@ -217,8 +217,8 @@
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../hints-jetting/index.html">Hints &amp; Jetting</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../building/index.html">Building</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../building/kernel.html">Kernels</a></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Building</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="kernel.html">Kernels</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../history/index.html">History</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -280,37 +280,6 @@
 <div class="article-header-buttons">
 
 
-
-
-
-<div class="dropdown dropdown-launch-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
-    <i class="fas fa-rocket"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="https://mybinder.org/v2/gh/Urbit-Systems-Technical-Journal/nocksite/master?urlpath=tree/content/understanding/combinator-approach.ipynb" target="_blank"
-   class="btn btn-sm dropdown-item"
-   title="Launch on Binder"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  
-    <img alt="Binder logo" src="../../_static/images/logo_binder.svg">
-  </span>
-<span class="btn__text-container">Binder</span>
-</a>
-</li>
-      
-  </ul>
-</div>
-
-
-
 <a href="https://github.com/Urbit-Systems-Technical-Journal/nocksite" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
@@ -337,7 +306,7 @@
       
       
       
-      <li><a href="../../_sources/content/understanding/combinator-approach.ipynb" target="_blank"
+      <li><a href="../../_sources/content/building/index.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -347,7 +316,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.ipynb</span>
+<span class="btn__text-container">.md</span>
 </a>
 </li>
       
@@ -408,9 +377,7 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
+
 </div></div>
       
     </div>
@@ -421,23 +388,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>The Combinator Approach</h1>
+    <h1>Building with Nock</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#i-identity-combinator">I Identity Combinator</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#k-constant-combinator">K Constant Combinator</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#s-substitute-combinator">S Substitute Combinator</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#similarity">Similarity</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#differences">Differences</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -447,82 +402,14 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="the-combinator-approach">
-<h1>The Combinator Approach<a class="headerlink" href="#the-combinator-approach" title="Link to this heading">#</a></h1>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Combinatory_logic">Combinators</a> are a foundational approach to mathematical logic.  Expressions are built out of variables like <em>x</em> and <em>y</em>; combinators like S and K; and function applications like (S K).  Books like Raymond Smullyan’s <em>To Mock a Mockingbird</em> explore the kinds of complex systems that can be built out of combinator calculi.</p>
-<p>There are several different (compatible) formulations of combinatory logic, such as <a class="reference external" href="https://en.wikipedia.org/wiki/SKI_combinator_calculus">SKI</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/B,_C,_K,_W_system">BCKW</a>.  Many authors have preferred to work with one of the most parsimonious systems, SKI, and Nock at its heart is SKI dressed up with some machinery to handle nouns.  (Since SKI is a Turing-complete computational system, this demonstrates that Nock is Turing-complete without further ado.)</p>
-<p>Nock opcodes 2, 1, and 0 correspond to S, K, and I combinators, so let’s start there.  We’ll look at what the combinators do on their own and then as a part of the Nock system.</p>
-<section id="i-identity-combinator">
-<h2>I Identity Combinator<a class="headerlink" href="#i-identity-combinator" title="Link to this heading">#</a></h2>
-<p>The I combinator simply returns its (single) argument:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">I</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
-</pre></div>
+  <section class="tex2jax_ignore mathjax_ignore" id="building-with-nock">
+<h1>Building with Nock<a class="headerlink" href="#building-with-nock" title="Link to this heading">#</a></h1>
+<p>While you will typically prefer to use a high-level language that compiles to Nock (see <a class="reference internal" href="../compiling/index.html"><span class="std std-doc">Languages</span></a>), there are times when you may want to code directly using Nock.  This section covers some of the building blocks you’ll need in order to do so.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="kernel.html"><span class="doc std std-doc">Kernels</span></a></p></li>
+</ul>
+<div class="toctree-wrapper compound">
 </div>
-<p>Iterated applications simply reduce one step at a time:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">I</span> <span class="n">I</span> <span class="n">x</span> <span class="o">=</span> <span class="n">I</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
-</pre></div>
-</div>
-<p>In Nock, our format is a little different because of how opcodes are set up.  (Think of this like grammar.)  Opcode 0 provides noun addressing, with slot 1 referring to the entire noun.  Thus:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">a</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span>
-</pre></div>
-</div>
-</section>
-<section id="k-constant-combinator">
-<h2>K Constant Combinator<a class="headerlink" href="#k-constant-combinator" title="Link to this heading">#</a></h2>
-<p>The K combinator accepts two arguments and discards the second.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">K</span> <span class="n">x</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span>
-</pre></div>
-</div>
-<p>Like</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">K</span> <span class="n">K</span> <span class="n">x</span> <span class="n">y</span> <span class="n">z</span> <span class="o">=</span> <span class="n">K</span> <span class="n">x</span> <span class="n">z</span> <span class="o">=</span> <span class="n">x</span>
-<span class="n">K</span> <span class="n">K</span> <span class="n">x</span> <span class="n">y</span> <span class="o">=</span> <span class="n">K</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
-</pre></div>
-</div>
-<p>The latter case is interesting.  Why does it stop evaluating forward?  There is insufficient information to</p>
-</section>
-<section id="s-substitute-combinator">
-<h2>S Substitute Combinator<a class="headerlink" href="#s-substitute-combinator" title="Link to this heading">#</a></h2>
-<p>The S combinator distributes a common argument <code class="docutils literal notranslate"><span class="pre">z</span></code> to two functions <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>, then applies the first result to the second.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S</span> <span class="n">x</span> <span class="n">y</span> <span class="n">z</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="n">z</span><span class="p">)</span> <span class="p">(</span><span class="n">y</span> <span class="n">z</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>S (along with K) forms a Turing-complete basis.</p>
-<p><a class="reference internal" href="../specification/opcode-2.html"><span class="std std-doc">Opcode 2</span></a> is analogous to the S combinator, in that it is the subject-oriented counterpart to the applicative distribution pattern of S.  This structural similarity is why opcode 2 (combined with the other primitives <a class="reference internal" href="../specification/opcode-0.html"><span class="std std-doc">opcode 0</span></a> and <a class="reference internal" href="../specification/opcode-1.html"><span class="std std-doc">opcode 1</span></a>) provides Turing completeness.</p>
-</section>
-<section id="similarity">
-<h2>Similarity<a class="headerlink" href="#similarity" title="Link to this heading">#</a></h2>
-<p>Both operations share the pattern “distribute, then combine”:</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>S Combinator</p></th>
-<th class="head"><p>Nock 2</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Common argument: <code class="docutils literal notranslate"><span class="pre">z</span></code></p></td>
-<td><p>Common subject: <code class="docutils literal notranslate"><span class="pre">a</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p>Two functions: <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code></p></td>
-<td><p>Two formulas: <code class="docutils literal notranslate"><span class="pre">b</span></code>, <code class="docutils literal notranslate"><span class="pre">c</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p>Distribute: <code class="docutils literal notranslate"><span class="pre">(x</span> <span class="pre">z)</span></code> and <code class="docutils literal notranslate"><span class="pre">(y</span> <span class="pre">z)</span></code></p></td>
-<td><p>Distribute: <code class="docutils literal notranslate"><span class="pre">*[a</span> <span class="pre">b]</span></code> and <code class="docutils literal notranslate"><span class="pre">*[a</span> <span class="pre">c]</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p>Combine via application</p></td>
-<td><p>Combine via <code class="docutils literal notranslate"><span class="pre">*</span></code> evaluation</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-<section id="differences">
-<h2>Differences<a class="headerlink" href="#differences" title="Link to this heading">#</a></h2>
-<ol class="arabic simple">
-<li><p>Evaluation model: S uses <a class="reference internal" href="lambda-approach.html"><span class="std std-doc">lambda</span></a>-style application (<code class="docutils literal notranslate"><span class="pre">f</span> <span class="pre">x</span></code>). Nock uses subject-oriented evaluation (<code class="docutils literal notranslate"><span class="pre">*[subject</span> <span class="pre">formula]</span></code>), which has the opposite argument order convention.</p></li>
-<li><p>Argument ordering: In S, the first distributed result is the function. In opcode 2, the second distributed result (<code class="docutils literal notranslate"><span class="pre">*[a</span> <span class="pre">c]</span></code>) becomes the formula, and the first (<code class="docutils literal notranslate"><span class="pre">*[a</span> <span class="pre">b]</span></code>) becomes the subject.</p></li>
-<li><p>Semantics: Lambda application and Nock evaluation aren’t the same operation, though they’re both notions of “running code on data.”</p></li>
-</ol>
-</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -538,7 +425,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./content/understanding"
+            path: "./content/building"
         },
         predefinedOutput: true
     }
@@ -556,20 +443,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="index.html"
+       href="../hints-jetting/index.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Understanding Nock</p>
+        <p class="prev-next-title">Hints &amp; Jetting</p>
       </div>
     </a>
     <a class="right-next"
-       href="lambda-approach.html"
+       href="kernel.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">The Lambda Calculus Approach</p>
+        <p class="prev-next-title">Kernels</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -579,25 +466,6 @@ document.write(`
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#i-identity-combinator">I Identity Combinator</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#k-constant-combinator">K Constant Combinator</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#s-substitute-combinator">S Substitute Combinator</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#similarity">Similarity</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#differences">Differences</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>
