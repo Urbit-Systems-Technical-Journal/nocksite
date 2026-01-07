@@ -88,6 +88,8 @@ chapters:
   sections:
   - file: content/building/kernel
     title: Kernels
+  - file: content/building/virtualization
+    title: Virtualization
 
 - file: content/history/index
   title: History
