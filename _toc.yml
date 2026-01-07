@@ -83,6 +83,12 @@ chapters:
 - file: content/hints-jetting/index
   title: Hints & Jetting
 
+- file: content/building/index
+  title: Building
+  sections:
+  - file: content/building/kernel
+    title: Kernels
+
 - file: content/history/index
   title: History
   sections:
