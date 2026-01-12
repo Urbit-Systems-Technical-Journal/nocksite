@@ -5,6 +5,8 @@ chapters:
 - file: content/specification/index
   title: The Specification
   sections:
+  - file: content/specification/cell-distribution
+    title: Cell Distribution
   - file: content/specification/basic-opcodes
     title: Basic Opcodes
     sections:
