@@ -134,3 +134,9 @@ Other online versions of the specification match the above but provide additiona
 - [Urbit:  What is Nock?](https://docs.urbit.org/nock/what-is-nock)
 - [Zorp:  Nock Definition](https://zorp.io/nock/)
 - [Assimakis Kattis, Brian Klatt, Philip Quirk, Logan Allen. (2025). "A Framework for Compiling Custom Languages as Efficiently Verifiable Virtual Machines"](https://eprint.iacr.org/2025/1110) (Nock opcodes as zero-knowledge circuit components)
+- [Lukasz Czajka, “Nock for Functional Programmers” (Anoma Technical Report)](https://zenodo.org/records/14511714/files/2024-Czajka-Nock-for-Functional-Programmers.pdf?download=1) (PDF)
+
+### Technical Discussion
+
+- [Lukasz Czajka, “Review of Nock as a VM Language”](https://forum.anoma.net/t/review-of-nock-as-a-vm-language/1453) ([archive](https://web.archive.org/web/20250917053230/https://forum.anoma.net/t/review-of-nock-as-a-vm-language/1453))
+- [Christopher Goes, “Models of Computation: Selection Criteria and Candidates”](https://forum.anoma.net/t/models-of-computation-selection-criteria-and-candidates/177/5) ([archive](https://web.archive.org/web/20260310232145/https://forum.anoma.net/t/models-of-computation-selection-criteria-and-candidates/177))
