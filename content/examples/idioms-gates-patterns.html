@@ -443,30 +443,31 @@
 </pre></div>
 </div>
 <p>One way to invoke it with an opcode 9 looks like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">7</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">::</span> <span class="n">compose</span>
+<span class="p">[</span><span class="mi">7</span>
+   <span class="p">::</span> <span class="n">pin</span> <span class="n">a</span> <span class="n">gate</span> <span class="k">with</span> <span class="n">default</span> <span class="n">sample</span> <span class="n">argument</span> <span class="mi">0</span>
    <span class="p">[</span><span class="mi">8</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span><span class="p">]</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">4</span> <span class="mi">0</span> <span class="mi">6</span><span class="p">]</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]</span>
+   <span class="p">::</span> <span class="n">pin</span> <span class="n">access</span> <span class="n">to</span> <span class="n">the</span> <span class="n">subject</span> <span class="n">locally</span>
    <span class="p">[</span><span class="mi">8</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]</span>
+      <span class="p">::</span> <span class="n">invoke</span> <span class="n">the</span> <span class="n">gate</span> <span class="k">with</span> <span class="n">the</span> <span class="n">variable</span> <span class="n">argument</span>
       <span class="p">[</span><span class="mi">9</span> <span class="mi">2</span>
          <span class="mi">10</span> <span class="p">[</span><span class="mi">6</span> <span class="mi">7</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">3</span><span class="p">]</span> <span class="mi">1</span> <span class="mi">5</span><span class="p">]</span> <span class="mi">0</span> <span class="mi">2</span><span class="p">]]</span>
 <span class="p">]</span>
 </pre></div>
 </div>
 <p>The meat of the pattern lies in the opcode 9 expression, which we may gloss as follows:</p>
-<p>Retrieve the gate</p>
-<p>We can expand it using the rules for opcodes 7, 8, and 9 (using <code class="docutils literal notranslate"><span class="pre">0</span></code> as an unused placeholder subject):</p>
+<ol class="arabic simple">
+<li><p>Retrieve the gate (using opcode 0).</p></li>
+<li><p>Modify the gate by replacing the <code class="docutils literal notranslate"><span class="pre">0</span></code> pin with the argument (using opcode 10).</p></li>
+<li><p>Invoke the modified gate.</p></li>
+</ol>
+<p>You can expand it using the rules for opcodes 7, 8, and 9 (using <code class="docutils literal notranslate"><span class="pre">0</span></code> as an unused placeholder subject):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span><span class="p">[</span><span class="n">a</span> <span class="mi">7</span> <span class="n">b</span> <span class="n">c</span><span class="p">]</span>          <span class="o">*</span><span class="p">[</span><span class="o">*</span><span class="p">[</span><span class="n">a</span> <span class="n">b</span><span class="p">]</span> <span class="n">c</span><span class="p">]</span>
 <span class="o">*</span><span class="p">[</span><span class="n">a</span> <span class="mi">8</span> <span class="n">b</span> <span class="n">c</span><span class="p">]</span>          <span class="o">*</span><span class="p">[[</span><span class="o">*</span><span class="p">[</span><span class="n">a</span> <span class="n">b</span><span class="p">]</span> <span class="n">a</span><span class="p">]</span> <span class="n">c</span><span class="p">]</span>
 <span class="o">*</span><span class="p">[</span><span class="n">a</span> <span class="mi">9</span> <span class="n">b</span> <span class="n">c</span><span class="p">]</span>          <span class="o">*</span><span class="p">[</span><span class="o">*</span><span class="p">[</span><span class="n">a</span> <span class="n">c</span><span class="p">]</span> <span class="mi">2</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]</span> <span class="mi">0</span> <span class="n">b</span><span class="p">]</span>
-
-<span class="o">*</span><span class="p">[</span><span class="mi">0</span> <span class="mi">7</span> <span class="p">[</span><span class="mi">8</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span><span class="p">]</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">4</span> <span class="mi">0</span> <span class="mi">6</span><span class="p">]</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="mi">8</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="mi">9</span> <span class="mi">2</span> <span class="mi">10</span> <span class="p">[</span><span class="mi">6</span> <span class="mi">7</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">3</span><span class="p">]</span> <span class="mi">1</span> <span class="mi">5</span><span class="p">]</span> <span class="mi">0</span> <span class="mi">2</span><span class="p">]]]</span> <span class="o">==</span>
-<span class="o">*</span><span class="p">[</span><span class="o">*</span><span class="p">[</span><span class="mi">0</span> <span class="p">[</span><span class="mi">8</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span><span class="p">]</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">4</span> <span class="mi">0</span> <span class="mi">6</span><span class="p">]</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]]</span> <span class="p">[</span><span class="mi">8</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="mi">9</span> <span class="mi">2</span> <span class="mi">10</span> <span class="p">[</span><span class="mi">6</span> <span class="mi">7</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">3</span><span class="p">]</span> <span class="mi">1</span> <span class="mi">5</span><span class="p">]</span> <span class="mi">0</span> <span class="mi">2</span><span class="p">]]]</span> <span class="o">==</span>
-
-<span class="n">TODO</span>
-
-<span class="o">*</span><span class="p">[</span><span class="mi">8</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]</span> <span class="mi">9</span> <span class="mi">2</span> <span class="mi">10</span> <span class="p">[</span><span class="mi">6</span> <span class="mi">7</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">3</span><span class="p">]</span> <span class="mi">1</span> <span class="mi">5</span><span class="p">]</span> <span class="mi">0</span> <span class="mi">2</span><span class="p">]</span> <span class="o">==</span>
-<span class="o">*</span><span class="p">[</span><span class="o">*</span><span class="p">[</span><span class="n">a</span> <span class="mi">10</span> <span class="p">[</span><span class="mi">6</span> <span class="mi">7</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">3</span><span class="p">]</span> <span class="mi">1</span> <span class="mi">5</span><span class="p">]</span> <span class="mi">0</span> <span class="mi">2</span><span class="p">]</span> <span class="mi">2</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]</span> <span class="mi">0</span> <span class="mi">2</span><span class="p">]</span>
 </pre></div>
 </div>
+<p>One way to think of Nock functions is as hygienic macros in the Lisp tradition.  The gate pattern is a way to implement a macro that takes one argument and produces a new noun based on it.</p>
 </section>
 <section id="cores">
 <h2>Cores<a class="headerlink" href="#cores" title="Link to this heading">#</a></h2>
