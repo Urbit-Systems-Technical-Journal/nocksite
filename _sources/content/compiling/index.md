@@ -9,5 +9,7 @@ At the current time, the high-level languages under most active development that
 
 There have also been a few experimental compilers built to play with language concepts:
 
-- [Hick by ~tacryt-socryp](https://gist.github.com/tacryt-socryp/b08dc66b7bcc760e914c4db5c9fd7ba7)
-- [Loon by ~fodwyt-ragful](https://github.com/frodwith/loon)
+- [Hick by ~tacryt-socryp](https://gist.github.com/tacryt-socryp/b08dc66b7bcc760e914c4db5c9fd7ba7), a Lisp-like Hoon
+- [Loon by ~fodwyt-ragful](https://github.com/frodwith/loon), a Lisp
+- [North by ~lagrev-nocfep](https://github.com/sigilante/north), a Forth interpreter
+- [Trinitite by ~lagrev-nocfep](https://github.com/sigilante/trinitite) (not a language, an OS)
