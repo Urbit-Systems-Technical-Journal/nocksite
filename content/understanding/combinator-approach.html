@@ -460,12 +460,22 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">K</span> <span class="n">x</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span>
 </pre></div>
 </div>
-<p>Like</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">K</span> <span class="n">K</span> <span class="n">x</span> <span class="n">y</span> <span class="n">z</span> <span class="o">=</span> <span class="n">K</span> <span class="n">x</span> <span class="n">z</span> <span class="o">=</span> <span class="n">x</span>
-<span class="n">K</span> <span class="n">K</span> <span class="n">x</span> <span class="n">y</span> <span class="o">=</span> <span class="n">K</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+<p>It applies from the left:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">K</span> <span class="n">K</span> <span class="n">x</span> <span class="n">y</span> <span class="n">z</span> <span class="o">=</span> <span class="n">K</span> <span class="n">y</span> <span class="n">z</span> <span class="o">=</span> <span class="n">y</span>
+
+<span class="p">((</span><span class="n">K</span> <span class="n">K</span><span class="p">)</span> <span class="n">x</span><span class="p">)</span> <span class="n">y</span> <span class="n">z</span>    <span class="o">--</span> <span class="n">parse</span> <span class="n">left</span><span class="o">-</span><span class="n">associatively</span>
+<span class="o">=</span> <span class="n">K</span> <span class="n">y</span> <span class="n">z</span>          <span class="o">--</span> <span class="n">because</span> <span class="p">(</span><span class="n">K</span> <span class="n">K</span><span class="p">)</span> <span class="n">x</span> <span class="n">reduces</span><span class="p">:</span> <span class="n">K</span><span class="s1">&#39;s first arg is K, second is x, returns first → K</span>
+<span class="o">=</span> <span class="n">y</span>              <span class="o">--</span> <span class="n">K</span> <span class="n">applied</span> <span class="n">to</span> <span class="n">y</span> <span class="ow">and</span> <span class="n">z</span> <span class="n">returns</span> <span class="n">y</span>
 </pre></div>
 </div>
-<p>The latter case is interesting.  Why does it stop evaluating forward?  There is insufficient information to</p>
+<p>It also halts if there is insufficient information to continue:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">K</span> <span class="n">K</span> <span class="n">x</span> <span class="n">y</span> <span class="o">=</span> <span class="n">K</span> <span class="n">y</span>
+
+<span class="p">((</span><span class="n">K</span> <span class="n">K</span><span class="p">)</span> <span class="n">x</span><span class="p">)</span> <span class="n">y</span>
+<span class="o">=</span> <span class="n">K</span> <span class="n">y</span>            <span class="o">--</span> <span class="n">same</span> <span class="n">first</span> <span class="n">step</span> <span class="k">as</span> <span class="n">above</span>
+</pre></div>
+</div>
+<p>The latter case is interesting.  Why does it stop evaluating forward?  <code class="docutils literal notranslate"><span class="pre">K</span> <span class="pre">y</span></code> is a partial application:  <code class="docutils literal notranslate"><span class="pre">K</span></code> needs two arguments and only has one; evaluation halts not because of any deep ambiguity, but simply because <code class="docutils literal notranslate"><span class="pre">K</span></code> is unsaturated.</p>
 </section>
 <section id="s-substitute-combinator">
 <h2>S Substitute Combinator<a class="headerlink" href="#s-substitute-combinator" title="Link to this heading">#</a></h2>
@@ -475,6 +485,24 @@
 </div>
 <p>S (along with K) forms a Turing-complete basis.</p>
 <p><a class="reference internal" href="../specification/opcode-2.html"><span class="std std-doc">Opcode 2</span></a> is analogous to the S combinator, in that it is the subject-oriented counterpart to the applicative distribution pattern of S.  This structural similarity is why opcode 2 (combined with the other primitives <a class="reference internal" href="../specification/opcode-0.html"><span class="std std-doc">opcode 0</span></a> and <a class="reference internal" href="../specification/opcode-1.html"><span class="std std-doc">opcode 1</span></a>) provides Turing completeness.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S</span> <span class="n">K</span> <span class="n">K</span> <span class="n">x</span>
+<span class="o">=</span> <span class="n">K</span> <span class="n">x</span> <span class="p">(</span><span class="n">K</span> <span class="n">x</span><span class="p">)</span>     <span class="o">--</span> <span class="n">by</span> <span class="n">S</span><span class="s1">&#39;s rule, with z = x</span>
+<span class="o">=</span> <span class="n">x</span>             <span class="o">--</span> <span class="n">K</span> <span class="n">x</span> <span class="p">(</span><span class="n">K</span> <span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">since</span> <span class="n">K</span> <span class="n">discards</span> <span class="n">its</span> <span class="n">second</span> <span class="n">argument</span>
+</pre></div>
+</div>
+<p>This fully reduces:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S</span> <span class="n">K</span> <span class="n">x</span> <span class="n">y</span>
+<span class="o">=</span> <span class="n">K</span> <span class="n">y</span> <span class="p">(</span><span class="n">x</span> <span class="n">y</span><span class="p">)</span>     <span class="o">--</span> <span class="n">by</span> <span class="n">S</span><span class="s1">&#39;s rule</span>
+<span class="o">=</span> <span class="n">y</span>             <span class="o">--</span> <span class="n">K</span> <span class="n">discards</span> <span class="p">(</span><span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>but something like <code class="docutils literal notranslate"><span class="pre">S</span> <span class="pre">K</span> <span class="pre">x</span></code> does not, because there is insufficient information to resolve the combinators further.</p>
+<p>This example has four arguments:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S</span> <span class="n">x</span> <span class="n">y</span> <span class="n">z</span> <span class="n">z</span><span class="s1">&#39;      -- four arguments</span>
+<span class="o">=</span> <span class="n">x</span> <span class="n">z</span> <span class="p">(</span><span class="n">y</span> <span class="n">z</span><span class="p">)</span> <span class="n">z</span><span class="s1">&#39;  -- S consumes only the first three; z&#39;</span> <span class="n">rides</span> <span class="n">along</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">z</span></code> appears twice on the right-hand side.  That duplication is what makes <code class="docutils literal notranslate"><span class="pre">S</span></code> and <code class="docutils literal notranslate"><span class="pre">K</span></code> together Turing-complete; <code class="docutils literal notranslate"><span class="pre">K</span></code> can throw arguments away, <code class="docutils literal notranslate"><span class="pre">S</span></code> can copy them, and between the two you can route any value anywhere.</p>
 </section>
 <section id="similarity">
 <h2>Similarity<a class="headerlink" href="#similarity" title="Link to this heading">#</a></h2>
