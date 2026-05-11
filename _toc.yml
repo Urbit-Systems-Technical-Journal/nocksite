@@ -47,16 +47,16 @@ chapters:
   sections:
   - file: content/understanding/combinator-approach
     title: "The Combinator Approach"
-  # - file: content/understanding/turing-machine-approach
-  #   title: "The Turing Machine Approach"
+  - file: content/understanding/turing-machine-approach
+    title: "The Turing Machine Approach"
   - file: content/understanding/lambda-approach
     title: "The Lambda Calculus Approach"
   - file: content/understanding/assembly-language-approach
     title: "The Assembly Language Approach"
-  # - file: content/understanding/cellular-automaton-approach
-  #   title: "The Cellular Automaton Approach"
-  # - file: content/understanding/alchemy-approach
-  #   title: "The Alchemy Approach"
+  - file: content/understanding/cellular-automaton-approach
+    title: "The Cellular Automaton Approach"
+  - file: content/understanding/alchemy-approach
+    title: "The Alchemy Approach"
   - file: content/specification/llm
     title: Nock for LLMs
 
