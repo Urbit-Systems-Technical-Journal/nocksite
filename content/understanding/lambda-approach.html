@@ -445,7 +445,7 @@
 <li><p><span class="math notranslate nohighlight">\(x\)</span> is a variable.</p></li>
 <li><p><span class="math notranslate nohighlight">\(\lambda x.x\)</span> is the identity function, that is, it returns its argument.</p></li>
 <li><p><span class="math notranslate nohighlight">\((\lambda x.x) y\)</span> applies the identity function to <span class="math notranslate nohighlight">\(y\)</span>.</p></li>
-<li><p><span class="math notranslate nohighlight">\(\lambda x. \lambda y. y;x\)</span> is a function that takes two arguments and returns the second one.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\lambda x. \lambda y. yx\)</span> is a function that takes two arguments and applies the second argument to the first.</p></li>
 </ul>
 <p>The lambda calculus can be used to represent numbers and boolean logic, and ultimately to express any computable function.  In practice, the expressions can become cumbersome, particularly for numbers and arithmetic operations.  For example, Church numerals represent natural numbers as higher-order functions:</p>
 <ul class="simple">
@@ -464,10 +464,10 @@
 <p>For example, the lambda expression</p>
 <div class="math notranslate nohighlight">
 \[
-\lambda x. \lambda y. y;x
+\lambda x. \lambda y. yx
 \]</div>
 <p>can be represented (with some manipulation) as the SKI expression</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S</span><span class="p">(</span><span class="n">K</span><span class="p">(</span><span class="n">S</span><span class="p">;</span><span class="n">I</span><span class="p">))</span><span class="n">K</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S</span><span class="p">(</span><span class="n">K</span><span class="p">(</span><span class="n">SI</span><span class="p">))</span><span class="n">K</span>
 </pre></div>
 </div>
 <ul class="simple">

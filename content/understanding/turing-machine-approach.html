@@ -470,9 +470,125 @@
 └───────┴───────┴───────┴────┴────┴────┴────┴───────┴───────┘
 </pre></div>
 </div>
-<p>TODO blah blah blah</p>
-<p>What you want to work on here is how to consume tokens by the head</p>
-<p>A Turing machine interpreter for Nock would implement the Nock evaluation rules as state transitions.  At a high level,</p>
+<p>The Turing machine head consumes a Nock expression by treating each pair on the tape as a token.  The head starts at slot 1—the root of the noun—and navigates toward the formula.  In the slot-addressing scheme, slot 2 is the subject (the head of slot 1), slot 3 is the formula (the tail of slot 1), slot 6 is the opcode (the head of slot 3), and slot 7 is the formula’s argument (the tail of slot 3).</p>
+<p>As a concrete example, consider evaluating <code class="docutils literal notranslate"><span class="pre">[42</span> <span class="pre">[1</span> <span class="pre">99]]</span></code>: subject <code class="docutils literal notranslate"><span class="pre">42</span></code>, formula <code class="docutils literal notranslate"><span class="pre">[1</span> <span class="pre">99]</span></code>, opcode <code class="docutils literal notranslate"><span class="pre">1</span></code> (constant), result <code class="docutils literal notranslate"><span class="pre">99</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[42 [1 99]]
+
+  slot:  1        2        3        4        5        6        7
+        ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐
+        │ [0 1]  │ [0 42] │ [0 3]  │ [0 0]  │ [0 0]  │ [0 1]  │ [0 99] │
+        └────────┴────────┴────────┴────────┴────────┴────────┴────────┘
+</pre></div>
+</div>
+<p><em>(Slots 4 and 5 are empty because the subject at slot 2 is an atom, not a cell.)</em></p>
+<p>The head steps through the following transitions:</p>
+<ol class="arabic simple">
+<li><p><strong>EVAL</strong> at slot 1: reads <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">1]</span></code> → cell, navigate to formula root at slot 3</p></li>
+<li><p><strong>READ_FORMULA</strong> at slot 3: reads <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">3]</span></code> → cell, descend to formula head at slot 6</p></li>
+<li><p><strong>READ_OPCODE</strong> at slot 6: reads <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">1]</span></code> → opcode <code class="docutils literal notranslate"><span class="pre">1</span></code>, enter state <code class="docutils literal notranslate"><span class="pre">OPCODE_1</span></code></p></li>
+<li><p><strong>OPCODE_1</strong> at slot 7: reads <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">99]</span></code> → result is <code class="docutils literal notranslate"><span class="pre">99</span></code></p></li>
+<li><p><strong>RETURN</strong>: write <code class="docutils literal notranslate"><span class="pre">99</span></code> to the output region; halt</p></li>
+</ol>
+<p>A Turing machine interpreter for Nock would implement the Nock evaluation rules as state transitions.  At a high level, the state set includes one entry state per Nock opcode, plus auxiliary states for descending into sub-expressions and returning results.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>State</p></th>
+<th class="head"><p>Symbol Read</p></th>
+<th class="head"><p>Action</p></th>
+<th class="head"><p>Next State</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">EVAL</span></code></p></td>
+<td><p>cell <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">n]</span></code></p></td>
+<td><p>navigate to formula at slot <code class="docutils literal notranslate"><span class="pre">2n+1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">READ_OPCODE</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">READ_OPCODE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">0]</span></code></p></td>
+<td><p>slot addressing</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OPCODE_0</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">READ_OPCODE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">1]</span></code></p></td>
+<td><p>constant return</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OPCODE_1</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">READ_OPCODE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">2]</span></code></p></td>
+<td><p>recursive apply</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OPCODE_2</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">READ_OPCODE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">3]</span></code></p></td>
+<td><p>cell test</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OPCODE_3</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">READ_OPCODE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">4]</span></code></p></td>
+<td><p>increment</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OPCODE_4</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">READ_OPCODE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">5]</span></code></p></td>
+<td><p>equality</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OPCODE_5</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">READ_OPCODE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">6]</span></code></p></td>
+<td><p>conditional</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OPCODE_6</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">READ_OPCODE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">7]</span></code></p></td>
+<td><p>compose</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OPCODE_7</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">READ_OPCODE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">8]</span></code></p></td>
+<td><p>push</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OPCODE_8</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">READ_OPCODE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">9]</span></code></p></td>
+<td><p>call (arm)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OPCODE_9</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">READ_OPCODE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">10]</span></code></p></td>
+<td><p>edit</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OPCODE_10</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">READ_OPCODE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">11]</span></code></p></td>
+<td><p>hint</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OPCODE_11</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OPCODE_1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">v]</span></code></p></td>
+<td><p>return atom <code class="docutils literal notranslate"><span class="pre">v</span></code> directly</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RETURN</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OPCODE_4</span></code></p></td>
+<td><p>—</p></td>
+<td><p>eval argument sub-expression</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">EVAL</span></code> (then <code class="docutils literal notranslate"><span class="pre">INCREMENT</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">INCREMENT</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">v]</span></code></p></td>
+<td><p>write <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">v+1]</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RETURN</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CRASH</span></code></p></td>
+<td><p>any</p></td>
+<td><p>halt with error</p></td>
+<td><p>—</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The critical structural challenge is recursion.  A Turing machine’s transition function is flat—there is no native notion of a call stack—yet opcodes 2, 4, 6, 7, 8, 9, and 11 all require evaluating sub-expressions before continuing.  The machine simulates a call stack by encoding pending continuations in a designated region of the tape:  before descending into a sub-expression, the current position and expected continuation state are written as a frame; when the sub-expression returns, that frame is popped and computation resumes.</p>
+<p>This is precisely what the tree-walking interpreter does.  It is the most direct Turing machine analog for Nock evaluation:  the interpreter walks the noun tree, descending recursively into sub-expressions, maintaining a stack of pending operations, and propagating results back toward the root.  Actual Nock implementations begin here before applying optimizations such as jet registration (replacing known subtrees with native code), memoization (caching results for referentially transparent sub-expressions), and tail-call elimination (discarding stack frames for tail-recursive loops).</p>
 </section>
 <section id="generally-recursive-functions">
 <h2>Generally Recursive Functions<a class="headerlink" href="#generally-recursive-functions" title="Link to this heading">#</a></h2>
