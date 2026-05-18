@@ -4,7 +4,7 @@
 
 Loon uses Lisp-style S-expression syntax with square brackets for cell literals, lowercase symbols, and `_` for wildcards in binding patterns.  Its most distinctive feature is the split between two forms of abstraction:  `fn` produces an ordinary closure, while `dfn` produces a bare Nock formula.  The latter enables a clean module pattern in which a top-level `main` form is itself a Nock formula that takes its dependencies as an argument, with modules composed via Nock's opcode 2.
 
-At the current time, Loon is a single-author prototype.  Its inline test suite serves as the specification.
+At the current time, Loon is a single-author prototype.
 
 ## Example
 
