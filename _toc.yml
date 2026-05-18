@@ -79,6 +79,10 @@ chapters:
     title: Relationship to Hoon
   - file: content/compiling/relationship-to-jock
     title: Relationship to Jock
+  - file: content/compiling/relationship-to-loon
+    title: Relationship to Loon
+  - file: content/compiling/relationship-to-north
+    title: Relationship to North
     
 - file: content/hints-jetting/index
   title: Hints & Jetting
