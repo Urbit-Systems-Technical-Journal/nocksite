@@ -26,6 +26,6 @@ There have also been a few experimental compilers built to play with language co
 
 - [North by ~lagrev-nocfep](https://github.com/sigilante/north), a Forth interpreter running as a Gall agent.
 
-    North is an ANSI-compatible Forth interpreter that runs on a Nock host, demonstrating how different computation models can be implemented on top of Nock.
+  - [Discussion of North](../compiling/relationship-to-north.md): North is an ANSI-compatible Forth interpreter that runs on a Nock host, demonstrating how different computation models can be implemented on top of Nock.
 
 - [Trinitite by ~lagrev-nocfep](https://github.com/sigilante/trinitite), not a language, a Raspberry Pi Forth-based Nock OS.
