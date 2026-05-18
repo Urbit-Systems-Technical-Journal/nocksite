@@ -9,7 +9,7 @@ This site will interactively teach you about Nock and the high-level languages t
 * [Hoon](https://docs.urbit.org), an assembly-like systems language (the "C" of Nock).
 * [Jock](https://jock.org), a user-friendly scripting language (the "Python" of Nock).
 
-Beyond these, paradigm experiments like [North](https://github.com/sigilante/north)—an ANSI-compatible Forth interpreter running as a Gall agent—illustrate that other computation models map naturally onto a Nock host.
+Beyond these, paradigm experiments like [North](https://github.com/sigilante/north)—a Forth interpreter (targeting broad ANSI compatibility) running as a Gall agent—illustrate that other computation models map naturally onto a Nock host.
 
 ## What is Nock?
 

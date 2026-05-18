@@ -7,7 +7,7 @@ At the current time, the high-level languages under most active development that
 - [Hoon](../compiling/relationship-to-hoon.md) is a mature systems programming language with much syntax and flexibility.
 - [Jock](../compiling/relationship-to-jock.md) is a scripting language designed as a more developer-friendly alternative to Hoon.
 
-Beyond these mainstream targets, [North by ~lagrev-nocfep](https://github.com/sigilante/north) is an ANSI-compatible Forth interpreter implemented as a `/lib/shoe` Gall agent.  It runs interactively as a REPL on a live Urbit ship and can be driven from a Jupyter notebook via [Jupytur](https://github.com/sigilante/jupytur), demonstrating that stack-based concatenative languages map cleanly onto a Nock host.
+Beyond these mainstream targets, [North by ~lagrev-nocfep](https://github.com/sigilante/north) is a Forth interpreter (targeting broad ANSI compatibility) implemented as a `/lib/shoe` Gall agent.  It runs interactively as a REPL on a live Urbit ship and can be driven from a Jupyter notebook via [Jupytur](https://github.com/sigilante/jupytur), demonstrating that stack-based concatenative languages map cleanly onto a Nock host.
 
 There have also been a few experimental compilers built to play with language concepts:
 
