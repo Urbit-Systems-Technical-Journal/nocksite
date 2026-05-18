@@ -9,6 +9,8 @@ This site will interactively teach you about Nock and the high-level languages t
 * [Hoon](https://docs.urbit.org), an assembly-like systems language (the "C" of Nock).
 * [Jock](https://jock.org), a user-friendly scripting language (the "Python" of Nock).
 
+Beyond these, paradigm experiments like [North](https://github.com/sigilante/north)—an ANSI-compatible Forth interpreter running as a Gall agent—illustrate that other computation models map naturally onto a Nock host.
+
 ## What is Nock?
 
 Nock is a minimal combinator calculus that serves as the foundation for functional programming systems like Urbit. This tutorial provides multiple perspectives on understanding Nock, from theoretical foundations to practical implementation.
