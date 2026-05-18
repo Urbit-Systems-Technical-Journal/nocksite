@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Languages &#8212; Nock</title>
+    <title>Relationship to Loon &#8212; Nock</title>
   
   
   
@@ -61,12 +61,10 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'content/compiling/index';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/compiling/relationship-to-loon';</script>
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Relationship to Hoon" href="relationship-to-hoon.html" />
-    <link rel="prev" title="Nock for Everyday Coders" href="../examples/timluc-miptev--nock-for-everyday-coders.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -118,6 +116,8 @@
       
       
       
+        
+      
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
@@ -162,7 +162,7 @@
 </button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <ul class="current nav bd-sidenav">
+        <ul class="nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../specification/index.html">The Specification</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../specification/basic-opcodes.html">Basic Opcodes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../specification/opcode-0.html">Opcode 0: Address</a></li>
@@ -203,7 +203,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../examples/timluc-miptev--nock-for-everyday-coders.html">Nock for Everyday Coders (Tutorial)</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Languages</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="index.html">Languages</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="relationship-to-hoon.html">Relationship to Hoon</a></li>
 <li class="toctree-l2"><a class="reference internal" href="relationship-to-jock.html">Relationship to Jock</a></li>
 </ul>
@@ -304,7 +304,7 @@
       
       
       
-      <li><a href="../../_sources/content/compiling/index.md" target="_blank"
+      <li><a href="../../_sources/content/compiling/relationship-to-loon.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -367,7 +367,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -378,11 +380,20 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Languages</h1>
+    <h1>Relationship to Loon</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further Reading</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -392,37 +403,29 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="languages">
-<h1>Languages<a class="headerlink" href="#languages" title="Link to this heading">#</a></h1>
-<p>Nock is Turing-complete, but as you’ve probably come to realize, it’s not exactly a “programming” language:  it’s too abstruse and economical to be used directly for most programming tasks.  Instead, Nock is best thought of as a compilation target for higher-level languages.</p>
-<p>At the current time, the high-level languages under most active development that target Nock are Hoon and Jock.  There is also an Urwasm Nock compatibility layer for executing WebAssembly code on a Nock runtime.</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="relationship-to-hoon.html"><span class="std std-doc">Hoon</span></a> is a mature systems programming language with much syntax and flexibility.</p></li>
-<li><p><a class="reference internal" href="relationship-to-jock.html"><span class="std std-doc">Jock</span></a> is a scripting language designed as a more developer-friendly alternative to Hoon.</p></li>
-</ul>
-<p>There have also been a few experimental compilers built to play with language concepts:</p>
-<ul>
-<li><p><a class="reference external" href="https://gist.github.com/tacryt-socryp/b08dc66b7bcc760e914c4db5c9fd7ba7">Hick by ~tacryt-socryp</a>, a Lisp-like Hoon.</p>
-<div class="highlight-lisp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">seq</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">put</span><span class="w"> </span><span class="nv">x</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">put</span><span class="w"> </span><span class="nv">y</span><span class="w"> </span><span class="p">(</span><span class="nv">ffi</span><span class="w"> </span><span class="nv">add</span><span class="w"> </span><span class="p">(</span><span class="nb">get</span><span class="w"> </span><span class="nv">x</span><span class="p">)</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span>
-<span class="w">  </span><span class="p">(</span><span class="nv">ffi</span><span class="w"> </span><span class="nv">mul</span><span class="w"> </span><span class="p">(</span><span class="nb">get</span><span class="w"> </span><span class="nv">x</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nb">get</span><span class="w"> </span><span class="nv">y</span><span class="p">)))</span>
+  <section class="tex2jax_ignore mathjax_ignore" id="relationship-to-loon">
+<h1>Relationship to Loon<a class="headerlink" href="#relationship-to-loon" title="Link to this heading">#</a></h1>
+<p><a class="reference external" href="https://github.com/frodwith/loon">Loon</a> is an experimental Lisp dialect by ~fodwyt-ragful that compiles to Nock. <code class="docutils literal notranslate"><span class="pre">frodwith</span></code> describes it as a “lambda-delta calculus”: the untyped lambda calculus augmented with Nock’s noun operations—cons, axis reads, edits, equality, increment, depth test, conditional branching, and hints—as language-level primitives. Delta abstractions are Nock formulas.</p>
+<p>Loon uses Lisp-style S-expression syntax with square brackets for cell literals, lowercase symbols, and <code class="docutils literal notranslate"><span class="pre">_</span></code> for wildcards in binding patterns.  Its most distinctive feature is the split between two forms of abstraction:  <code class="docutils literal notranslate"><span class="pre">fn</span></code> produces an ordinary closure, while <code class="docutils literal notranslate"><span class="pre">dfn</span></code> produces a bare Nock formula.  The latter enables a clean module pattern in which a top-level <code class="docutils literal notranslate"><span class="pre">main</span></code> form is itself a Nock formula that takes its dependencies as an argument, with modules composed via Nock’s opcode 2.</p>
+<p>At the current time, Loon is a single-author prototype.</p>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Link to this heading">#</a></h2>
+<p>This Loon program:</p>
+<div class="highlight-loon notranslate"><div class="highlight"><pre><span></span>(focus a 42 a)
 </pre></div>
 </div>
-<p>Hick is a proof of concept for what S-expression syntax might look like in Hoon.</p>
-</li>
-<li><p><a class="reference external" href="https://github.com/frodwith/loon">Loon by ~fodwyt-ragful</a>, a Lisp.</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="relationship-to-loon.html"><span class="std std-doc">Discussion of Loon</span></a>: Loon is an experimental Lisp dialect that compiles to Nock, with a unique split between two forms of abstraction: <code class="docutils literal notranslate"><span class="pre">fn</span></code> for ordinary closures and <code class="docutils literal notranslate"><span class="pre">dfn</span></code> for bare Nock formulas.</p></li>
-</ul>
-</li>
-<li><p><a class="reference external" href="https://github.com/sigilante/north">North by ~lagrev-nocfep</a>, a Forth interpreter running as a Gall agent.</p>
-<p>North is an ANSI-compatible Forth interpreter that runs on a Nock host, demonstrating how different computation models can be implemented on top of Nock.</p>
-</li>
-<li><p><a class="reference external" href="https://github.com/sigilante/trinitite">Trinitite by ~lagrev-nocfep</a>, not a language, a Raspberry Pi Forth-based Nock OS.</p></li>
-</ul>
-<div class="toctree-wrapper compound">
+<p>binds <code class="docutils literal notranslate"><span class="pre">a</span></code> to 42 and returns it, compiling directly to Nock opcode 7 (compose):</p>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span>[7 [1 42] 0 1]
+</pre></div>
 </div>
+<p>The bound value becomes the new subject (<code class="docutils literal notranslate"><span class="pre">[1</span> <span class="pre">42]</span></code>), and the body retrieves it with <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">1]</span></code>.  Loon’s binding forms map onto Nock’s structural opcodes with no runtime machinery in between.</p>
+</section>
+<section id="further-reading">
+<h2>Further Reading<a class="headerlink" href="#further-reading" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/frodwith/loon">Loon GitHub Repository</a>: The single-file implementation, with an inline test suite that serves as the working specification.</p></li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -455,30 +458,30 @@
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="../examples/timluc-miptev--nock-for-everyday-coders.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Nock for Everyday Coders</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="relationship-to-hoon.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Relationship to Hoon</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further Reading</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

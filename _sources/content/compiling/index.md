@@ -7,10 +7,25 @@ At the current time, the high-level languages under most active development that
 - [Hoon](../compiling/relationship-to-hoon.md) is a mature systems programming language with much syntax and flexibility.
 - [Jock](../compiling/relationship-to-jock.md) is a scripting language designed as a more developer-friendly alternative to Hoon.
 
-Beyond these mainstream targets, [North by ~lagrev-nocfep](https://github.com/sigilante/north) is a Forth interpreter (targeting broad ANSI compatibility) implemented as a `/lib/shoe` Gall agent.  It runs interactively as a REPL on a live Urbit ship and can be driven from a Jupyter notebook via [Jupytur](https://github.com/sigilante/jupytur), demonstrating that stack-based concatenative languages map cleanly onto a Nock host.
-
 There have also been a few experimental compilers built to play with language concepts:
 
-- [Hick by ~tacryt-socryp](https://gist.github.com/tacryt-socryp/b08dc66b7bcc760e914c4db5c9fd7ba7), a Lisp-like Hoon
-- [Loon by ~fodwyt-ragful](https://github.com/frodwith/loon), a Lisp
-- [Trinitite by ~lagrev-nocfep](https://github.com/sigilante/trinitite) (not a language, an OS)
+- [Hick by ~tacryt-socryp](https://gist.github.com/tacryt-socryp/b08dc66b7bcc760e914c4db5c9fd7ba7), a Lisp-like Hoon.
+
+    ```lisp
+    (seq
+      (put x 5)
+      (put y (ffi add (get x) 1))
+      (ffi mul (get x) (get y)))
+    ```
+
+    Hick is a proof of concept for what S-expression syntax might look like in Hoon.
+
+- [Loon by ~fodwyt-ragful](https://github.com/frodwith/loon), a Lisp.
+
+  - [Discussion of Loon](../compiling/relationship-to-loon.md): Loon is an experimental Lisp dialect that compiles to Nock, with a unique split between two forms of abstraction: `fn` for ordinary closures and `dfn` for bare Nock formulas.
+
+- [North by ~lagrev-nocfep](https://github.com/sigilante/north), a Forth interpreter running as a Gall agent.
+
+    North is an ANSI-compatible Forth interpreter that runs on a Nock host, demonstrating how different computation models can be implemented on top of Nock.
+
+- [Trinitite by ~lagrev-nocfep](https://github.com/sigilante/trinitite), not a language, a Raspberry Pi Forth-based Nock OS.
