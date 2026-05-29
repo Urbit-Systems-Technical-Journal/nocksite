@@ -23,8 +23,9 @@ latex:
     targetname: nock-tutorial.tex
 
 # Add a bibtex file so that we can create citations
-bibtex_bibfiles:
-  - references.bib  # Optional: add later if you want citations
+# (Re-enable once references.bib actually exists at the repo root.)
+# bibtex_bibfiles:
+#   - references.bib
 
 # Information about where the book exists on the web
 repository:
@@ -47,6 +48,8 @@ html:
 
 # Sphinx configuration
 sphinx:
+  local_extensions:
+    nock_lexer: _ext/
   extra_extensions:
     - sphinx_copybutton
     - sphinx_togglebutton
@@ -63,10 +66,13 @@ sphinx:
       # use_edit_page_button: true
       # use_download_button: true
       # use_fullscreen_button: true
-      home_page_in_navbar: false
       show_navbar_depth: 2
     copybutton_prompt_text: "$"
     copybutton_exclude: ".linenos, .gp"
+    # Imported tutorials (e.g. timluc-miptev) use deliberate H2→H4 jumps
+    # for numbered example sub-sections; don't warn about that.
+    suppress_warnings:
+      - myst.header
     myst_enable_extensions:
       - colon_fence
       - dollarmath
@@ -104,6 +110,8 @@ exclude_patterns:
   - Thumbs.db
   - .DS_Store
   - "**.ipynb_checkpoints"
+  - site/**
+  - content/examples/combinators.ipynb
 
 # Include CNAME in build
 only_build_toc_files: false

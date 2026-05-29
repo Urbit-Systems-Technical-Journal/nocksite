@@ -95,17 +95,17 @@ jobs:
         # Verify jupyter-book installation
         jupyter-book --version
 
-        # Build the book with verbose output
-        jupyter-book build . --verbose
+        # Build the book with verbose output, using dirhtml for clean URLs
+        jupyter-book build . --verbose --builder dirhtml
 
         # Copy nojekyll file
-        cp .nojekyll _build/html/
+        cp .nojekyll _build/dirhtml/
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       if: github.ref == 'refs/heads/master'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./_build/html
+        publish_dir: ./_build/dirhtml
         publish_branch: gh-pages
         cname: nock.is

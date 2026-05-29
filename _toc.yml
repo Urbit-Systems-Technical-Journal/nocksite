@@ -1,5 +1,5 @@
 format: jb-book
-root: intro
+root: cool
 title: Nock Tutorial
 chapters:
 - file: content/specification/index
@@ -41,6 +41,8 @@ chapters:
     title: Examples
   - file: content/specification/loobeans
     title: Loobeans
+  - file: content/specification/deep-nock
+    title: Deep Nock
     
 - file: content/understanding/index
   title: Understanding Nock
