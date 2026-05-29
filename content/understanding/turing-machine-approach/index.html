@@ -1,0 +1,735 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Turing Machine Approach &#8212; Nock</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=301bb366" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=55b5f74b"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=df42334f"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/understanding/turing-machine-approach';</script>
+    <link rel="icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex/" />
+    <link rel="search" title="Search" href="../../../search/" />
+    <link rel="next" title="The Lambda Calculus Approach" href="../lambda-approach/" />
+    <link rel="prev" title="The Combinator Approach" href="../combinator-approach/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search/"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../cool/">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.png" class="logo__image only-light" alt="Nock - Home"/>
+    <img src="../../../_static/logo.png" class="logo__image only-dark pst-js-only" alt="Nock - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../specification/">The Specification</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../specification/basic-opcodes/">Basic Opcodes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-0/">Opcode 0: Address</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-1/">Opcode 1: Constant</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-2/">Opcode 2: Evaluate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-3/">Opcode 3: Cell Check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-4/">Opcode 4: Increment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-5/">Opcode 5: Equality Check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-10/">Opcode 10: Edit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/cell-distribution/">Cell Distribution</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../specification/composite-opcodes/">Composite Opcodes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-6/">Opcode 6: Conditional</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-7/">Opcode 7: Compose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-8/">Opcode 8: Extend</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-9/">Opcode 9: Invoke</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-11/">Opcode 11: Hint</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../specification/detailed-examples/">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../specification/loobeans/">Loobeans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../specification/deep-nock/">Deep Nock</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../">Understanding Nock</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../combinator-approach/">The Combinator Approach</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">The Turing Machine Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lambda-approach/">The Lambda Calculus Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assembly-language-approach/">The Assembly Language Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cellular-automaton-approach/">The Cellular Automaton Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../alchemy-approach/">The Alchemy Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../specification/llm/">Nock for LLMs</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../examples/">Code Examples</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/nouns-and-data/">Nouns &amp; Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/idioms-gates-patterns/">Idioms, Gates, &amp; Design Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/timluc-miptev--nock-for-everyday-coders/">Nock for Everyday Coders (Tutorial)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../compiling/">Languages</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../compiling/relationship-to-hoon/">Relationship to Hoon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../compiling/relationship-to-jock/">Relationship to Jock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../compiling/relationship-to-loon/">Relationship to Loon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../compiling/relationship-to-north/">Relationship to North</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hints-jetting/">Hints &amp; Jetting</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../building/">Building</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../building/kernel/">Kernels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/virtualization/">Virtualization</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../history/">History</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference external" href="https://urbitsystems.tech/article/v02-i01/a-documentary-history-of-the-nock-combinator-calculus">History of Nock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-4k/">Nock 4K</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-5k/">Nock 5K</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-6k/">Nock 6K</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-7k/">Nock 7K</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-8k/">Nock 8K</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-9k/">Nock 9K</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-10k/">Nock 10K</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-11k/">Nock 11K</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-12k/">Nock 12K</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-13k/">Nock 13K</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/u-model/">U: A Small Model</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about/">About</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/Urbit-Systems-Technical-Journal/nocksite/master?urlpath=tree/content/understanding/turing-machine-approach.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/Urbit-Systems-Technical-Journal/nocksite" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/content/understanding/turing-machine-approach.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Turing Machine Approach</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#as-interpreter">As Interpreter</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generally-recursive-functions">Generally Recursive Functions</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="turing-machine-approach">
+<h1>Turing Machine Approach<a class="headerlink" href="#turing-machine-approach" title="Link to this heading">#</a></h1>
+<p>The Turing machine</p>
+<p>(Unlike <a class="reference internal" href="../combinator-approach/"><span class="std std-doc">the SKI combinator calculus</span></a> and <a class="reference internal" href="../lambda-approach/"><span class="std std-doc">the lambda calculus</span></a>, the Turing machine does not have a single canonical formulation.  Turing’s original 1936 example was not as atomic and later contributors discovered simplifications.)</p>
+<p>A Turing machine is a theoretical model of computation that consists of an infinite tape divided into discrete cells, a tape head that can read and write symbols on the tape, and a finite set of states that govern the machine’s behavior.  At each step, the machine reads the symbol under the tape head, consults its transition function to determine what action to take (write a symbol, move the tape head left or right, and change state), and then performs that action.</p>
+<p>Per Hopcroft1979, p. 148, a universal Turing machine has the following components:</p>
+<ul class="simple">
+<li><p>A finite, non-empty set of tape alphabet symbols, including a blank symbol.</p></li>
+<li><p>A finite, non-empty set of states, including a start state and one or more halting states.</p></li>
+<li><p>A transition function that, given the current state and the symbol being read, specifies the next state, the symbol to write, and the direction to move (left or right).</p></li>
+</ul>
+<p>(Since the tape is infinite, there’s a sense in which <em>no</em> Turing machine has ever been built in the real world.  We elide this subtlety.)</p>
+<section id="as-interpreter">
+<h2>As Interpreter<a class="headerlink" href="#as-interpreter" title="Link to this heading">#</a></h2>
+<p>One way to approach Nock is that a Nock expression is like a tape populated with values which signal to the Turing machine head what action it should take next and how it should update the overall system state.  This results in the most primitive Nock interpreter:  the tree-walking interpreter.</p>
+<p>We have to make some allowances for how to represent the noun laid out on the tape, which can be done by mapping tree slots to serial indices on the tape.  Our first attempt would simply define the set of Turing machine symbols as the natural numbers, and the unwrapping of a noun would look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[[40 50] [60 70]]
+  1   2   3   4   5   6   7   8   9  10  11   * * *
+┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
+│   │   │   │ 40│ 50│ 60│ 70│   │   │   │   │ * * *
+└───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┘
+</pre></div>
+</div>
+<p>However, a naïve layout at indices is liable to fail since many indices contain cells; at a minimum you would want a placeholder system for cells to indicate that they are occupied.  There is also an “empty” value for unoccupied cells.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[[40 50] [60 70]]
+  1   2   3   4   5   6   7   8   9  10  11   * * *
+┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
+│ C │ C │ C │ 40│ 50│ 60│ 70│ _ │ _ │ _ │ _ │ * * *
+└───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┘
+</pre></div>
+</div>
+<p>Storing an entire noun in each cell wastes much of the ease of a Turing machine layout.  Thus we will adopt a modified noun system which can <em>structurally</em> distinguish values; every entry is a pair.  If it is a natural number (atom), we write <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">value]</span></code>.  If it is a cell indicator, it is a pair of numbers with zero and the current index for bookkeeping convenience.  If it is an empty cell, it is a <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">0]</span></code> crash.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[[40 50] [60 70]]
+
+┌───────┬───────┬───────┬────┬────┬────┬────┬───────┬───────┐
+│ [0 1] │ [0 2] │ [0 3] │ 40 │ 50 │ 60 │ 70 │ [0 0] │ [0 0] │
+└───────┴───────┴───────┴────┴────┴────┴────┴───────┴───────┘
+</pre></div>
+</div>
+<p>The Turing machine head consumes a Nock expression by treating each pair on the tape as a token.  The head starts at slot 1—the root of the noun—and navigates toward the formula.  In the slot-addressing scheme, slot 2 is the subject (the head of slot 1), slot 3 is the formula (the tail of slot 1), slot 6 is the opcode (the head of slot 3), and slot 7 is the formula’s argument (the tail of slot 3).</p>
+<p>As a concrete example, consider evaluating <code class="docutils literal notranslate"><span class="pre">[42</span> <span class="pre">[1</span> <span class="pre">99]]</span></code>: subject <code class="docutils literal notranslate"><span class="pre">42</span></code>, formula <code class="docutils literal notranslate"><span class="pre">[1</span> <span class="pre">99]</span></code>, opcode <code class="docutils literal notranslate"><span class="pre">1</span></code> (constant), result <code class="docutils literal notranslate"><span class="pre">99</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[42 [1 99]]
+
+  slot:  1        2        3        4        5        6        7
+        ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐
+        │ [0 1]  │ [0 42] │ [0 3]  │ [0 0]  │ [0 0]  │ [0 1]  │ [0 99] │
+        └────────┴────────┴────────┴────────┴────────┴────────┴────────┘
+</pre></div>
+</div>
+<p><em>(Slots 4 and 5 are empty because the subject at slot 2 is an atom, not a cell.)</em></p>
+<p>The head steps through the following transitions:</p>
+<ol class="arabic simple">
+<li><p><strong>EVAL</strong> at slot 1: reads <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">1]</span></code> → cell, navigate to formula root at slot 3</p></li>
+<li><p><strong>READ_FORMULA</strong> at slot 3: reads <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">3]</span></code> → cell, descend to formula head at slot 6</p></li>
+<li><p><strong>READ_OPCODE</strong> at slot 6: reads <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">1]</span></code> → opcode <code class="docutils literal notranslate"><span class="pre">1</span></code>, enter state <code class="docutils literal notranslate"><span class="pre">OPCODE_1</span></code></p></li>
+<li><p><strong>OPCODE_1</strong> at slot 7: reads <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">99]</span></code> → result is <code class="docutils literal notranslate"><span class="pre">99</span></code></p></li>
+<li><p><strong>RETURN</strong>: write <code class="docutils literal notranslate"><span class="pre">99</span></code> to the output region; halt</p></li>
+</ol>
+<p>A Turing machine interpreter for Nock would implement the Nock evaluation rules as state transitions.  At a high level, the state set includes one entry state per Nock opcode, plus auxiliary states for descending into sub-expressions and returning results.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>State</p></th>
+<th class="head"><p>Symbol Read</p></th>
+<th class="head"><p>Action</p></th>
+<th class="head"><p>Next State</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">EVAL</span></code></p></td>
+<td><p>cell <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">n]</span></code></p></td>
+<td><p>navigate to formula at slot <code class="docutils literal notranslate"><span class="pre">2n+1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">READ_OPCODE</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">READ_OPCODE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">0]</span></code></p></td>
+<td><p>slot addressing</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OPCODE_0</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">READ_OPCODE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">1]</span></code></p></td>
+<td><p>constant return</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OPCODE_1</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">READ_OPCODE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">2]</span></code></p></td>
+<td><p>recursive apply</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OPCODE_2</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">READ_OPCODE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">3]</span></code></p></td>
+<td><p>cell test</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OPCODE_3</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">READ_OPCODE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">4]</span></code></p></td>
+<td><p>increment</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OPCODE_4</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">READ_OPCODE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">5]</span></code></p></td>
+<td><p>equality</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OPCODE_5</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">READ_OPCODE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">6]</span></code></p></td>
+<td><p>conditional</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OPCODE_6</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">READ_OPCODE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">7]</span></code></p></td>
+<td><p>compose</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OPCODE_7</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">READ_OPCODE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">8]</span></code></p></td>
+<td><p>push</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OPCODE_8</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">READ_OPCODE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">9]</span></code></p></td>
+<td><p>call (arm)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OPCODE_9</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">READ_OPCODE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">10]</span></code></p></td>
+<td><p>edit</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OPCODE_10</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">READ_OPCODE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">11]</span></code></p></td>
+<td><p>hint</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OPCODE_11</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OPCODE_1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">v]</span></code></p></td>
+<td><p>return atom <code class="docutils literal notranslate"><span class="pre">v</span></code> directly</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RETURN</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OPCODE_4</span></code></p></td>
+<td><p>—</p></td>
+<td><p>eval argument sub-expression</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">EVAL</span></code> (then <code class="docutils literal notranslate"><span class="pre">INCREMENT</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">INCREMENT</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">v]</span></code></p></td>
+<td><p>write <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">v+1]</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RETURN</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CRASH</span></code></p></td>
+<td><p>any</p></td>
+<td><p>halt with error</p></td>
+<td><p>—</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The critical structural challenge is recursion.  A Turing machine’s transition function is flat—there is no native notion of a call stack—yet opcodes 2, 4, 6, 7, 8, 9, and 11 all require evaluating sub-expressions before continuing.  The machine simulates a call stack by encoding pending continuations in a designated region of the tape:  before descending into a sub-expression, the current position and expected continuation state are written as a frame; when the sub-expression returns, that frame is popped and computation resumes.</p>
+<p>This is precisely what the tree-walking interpreter does.  It is the most direct Turing machine analog for Nock evaluation:  the interpreter walks the noun tree, descending recursively into sub-expressions, maintaining a stack of pending operations, and propagating results back toward the root.  Actual Nock implementations begin here before applying optimizations such as jet registration (replacing known subtrees with native code), memoization (caching results for referentially transparent sub-expressions), and tail-call elimination (discarding stack frames for tail-recursive loops).</p>
+</section>
+<section id="generally-recursive-functions">
+<h2>Generally Recursive Functions<a class="headerlink" href="#generally-recursive-functions" title="Link to this heading">#</a></h2>
+<p>The minimum requirements for a system to be Turing complete are minimal (Boolos et al., 2002, “6.2 Minimization”, pp. 70–71).  Because computational systems are equivalent, it can be helpful to identify programming language features using another approach, such as a combinator calculus or lambda calculus.  In this case, we can also gesture to the notion of <em>generally recursive functions</em> as explicated by Gödel (1934) and Kleene (1936).  A system need only provide the following operations:</p>
+<ol class="arabic simple">
+<li><p>A constant function (including zero).  Opcode 1 does this.</p></li>
+<li><p>An increment (or successor) function.  Opcode 4 does this.</p></li>
+<li><p>A way to access parameters (or variables).  Opcodes 0 and 9 along with opcodes 7 and 8 do this.</p></li>
+<li><p>A way to compose functions (or concatenate programs).  Opcodes 7 and 8 do this.</p></li>
+<li><p>A way to perform recursion (or looping).  Opcode 0 with, e.g., opcodes 3, 5, and 6 does this.</p></li>
+</ol>
+<p>This frame relates to Turing completeness, but without the mechanical/procedural emphasis.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/understanding"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../combinator-approach/"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">The Combinator Approach</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../lambda-approach/"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">The Lambda Calculus Approach</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#as-interpreter">As Interpreter</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generally-recursive-functions">Generally Recursive Functions</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Urbit Systems Technical Journal
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025–2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
