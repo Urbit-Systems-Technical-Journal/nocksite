@@ -96,6 +96,8 @@ chapters:
     title: Kernels
   - file: content/building/virtualization
     title: Virtualization
+  - file: content/building/nockapp
+    title: NockApp and Nockchain
 
 - file: content/history/index
   title: History
