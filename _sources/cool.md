@@ -13,7 +13,7 @@ Beyond these, paradigm experiments like [North](https://github.com/sigilante/nor
 
 ## What is Nock?
 
-Nock is a minimal combinator calculus that serves as the foundation for functional programming systems like Urbit. This tutorial provides multiple perspectives on understanding Nock, from theoretical foundations to practical implementation.
+Nock is a minimal combinator calculus that serves as the foundation for functional programming systems like Urbit. This site provides multiple perspectives on understanding Nock, from theoretical foundations to practical implementation.
 
 Nock as a computing platform is:
 
@@ -27,9 +27,9 @@ Most Nock interpreters have the additional virtue of being:
 * Solid-state.  Each evaluation is deterministic and self-contained, resulting in a new updated state with no transient state from crashes or system (mis)configuration.
 * Verifiable.  The entire state of a Nock system can be captured in a single data structure, allowing for easy auditing and verification.
 
-## How to Use This Tutorial
+## How to Use This Site
 
-The website can be traversed from several starting points, depending on your background:
+The site can be traversed from several starting points, depending on your background:
 
 - [**The Specification**](./content/specification/index.md): Start here to understand the core Nock operations.
 - [**Understanding Nock**](./content/understanding/index.md): Start here if you want to start from different mental models to think about Nock.

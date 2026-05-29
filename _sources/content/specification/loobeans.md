@@ -9,6 +9,14 @@ While this is the opposite of many contemporary programming languages, it aligns
 
 Other reasons have been adduced, but the dependence is baked deeply into Nock in any case.  This choice can be confusing to newcomers, and affordances tend to exist in runtimes and higher-level languages to mask a need to think about specific values for `TRUE` and `FALSE`.
 
+## See Also
+
+The opcodes that produce or consume loobeans:
+
+* [Opcode 3 (Cell Check)](opcode-3.ipynb) — returns `0` if its argument is a cell, `1` if an atom.
+* [Opcode 5 (Equality Check)](opcode-5.ipynb) — returns `0` if its two arguments are equal, `1` otherwise.
+* [Opcode 6 (Conditional)](opcode-6.ipynb) — branches on a loobean, taking the second formula if `0`, the third if `1`.
+
 ## Further Reading
 
 * [Stephen Wolfram (2015), “George Boole:  A 200-Year View”](https://writings.stephenwolfram.com/2015/11/george-boole-a-200-year-view/)

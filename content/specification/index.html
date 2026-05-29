@@ -206,11 +206,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../examples/timluc-miptev--nock-for-everyday-coders/">Nock for Everyday Coders (Tutorial)</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../compiling/">Languages</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../compiling/relationship-to-hoon/">Relationship to Hoon</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../compiling/relationship-to-jock/">Relationship to Jock</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../compiling/relationship-to-loon/">Relationship to Loon</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../compiling/relationship-to-north/">Relationship to North</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../languages/">Languages</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../languages/relationship-to-hoon/">Relationship to Hoon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../languages/relationship-to-jock/">Relationship to Jock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../languages/relationship-to-loon/">Relationship to Loon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../languages/relationship-to-north/">Relationship to North</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../hints-jetting/">Hints &amp; Jetting</a></li>
@@ -221,19 +221,20 @@
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../history/">History</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference external" href="https://urbitsystems.tech/article/v02-i01/a-documentary-history-of-the-nock-combinator-calculus">History of Nock</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../history/nock-4k/">Nock 4K</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../history/nock-5k/">Nock 5K</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../history/nock-6k/">Nock 6K</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../history/nock-7k/">Nock 7K</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../history/nock-8k/">Nock 8K</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../history/nock-9k/">Nock 9K</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../history/nock-10k/">Nock 10K</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../history/nock-11k/">Nock 11K</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../history/nock-12k/">Nock 12K</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../history/nock-13k/">Nock 13K</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../history/u-model/">U: A Small Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../history/nock-4k/">Nock 4K (current)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../history/u-model/">U: A Small Model (2006)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../history/nock-13k/">Nock 13K (2008)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../history/nock-12k/">Nock 12K (2008)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../history/nock-11k/">Nock 11K (2008)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../history/nock-10k/">Nock 10K (2008)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../history/nock-9k/">Nock 9K (2010)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../history/nock-8k/">Nock 8K (2010)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../history/nock-7k/">Nock 7K (2010)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../history/nock-6k/">Nock 6K (2011)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../history/nock-5k/">Nock 5K (2012)</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary/">Glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about/">About</a></li>
 </ul>
 
@@ -422,7 +423,7 @@
   <section class="tex2jax_ignore mathjax_ignore" id="defining-nock">
 <h1>Defining Nock<a class="headerlink" href="#defining-nock" title="Link to this heading">#</a></h1>
 <p>Nock consists of only twelve opcodes based on a few axiomatic operators for addressing and equality, etc.  The quip is that it’s small enough to fit on a T-shirt—and you can find such T-shirts in circulation!  This situates it in complexity somewhere higher than a lambda calculus or SKI combinator and somewhere lower than an assembly language.</p>
-<p>Before examining the specification, let’s briefly coer a couple of core principle of Nock evaluation.  Nock is a pure function from noun to noun. The evaluation function <code class="docutils literal notranslate"><span class="pre">*</span></code> takes a pair (or “cell”) <code class="docutils literal notranslate"><span class="pre">[subject</span> <span class="pre">formula]</span></code> and produces a product.  That is,</p>
+<p>Before examining the specification, let’s briefly cover a couple of core principles of Nock evaluation.  Nock is a pure function from noun to noun. The evaluation function <code class="docutils literal notranslate"><span class="pre">*</span></code> takes a pair (or “cell”) <code class="docutils literal notranslate"><span class="pre">[subject</span> <span class="pre">formula]</span></code> and produces a product.  That is,</p>
 <ul class="simple">
 <li><p>Subject:  the data environment (analogous to scope or context).</p></li>
 <li><p>Formula:  the code to execute (always a cell with an opcode head).</p></li>
@@ -536,15 +537,13 @@ nock(a)             *a
 <h2>Approaching Nock<a class="headerlink" href="#approaching-nock" title="Link to this heading">#</a></h2>
 <p>So much for the specification itself, but what does it <em>mean</em>?  You can treat it like a puzzle and work things out yourself, but we’ve also prepared several complementary approaches to Nock.  Start with one that best fits your background.</p>
 <ol class="arabic simple">
-<li><p><a class="reference internal" href="../understanding/combinator-approach/"><span class="std std-doc"> The Combinator Approach</span></a>, for functional programmers.</p></li>
+<li><p><a class="reference internal" href="../understanding/combinator-approach/"><span class="std std-doc">The Combinator Approach</span></a>, for functional programmers.</p></li>
+<li><p><a class="reference internal" href="../understanding/turing-machine-approach/"><span class="std std-doc">The Turing Machine Approach</span></a>, for classical computer scientists.</p></li>
+<li><p><a class="reference internal" href="../understanding/lambda-approach/"><span class="std std-doc">The Lambda Calculus Approach</span></a>, for those with a Scheme or Lisp background.</p></li>
+<li><p><a class="reference internal" href="../understanding/assembly-language-approach/"><span class="std std-doc">The Assembly Language Approach</span></a>, for systems programmers.</p></li>
+<li><p><a class="reference internal" href="../understanding/cellular-automaton-approach/"><span class="std std-doc">The Cellular Automaton Approach</span></a>, for the recreationally mathematically inclined.</p></li>
+<li><p><a class="reference internal" href="../understanding/alchemy-approach/"><span class="std std-doc">The Alchemy Approach</span></a>, for esotericists.</p></li>
 </ol>
-<!-- 2. [ The Turing Machine Approach](../understanding/turing-machine-approach.ipynb), for classical computer scientists. -->
-<ol class="arabic simple" start="3">
-<li><p><a class="reference internal" href="../understanding/lambda-approach/"><span class="std std-doc"> The Lambda Calculus Approach</span></a>, for those with a Scheme or Lisp background.</p></li>
-<li><p><a class="reference internal" href="../understanding/assembly-language-approach/"><span class="std std-doc"> The Assembly Language Approach</span></a>, for systems programmers.</p></li>
-</ol>
-<!-- 5. [ The Cellular Automaton Approach](../understanding/cellular-automaton-approach.ipynb), for the recreationally mathematically inclined -->
-<!-- 5. [The Alchemy Approach](../understanding/alchemy-approach.ipynb), for esotericists. -->
 </section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
