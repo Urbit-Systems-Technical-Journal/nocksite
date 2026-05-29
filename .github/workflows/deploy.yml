@@ -101,6 +101,11 @@ jobs:
         # Copy nojekyll file
         cp .nojekyll _build/dirhtml/
 
+        # Rewrite the root redirect to point at the clean URL (cool/)
+        # instead of the .html that sphinx-external-toc hardcodes.
+        printf '<meta http-equiv="Refresh" content="0; url=cool/" />\n' \
+          > _build/dirhtml/index.html
+
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       if: github.ref == 'refs/heads/master'
