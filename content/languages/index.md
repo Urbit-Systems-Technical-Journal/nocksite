@@ -4,8 +4,8 @@ Nock is Turing-complete, but as you've probably come to realize, it's not exactl
 
 At the current time, the high-level languages under most active development that target Nock are Hoon and Jock.  There is also an Urwasm Nock compatibility layer for executing WebAssembly code on a Nock runtime.
 
-- [Hoon](../compiling/relationship-to-hoon.md) is a mature systems programming language with much syntax and flexibility.
-- [Jock](../compiling/relationship-to-jock.md) is a scripting language designed as a more developer-friendly alternative to Hoon.
+- [Hoon](../languages/relationship-to-hoon.md) is a mature systems programming language with much syntax and flexibility.
+- [Jock](../languages/relationship-to-jock.md) is a scripting language designed as a more developer-friendly alternative to Hoon.
 
 There have also been a few experimental compilers built to play with language concepts:
 
@@ -22,10 +22,10 @@ There have also been a few experimental compilers built to play with language co
 
 - [Loon by ~fodwyt-ragful](https://github.com/frodwith/loon), a Lisp.
 
-  - [Discussion of Loon](../compiling/relationship-to-loon.md): Loon is an experimental Lisp dialect that compiles to Nock, with a unique split between two forms of abstraction: `fn` for ordinary closures and `dfn` for bare Nock formulas.
+  - [Discussion of Loon](../languages/relationship-to-loon.md): Loon is an experimental Lisp dialect that compiles to Nock, with a unique split between two forms of abstraction: `fn` for ordinary closures and `dfn` for bare Nock formulas.
 
 - [North by ~lagrev-nocfep](https://github.com/sigilante/north), a Forth interpreter running as a Gall agent.
 
-  - [Discussion of North](../compiling/relationship-to-north.md): North is an ANSI-compatible Forth interpreter that runs on a Nock host, demonstrating how different computation models can be implemented on top of Nock.
+  - [Discussion of North](../languages/relationship-to-north.md): North is an ANSI-compatible Forth interpreter that runs on a Nock host, demonstrating how different computation models can be implemented on top of Nock.
 
 - [Trinitite by ~lagrev-nocfep](https://github.com/sigilante/trinitite), not a language, a Raspberry Pi Forth-based Nock OS.

@@ -74,16 +74,16 @@ chapters:
   - file: content/examples/timluc-miptev--nock-for-everyday-coders
     title: "Nock for Everyday Coders (Tutorial)"
     
-- file: content/compiling/index
+- file: content/languages/index
   title: Languages
   sections:
-  - file: content/compiling/relationship-to-hoon
+  - file: content/languages/relationship-to-hoon
     title: Relationship to Hoon
-  - file: content/compiling/relationship-to-jock
+  - file: content/languages/relationship-to-jock
     title: Relationship to Jock
-  - file: content/compiling/relationship-to-loon
+  - file: content/languages/relationship-to-loon
     title: Relationship to Loon
-  - file: content/compiling/relationship-to-north
+  - file: content/languages/relationship-to-north
     title: Relationship to North
     
 - file: content/hints-jetting/index
@@ -103,27 +103,30 @@ chapters:
   - url: https://urbitsystems.tech/article/v02-i01/a-documentary-history-of-the-nock-combinator-calculus
     title: History of Nock
   - file: content/history/nock-4k
-    title: Nock 4K
-  - file: content/history/nock-5k
-    title: Nock 5K
-  - file: content/history/nock-6k
-    title: Nock 6K
-  - file: content/history/nock-7k
-    title: Nock 7K
-  - file: content/history/nock-8k
-    title: Nock 8K
-  - file: content/history/nock-9k
-    title: Nock 9K
-  - file: content/history/nock-10k
-    title: Nock 10K
-  - file: content/history/nock-11k
-    title: Nock 11K
-  - file: content/history/nock-12k
-    title: Nock 12K
-  - file: content/history/nock-13k
-    title: Nock 13K
+    title: Nock 4K (current)
   - file: content/history/u-model
-    title: "U: A Small Model"
+    title: "U: A Small Model (2006)"
+  - file: content/history/nock-13k
+    title: Nock 13K (2008)
+  - file: content/history/nock-12k
+    title: Nock 12K (2008)
+  - file: content/history/nock-11k
+    title: Nock 11K (2008)
+  - file: content/history/nock-10k
+    title: Nock 10K (2008)
+  - file: content/history/nock-9k
+    title: Nock 9K (2010)
+  - file: content/history/nock-8k
+    title: Nock 8K (2010)
+  - file: content/history/nock-7k
+    title: Nock 7K (2010)
+  - file: content/history/nock-6k
+    title: Nock 6K (2011)
+  - file: content/history/nock-5k
+    title: Nock 5K (2012)
+
+- file: content/glossary
+  title: Glossary
 
 - file: content/about
   title: About
