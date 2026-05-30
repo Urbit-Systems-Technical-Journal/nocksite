@@ -399,7 +399,6 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nock-as-a-proof-target">Nock as a Proof Target</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zk-intents-and-off-chain-execution">ZK-Intents and Off-Chain Execution</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proof-of-useful-work">Proof-of-Useful-Work</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-nock-the-language-sits">Where Nock-the-Language Sits</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further Reading</a></li>
 </ul>
             </nav>
@@ -414,39 +413,38 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="nockapp-and-nockchain">
 <h1>NockApp and Nockchain<a class="headerlink" href="#nockapp-and-nockchain" title="Link to this heading">#</a></h1>
-<p>NockApp is a framework for building applications whose business logic is written in Nock and runs inside a Rust host runtime.  Nockchain is one such application:  a Proof-of-Work blockchain in which the work being done is the generation of zero-knowledge proofs over <a class="reference external" href="https://docs.nockchain.org/reference-runtime/nockvm"><code class="docutils literal notranslate"><span class="pre">NockVM</span></code></a> execution traces.</p>
-<p>This page describes how those pieces fit together and which properties of Nock they rely on.  It is not a tutorial for either system; for hands-on material, see <a class="reference external" href="https://docs.nockchain.org">docs.nockchain.org</a>.</p>
+<p>NockApp is a framework for building and executing applications whose business logic is written in Nock and runs inside a Rust host runtime.  Nockchain is one such application:  a Proof-of-(Useful)-Work blockchain in which the work being done is the generation of zero-knowledge proofs over <a class="reference external" href="https://docs.nockchain.org/reference-runtime/nockvm"><code class="docutils literal notranslate"><span class="pre">NockVM</span></code></a> execution traces.  This page describes how those pieces fit together and which properties of Nock they rely on.  It is not a tutorial for either system; for hands-on material, see <a class="reference external" href="https://docs.nockchain.org"><code class="docutils literal notranslate"><span class="pre">docs.nockchain.org</span></code></a>.</p>
+<p>NockApp began life as the Ares project associated with the Urbit Foundation, then became briefly Sword when Zorp Corp took over development.</p>
 <section id="the-two-component-pattern">
 <h2>The Two-Component Pattern<a class="headerlink" href="#the-two-component-pattern" title="Link to this heading">#</a></h2>
 <p>A NockApp is split into a <strong>kernel</strong> and a <strong>runtime</strong>:</p>
 <ul class="simple">
-<li><p>The <strong>kernel</strong> is a Nock noun—usually compiled from Hoon—that holds the application’s state and exposes a small standard interface.  It is the part that is, in principle, formally provable.</p></li>
+<li><p>The <strong>kernel</strong> is a Nock noun—usually compiled from <a class="reference internal" href="../../languages/relationship-to-hoon/"><span class="std std-doc">Hoon</span></a>—that holds the application’s state and exposes a small standard interface.  It is the part that is, in principle, formally provable in Nockchain’s zkVM.</p></li>
 <li><p>The <strong>runtime</strong> is a Rust program that hosts a Nock evaluator (<code class="docutils literal notranslate"><span class="pre">NockVM</span></code>) plus a set of I/O drivers.  It handles networking, disk, gRPC, and the boot sequence—everything the kernel can’t or shouldn’t reason about.</p></li>
 </ul>
-<p>The kernel presents three arms that the runtime invokes:</p>
+<p>A kernel presents three arms that the runtime invokes:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">+load</span></code> — upgrade entry point.  Receives the previous kernel state and returns a state in the new kernel’s type.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">+peek</span></code> — read-only scry.  Accepts a path and returns a value (or signals absence).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">+poke</span></code> — state-altering event.  Accepts a noun, returns a list of effects plus the new state.</p></li>
 </ul>
-<p>This is the same kernel shape used by Arvo, covered on the <a class="reference internal" href="../kernel/"><span class="std std-doc">Kernels</span></a> page; NockApp standardizes it and ships a runtime that knows how to drive it.  The runtime persists state to a <strong>Persistent Memory Arena (PMA)</strong>—a file-backed arena that demand-pages the kernel’s noun so the working set fits in memory regardless of total state size.</p>
-<p>NockApp instances communicate via gRPC, which the Nockchain docs describe as the framework’s interop layer.</p>
+<p>This (alongside an outer wrapper for <code class="docutils literal notranslate"><span class="pre">+wish</span></code>) is the same kernel shape used by Arvo, covered on the <a class="reference internal" href="../kernel/"><span class="std std-doc">Kernels</span></a> page; NockApp standardizes it and ships a runtime that knows how to drive it.  The runtime persists state to a <strong>Persistent Memory Arena (PMA)</strong>—a file-backed arena that demand-pages the kernel’s noun so the working set fits in memory regardless of total state size.</p>
+<p>NockApp instances communicate via gRPC as the framework’s interop layer.</p>
 </section>
 <section id="nock-as-a-proof-target">
 <h2>Nock as a Proof Target<a class="headerlink" href="#nock-as-a-proof-target" title="Link to this heading">#</a></h2>
-<p>Nockchain’s central technical bet is that Nock makes a usable target for STARK-based zero-knowledge proofs.  Per the <a class="reference external" href="https://docs.nockchain.org/architecture/why-nockchain">Nockchain documentation</a>:</p>
+<p>Nockchain’s central technical bet is that Nock makes a usable target for STARK-based zero-knowledge proofs.  Per the <a class="reference external" href="https://docs.nockchain.org/architecture/why-nockchain">docs</a>:</p>
 <blockquote>
 <div><p>The Nock ZKVM is a STARK-based proving system over the Goldilocks field, transparent (no trusted setup), achieving approximately 121 bits of security and roughly an order of magnitude more efficiency than general-purpose ZKVMs in the RISC-V family.</p>
 </div></blockquote>
-<p>The efficiency claim is theirs, and is presented relative to RISC-V-family ZKVMs; the documentation does not break the comparison down further on the public docs site.</p>
-<p>A few Nock properties shape the proof system:</p>
+<p>A few properties of Nock ISA shape the proof system:</p>
 <ul class="simple">
-<li><p><strong>Small instruction set.</strong>  Twelve opcodes mean a small set of circuit constraints to instantiate.</p></li>
+<li><p><strong>Small instruction set.</strong>  Twelve opcodes mean a small set of circuit constraints to instantiate, with ongoing work to prove opcodes 9, 10, and 11.</p></li>
 <li><p><strong>No undefined behavior.</strong>  Every formula either produces a value or crashes deterministically; there is nothing for the prover to model that the spec doesn’t already pin down.</p></li>
 <li><p><strong>Solid-state evaluation.</strong>  A Nock step is <code class="docutils literal notranslate"><span class="pre">[subject</span> <span class="pre">formula]</span> <span class="pre">→</span> <span class="pre">noun</span></code>.  A sequence of pokes against a kernel is a chain of noun→noun transitions, which maps naturally onto a STARK execution trace.</p></li>
 <li><p><strong>Opcode 11 (hints) is the only side-effect channel</strong> and is handled by the host, outside the circuit—see <a class="reference internal" href="../../hints-jetting/"><span class="std std-doc">Hints &amp; Jetting</span></a> and <a class="reference internal" href="../virtualization/"><span class="std std-doc">Virtualization</span></a>.</p></li>
+<li><p><a class="reference external" href="https://eprint.iacr.org/2025/1110">Kattis, Klatt, Quirk, &amp; Allen (2025), <em>A Framework for Compiling Custom Languages as Efficiently Verifiable Virtual Machines</em> (IACR ePrint 2025/1110)</a>.</p></li>
 </ul>
-<p>The earliest published treatment of Nock-as-zk-target is referenced from the <a class="reference internal" href="../../specification/"><span class="std std-doc">Specification</span></a>:  Kattis, Klatt, Quirk &amp; Allen (2025), <em>A Framework for Compiling Custom Languages as Efficiently Verifiable Virtual Machines</em> (IACR ePrint 2025/1110).</p>
 </section>
 <section id="zk-intents-and-off-chain-execution">
 <h2>ZK-Intents and Off-Chain Execution<a class="headerlink" href="#zk-intents-and-off-chain-execution" title="Link to this heading">#</a></h2>
@@ -461,23 +459,11 @@
 <li><p>Validators verify proofs but do not re-execute the underlying computation.</p></li>
 <li><p>Multiple NockApps can share a settlement root without sharing an execution environment.</p></li>
 </ul>
-<p>Whether this trade-off (proving cost shifted off-chain, verification cost held roughly constant) is a net win in practice depends on workload and on how cheap proving turns out to be.</p>
+<p>Whether this trade-off (proving cost shifted off-chain, verification cost held roughly constant) is a net win in practice depends on workload and on how cheap Nock-based proving turns out to be.</p>
 </section>
 <section id="proof-of-useful-work">
 <h2>Proof-of-Useful-Work<a class="headerlink" href="#proof-of-useful-work" title="Link to this heading">#</a></h2>
 <p>Nockchain frames its mining work as “Proof-of-Useful-Work” (PoUW):  the energy that secures the chain is spent generating ZK proofs that have value outside consensus, rather than on hashes that are discarded.  The unit of network capacity in this model is <em>proofpower</em> rather than hashpower.</p>
-<p>This is a design choice with active tradeoffs being discussed in the broader ZK-rollup space, and Nockchain is one of several systems exploring it; the framing on <a class="reference external" href="http://docs.nockchain.org">docs.nockchain.org</a> is its own.  The chain’s emission curve is also unusual:  <code class="docutils literal notranslate"><span class="pre">$NOCK</span></code> is hard-capped at 2³² units (approximately 4.29 billion) and minted only as PoUW rewards.</p>
-</section>
-<section id="where-nock-the-language-sits">
-<h2>Where Nock-the-Language Sits<a class="headerlink" href="#where-nock-the-language-sits" title="Link to this heading">#</a></h2>
-<p>If you’ve worked through this site’s <a class="reference internal" href="../../specification/"><span class="std std-doc">Specification</span></a>, the parts of Nock that matter most for Nockchain are:</p>
-<ul class="simple">
-<li><p><strong><a class="reference internal" href="../../specification/opcode-11/"><span class="std std-doc">Opcode 11 (Hint)</span></a></strong> — how the kernel asks the runtime for side effects.  Jets are signalled via <code class="docutils literal notranslate"><span class="pre">%fast</span></code> hints; logging via <code class="docutils literal notranslate"><span class="pre">%slog</span></code>; profiling via <code class="docutils literal notranslate"><span class="pre">%bout</span></code>.</p></li>
-<li><p><strong><a class="reference internal" href="../virtualization/"><span class="std std-doc">Opcode 12 (Scry)</span></a></strong> — added by the virtualized layer.  <code class="docutils literal notranslate"><span class="pre">+peek</span></code> resolves through it in NockApp.</p></li>
-<li><p><strong><a class="reference internal" href="../../glossary/"><span class="std std-doc">Cores, gates, and arms</span></a></strong> — the kernel is structurally a core with <code class="docutils literal notranslate"><span class="pre">+load</span></code>/<code class="docutils literal notranslate"><span class="pre">+peek</span></code>/<code class="docutils literal notranslate"><span class="pre">+poke</span></code> as named arms.</p></li>
-<li><p><strong><a class="reference internal" href="../../specification/deep-nock/"><span class="std std-doc">Solid-state semantics</span></a></strong> — why a Nock noun is a complete portable state record.</p></li>
-</ul>
-<p>NockApp is, in effect, the <a class="reference internal" href="../virtualization/"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">++mink</span></code>/<code class="docutils literal notranslate"><span class="pre">++mock</span></code> interpreter pattern</span></a> packaged with a Rust I/O layer and a set of conventions about how state and upgrades work.</p>
 </section>
 <section id="further-reading">
 <h2>Further Reading<a class="headerlink" href="#further-reading" title="Link to this heading">#</a></h2>
@@ -561,7 +547,6 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nock-as-a-proof-target">Nock as a Proof Target</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zk-intents-and-off-chain-execution">ZK-Intents and Off-Chain Execution</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proof-of-useful-work">Proof-of-Useful-Work</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-nock-the-language-sits">Where Nock-the-Language Sits</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further Reading</a></li>
 </ul>
   </nav></div>
