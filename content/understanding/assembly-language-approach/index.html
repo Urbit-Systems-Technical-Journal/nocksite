@@ -216,6 +216,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../building/kernel/">Kernels</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../building/virtualization/">Virtualization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../building/nockapp/">NockApp and Nockchain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../building/nockasm/">Nockasm</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../history/">History</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -470,6 +471,10 @@
 <p>While the assembly program happens to make no reference to values that may already exist in its scope, it certainly could—there’s not a subject-style restriction of scope.  The continuation condition of the program (<code class="docutils literal notranslate"><span class="pre">j</span></code>) and the termination condition (<code class="docutils literal notranslate"><span class="pre">beq</span></code>) are both <code class="docutils literal notranslate"><span class="pre">GOTO</span></code> statements which jump in the scope—and could have jumped anywhere.</p>
 <p>For assembly, there’s nothing “special” about a function:  a function is just a data pattern with a certain header that supports a <code class="docutils literal notranslate"><span class="pre">GOTO</span></code> jump and knows where to find its arguments.  Thus also with Nock, in its way.</p>
 <p>Nock, like assembly language, requires the coder or compiler to take pains to express complex ideas using simple pieces.  Probably the biggest difference between the two, however, is that Nock simply has no idea how its instruction will be instantiated on the metal; it is a specification of equivalent behavior.  This makes Nock feel more declarative (but only a little bit more) than assembly language.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference external" href="https://github.com/sigilante/nockasm"><code class="docutils literal notranslate"><span class="pre">nockasm</span></code></a> provides assembly-like affordances—named opcodes, axis schemas, and structural macros—but it is a Python macro layer that expands to canonical Nock, not a true assembly language in the hardware sense.</p>
+</div>
 </section>
 
     <script type="text/x-thebe-config">

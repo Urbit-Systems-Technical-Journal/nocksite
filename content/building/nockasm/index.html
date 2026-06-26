@@ -1,0 +1,910 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Nockasm &#8212; Nock</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=301bb366" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=55b5f74b"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=df42334f"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/building/nockasm';</script>
+    <link rel="icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex/" />
+    <link rel="search" title="Search" href="../../../search/" />
+    <link rel="next" title="History of Nock" href="../../history/" />
+    <link rel="prev" title="NockApp and Nockchain" href="../nockapp/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search/"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../cool/">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.png" class="logo__image only-light" alt="Nock - Home"/>
+    <img src="../../../_static/logo.png" class="logo__image only-dark pst-js-only" alt="Nock - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../specification/">The Specification</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../specification/basic-opcodes/">Basic Opcodes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-0/">Opcode 0: Address</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-1/">Opcode 1: Constant</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-2/">Opcode 2: Evaluate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-3/">Opcode 3: Cell Check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-4/">Opcode 4: Increment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-5/">Opcode 5: Equality Check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-10/">Opcode 10: Edit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/cell-distribution/">Cell Distribution</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../specification/composite-opcodes/">Composite Opcodes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-6/">Opcode 6: Conditional</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-7/">Opcode 7: Compose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-8/">Opcode 8: Extend</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-9/">Opcode 9: Invoke</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-11/">Opcode 11: Hint</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../specification/detailed-examples/">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../specification/loobeans/">Loobeans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../specification/deep-nock/">Deep Nock</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../understanding/">Understanding Nock</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../understanding/combinator-approach/">The Combinator Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../understanding/turing-machine-approach/">The Turing Machine Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../understanding/lambda-approach/">The Lambda Calculus Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../understanding/assembly-language-approach/">The Assembly Language Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../understanding/cellular-automaton-approach/">The Cellular Automaton Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../understanding/alchemy-approach/">The Alchemy Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../specification/llm/">Nock for LLMs</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../examples/">Code Examples</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/nouns-and-data/">Nouns &amp; Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/idioms-gates-patterns/">Idioms, Gates, &amp; Design Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/timluc-miptev--nock-for-everyday-coders/">Nock for Everyday Coders (Tutorial)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../languages/">Languages</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../languages/relationship-to-hoon/">Relationship to Hoon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../languages/relationship-to-jock/">Relationship to Jock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../languages/relationship-to-loon/">Relationship to Loon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../languages/relationship-to-north/">Relationship to North</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hints-jetting/">Hints &amp; Jetting</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../">Building</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../kernel/">Kernels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../virtualization/">Virtualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nockapp/">NockApp and Nockchain</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Nockasm</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../history/">History</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference external" href="https://urbitsystems.tech/article/v02-i01/a-documentary-history-of-the-nock-combinator-calculus">History of Nock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-4k/">Nock 4K (current)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/u-model/">U: A Small Model (2006)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-13k/">Nock 13K (2008)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-12k/">Nock 12K (2008)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-11k/">Nock 11K (2008)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-10k/">Nock 10K (2008)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-9k/">Nock 9K (2010)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-8k/">Nock 8K (2010)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-7k/">Nock 7K (2010)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-6k/">Nock 6K (2011)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-5k/">Nock 5K (2012)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary/">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about/">About</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/Urbit-Systems-Technical-Journal/nocksite/master?urlpath=tree/content/building/nockasm.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/Urbit-Systems-Technical-Journal/nocksite" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/content/building/nockasm.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Nockasm</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#named-opcodes">Named opcodes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#axis-schemas">Axis schemas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-name-value-in-body"><code class="docutils literal notranslate"><span class="pre">#let</span> <span class="pre">.name</span> <span class="pre">=</span> <span class="pre">VALUE</span> <span class="pre">in</span> <span class="pre">BODY</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#match-expr-pat-body-default"><code class="docutils literal notranslate"><span class="pre">#match</span> <span class="pre">EXPR</span> <span class="pre">{</span> <span class="pre">PAT</span> <span class="pre">=&gt;</span> <span class="pre">BODY</span> <span class="pre">...</span> <span class="pre">_</span> <span class="pre">=&gt;</span> <span class="pre">DEFAULT</span> <span class="pre">}</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-features">Combining features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relation-to-canonical-nock">Relation to canonical Nock</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cli">CLI</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="nockasm">
+<h1>Nockasm<a class="headerlink" href="#nockasm" title="Link to this heading">#</a></h1>
+<p><a class="reference external" href="https://github.com/sigilante/nockasm"><code class="docutils literal notranslate"><span class="pre">nockasm</span></code></a> is a thin Python macro layer over canonical Nock, designed to make hand-written Nock more legible.  It is not a separate language or a compiler; every <code class="docutils literal notranslate"><span class="pre">nockasm</span></code> expression expands to a plain Nock noun that you can paste directly into any Nock evaluator.  The primary audience is people learning to write Nock by hand or verifying that a piece of Nock does what they think it does.  A secondary audience could be designers of Nock-based languages or compilers who want a more legible way to express the formulas they are generating.</p>
+<p><code class="docutils literal notranslate"><span class="pre">nockasm</span></code> is available on <a class="reference external" href="https://pypi.org/project/nockasm/">PyPI</a>.  This notebook also uses <a class="reference external" href="https://github.com/sigilante/pinochle"><code class="docutils literal notranslate"><span class="pre">pinochle</span></code></a>, a Nock evaluator for Python, to run the expanded formulas inline.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>nockasm<span class="w"> </span>pinochle
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting nockasm
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading nockasm-1.0.0-py3-none-any.whl.metadata (6.7 kB)
+Requirement already satisfied: pinochle in /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages (1.2.1)
+Requirement already satisfied: mmh3 in /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages (from pinochle) (5.2.1)
+Requirement already satisfied: bitstring in /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages (from pinochle) (4.4.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: bitarray&lt;4.0,&gt;=3.0.0 in /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages (from bitstring-&gt;pinochle) (3.8.2)
+Requirement already satisfied: tibs&lt;0.6,&gt;=0.5.6 in /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages (from bitstring-&gt;pinochle) (0.5.7)
+Downloading nockasm-1.0.0-py3-none-any.whl (10.0 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: nockasm
+Successfully installed nockasm-1.0.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nockasm</span><span class="w"> </span><span class="kn">import</span> <span class="n">expand</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pinochle</span><span class="w"> </span><span class="kn">import</span> <span class="n">nock</span><span class="p">,</span> <span class="n">parse_noun</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="named-opcodes">
+<h2>Named opcodes<a class="headerlink" href="#named-opcodes" title="Link to this heading">#</a></h2>
+<p>Raw Nock opcodes are bare numbers.  <code class="docutils literal notranslate"><span class="pre">nockasm</span></code> replaces them with named forms:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">nockasm</span></code></p></th>
+<th class="head"><p>Canonical Nock</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">(%slot</span> <span class="pre">N)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">N]</span></code></p></td>
+<td><p>address slot N in subject</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">(%const</span> <span class="pre">X)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[1</span> <span class="pre">X]</span></code></p></td>
+<td><p>produce literal X</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">(%eval</span> <span class="pre">F</span> <span class="pre">G)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[2</span> <span class="pre">F</span> <span class="pre">G]</span></code></p></td>
+<td><p>evaluate F against G</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">(%isa</span> <span class="pre">F)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[3</span> <span class="pre">F]</span></code></p></td>
+<td><p>test cell/atom</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">(%inc</span> <span class="pre">F)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[4</span> <span class="pre">F]</span></code></p></td>
+<td><p>increment atom</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">(%eq</span> <span class="pre">F</span> <span class="pre">G)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[5</span> <span class="pre">F</span> <span class="pre">G]</span></code></p></td>
+<td><p>test equality</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">(%if</span> <span class="pre">C</span> <span class="pre">T</span> <span class="pre">E)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[6</span> <span class="pre">C</span> <span class="pre">T</span> <span class="pre">E]</span></code></p></td>
+<td><p>conditional branch</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">(%comp</span> <span class="pre">F</span> <span class="pre">G)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[7</span> <span class="pre">F</span> <span class="pre">G]</span></code></p></td>
+<td><p>compose formulas</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">(%push</span> <span class="pre">F</span> <span class="pre">G)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[8</span> <span class="pre">F</span> <span class="pre">G]</span></code></p></td>
+<td><p>push F onto subject, eval G</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">(%call</span> <span class="pre">N</span> <span class="pre">F)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[9</span> <span class="pre">N</span> <span class="pre">F]</span></code></p></td>
+<td><p>call arm at slot N</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">(%edit</span> <span class="pre">N</span> <span class="pre">V</span> <span class="pre">F)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[10</span> <span class="pre">[N</span> <span class="pre">V]</span> <span class="pre">F]</span></code></p></td>
+<td><p>edit slot N of F with V</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">(%hint</span> <span class="pre">T</span> <span class="pre">F)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[11</span> <span class="pre">T</span> <span class="pre">F]</span></code></p></td>
+<td><p>static hint</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">(%hintd</span> <span class="pre">T</span> <span class="pre">C</span> <span class="pre">F)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[11</span> <span class="pre">[T</span> <span class="pre">C]</span> <span class="pre">F]</span></code></p></td>
+<td><p>dynamic hint with clue</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Axis aliases name the standard Hoon core slots: <code class="docutils literal notranslate"><span class="pre">(%self)</span></code> → <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">1]</span></code>, <code class="docutils literal notranslate"><span class="pre">(%battery)</span></code> → <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">2]</span></code>, <code class="docutils literal notranslate"><span class="pre">(%payload)</span></code> → <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">3]</span></code>, <code class="docutils literal notranslate"><span class="pre">(%sample)</span></code> → <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">6]</span></code>, <code class="docutils literal notranslate"><span class="pre">(%context)</span></code> → <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">7]</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Increment the subject (self)</span>
+<span class="n">expand</span><span class="p">(</span><span class="s2">&quot;(</span><span class="si">%i</span><span class="s2">nc (</span><span class="si">%s</span><span class="s2">elf))&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;[4 0 1]&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Test equality of slots 2 and 3</span>
+<span class="n">expand</span><span class="p">(</span><span class="s2">&quot;(</span><span class="si">%e</span><span class="s2">q (</span><span class="si">%s</span><span class="s2">lot 2) (</span><span class="si">%s</span><span class="s2">lot 3))&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;[5 [0 2] 0 3]&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Conditional: if slot 2 equals 0, return 1, else return slot 2</span>
+<span class="n">expand</span><span class="p">(</span><span class="s2">&quot;(</span><span class="si">%i</span><span class="s2">f (</span><span class="si">%e</span><span class="s2">q (</span><span class="si">%s</span><span class="s2">lot 2) (</span><span class="si">%c</span><span class="s2">onst 0)) (</span><span class="si">%c</span><span class="s2">onst 1) (</span><span class="si">%s</span><span class="s2">lot 2))&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;[6 [5 [0 2] 1 0] [1 1] 0 2]&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="axis-schemas">
+<h2>Axis schemas<a class="headerlink" href="#axis-schemas" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">:subject</span> <span class="pre">{.a</span> <span class="pre">.b</span> <span class="pre">.c}</span></code> binds names to the standard right-leaning binary tree addresses (axis 2, 6, 7 for a three-element subject, following Hoon convention).  After the declaration, <code class="docutils literal notranslate"><span class="pre">.a</span></code>, <code class="docutils literal notranslate"><span class="pre">.b</span></code>, <code class="docutils literal notranslate"><span class="pre">.c</span></code> expand to <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">2]</span></code>, <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">6]</span></code>, <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">7]</span></code> respectively.</p>
+<p>The tree layout for a two-element subject <code class="docutils literal notranslate"><span class="pre">[x</span> <span class="pre">y]</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="mi">1</span>
+   <span class="o">/</span> \
+  <span class="mi">2</span>   <span class="mi">3</span>
+ <span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For three elements <code class="docutils literal notranslate"><span class="pre">[x</span> <span class="pre">y</span> <span class="pre">z]</span></code> (right-leaning: <code class="docutils literal notranslate"><span class="pre">[x</span> <span class="pre">[y</span> <span class="pre">z]]</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="mi">1</span>
+   <span class="o">/</span> \
+  <span class="mi">2</span>   <span class="mi">3</span>
+ <span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">/</span> \
+    <span class="mi">6</span>   <span class="mi">7</span>
+   <span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="p">(</span><span class="n">z</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Two-element subject: .x at axis 2, .y at axis 3</span>
+<span class="n">expand</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">:subject {.x .y}</span>
+<span class="s2">(</span><span class="si">%e</span><span class="s2">q .x .y)</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;[5 [0 2] 0 3]&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Three-element subject: .target at axis 6</span>
+<span class="n">expand</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">:subject {.before .target .after}</span>
+<span class="s2">(</span><span class="si">%i</span><span class="s2">nc .target)</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;[4 0 6]&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="let-name-value-in-body">
+<h2><code class="docutils literal notranslate"><span class="pre">#let</span> <span class="pre">.name</span> <span class="pre">=</span> <span class="pre">VALUE</span> <span class="pre">in</span> <span class="pre">BODY</span></code><a class="headerlink" href="#let-name-value-in-body" title="Link to this heading">#</a></h2>
+<p>Pushes <code class="docutils literal notranslate"><span class="pre">VALUE</span></code> onto the subject via opcode 8, binding <code class="docutils literal notranslate"><span class="pre">.name</span></code> to the new head (axis 2).  Existing schema names shift rightward through <code class="docutils literal notranslate"><span class="pre">peg(3,</span> <span class="pre">axis)</span></code> so they remain valid in <code class="docutils literal notranslate"><span class="pre">BODY</span></code>.</p>
+<p>This is the <code class="docutils literal notranslate"><span class="pre">nockasm</span></code> equivalent of a local <code class="docutils literal notranslate"><span class="pre">let</span></code> binding: it evaluates <code class="docutils literal notranslate"><span class="pre">VALUE</span></code> against the current subject and pushes the result as a new head, making it available under <code class="docutils literal notranslate"><span class="pre">.name</span></code> while the body runs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Expand: bind .next to the incremented .target, then return all three values</span>
+<span class="n">expand</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">:subject {.before .target .after}</span>
+<span class="s2">#let .next = (</span><span class="si">%i</span><span class="s2">nc .target) in</span>
+<span class="s2">  [.before .next .after]</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;[8 [4 0 6] [0 6] [0 2] 0 15]&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run it: subject [10 41 99] -&gt; [10 42 99]</span>
+<span class="n">formula</span> <span class="o">=</span> <span class="n">parse_noun</span><span class="p">(</span><span class="n">expand</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">:subject {.before .target .after}</span>
+<span class="s2">#let .next = (</span><span class="si">%i</span><span class="s2">nc .target) in</span>
+<span class="s2">  [.before .next .after]</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">))</span>
+
+<span class="n">nock</span><span class="p">(</span><span class="n">parse_noun</span><span class="p">(</span><span class="s2">&quot;[10 41 99]&quot;</span><span class="p">),</span> <span class="n">formula</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pinochle.noun.Cell at 0x7f4d9c3905d0&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="match-expr-pat-body-default">
+<h2><code class="docutils literal notranslate"><span class="pre">#match</span> <span class="pre">EXPR</span> <span class="pre">{</span> <span class="pre">PAT</span> <span class="pre">=&gt;</span> <span class="pre">BODY</span> <span class="pre">...</span> <span class="pre">_</span> <span class="pre">=&gt;</span> <span class="pre">DEFAULT</span> <span class="pre">}</span></code><a class="headerlink" href="#match-expr-pat-body-default" title="Link to this heading">#</a></h2>
+<p>Evaluates <code class="docutils literal notranslate"><span class="pre">EXPR</span></code> once via opcode 8, then dispatches on its value using nested opcode-6 branches.  The <code class="docutils literal notranslate"><span class="pre">_</span> <span class="pre">=&gt;</span></code> default branch is required.  Patterns are noun literals compared against the scrutinee at runtime.</p>
+<p>Each pattern arm compiles to a nested <code class="docutils literal notranslate"><span class="pre">[6</span> <span class="pre">[5</span> <span class="pre">[1</span> <span class="pre">PAT]</span> <span class="pre">0</span> <span class="pre">2]</span> <span class="pre">BODY</span> <span class="pre">...]</span></code> chain, so a three-arm match with a default produces two nested <code class="docutils literal notranslate"><span class="pre">if</span></code> branches sharing a single evaluation of the scrutinee.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Expand: dispatch on .tag</span>
+<span class="n">expand</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">:subject {.tag .data}</span>
+<span class="s2">#match .tag {</span>
+<span class="s2">  1 =&gt; (</span><span class="si">%i</span><span class="s2">nc .data)</span>
+<span class="s2">  2 =&gt; .data</span>
+<span class="s2">  _ =&gt; 0</span>
+<span class="s2">}</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;[8 [0 2] 6 [5 [1 1] 0 2] [4 0 7] 6 [5 [1 2] 0 2] [0 7] 1 0]&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run it across all three cases</span>
+<span class="n">formula</span> <span class="o">=</span> <span class="n">parse_noun</span><span class="p">(</span><span class="n">expand</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">:subject {.tag .data}</span>
+<span class="s2">#match .tag {</span>
+<span class="s2">  1 =&gt; (</span><span class="si">%i</span><span class="s2">nc .data)</span>
+<span class="s2">  2 =&gt; .data</span>
+<span class="s2">  _ =&gt; 0</span>
+<span class="s2">}</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">nock</span><span class="p">(</span><span class="n">parse_noun</span><span class="p">(</span><span class="s2">&quot;[1 41]&quot;</span><span class="p">),</span> <span class="n">formula</span><span class="p">))</span>  <span class="c1"># tag=1: increment .data -&gt; 42</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nock</span><span class="p">(</span><span class="n">parse_noun</span><span class="p">(</span><span class="s2">&quot;[2 41]&quot;</span><span class="p">),</span> <span class="n">formula</span><span class="p">))</span>  <span class="c1"># tag=2: return .data -&gt; 41</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nock</span><span class="p">(</span><span class="n">parse_noun</span><span class="p">(</span><span class="s2">&quot;[9 41]&quot;</span><span class="p">),</span> <span class="n">formula</span><span class="p">))</span>  <span class="c1"># tag=9: default -&gt; 0</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>42
+41
+0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="combining-features">
+<h2>Combining features<a class="headerlink" href="#combining-features" title="Link to this heading">#</a></h2>
+<p>The macros compose freely.  Here is a small decrement-style program: given a subject <code class="docutils literal notranslate"><span class="pre">[n</span> <span class="pre">acc]</span></code>, match on <code class="docutils literal notranslate"><span class="pre">n</span></code> and either return <code class="docutils literal notranslate"><span class="pre">acc</span></code> when <code class="docutils literal notranslate"><span class="pre">n</span></code> is zero or recurse (expressed as <code class="docutils literal notranslate"><span class="pre">#let</span></code> + <code class="docutils literal notranslate"><span class="pre">#match</span></code>) incrementing <code class="docutils literal notranslate"><span class="pre">acc</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Nested let + match: compute absolute difference between two slots</span>
+<span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">:subject {.a .b}</span>
+<span class="s2">#let .eq = (</span><span class="si">%e</span><span class="s2">q .a .b) in</span>
+<span class="s2">#match .eq {</span>
+<span class="s2">  0 =&gt; (</span><span class="si">%i</span><span class="s2">nc .a)</span>
+<span class="s2">  _ =&gt; .b</span>
+<span class="s2">}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">expand</span><span class="p">(</span><span class="n">src</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[8 [5 [0 2] 0 3] 8 [0 2] 6 [5 [1 0] 0 2] [4 0 14] 0 15]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="relation-to-canonical-nock">
+<h2>Relation to canonical Nock<a class="headerlink" href="#relation-to-canonical-nock" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">nockasm</span></code> is a preprocessor, not a language.  Every expression it accepts expands to a noun that is bit-identical to what you would write by hand.  There is no runtime, no separate VM, and no overhead beyond the Python expansion step itself.  The benchmark programs bundled with the library (<code class="docutils literal notranslate"><span class="pre">dec</span></code>, <code class="docutils literal notranslate"><span class="pre">add</span></code>, <code class="docutils literal notranslate"><span class="pre">factorial</span></code>, <code class="docutils literal notranslate"><span class="pre">fibonacci</span></code>, <code class="docutils literal notranslate"><span class="pre">ackermann</span></code>) each expand to nouns bit-identical to the corresponding reference formulas from the Urbit benchmark suite.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See <a class="reference internal" href="../../understanding/assembly-language-approach/"><span class="std std-doc">The Assembly Language Approach</span></a> for background on the relationship between Nock and conventional assembly language, and why <code class="docutils literal notranslate"><span class="pre">nockasm</span></code> occupies a similar role to a hardware assembler—without being tied to any machine architecture.</p>
+</div>
+</section>
+<section id="cli">
+<h2>CLI<a class="headerlink" href="#cli" title="Link to this heading">#</a></h2>
+<p>Outside of notebooks, <code class="docutils literal notranslate"><span class="pre">nockasm</span></code> can be driven from the shell:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>nockasm<span class="w"> </span>program.nasm<span class="w">           </span><span class="c1"># canonical flat Nock</span>
+python<span class="w"> </span>-m<span class="w"> </span>nockasm<span class="w"> </span>--pretty<span class="w"> </span>program.nasm<span class="w">  </span><span class="c1"># explicit binary cells</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;(%inc (%self))&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>nockasm
+</pre></div>
+</div>
+<p>The CLI reads <code class="docutils literal notranslate"><span class="pre">.nasm</span></code> source files or stdin and writes the expanded noun to stdout, making it easy to pipe into any Nock evaluator or use in a build pipeline.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/building"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../nockapp/"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">NockApp and Nockchain</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../history/"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">History of Nock</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#named-opcodes">Named opcodes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#axis-schemas">Axis schemas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-name-value-in-body"><code class="docutils literal notranslate"><span class="pre">#let</span> <span class="pre">.name</span> <span class="pre">=</span> <span class="pre">VALUE</span> <span class="pre">in</span> <span class="pre">BODY</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#match-expr-pat-body-default"><code class="docutils literal notranslate"><span class="pre">#match</span> <span class="pre">EXPR</span> <span class="pre">{</span> <span class="pre">PAT</span> <span class="pre">=&gt;</span> <span class="pre">BODY</span> <span class="pre">...</span> <span class="pre">_</span> <span class="pre">=&gt;</span> <span class="pre">DEFAULT</span> <span class="pre">}</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-features">Combining features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relation-to-canonical-nock">Relation to canonical Nock</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cli">CLI</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Urbit Systems Technical Journal
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025–2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
