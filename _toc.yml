@@ -98,6 +98,8 @@ chapters:
     title: Virtualization
   - file: content/building/nockapp
     title: NockApp and Nockchain
+  - file: content/building/nockasm
+    title: Nockasm
 
 - file: content/history/index
   title: History
