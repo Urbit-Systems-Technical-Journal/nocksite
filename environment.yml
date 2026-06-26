@@ -9,3 +9,4 @@ dependencies:
     - sphinxcontrib-mermaid
     - git+https://github.com/sigilante/pinochle.git#subdirectory=packages/pinochle
     - git+https://github.com/sigilante/pinochle.git#subdirectory=packages/nock_kernel
+    - nockasm[kernel]>=1.1.0

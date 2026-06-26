@@ -16,6 +16,9 @@ jupyter:
     - name: nock
       display_name: Nock 4K
       language: nock
+    - name: nockasm
+      display_name: Nockasm
+      language: nockasm
 
 # Define the name of the latex output file for PDF builds
 latex:
