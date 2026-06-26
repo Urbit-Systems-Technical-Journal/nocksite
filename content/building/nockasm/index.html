@@ -447,42 +447,16 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="nockasm">
 <h1>Nockasm<a class="headerlink" href="#nockasm" title="Link to this heading">#</a></h1>
-<p><a class="reference external" href="https://github.com/sigilante/nockasm"><code class="docutils literal notranslate"><span class="pre">nockasm</span></code></a> is a thin Python macro layer over canonical Nock, designed to make hand-written Nock more legible.  It is not a separate language or a compiler; every <code class="docutils literal notranslate"><span class="pre">nockasm</span></code> expression expands to a plain Nock noun that you can paste directly into any Nock evaluator.  The primary audience is people learning to write Nock by hand or verifying that a piece of Nock does what they think it does.  A secondary audience could be designers of Nock-based languages or compilers who want a more legible way to express the formulas they are generating.</p>
-<p><code class="docutils literal notranslate"><span class="pre">nockasm</span></code> is available on <a class="reference external" href="https://pypi.org/project/nockasm/">PyPI</a>.  This notebook also uses <a class="reference external" href="https://github.com/sigilante/pinochle"><code class="docutils literal notranslate"><span class="pre">pinochle</span></code></a>, a Nock evaluator for Python, to run the expanded formulas inline.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>nockasm<span class="w"> </span>pinochle
+<p><a class="reference external" href="https://github.com/sigilante/nockasm"><code class="docutils literal notranslate"><span class="pre">nockasm</span></code></a> is a thin Python macro layer over canonical Nock, designed to make hand-written Nock more legible.  It is not a separate language or a compiler; every <code class="docutils literal notranslate"><span class="pre">nockasm</span></code> expression expands to a plain Nock noun that you can paste directly into any Nock evaluator.  The primary audience is people learning to write Nock by hand or verifying that a piece of Nock does what they think it does.</p>
+<p>This notebook uses the <strong>Nockasm Jupyter kernel</strong>, which assembles each cell to canonical Nock 4K and evaluates the result via <a class="reference external" href="https://github.com/sigilante/pinochle">pinochle</a>.  Output shows the expanded formula on a <code class="docutils literal notranslate"><span class="pre">;</span></code>-prefixed comment line, followed by the computed value.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Install the kernel once before opening this notebook:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;nockasm[kernel]&quot;</span>
+nockasm-kernel-install
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting nockasm
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading nockasm-1.0.0-py3-none-any.whl.metadata (6.7 kB)
-Requirement already satisfied: pinochle in /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages (1.2.1)
-Requirement already satisfied: mmh3 in /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages (from pinochle) (5.2.1)
-Requirement already satisfied: bitstring in /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages (from pinochle) (4.4.0)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: bitarray&lt;4.0,&gt;=3.0.0 in /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages (from bitstring-&gt;pinochle) (3.8.2)
-Requirement already satisfied: tibs&lt;0.6,&gt;=0.5.6 in /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages (from bitstring-&gt;pinochle) (0.5.7)
-Downloading nockasm-1.0.0-py3-none-any.whl (10.0 kB)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: nockasm
-Successfully installed nockasm-1.0.0
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nockasm</span><span class="w"> </span><span class="kn">import</span> <span class="n">expand</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pinochle</span><span class="w"> </span><span class="kn">import</span> <span class="n">nock</span><span class="p">,</span> <span class="n">parse_noun</span>
-</pre></div>
-</div>
-</div>
+<p>Then select <strong>Nockasm</strong> from the kernel menu.</p>
 </div>
 <section id="named-opcodes">
 <h2>Named opcodes<a class="headerlink" href="#named-opcodes" title="Link to this heading">#</a></h2>
@@ -553,39 +527,60 @@ Successfully installed nockasm-1.0.0
 <p>Axis aliases name the standard Hoon core slots: <code class="docutils literal notranslate"><span class="pre">(%self)</span></code> → <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">1]</span></code>, <code class="docutils literal notranslate"><span class="pre">(%battery)</span></code> → <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">2]</span></code>, <code class="docutils literal notranslate"><span class="pre">(%payload)</span></code> → <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">3]</span></code>, <code class="docutils literal notranslate"><span class="pre">(%sample)</span></code> → <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">6]</span></code>, <code class="docutils literal notranslate"><span class="pre">(%context)</span></code> → <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">7]</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Increment the subject (self)</span>
-<span class="n">expand</span><span class="p">(</span><span class="s2">&quot;(</span><span class="si">%i</span><span class="s2">nc (</span><span class="si">%s</span><span class="s2">elf))&quot;</span><span class="p">)</span>
+<div class="highlight-nockasm notranslate"><div class="highlight"><pre><span></span>; Increment the subject — default subject is atom 0, so result is 1
+(%inc (%self))
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;[4 0 1]&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>; [4 0 1]
+1
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Test equality of slots 2 and 3</span>
-<span class="n">expand</span><span class="p">(</span><span class="s2">&quot;(</span><span class="si">%e</span><span class="s2">q (</span><span class="si">%s</span><span class="s2">lot 2) (</span><span class="si">%s</span><span class="s2">lot 3))&quot;</span><span class="p">)</span>
+<div class="highlight-nockasm notranslate"><div class="highlight"><pre><span></span>; Test equality of slots 2 and 3 — subject [0 0], result 0 (Nock true)
+#subject [0 0]
+(%eq (%slot 2) (%slot 3))
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;[5 [0 2] 0 3]&#39;
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SyntaxError: unknown macro #subject
+Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/nockasm_kernel/kernel.py&quot;, line 67, in do_execute
+    output = self._dispatch(code.strip())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/nockasm_kernel/kernel.py&quot;, line 104, in _dispatch
+    return self._assemble_eval(code)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/nockasm_kernel/kernel.py&quot;, line 185, in _assemble_eval
+    noun = expand_to_noun(code)
+           ^^^^^^^^^^^^^^^^^^^^
+  File &quot;/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/nockasm.py&quot;, line 597, in expand_to_noun
+    schema, expr = Parser(toks).parse_program()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/nockasm.py&quot;, line 292, in parse_program
+    expr = self._parse_expr()
+           ^^^^^^^^^^^^^^^^^^
+  File &quot;/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/nockasm.py&quot;, line 355, in _parse_expr
+    return self._parse_macro()
+           ^^^^^^^^^^^^^^^^^^^
+  File &quot;/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/nockasm.py&quot;, line 433, in _parse_macro
+    raise SyntaxError(f&quot;unknown macro {m.value}&quot;)
+SyntaxError: unknown macro #subject
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Conditional: if slot 2 equals 0, return 1, else return slot 2</span>
-<span class="n">expand</span><span class="p">(</span><span class="s2">&quot;(</span><span class="si">%i</span><span class="s2">f (</span><span class="si">%e</span><span class="s2">q (</span><span class="si">%s</span><span class="s2">lot 2) (</span><span class="si">%c</span><span class="s2">onst 0)) (</span><span class="si">%c</span><span class="s2">onst 1) (</span><span class="si">%s</span><span class="s2">lot 2))&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;[6 [5 [0 2] 1 0] [1 1] 0 2]&#39;
+<div class="highlight-nockasm notranslate"><div class="highlight"><pre><span></span>; Conditional: if slot 2 == 0 return 1, else return slot 2
+; subject [0 99]: slot 2 is 0, true branch fires, returns 1
+#subject [0 99]
+(%if (%eq (%slot 2) (%const 0)) (%const 1) (%slot 2))
 </pre></div>
 </div>
 </div>
@@ -612,32 +607,21 @@ Successfully installed nockasm-1.0.0
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Two-element subject: .x at axis 2, .y at axis 3</span>
-<span class="n">expand</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">:subject {.x .y}</span>
-<span class="s2">(</span><span class="si">%e</span><span class="s2">q .x .y)</span>
-<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;[5 [0 2] 0 3]&#39;
+<div class="highlight-nockasm notranslate"><div class="highlight"><pre><span></span>; Two-element subject: .x at axis 2, .y at axis 3
+; [5 5] -&gt; .x == .y, result 0 (Nock true)
+#subject [5 5]
+:subject {.x .y}
+(%eq .x .y)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Three-element subject: .target at axis 6</span>
-<span class="n">expand</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">:subject {.before .target .after}</span>
-<span class="s2">(</span><span class="si">%i</span><span class="s2">nc .target)</span>
-<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;[4 0 6]&#39;
+<div class="highlight-nockasm notranslate"><div class="highlight"><pre><span></span>; Three-element subject: .target at axis 6 — increment it
+#subject [10 41 99]
+:subject {.before .target .after}
+(%inc .target)
 </pre></div>
 </div>
 </div>
@@ -649,36 +633,12 @@ Successfully installed nockasm-1.0.0
 <p>This is the <code class="docutils literal notranslate"><span class="pre">nockasm</span></code> equivalent of a local <code class="docutils literal notranslate"><span class="pre">let</span></code> binding: it evaluates <code class="docutils literal notranslate"><span class="pre">VALUE</span></code> against the current subject and pushes the result as a new head, making it available under <code class="docutils literal notranslate"><span class="pre">.name</span></code> while the body runs.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Expand: bind .next to the incremented .target, then return all three values</span>
-<span class="n">expand</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">:subject {.before .target .after}</span>
-<span class="s2">#let .next = (</span><span class="si">%i</span><span class="s2">nc .target) in</span>
-<span class="s2">  [.before .next .after]</span>
-<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;[8 [4 0 6] [0 6] [0 2] 0 15]&#39;
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run it: subject [10 41 99] -&gt; [10 42 99]</span>
-<span class="n">formula</span> <span class="o">=</span> <span class="n">parse_noun</span><span class="p">(</span><span class="n">expand</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">:subject {.before .target .after}</span>
-<span class="s2">#let .next = (</span><span class="si">%i</span><span class="s2">nc .target) in</span>
-<span class="s2">  [.before .next .after]</span>
-<span class="s2">&quot;&quot;&quot;</span><span class="p">))</span>
-
-<span class="n">nock</span><span class="p">(</span><span class="n">parse_noun</span><span class="p">(</span><span class="s2">&quot;[10 41 99]&quot;</span><span class="p">),</span> <span class="n">formula</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pinochle.noun.Cell at 0x7f4d9c3905d0&gt;
+<div class="highlight-nockasm notranslate"><div class="highlight"><pre><span></span>; Bind .next to the incremented .target, then return all three values.
+; subject [10 41 99] -&gt; [10 42 99]
+#subject [10 41 99]
+:subject {.before .target .after}
+#let .next = (%inc .target) in
+  [.before .next .after]
 </pre></div>
 </div>
 </div>
@@ -688,48 +648,45 @@ Successfully installed nockasm-1.0.0
 <h2><code class="docutils literal notranslate"><span class="pre">#match</span> <span class="pre">EXPR</span> <span class="pre">{</span> <span class="pre">PAT</span> <span class="pre">=&gt;</span> <span class="pre">BODY</span> <span class="pre">...</span> <span class="pre">_</span> <span class="pre">=&gt;</span> <span class="pre">DEFAULT</span> <span class="pre">}</span></code><a class="headerlink" href="#match-expr-pat-body-default" title="Link to this heading">#</a></h2>
 <p>Evaluates <code class="docutils literal notranslate"><span class="pre">EXPR</span></code> once via opcode 8, then dispatches on its value using nested opcode-6 branches.  The <code class="docutils literal notranslate"><span class="pre">_</span> <span class="pre">=&gt;</span></code> default branch is required.  Patterns are noun literals compared against the scrutinee at runtime.</p>
 <p>Each pattern arm compiles to a nested <code class="docutils literal notranslate"><span class="pre">[6</span> <span class="pre">[5</span> <span class="pre">[1</span> <span class="pre">PAT]</span> <span class="pre">0</span> <span class="pre">2]</span> <span class="pre">BODY</span> <span class="pre">...]</span></code> chain, so a three-arm match with a default produces two nested <code class="docutils literal notranslate"><span class="pre">if</span></code> branches sharing a single evaluation of the scrutinee.</p>
+<p>The same formula handles all three subjects below — the expansion (<code class="docutils literal notranslate"><span class="pre">;</span></code> line) is identical each time.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Expand: dispatch on .tag</span>
-<span class="n">expand</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">:subject {.tag .data}</span>
-<span class="s2">#match .tag {</span>
-<span class="s2">  1 =&gt; (</span><span class="si">%i</span><span class="s2">nc .data)</span>
-<span class="s2">  2 =&gt; .data</span>
-<span class="s2">  _ =&gt; 0</span>
-<span class="s2">}</span>
-<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;[8 [0 2] 6 [5 [1 1] 0 2] [4 0 7] 6 [5 [1 2] 0 2] [0 7] 1 0]&#39;
+<div class="highlight-nockasm notranslate"><div class="highlight"><pre><span></span>; tag=1: increment .data -&gt; 42
+#subject [1 41]
+:subject {.tag .data}
+#match .tag {
+  1 =&gt; (%inc .data)
+  2 =&gt; .data
+  _ =&gt; 0
+}
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run it across all three cases</span>
-<span class="n">formula</span> <span class="o">=</span> <span class="n">parse_noun</span><span class="p">(</span><span class="n">expand</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">:subject {.tag .data}</span>
-<span class="s2">#match .tag {</span>
-<span class="s2">  1 =&gt; (</span><span class="si">%i</span><span class="s2">nc .data)</span>
-<span class="s2">  2 =&gt; .data</span>
-<span class="s2">  _ =&gt; 0</span>
-<span class="s2">}</span>
-<span class="s2">&quot;&quot;&quot;</span><span class="p">))</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">nock</span><span class="p">(</span><span class="n">parse_noun</span><span class="p">(</span><span class="s2">&quot;[1 41]&quot;</span><span class="p">),</span> <span class="n">formula</span><span class="p">))</span>  <span class="c1"># tag=1: increment .data -&gt; 42</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">nock</span><span class="p">(</span><span class="n">parse_noun</span><span class="p">(</span><span class="s2">&quot;[2 41]&quot;</span><span class="p">),</span> <span class="n">formula</span><span class="p">))</span>  <span class="c1"># tag=2: return .data -&gt; 41</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">nock</span><span class="p">(</span><span class="n">parse_noun</span><span class="p">(</span><span class="s2">&quot;[9 41]&quot;</span><span class="p">),</span> <span class="n">formula</span><span class="p">))</span>  <span class="c1"># tag=9: default -&gt; 0</span>
+<div class="highlight-nockasm notranslate"><div class="highlight"><pre><span></span>; tag=2: return .data -&gt; 41
+#subject [2 41]
+:subject {.tag .data}
+#match .tag {
+  1 =&gt; (%inc .data)
+  2 =&gt; .data
+  _ =&gt; 0
+}
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>42
-41
-0
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nockasm notranslate"><div class="highlight"><pre><span></span>; tag=9: default arm -&gt; 0
+#subject [9 41]
+:subject {.tag .data}
+#match .tag {
+  1 =&gt; (%inc .data)
+  2 =&gt; .data
+  _ =&gt; 0
+}
 </pre></div>
 </div>
 </div>
@@ -740,21 +697,15 @@ Successfully installed nockasm-1.0.0
 <p>The macros compose freely.  Here is a small decrement-style program: given a subject <code class="docutils literal notranslate"><span class="pre">[n</span> <span class="pre">acc]</span></code>, match on <code class="docutils literal notranslate"><span class="pre">n</span></code> and either return <code class="docutils literal notranslate"><span class="pre">acc</span></code> when <code class="docutils literal notranslate"><span class="pre">n</span></code> is zero or recurse (expressed as <code class="docutils literal notranslate"><span class="pre">#let</span></code> + <code class="docutils literal notranslate"><span class="pre">#match</span></code>) incrementing <code class="docutils literal notranslate"><span class="pre">acc</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Nested let + match: compute absolute difference between two slots</span>
-<span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">:subject {.a .b}</span>
-<span class="s2">#let .eq = (</span><span class="si">%e</span><span class="s2">q .a .b) in</span>
-<span class="s2">#match .eq {</span>
-<span class="s2">  0 =&gt; (</span><span class="si">%i</span><span class="s2">nc .a)</span>
-<span class="s2">  _ =&gt; .b</span>
-<span class="s2">}</span>
-<span class="s2">&quot;&quot;&quot;</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">expand</span><span class="p">(</span><span class="n">src</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[8 [5 [0 2] 0 3] 8 [0 2] 6 [5 [1 0] 0 2] [4 0 14] 0 15]
+<div class="highlight-nockasm notranslate"><div class="highlight"><pre><span></span>; Nested let + match: .a == .b (both 5), so equality is 0 (true),
+; the 0-branch fires and increments .a -&gt; 6
+#subject [5 5]
+:subject {.a .b}
+#let .eq = (%eq .a .b) in
+#match .eq {
+  0 =&gt; (%inc .a)
+  _ =&gt; .b
+}
 </pre></div>
 </div>
 </div>
@@ -765,7 +716,7 @@ Successfully installed nockasm-1.0.0
 <p><code class="docutils literal notranslate"><span class="pre">nockasm</span></code> is a preprocessor, not a language.  Every expression it accepts expands to a noun that is bit-identical to what you would write by hand.  There is no runtime, no separate VM, and no overhead beyond the Python expansion step itself.  The benchmark programs bundled with the library (<code class="docutils literal notranslate"><span class="pre">dec</span></code>, <code class="docutils literal notranslate"><span class="pre">add</span></code>, <code class="docutils literal notranslate"><span class="pre">factorial</span></code>, <code class="docutils literal notranslate"><span class="pre">fibonacci</span></code>, <code class="docutils literal notranslate"><span class="pre">ackermann</span></code>) each expand to nouns bit-identical to the corresponding reference formulas from the Urbit benchmark suite.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>See <a class="reference internal" href="../../understanding/assembly-language-approach/"><span class="std std-doc">The Assembly Language Approach</span></a> for background on the relationship between Nock and conventional assembly language, and why <code class="docutils literal notranslate"><span class="pre">nockasm</span></code> occupies a similar role to a hardware assembler—without being tied to any machine architecture.</p>
+<p>See <a class="reference internal" href="../../understanding/assembly-language-approach/"><span class="std std-doc">The Assembly Language Approach</span></a> for background on the relationship between Nock and conventional assembly language.  <code class="docutils literal notranslate"><span class="pre">nockasm</span></code> has a similar relationship to canonical Nock as assembly language has to machine code:  it is a more legible way to express the same formulas, but it is not a separate language or runtime.  But it’s not a machine-style assembly language.</p>
 </div>
 </section>
 <section id="cli">
@@ -789,16 +740,16 @@ python<span class="w"> </span>-m<span class="w"> </span>nockasm<span class="w"> 
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "python"
+            mode: "nockasm"
         },
         kernelOptions: {
-            name: "python3",
+            name: "nockasm",
             path: "./content/building"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'nockasm'</script>
 
                 </article>
               
