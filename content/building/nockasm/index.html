@@ -548,29 +548,8 @@ nockasm-kernel-install
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SyntaxError: unknown macro #subject
-Traceback (most recent call last):
-  File &quot;/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/nockasm_kernel/kernel.py&quot;, line 67, in do_execute
-    output = self._dispatch(code.strip())
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/nockasm_kernel/kernel.py&quot;, line 104, in _dispatch
-    return self._assemble_eval(code)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/nockasm_kernel/kernel.py&quot;, line 185, in _assemble_eval
-    noun = expand_to_noun(code)
-           ^^^^^^^^^^^^^^^^^^^^
-  File &quot;/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/nockasm.py&quot;, line 597, in expand_to_noun
-    schema, expr = Parser(toks).parse_program()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/nockasm.py&quot;, line 292, in parse_program
-    expr = self._parse_expr()
-           ^^^^^^^^^^^^^^^^^^
-  File &quot;/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/nockasm.py&quot;, line 355, in _parse_expr
-    return self._parse_macro()
-           ^^^^^^^^^^^^^^^^^^^
-  File &quot;/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/nockasm.py&quot;, line 433, in _parse_macro
-    raise SyntaxError(f&quot;unknown macro {m.value}&quot;)
-SyntaxError: unknown macro #subject
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>; [5 [0 2] 0 3]
+0
 </pre></div>
 </div>
 </div>
@@ -581,6 +560,12 @@ SyntaxError: unknown macro #subject
 ; subject [0 99]: slot 2 is 0, true branch fires, returns 1
 #subject [0 99]
 (%if (%eq (%slot 2) (%const 0)) (%const 1) (%slot 2))
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>; [6 [5 [0 2] 1 0] [1 1] 0 2]
+1
 </pre></div>
 </div>
 </div>
@@ -615,6 +600,12 @@ SyntaxError: unknown macro #subject
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>; [5 [0 2] 0 3]
+0
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -622,6 +613,12 @@ SyntaxError: unknown macro #subject
 #subject [10 41 99]
 :subject {.before .target .after}
 (%inc .target)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>; [4 0 6]
+42
 </pre></div>
 </div>
 </div>
@@ -639,6 +636,12 @@ SyntaxError: unknown macro #subject
 :subject {.before .target .after}
 #let .next = (%inc .target) in
   [.before .next .after]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>; [8 [4 0 6] [0 6] [0 2] 0 15]
+[10 42 99]
 </pre></div>
 </div>
 </div>
@@ -662,6 +665,12 @@ SyntaxError: unknown macro #subject
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>; [8 [0 2] 6 [5 [1 1] 0 2] [4 0 7] 6 [5 [1 2] 0 2] [0 7] 1 0]
+42
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -676,6 +685,12 @@ SyntaxError: unknown macro #subject
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>; [8 [0 2] 6 [5 [1 1] 0 2] [4 0 7] 6 [5 [1 2] 0 2] [0 7] 1 0]
+41
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -687,6 +702,12 @@ SyntaxError: unknown macro #subject
   2 =&gt; .data
   _ =&gt; 0
 }
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>; [8 [0 2] 6 [5 [1 1] 0 2] [4 0 7] 6 [5 [1 2] 0 2] [0 7] 1 0]
+0
 </pre></div>
 </div>
 </div>
@@ -706,6 +727,12 @@ SyntaxError: unknown macro #subject
   0 =&gt; (%inc .a)
   _ =&gt; .b
 }
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>; [8 [5 [0 2] 0 3] 8 [0 2] 6 [5 [1 0] 0 2] [4 0 14] 0 15]
+6
 </pre></div>
 </div>
 </div>
