@@ -429,11 +429,14 @@
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#named-opcodes">Named opcodes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#axis-schemas">Axis schemas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structural-macros">Structural macros</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-name-value-in-body"><code class="docutils literal notranslate"><span class="pre">#let</span> <span class="pre">.name</span> <span class="pre">=</span> <span class="pre">VALUE</span> <span class="pre">in</span> <span class="pre">BODY</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#match-expr-pat-body-default"><code class="docutils literal notranslate"><span class="pre">#match</span> <span class="pre">EXPR</span> <span class="pre">{</span> <span class="pre">PAT</span> <span class="pre">=&gt;</span> <span class="pre">BODY</span> <span class="pre">...</span> <span class="pre">_</span> <span class="pre">=&gt;</span> <span class="pre">DEFAULT</span> <span class="pre">}</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-features">Combining features</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relation-to-canonical-nock">Relation to canonical Nock</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cli">CLI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#round-trips-jamfiles-back-to-source">Round trips: jamfiles back to source</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-compiler-target-and-everywhere-nock-lives">A compiler target, and everywhere Nock lives</a></li>
 </ul>
             </nav>
         </div>
@@ -447,7 +450,8 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="nockasm">
 <h1>Nockasm<a class="headerlink" href="#nockasm" title="Link to this heading">#</a></h1>
-<p><a class="reference external" href="https://github.com/sigilante/nockasm"><code class="docutils literal notranslate"><span class="pre">nockasm</span></code></a> is a thin Python macro layer over canonical Nock, designed to make hand-written Nock more legible.  It is not a separate language or a compiler; every <code class="docutils literal notranslate"><span class="pre">nockasm</span></code> expression expands to a plain Nock noun that you can paste directly into any Nock evaluator.  The primary audience is people learning to write Nock by hand or verifying that a piece of Nock does what they think it does.</p>
+<p><a class="reference external" href="https://github.com/sigilante/nockasm"><code class="docutils literal notranslate"><span class="pre">nockasm</span></code></a> is a thin macro layer over canonical Nock, designed to make hand-written Nock more legible.  It is not a separate language or a compiler; every <code class="docutils literal notranslate"><span class="pre">nockasm</span></code> expression expands to a plain Nock noun that you can paste directly into any Nock evaluator.  The primary audience is people learning to write Nock by hand or verifying that a piece of Nock does what they think it does.</p>
+<p>As of 1.2.0 the library is implemented twice — in Python and in Hoon — and the two expand every program to bit-identical nouns, so the same <code class="docutils literal notranslate"><span class="pre">.nasm</span></code> source means the same thing in a notebook, in an Urbit dojo, and inside a <a class="reference internal" href="../nockapp/"><span class="doc std std-doc">NockApp</span></a>.</p>
 <p>This notebook uses the <strong>Nockasm Jupyter kernel</strong>, which assembles each cell to canonical Nock 4K and evaluates the result via <a class="reference external" href="https://github.com/sigilante/pinochle">pinochle</a>.  Output shows the expanded formula on a <code class="docutils literal notranslate"><span class="pre">;</span></code>-prefixed comment line, followed by the computed value.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -624,6 +628,34 @@ nockasm-kernel-install
 </div>
 </div>
 </section>
+<section id="structural-macros">
+<h2>Structural macros<a class="headerlink" href="#structural-macros" title="Link to this heading">#</a></h2>
+<p>Beyond named opcodes and axis names, <code class="docutils literal notranslate"><span class="pre">nockasm</span></code> provides exactly two structural macros, each a fixed lowering with no hidden semantics, plus the <code class="docutils literal notranslate"><span class="pre">:subject</span></code> declaration they build on:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Form</p></th>
+<th class="head"><p>Expands to</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:subject</span> <span class="pre">{.a</span> <span class="pre">.b</span> <span class="pre">.c}</span></code></p></td>
+<td><p><em>(compile-time only)</em></p></td>
+<td><p>name the subject’s axes; right-leaning by Hoon convention</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">#let</span> <span class="pre">.n</span> <span class="pre">=</span> <span class="pre">VALUE</span> <span class="pre">in</span> <span class="pre">BODY</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[8</span> <span class="pre">VALUE</span> <span class="pre">BODY]</span></code>, <code class="docutils literal notranslate"><span class="pre">.n</span></code> at axis 2</p></td>
+<td><p>local binding: push <code class="docutils literal notranslate"><span class="pre">VALUE</span></code>, existing names shift via <code class="docutils literal notranslate"><span class="pre">peg(3,</span> <span class="pre">axis)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">#match</span> <span class="pre">EXPR</span> <span class="pre">{</span> <span class="pre">PAT</span> <span class="pre">=&gt;</span> <span class="pre">BODY</span> <span class="pre">…</span> <span class="pre">_</span> <span class="pre">=&gt;</span> <span class="pre">DEFAULT</span> <span class="pre">}</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[8</span> <span class="pre">EXPR</span> <span class="pre">[6</span> <span class="pre">[5</span> <span class="pre">[1</span> <span class="pre">PAT]</span> <span class="pre">[0</span> <span class="pre">2]]</span> <span class="pre">BODY</span> <span class="pre">…]]</span></code></p></td>
+<td><p>evaluate the scrutinee once, dispatch on noun-literal patterns; the <code class="docutils literal notranslate"><span class="pre">_</span></code> default is required</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Everything else on the page is pure notation: named opcodes are single cells, <code class="docutils literal notranslate"><span class="pre">.name</span></code> is <code class="docutils literal notranslate"><span class="pre">[0</span> <span class="pre">axis]</span></code>, and raw cells <code class="docutils literal notranslate"><span class="pre">[a</span> <span class="pre">b</span> <span class="pre">c]</span></code> pass through structurally (the escape hatch into hand-written Nock).  The two macros are the only forms that <em>rearrange</em> the subject — and both do it the same way, by pushing with opcode 8 and re-rooting the names in scope.</p>
+</section>
 <section id="let-name-value-in-body">
 <h2><code class="docutils literal notranslate"><span class="pre">#let</span> <span class="pre">.name</span> <span class="pre">=</span> <span class="pre">VALUE</span> <span class="pre">in</span> <span class="pre">BODY</span></code><a class="headerlink" href="#let-name-value-in-body" title="Link to this heading">#</a></h2>
 <p>Pushes <code class="docutils literal notranslate"><span class="pre">VALUE</span></code> onto the subject via opcode 8, binding <code class="docutils literal notranslate"><span class="pre">.name</span></code> to the new head (axis 2).  Existing schema names shift rightward through <code class="docutils literal notranslate"><span class="pre">peg(3,</span> <span class="pre">axis)</span></code> so they remain valid in <code class="docutils literal notranslate"><span class="pre">BODY</span></code>.</p>
@@ -740,7 +772,8 @@ nockasm-kernel-install
 </section>
 <section id="relation-to-canonical-nock">
 <h2>Relation to canonical Nock<a class="headerlink" href="#relation-to-canonical-nock" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">nockasm</span></code> is a preprocessor, not a language.  Every expression it accepts expands to a noun that is bit-identical to what you would write by hand.  There is no runtime, no separate VM, and no overhead beyond the Python expansion step itself.  The benchmark programs bundled with the library (<code class="docutils literal notranslate"><span class="pre">dec</span></code>, <code class="docutils literal notranslate"><span class="pre">add</span></code>, <code class="docutils literal notranslate"><span class="pre">factorial</span></code>, <code class="docutils literal notranslate"><span class="pre">fibonacci</span></code>, <code class="docutils literal notranslate"><span class="pre">ackermann</span></code>) each expand to nouns bit-identical to the corresponding reference formulas from the Urbit benchmark suite.</p>
+<p><code class="docutils literal notranslate"><span class="pre">nockasm</span></code> is a preprocessor, not a language.  Every expression it accepts expands to a noun that is bit-identical to what you would write by hand.  There is no runtime, no separate VM, and no overhead beyond the expansion step itself.  The benchmark programs bundled with the library (<code class="docutils literal notranslate"><span class="pre">dec</span></code>, <code class="docutils literal notranslate"><span class="pre">add</span></code>, <code class="docutils literal notranslate"><span class="pre">factorial</span></code>, <code class="docutils literal notranslate"><span class="pre">fibonacci</span></code>, <code class="docutils literal notranslate"><span class="pre">ackermann</span></code>) each expand to nouns bit-identical to the corresponding reference formulas from the Urbit benchmark suite.</p>
+<p>That claim is enforced mechanically: the grammar has three independent executors — the Python library, the Hoon library running on Vere, and the Hoon library compiled to Nock running on NockVM (<a class="reference external" href="https://github.com/sigilante/nockasm/tree/master/nasmc"><code class="docutils literal notranslate"><span class="pre">nasmc</span></code></a>) — and CI holds all three to byte-identical output on every case in the test corpus.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>See <a class="reference internal" href="../../understanding/assembly-language-approach/"><span class="std std-doc">The Assembly Language Approach</span></a> for background on the relationship between Nock and conventional assembly language.  <code class="docutils literal notranslate"><span class="pre">nockasm</span></code> has a similar relationship to canonical Nock as assembly language has to machine code:  it is a more legible way to express the same formulas, but it is not a separate language or runtime.  But it’s not a machine-style assembly language.</p>
@@ -752,9 +785,34 @@ nockasm-kernel-install
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>nockasm<span class="w"> </span>program.nasm<span class="w">           </span><span class="c1"># canonical flat Nock</span>
 python<span class="w"> </span>-m<span class="w"> </span>nockasm<span class="w"> </span>--pretty<span class="w"> </span>program.nasm<span class="w">  </span><span class="c1"># explicit binary cells</span>
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;(%inc (%self))&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>nockasm
+python<span class="w"> </span>-m<span class="w"> </span>nockasm<span class="w"> </span>--from-jam<span class="w"> </span>formula.jam<span class="w"> </span><span class="c1"># jammed formula -&gt; .nasm source</span>
 </pre></div>
 </div>
-<p>The CLI reads <code class="docutils literal notranslate"><span class="pre">.nasm</span></code> source files or stdin and writes the expanded noun to stdout, making it easy to pipe into any Nock evaluator or use in a build pipeline.</p>
+<p>The CLI reads <code class="docutils literal notranslate"><span class="pre">.nasm</span></code> source files or stdin and writes the expanded noun to stdout, making it easy to pipe into any Nock evaluator or use in a build pipeline.  There is also a standalone compiler binary, <a class="reference external" href="https://github.com/sigilante/nockasm/tree/master/nasmc"><code class="docutils literal notranslate"><span class="pre">nasmc</span></code></a>, which does the same work as a NockApp — the expander itself compiled to Nock and run on NockVM — and emits jammed formulas directly:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nasmc<span class="w"> </span>program.nasm<span class="w">               </span><span class="c1"># -&gt; program.jam  (raw formula jamfile)</span>
+nasmc<span class="w"> </span>--text<span class="w"> </span>program.nasm<span class="w">        </span><span class="c1"># canonical flat noun to stdout</span>
+nasmc<span class="w"> </span>--render<span class="w"> </span>program.nasm<span class="w">      </span><span class="c1"># canonical .nasm formatting</span>
+nasmc<span class="w"> </span>--lift<span class="w"> </span>formula.jam<span class="w">         </span><span class="c1"># jamfile back to .nasm source</span>
+</pre></div>
+</div>
+</section>
+<section id="round-trips-jamfiles-back-to-source">
+<h2>Round trips: jamfiles back to source<a class="headerlink" href="#round-trips-jamfiles-back-to-source" title="Link to this heading">#</a></h2>
+<p>Nock artifacts in the wild are usually jamfiles — serialized nouns, whether a 70-byte formula or a multi-megabyte kernel.  As of 1.2.0 <code class="docutils literal notranslate"><span class="pre">nockasm</span></code> can read a jammed formula back to legible source (<code class="docutils literal notranslate"><span class="pre">--from-jam</span></code> above, <code class="docutils literal notranslate"><span class="pre">nasmc</span> <span class="pre">--lift</span></code>, or <code class="docutils literal notranslate"><span class="pre">lift</span></code>/<code class="docutils literal notranslate"><span class="pre">nasm_from_jam</span></code> in the API).  For example, the <code class="docutils literal notranslate"><span class="pre">#let</span></code> program from earlier in this notebook expands to <code class="docutils literal notranslate"><span class="pre">[8</span> <span class="pre">[4</span> <span class="pre">0</span> <span class="pre">6]</span> <span class="pre">[0</span> <span class="pre">6]</span> <span class="pre">[0</span> <span class="pre">2]</span> <span class="pre">0</span> <span class="pre">15]</span></code>; jam that noun, lift it back, and you get:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">%</span><span class="n">push</span> <span class="p">(</span><span class="o">%</span><span class="n">inc</span> <span class="p">(</span><span class="o">%</span><span class="n">slot</span> <span class="mi">6</span><span class="p">))</span> <span class="p">[(</span><span class="o">%</span><span class="n">slot</span> <span class="mi">6</span><span class="p">)</span> <span class="p">[(</span><span class="o">%</span><span class="n">slot</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="o">%</span><span class="n">slot</span> <span class="mi">15</span><span class="p">)]])</span>
+</pre></div>
+</div>
+<p>Note what survived and what did not.  The <em>structure</em> is fully recovered as named opcodes — but the <code class="docutils literal notranslate"><span class="pre">#let</span></code> sugar and the schema names are gone, because those were compile-time constructs that lowered away.  And the lift is deliberately <strong>zero-heuristic</strong>: Nock is homoiconic, so nothing in a noun marks it as code.  The lift reads a noun as a formula only where Nock’s positional grammar proves the shape, falls back to plain cells everywhere else, and never guesses intent — an opcode-1 constant renders as data even if it happens to be a battery.  What you gain from that honesty is a hard guarantee: the emitted source always re-expands to the <em>exact</em> noun you started from.</p>
+</section>
+<section id="a-compiler-target-and-everywhere-nock-lives">
+<h2>A compiler target, and everywhere Nock lives<a class="headerlink" href="#a-compiler-target-and-everywhere-nock-lives" title="Link to this heading">#</a></h2>
+<p>Beyond hand-writing, 1.2.0 promotes the parsed AST to a versioned public IR — <code class="docutils literal notranslate"><span class="pre">parse</span></code> / <code class="docutils literal notranslate"><span class="pre">lower</span></code> / <code class="docutils literal notranslate"><span class="pre">render</span></code> in both implementations — governed by a round-trip law: rendering any IR value to text and re-expanding it produces bit-identically the same noun as lowering it directly.  A compiler can emit <code class="docutils literal notranslate"><span class="pre">nockasm</span></code> IR and get legible, diffable <code class="docutils literal notranslate"><span class="pre">.nasm</span></code> build artifacts whose meaning is guaranteed, which is the intended path for higher-level languages targeting Nock.  The design is specced in <a class="reference external" href="https://github.com/sigilante/nockasm/blob/master/doc/compiler-target.md"><code class="docutils literal notranslate"><span class="pre">doc/compiler-target.md</span></code></a>.</p>
+<p>The same source travels across the ecosystem:</p>
+<ul class="simple">
+<li><p><strong>Urbit</strong> — the Hoon library lives at <code class="docutils literal notranslate"><span class="pre">desk/lib/nockasm.hoon</span></code> (<code class="docutils literal notranslate"><span class="pre">(expand:nasm</span> <span class="pre">'...')</span></code> in the dojo), and a <a class="reference external" href="https://github.com/sigilante/nockasm/blob/master/doc/nasm-mark.md"><code class="docutils literal notranslate"><span class="pre">%nasm</span></code> clay mark</a> lets <code class="docutils literal notranslate"><span class="pre">.nasm</span></code> files live in desks like any source file, with the source cord as noun form (exactly parallel to <code class="docutils literal notranslate"><span class="pre">%hoon</span></code>).</p></li>
+<li><p><strong>NockApps</strong> — the library is registered in the <a class="reference external" href="https://github.com/sigilante/typhoon">typhoon</a> registry, so any <a class="reference external" href="https://github.com/nockchain/nockchain/tree/master/crates/nockup">Nockup</a> project can add <code class="docutils literal notranslate"><span class="pre">&quot;sigilante/nockasm&quot;</span> <span class="pre">=</span> <span class="pre">&quot;latest&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">/+</span>&#160; <span class="pre">nockasm</span></code> in its kernel; <code class="docutils literal notranslate"><span class="pre">hoonc</span></code> builds also load <code class="docutils literal notranslate"><span class="pre">.nasm</span></code> files directly via <code class="docutils literal notranslate"><span class="pre">/*</span></code>.</p></li>
+<li><p><strong>The shell</strong> — <code class="docutils literal notranslate"><span class="pre">nasmc</span></code>, above: Nock assembly compiled to Nock <em>by</em> Nock.</p></li>
+</ul>
 </section>
 </section>
 
@@ -826,11 +884,14 @@ python<span class="w"> </span>-m<span class="w"> </span>nockasm<span class="w"> 
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#named-opcodes">Named opcodes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#axis-schemas">Axis schemas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structural-macros">Structural macros</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-name-value-in-body"><code class="docutils literal notranslate"><span class="pre">#let</span> <span class="pre">.name</span> <span class="pre">=</span> <span class="pre">VALUE</span> <span class="pre">in</span> <span class="pre">BODY</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#match-expr-pat-body-default"><code class="docutils literal notranslate"><span class="pre">#match</span> <span class="pre">EXPR</span> <span class="pre">{</span> <span class="pre">PAT</span> <span class="pre">=&gt;</span> <span class="pre">BODY</span> <span class="pre">...</span> <span class="pre">_</span> <span class="pre">=&gt;</span> <span class="pre">DEFAULT</span> <span class="pre">}</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-features">Combining features</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relation-to-canonical-nock">Relation to canonical Nock</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cli">CLI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#round-trips-jamfiles-back-to-source">Round trips: jamfiles back to source</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-compiler-target-and-everywhere-nock-lives">A compiler target, and everywhere Nock lives</a></li>
 </ul>
   </nav></div>
 
