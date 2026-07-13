@@ -433,6 +433,10 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-name-value-in-body"><code class="docutils literal notranslate"><span class="pre">#let</span> <span class="pre">.name</span> <span class="pre">=</span> <span class="pre">VALUE</span> <span class="pre">in</span> <span class="pre">BODY</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#match-expr-pat-body-default"><code class="docutils literal notranslate"><span class="pre">#match</span> <span class="pre">EXPR</span> <span class="pre">{</span> <span class="pre">PAT</span> <span class="pre">=&gt;</span> <span class="pre">BODY</span> <span class="pre">...</span> <span class="pre">_</span> <span class="pre">=&gt;</span> <span class="pre">DEFAULT</span> <span class="pre">}</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-features">Combining features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hints-and-jets">Hints and jets</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fast-jetting"><code class="docutils literal notranslate"><span class="pre">%fast</span></code>: jetting</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relation-to-canonical-nock">Relation to canonical Nock</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cli">CLI</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#round-trips-jamfiles-back-to-source">Round trips: jamfiles back to source</a></li>
@@ -770,6 +774,58 @@ nockasm-kernel-install
 </div>
 </div>
 </section>
+<section id="hints-and-jets">
+<h2>Hints and jets<a class="headerlink" href="#hints-and-jets" title="Link to this heading">#</a></h2>
+<p>Opcode 11 is Nock’s hint opcode: an annotation that never changes the value computed, but that a runtime may use for side effects or acceleration.  <code class="docutils literal notranslate"><span class="pre">nockasm</span></code> exposes both forms directly:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">(%hint</span> <span class="pre">T</span> <span class="pre">F)</span></code>  →  <code class="docutils literal notranslate"><span class="pre">[11</span> <span class="pre">T</span> <span class="pre">F]</span></code> — a <em>static</em> hint: tag <code class="docutils literal notranslate"><span class="pre">T</span></code>, continuation <code class="docutils literal notranslate"><span class="pre">F</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(%hintd</span> <span class="pre">T</span> <span class="pre">C</span> <span class="pre">F)</span></code>  →  <code class="docutils literal notranslate"><span class="pre">[11</span> <span class="pre">[T</span> <span class="pre">C]</span> <span class="pre">F]</span></code> — a <em>dynamic</em> hint, whose clue <code class="docutils literal notranslate"><span class="pre">C</span></code> is computed alongside.</p></li>
+</ul>
+<p>The tag is just a noun, so a <code class="docutils literal notranslate"><span class="pre">&#64;tas</span></code> label is written as a quoted cord.  Both forms expand to plain nouns and stay transparent — a runtime that does not recognize the tag computes exactly the same value.  Two tags are worth knowing.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-nockasm notranslate"><div class="highlight"><pre><span></span>; %slog prints a tank, then produces its body.  Transparent: the value is the
+; body&#39;s (1); a jet-aware runtime additionally logs the tank [priority tank].
+(%hintd &#39;slog&#39; [1 1 42] (%inc (%self)))
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Exception: fail: cell
+Traceback (most recent call last):
+  File &quot;/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/nockasm_kernel/kernel.py&quot;, line 67, in do_execute
+    output = self._dispatch(code.strip())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/nockasm_kernel/kernel.py&quot;, line 123, in _dispatch
+    return self._assemble_eval(code)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/nockasm_kernel/kernel.py&quot;, line 210, in _assemble_eval
+    result = _nock_eval(self.subject, formula)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/pinochle/nock.py&quot;, line 282, in nock
+    return nock(a, d)
+           ^^^^^^^^^^
+  File &quot;/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/pinochle/nock.py&quot;, line 181, in nock
+    return lus(result)
+           ^^^^^^^^^^^
+  File &quot;/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/pinochle/nock.py&quot;, line 72, in lus
+    raise Exception(&quot;fail: cell&quot;)
+Exception: fail: cell
+</pre></div>
+</div>
+</div>
+</div>
+<section id="fast-jetting">
+<h3><code class="docutils literal notranslate"><span class="pre">%fast</span></code>: jetting<a class="headerlink" href="#fast-jetting" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">%fast</span></code> tag registers a <strong>jet</strong> — a native implementation a runtime may run in place of a Nock formula.  It is written as a dynamic hint wrapping a <em>core</em>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">%</span><span class="n">hintd</span> <span class="s1">&#39;fast&#39;</span> <span class="s1">&#39;dec&#39;</span> <span class="o">&lt;</span><span class="n">the</span> <span class="n">dec</span> <span class="n">core</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="p">;</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="mi">11</span> <span class="p">[</span><span class="o">%</span><span class="n">fast</span> <span class="o">%</span><span class="n">dec</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">core</span><span class="o">&gt;</span><span class="p">]</span>  <span class="o">==</span>  <span class="p">[</span><span class="mi">11</span> <span class="p">[</span><span class="mi">1953718630</span> <span class="mi">6514020</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">core</span><span class="o">&gt;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>This is transparent — it just produces the core — but as a side effect it <em>warms</em> the core’s battery.  Later, when an arm of that core is invoked (opcode 9), a jet-aware runtime matches the battery and runs the native named by the clue instead of walking the formula.  <a class="reference external" href="https://github.com/sigilante/pinochle">pinochle</a>, which this kernel evaluates with, implements exactly this register-then-match dispatch — keyed on the battery’s <a class="reference internal" href="../../specification/deep-nock/"><span class="std std-doc">mug</span></a> — with built-in arithmetic jets <code class="docutils literal notranslate"><span class="pre">dec</span></code>, <code class="docutils literal notranslate"><span class="pre">add</span></code>, <code class="docutils literal notranslate"><span class="pre">sub</span></code>, <code class="docutils literal notranslate"><span class="pre">mul</span></code>, and <code class="docutils literal notranslate"><span class="pre">lte</span></code>.  The native reads the gate’s sample at axis 6, so a jetted core and its formula agree bit for bit; only the cost differs.</p>
+<p>See <a class="reference internal" href="../../hints-jetting/"><span class="std std-doc">Hints &amp; Jetting</span></a> for the runtime side, and <a class="reference internal" href="../../specification/opcode-11/"><span class="std std-doc">Opcode 11: Hint</span></a> for the opcode itself.</p>
+</section>
+</section>
 <section id="relation-to-canonical-nock">
 <h2>Relation to canonical Nock<a class="headerlink" href="#relation-to-canonical-nock" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">nockasm</span></code> is a preprocessor, not a language.  Every expression it accepts expands to a noun that is bit-identical to what you would write by hand.  There is no runtime, no separate VM, and no overhead beyond the expansion step itself.  The benchmark programs bundled with the library (<code class="docutils literal notranslate"><span class="pre">dec</span></code>, <code class="docutils literal notranslate"><span class="pre">add</span></code>, <code class="docutils literal notranslate"><span class="pre">factorial</span></code>, <code class="docutils literal notranslate"><span class="pre">fibonacci</span></code>, <code class="docutils literal notranslate"><span class="pre">ackermann</span></code>) each expand to nouns bit-identical to the corresponding reference formulas from the Urbit benchmark suite.</p>
@@ -888,6 +944,10 @@ nasmc<span class="w"> </span>--lift<span class="w"> </span>formula.jam<span clas
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-name-value-in-body"><code class="docutils literal notranslate"><span class="pre">#let</span> <span class="pre">.name</span> <span class="pre">=</span> <span class="pre">VALUE</span> <span class="pre">in</span> <span class="pre">BODY</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#match-expr-pat-body-default"><code class="docutils literal notranslate"><span class="pre">#match</span> <span class="pre">EXPR</span> <span class="pre">{</span> <span class="pre">PAT</span> <span class="pre">=&gt;</span> <span class="pre">BODY</span> <span class="pre">...</span> <span class="pre">_</span> <span class="pre">=&gt;</span> <span class="pre">DEFAULT</span> <span class="pre">}</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-features">Combining features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hints-and-jets">Hints and jets</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fast-jetting"><code class="docutils literal notranslate"><span class="pre">%fast</span></code>: jetting</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relation-to-canonical-nock">Relation to canonical Nock</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cli">CLI</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#round-trips-jamfiles-back-to-source">Round trips: jamfiles back to source</a></li>
