@@ -24,6 +24,6 @@ compiles to the following Nock code:
 
 ## Further Reading
 
-* [Jock Documentation](https://jock.is): The Jock landing page provides a comprehensive overview of the language and its relationship to Nock.
+* [Jock Documentation](https://jock.is): The Jock landing page provides a brief overview of the language and its relationship to Nock.
 * [Jock GitHub Repository](https://github.com/zorp-corp/jock-lang): The original GitHub repository.
 * [Jock Recommenced GitHub Repository](https://github.com/sigilante/jock): The new GitHub repository (currently private).
