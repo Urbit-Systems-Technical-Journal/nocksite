@@ -1,10 +1,10 @@
 # Relationship to Jock
 
-[Jock](https://jock.org) is a scripting language designed to compile from a high-level syntax down to Nock code.  Jock aims to be more user-friendly and accessible than Hoon, making it easier for developers to write and understand code that compiles to Nock.  In particular, Jock models its syntax on Swift and Rust.
+[Jock](https://jock.is) is a programming language designed to compile from a high-level syntax down to Nock code.  Jock aims to be more user-friendly and accessible than Hoon, making it easier for developers to write and understand code that compiles to Nock.  In particular, Jock models its syntax on Swift and Rust.
 
 Jock permits direct expression of Nock concepts while providing syntactic sugar to make common patterns easier to write.  This makes Jock a good choice for developers who want to work with Nock without the complexity of Hoon.
 
-At the current time, Jock is in its alpha release stage, with ongoing development to expand its features and capabilities.
+At the current time, the [public release of Jock](https://github.com/zorp-corp/jock-lang) is at alpha stage, with [ongoing development by ~lagrev-nocfep](https://github.com/sigilante/jock) to expand its features and capabilities.
 
 ## Example
 
@@ -24,5 +24,6 @@ compiles to the following Nock code:
 
 ## Further Reading
 
-* [Jock Documentation](https://docs.jock.org): The official Jock documentation provides a comprehensive overview of the language and its relationship to Nock.
-* [Jock GitHub Repository](https://github.com/zorp-corp/jock-lang): The official GitHub repository.
+* [Jock Documentation](https://jock.is): The Jock landing page provides a comprehensive overview of the language and its relationship to Nock.
+* [Jock GitHub Repository](https://github.com/zorp-corp/jock-lang): The original GitHub repository.
+* [Jock Recommenced GitHub Repository](https://github.com/sigilante/jock): The new GitHub repository (currently private).
