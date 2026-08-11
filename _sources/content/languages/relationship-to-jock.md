@@ -11,7 +11,7 @@ At the current time, the [public release of Jock](https://github.com/zorp-corp/j
 This Jock program:
 
 ```jock
-let a: ? = true;
+var a: Bool = true;
 a = false;
 a
 ```
@@ -21,6 +21,8 @@ compiles to the following Nock code:
 ```nock
 [8 [1 0] 7 [10 [2 1 1] 0 1] 0 2]
 ```
+
+More examples are available [at the Jock site](https://jock.is).
 
 ## Further Reading
 
