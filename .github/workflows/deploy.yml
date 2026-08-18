@@ -111,6 +111,24 @@ jobs:
         printf '<meta http-equiv="Refresh" content="0; url=cool/" />\n' \
           > _build/dirhtml/index.html
 
+        # For every clean-URL page (a directory containing index.html),
+        # add a sibling <name>.html redirect stub. This catches links to
+        # the old (pre-dirhtml) .html URLs -- including the ones Google
+        # still has indexed -- and bounces them to the clean URL instead
+        # of 404ing.
+        find _build/dirhtml -name index.html | while read -r f; do
+          dir=$(dirname "$f")
+          if [ "$dir" = "_build/dirhtml" ]; then
+            continue
+          fi
+          name=$(basename "$dir")
+          stub="$(dirname "$dir")/$name.html"
+          if [ ! -e "$stub" ]; then
+            printf '<meta http-equiv="Refresh" content="0; url=%s/" />\n' "$name" \
+              > "$stub"
+          fi
+        done
+
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       if: github.ref == 'refs/heads/master'
