@@ -460,8 +460,8 @@
     This text is a DRAFT (version 0.15).
 
 4 Data
-    A value in U is called a &quot;term.&quot;  There are three
-    kinds of term: &quot;number,&quot; &quot;pair,&quot; and &quot;foo.&quot;
+    A value in U is called a "term."  There are three
+    kinds of term: "number," "pair," and "foo."
 
     A number is any natural number (ie, nonnegative
     integer).
@@ -478,10 +478,10 @@
 
 5.1 Trivial syntax: briefly
     Numbers are in decimal.  Pairs are in parentheses
-    that nest to the right.  Foo is &quot;~&quot;.
+    that nest to the right.  Foo is "~".
 
     Whitespace is space or newline.  Line comments
-    use &quot;#&quot;.
+    use "#".
 
 5.2 Trivial syntax: exactly
     term    : number
@@ -535,8 +535,8 @@
     this file. Its definition follows.
 
 6.2 Rule pseudocode: briefly
-    Each line is a pattern match.  &quot;%&quot; means
-    &quot;number.&quot;  Match in order.  See operators below.
+    Each line is a pattern match.  "%" means
+    "number."  Match in order.  See operators below.
 
 6.3 Rule pseudocode: exactly
     Both pattern and definition use the same
@@ -548,12 +548,12 @@
     operation.
 
     Variables are symbols marked with a constraint.
-    A variable &quot;$name&quot; matches any term.  &quot;%name&quot;
+    A variable "$name" matches any term.  "%name"
     matches any number.
 
     There are four unary prefix operators, each of
-    which is a pure function from term to term: &quot;=&quot;,
-    &quot;+&quot;, &quot;*&quot;, and &quot;&gt;&quot;. Their semantics follow.
+    which is a pure function from term to term: "=",
+    "+", "*", and "&gt;". Their semantics follow.
 
 6.4 Evaluation semantics
     For any term $term, to compute U($term):
@@ -565,10 +565,10 @@
         - compute the substituted definition.
 
     Iff this sequence of steps terminates, U($term)
-    &quot;completes.&quot; Otherwise it &quot;chokes.&quot;
+    "completes." Otherwise it "chokes."
 
     Evaluation is strict: incorrect completion is a
-    bug.  Choking is U&#39;s only error or exception
+    bug.  Choking is U's only error or exception
     mechanism.
 
 6.5 Simple operators: equal, increment, evaluate
@@ -583,7 +583,7 @@
     &gt;($a $b $c) is always 0.  But it does not always
     complete.
 
-    We say &quot;$c follows $b in $a&quot; iff, for every $term:
+    We say "$c follows $b in $a" iff, for every $term:
 
         if *($a 5 $b $term) chokes:
             *($a 5 $c $term) chokes.
@@ -601,7 +601,7 @@
     If this statement cannot be shown (ie, if there
     exists any $term that falsifies it, generates an
     infinitely recursive series of follow tests, or is
-    inversely self-dependent, ie, exhibits Russell&#39;s
+    inversely self-dependent, ie, exhibits Russell's
     paradox), &gt;($a $b $c) chokes.
 
 7 Implementation issues
@@ -618,7 +618,7 @@
     follow cases, and fails when it would otherwise
     have to compute a follow case outside this set.
 
-    U calls this a &quot;trust failure.&quot;  One way to
+    U calls this a "trust failure."  One way to
     standardize trust failures would be to standardize
     a fixed set of follow cases as part of the
     definition of U.  However, this is equivalent to standardizing a fixed trusted code base.  The

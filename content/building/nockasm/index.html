@@ -511,7 +511,7 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Install the kernel once before opening this notebook:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;nockasm[kernel]&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"nockasm[kernel]"</span>
 nockasm-kernel-install
 </pre></div>
 </div>
@@ -836,31 +836,31 @@ nockasm-kernel-install
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-nockasm notranslate"><div class="highlight"><pre><span></span>; %slog prints a tank, then produces its body.  Transparent: the value is the
-; body&#39;s (1); a jet-aware runtime additionally logs the tank [priority tank].
-(%hintd &#39;slog&#39; [1 1 42] (%inc (%self)))
+; body's (1); a jet-aware runtime additionally logs the tank [priority tank].
+(%hintd 'slog' [1 1 42] (%inc (%self)))
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Exception: fail: cell
 Traceback (most recent call last):
-  File &quot;/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/nockasm_kernel/kernel.py&quot;, line 67, in do_execute
+  File "/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/nockasm_kernel/kernel.py", line 67, in do_execute
     output = self._dispatch(code.strip())
              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/nockasm_kernel/kernel.py&quot;, line 123, in _dispatch
+  File "/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/nockasm_kernel/kernel.py", line 123, in _dispatch
     return self._assemble_eval(code)
            ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/nockasm_kernel/kernel.py&quot;, line 210, in _assemble_eval
+  File "/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/nockasm_kernel/kernel.py", line 210, in _assemble_eval
     result = _nock_eval(self.subject, formula)
              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/pinochle/nock.py&quot;, line 282, in nock
+  File "/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/pinochle/nock.py", line 282, in nock
     return nock(a, d)
            ^^^^^^^^^^
-  File &quot;/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/pinochle/nock.py&quot;, line 181, in nock
+  File "/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/pinochle/nock.py", line 181, in nock
     return lus(result)
            ^^^^^^^^^^^
-  File &quot;/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/pinochle/nock.py&quot;, line 72, in lus
-    raise Exception(&quot;fail: cell&quot;)
+  File "/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/pinochle/nock.py", line 72, in lus
+    raise Exception("fail: cell")
 Exception: fail: cell
 </pre></div>
 </div>
@@ -869,7 +869,7 @@ Exception: fail: cell
 <section id="fast-jetting">
 <h3><code class="docutils literal notranslate"><span class="pre">%fast</span></code>: jetting<a class="headerlink" href="#fast-jetting" title="Link to this heading">#</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">%fast</span></code> tag conventionally registers a jet (short for “jet-accelerated code”), a native implementation which a runtime may run in place of a Nock formula.  It is written as a dynamic hint wrapping a core:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">%</span><span class="n">hintd</span> <span class="s1">&#39;fast&#39;</span> <span class="s1">&#39;dec&#39;</span> <span class="o">&lt;</span><span class="n">the</span> <span class="n">dec</span> <span class="n">core</span><span class="o">&gt;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">%</span><span class="n">hintd</span> <span class="s1">'fast'</span> <span class="s1">'dec'</span> <span class="o">&lt;</span><span class="n">the</span> <span class="n">dec</span> <span class="n">core</span><span class="o">&gt;</span><span class="p">)</span>
 <span class="p">;</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="mi">11</span> <span class="p">[</span><span class="o">%</span><span class="n">fast</span> <span class="o">%</span><span class="n">dec</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">core</span><span class="o">&gt;</span><span class="p">]</span>  <span class="o">==</span>  <span class="p">[</span><span class="mi">11</span> <span class="p">[</span><span class="mi">1953718630</span> <span class="mi">6514020</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">core</span><span class="o">&gt;</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -891,7 +891,7 @@ Exception: fail: cell
 <p>Outside of notebooks, <code class="docutils literal notranslate"><span class="pre">nockasm</span></code> can be driven from the shell:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>nockasm<span class="w"> </span>program.nasm<span class="w">           </span><span class="c1"># canonical flat Nock</span>
 python<span class="w"> </span>-m<span class="w"> </span>nockasm<span class="w"> </span>--pretty<span class="w"> </span>program.nasm<span class="w">  </span><span class="c1"># explicit binary cells</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;(%inc (%self))&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>nockasm
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"(%inc (%self))"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>nockasm
 python<span class="w"> </span>-m<span class="w"> </span>nockasm<span class="w"> </span>--from-jam<span class="w"> </span>formula.jam<span class="w"> </span><span class="c1"># jammed formula -&gt; .nasm source</span>
 </pre></div>
 </div>
