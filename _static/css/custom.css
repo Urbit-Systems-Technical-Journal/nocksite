@@ -60,6 +60,16 @@ div.highlight pre,
   }
 }
 
+/* Fix sphinx-book-theme bug: the primary sidebar toggle (hamburger button) is
+   styled with `min-width: 768px` where it should be `max-width`, so it stays
+   `display: none` below 768px — exactly the phone width range where it's
+   needed to open the mobile nav overlay. Force it visible there. */
+@media (max-width: 767.98px) {
+  button.sidebar-toggle.primary-toggle {
+    display: inline-block !important;
+  }
+}
+
 /* Background color customization */
 body {
     background-color: #141A14; /* Dark gray background */
