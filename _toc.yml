@@ -43,6 +43,8 @@ chapters:
     title: Loobeans
   - file: content/specification/deep-nock
     title: Deep Nock
+  - file: content/specification/verification
+    title: Formal Verification
     
 - file: content/understanding/index
   title: Understanding Nock

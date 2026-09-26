@@ -73,6 +73,8 @@ nock(a)             *a
 
 The current specification for Nock is 4K, meaning that only four possible revisions remain.  (See [History](../history/index.md) for more details.)
 
+Nock has been [formally verified](./verification.md) using Lean 4.
+
 ## Commentary
 
 ### Axiomatic Operators
