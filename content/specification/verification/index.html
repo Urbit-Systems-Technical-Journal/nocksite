@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Opcode 3: Cell Check &#8212; Nock</title>
+    <title>Formal Verification &#8212; Nock</title>
   
   
   
@@ -61,13 +61,13 @@
     <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'content/specification/opcode-3';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/specification/verification';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex/" />
     <link rel="search" title="Search" href="../../../search/" />
-    <link rel="next" title="Opcode 4: Increment" href="../opcode-4/" />
-    <link rel="prev" title="Opcode 2: Evaluate" href="../opcode-2/" />
+    <link rel="next" title="Understanding Nock" href="../../understanding/" />
+    <link rel="prev" title="Nock, Deeper" href="../deep-nock/" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -155,10 +155,6 @@
   
 
   
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
-      <span class="fa-solid fa-outdent"></span>
-    </button>
-  
 </div>
 
     </header>
@@ -215,11 +211,11 @@
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../">The Specification</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 current active has-children"><a class="reference internal" href="../basic-opcodes/">Basic Opcodes</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../basic-opcodes/">Basic Opcodes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../opcode-0/">Opcode 0: Address</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../opcode-1/">Opcode 1: Constant</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../opcode-2/">Opcode 2: Evaluate</a></li>
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">Opcode 3: Cell Check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../opcode-3/">Opcode 3: Cell Check</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../opcode-4/">Opcode 4: Increment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../opcode-5/">Opcode 5: Equality Check</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../opcode-10/">Opcode 10: Edit</a></li>
@@ -237,7 +233,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../detailed-examples/">Examples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../loobeans/">Loobeans</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../deep-nock/">Deep Nock</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../verification/">Formal Verification</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Formal Verification</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../understanding/">Understanding Nock</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -336,37 +332,6 @@
 <div class="article-header-buttons">
 
 
-
-
-
-<div class="dropdown dropdown-launch-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
-    <i class="fas fa-rocket"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="https://mybinder.org/v2/gh/Urbit-Systems-Technical-Journal/nocksite/master?urlpath=tree/content/specification/opcode-3.ipynb" target="_blank"
-   class="btn btn-sm dropdown-item"
-   title="Launch on Binder"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  
-    <img alt="Binder logo" src="../../../_static/images/logo_binder.svg">
-  </span>
-<span class="btn__text-container">Binder</span>
-</a>
-</li>
-      
-  </ul>
-</div>
-
-
-
 <a href="https://github.com/Urbit-Systems-Technical-Journal/nocksite" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
@@ -393,7 +358,7 @@
       
       
       
-      <li><a href="../../../_sources/content/specification/opcode-3.ipynb" target="_blank"
+      <li><a href="../../../_sources/content/specification/verification.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -403,7 +368,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.ipynb</span>
+<span class="btn__text-container">.md</span>
 </a>
 </li>
       
@@ -456,9 +421,7 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
+
 </div></div>
       
     </div>
@@ -469,20 +432,11 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Opcode 3: Cell Check</h1>
+    <h1>Formal Verification</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax">Syntax</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -492,32 +446,14 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="opcode-3-cell-check">
-<h1>Opcode 3: Cell Check<a class="headerlink" href="#opcode-3-cell-check" title="Link to this heading">#</a></h1>
-<section id="syntax">
-<h2>Syntax<a class="headerlink" href="#syntax" title="Link to this heading">#</a></h2>
-<p>Opcode 3 implements the idiomatic <code class="docutils literal notranslate"><span class="pre">?</span></code> wut cell check operator, which tests whether a noun is a cell.</p>
-<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span><span class="o">*</span><span class="p">[</span><span class="n">a</span> <span class="mi">3</span> <span class="n">b</span><span class="p">]</span>            <span class="o">?*</span><span class="p">[</span><span class="n">a</span> <span class="n">b</span><span class="p">]</span>
-</pre></div>
-</div>
-</section>
-<section id="explanation">
-<h2>Explanation<a class="headerlink" href="#explanation" title="Link to this heading">#</a></h2>
-<p>Opcode 3 tests whether the product of formula b is a cell or an atom.  It returns 0 (yes) if it’s a cell, 1 (no) if it’s an atom.</p>
-<ol class="arabic simple">
-<li><p>Evaluate <code class="docutils literal notranslate"><span class="pre">b</span></code> against the subject to produce a noun.</p></li>
-<li><p>Test if that noun is a cell.</p></li>
-<li><p>Return 0 if cell, 1 if atom.</p></li>
-</ol>
-<p>One implication of nouns is that an easy way to tell data apart is by their structure:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>?[a b]              0
-?a                  1
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">?</span></code> wut is useful to ask whether a given noun is a cell or an atom.  (Like C’s <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">main()</span></code> return type and error codes, <code class="docutils literal notranslate"><span class="pre">0</span></code> means <code class="docutils literal notranslate"><span class="pre">TRUE</span></code> and <code class="docutils literal notranslate"><span class="pre">1</span></code> means <code class="docutils literal notranslate"><span class="pre">FALSE</span></code>.)</p>
-<p>(<a class="reference internal" href="../opcode-5/"><span class="std std-doc">Opcode 5</span></a> is closely related, as it tests whether one noun is equal to another.)</p>
-<p>Opcode 3 is used for type discrimination (by structure before pattern matching) and for validating noun data shapes.</p>
-</section>
+  <section class="tex2jax_ignore mathjax_ignore" id="formal-verification">
+<h1>Formal Verification<a class="headerlink" href="#formal-verification" title="Link to this heading">#</a></h1>
+<p>Formal verification describes the process of proving the correctness of a system with respect to a formal specification using mathematical methods.  In the context of Nock, this involves demonstrating that the Nock opcodes and evaluation rules behave as intended under all possible inputs.</p>
+<p>Several formal verifications of Nock have been conducted:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/runtimeverification/knock">KNock in K Framework</a>, an evaluation model for correctness.</p></li>
+<li><p><a class="reference external" href="https://github.com/nockchain/pure-nock-lean">Pure Nock in Lean</a>, the Nockchain zkVM formalization.</p></li>
+</ul>
 </section>
 
     <script type="text/x-thebe-config">
@@ -551,20 +487,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../opcode-2/"
+       href="../deep-nock/"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Opcode 2: Evaluate</p>
+        <p class="prev-next-title">Nock, Deeper</p>
       </div>
     </a>
     <a class="right-next"
-       href="../opcode-4/"
+       href="../../understanding/"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Opcode 4: Increment</p>
+        <p class="prev-next-title">Understanding Nock</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -574,24 +510,6 @@
             </div>
             
             
-              
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item"><div
-    id="pst-page-navigation-heading-2"
-    class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax">Syntax</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>
