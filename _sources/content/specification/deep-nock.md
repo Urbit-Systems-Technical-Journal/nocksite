@@ -23,6 +23,14 @@ Nock bears these characteristics:
 
 * Solid-state. A Nock interpreter is a solid-state machine, meaning that it operates from a state to a new state strictly according to inputs as a pure lifecycle function. The Nock interpreter must commit the results of a successful computation as the new state before subsequent computations, or events, can be evaluated. Transient evaluations (uncompleted events) and crashes (invalid evaluations) may be lost without consequence, and the Nock interpreter layer persists the underlying state of the machine.
 
+## The Subject
+
+We described the Nock subject briefly as a "data environment", but that's a bit misleading in the classic programming language sense.  (It's a great starting metaphor, though, and helps build an initial intuition for how Nock evaluation works.)
+
+Because names in programming languages like Hoon and Jock are resolved at compile time, the runtime subject does not need to carry the same kind of name-based environment that traditional programming languages do.  Names are resolved during compilation, and the subject at runtime primarily serves as a positional context for evaluating formulas.
+
+On the other hand, a Hoon program (which is what almost all Nock programs are today) does compile via references to its own names, and it's really `*[subject formula]` which means that a Hoon subject is effectively an environment in the runtime sense, resolved by position at compile time with values read from it at runtime.  Subjects also tend to be non-erasing (e.g. you can "skip" matches of a name in Hoon to go back to shadowed names).
+
 ## References
 
 * [~lacnes (2025) “Metacircular Virtualization & Practical Nock Interpretation”, *Urbit Systems Technical Journal 2*: 1.](https://urbitsystems.tech/article/v02-i01/metacircular-virtualization-and-practical-nock-interpretation)

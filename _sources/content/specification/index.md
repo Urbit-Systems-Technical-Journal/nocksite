@@ -4,7 +4,7 @@ Nock consists of only twelve opcodes based on a few axiomatic operators for addr
 
 Before examining the specification, let's briefly cover a couple of core principles of Nock evaluation.  Nock is a pure function from noun to noun. The evaluation function `*` takes a pair (or “cell”) `[subject formula]` and produces a product.  That is,
 
-* Subject:  the data environment (analogous to scope or context).
+* Subject:  the data environment (analogous to scope or context).  (But see [Deep Nock](./deep-nock.md) for subtleties.)
 * Formula:  the code to execute (always a cell with an opcode head).
 * Product:  the result of evaluation.
 

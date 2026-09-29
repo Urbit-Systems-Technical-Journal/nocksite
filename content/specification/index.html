@@ -479,7 +479,7 @@
 <p>Nock consists of only twelve opcodes based on a few axiomatic operators for addressing and equality, etc.  The quip is that it’s small enough to fit on a T-shirt—and you can find such T-shirts in circulation!  This situates it in complexity somewhere higher than a lambda calculus or SKI combinator and somewhere lower than an assembly language.</p>
 <p>Before examining the specification, let’s briefly cover a couple of core principles of Nock evaluation.  Nock is a pure function from noun to noun. The evaluation function <code class="docutils literal notranslate"><span class="pre">*</span></code> takes a pair (or “cell”) <code class="docutils literal notranslate"><span class="pre">[subject</span> <span class="pre">formula]</span></code> and produces a product.  That is,</p>
 <ul class="simple">
-<li><p>Subject:  the data environment (analogous to scope or context).</p></li>
+<li><p>Subject:  the data environment (analogous to scope or context).  (But see <a class="reference internal" href="deep-nock/"><span class="std std-doc">Deep Nock</span></a> for subtleties.)</p></li>
 <li><p>Formula:  the code to execute (always a cell with an opcode head).</p></li>
 <li><p>Product:  the result of evaluation.</p></li>
 </ul>
