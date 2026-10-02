@@ -114,7 +114,6 @@ exclude_patterns:
   - .DS_Store
   - "**.ipynb_checkpoints"
   - site/**
-  - content/examples/combinators.ipynb
 
 # Include CNAME in build
 only_build_toc_files: false
