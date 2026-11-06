@@ -36,6 +36,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/nockmark.css?v=f6e6dd7d" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=33ce3951" />
   
@@ -827,17 +828,8 @@
 </section>
 <section id="id10">
 <h3>Examples<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
-<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span><span class="c1">:: Simple: constant subject, constant formula</span>
-<span class="o">*</span><span class="p">[</span><span class="mi">42</span> <span class="mi">2</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">100</span><span class="p">]</span> <span class="p">[</span><span class="mi">1</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]]]</span>
-  <span class="o">→</span> <span class="o">*</span><span class="p">[</span><span class="mi">100</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]]</span>           <span class="c1">:: Compute *[100 0 1]</span>
-  <span class="o">→</span> <span class="mi">100</span>                     <span class="c1">:: Returns the subject</span>
-
-<span class="c1">:: Dynamic formula selection</span>
-<span class="o">*</span><span class="p">[[</span><span class="mi">5</span> <span class="p">[</span><span class="mi">4</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]]</span> <span class="mi">2</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">2</span><span class="p">]</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">3</span><span class="p">]]</span>
-  <span class="o">→</span> <span class="o">*</span><span class="p">[</span><span class="mi">5</span> <span class="p">[</span><span class="mi">4</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]]</span>           <span class="c1">:: New subject is 5, formula is [4 0 1]</span>
-  <span class="o">→</span> <span class="mi">6</span>                       <span class="c1">:: Increment 5</span>
-</pre></div>
-</div>
+<div class="nockmark-figure docutils container">
+<div class="nockmark-wrap highlight"><div class="nockmark"><div class="nm-heading">Constant subject, constant formula</div><div class="nm-line"><code class="nm-code"><span class="o">*</span><span class="p">[</span><span class="mi">42</span> <span class="mi">2</span> <span class="nm-box" data-nm="s"><span class="p">[</span><span class="mi">1</span> <span class="mi">100</span><span class="p">]</span></span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">new subject: the constant 100 (the old subject 42 is dropped)</div><div class="nm-line"><code class="nm-code">       <span class="nm-box nm-bol" data-nm="f"><span class="p">[</span><span class="mi">1</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]</span><span class="p">]</span></span><span class="p">]</span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">new formula: the constant <code>[0 1]</code>; <code>*[100 0 1]</code> is 100</div><div class="nm-rule"></div><div class="nm-heading">Subject and formula both read from the subject</div><div class="nm-line"><code class="nm-code"><span class="o">*</span><span class="p">[</span><span class="p">[</span><span class="mi">5</span> <span class="p">[</span><span class="mi">4</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]</span><span class="p">]</span> <span class="mi">2</span> <span class="nm-box" data-nm="s2"><span class="p">[</span><span class="mi">0</span> <span class="mi">2</span><span class="p">]</span></span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">new subject: address 2 of <code>[5 [4 0 1]]</code>, which is 5</div><div class="nm-line"><code class="nm-code">                <span class="nm-box nm-bol" data-nm="f2"><span class="p">[</span><span class="mi">0</span> <span class="mi">3</span><span class="p">]</span></span><span class="p">]</span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">new formula: address 3, <code>[4 0 1]</code>; <code>*[5 4 0 1]</code> is 6</div></div></div></div>
 </section>
 <section id="id11">
 <h3>Common Patterns<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
@@ -848,7 +840,7 @@
 <li><p>Implementing higher-order patterns</p></li>
 </ul>
 <div class="highlight-nock notranslate"><div class="highlight"><pre><span></span><span class="c1">:: Pattern: Apply a stored formula to data</span>
-<span class="o">*</span><span class="p">[[</span><span class="n">formula</span> <span class="n">data</span><span class="p">]</span> <span class="mi">2</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">3</span><span class="p">]</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">2</span><span class="p">]]</span>  <span class="c1">:: Apply formula at +3 to data at +2</span>
+<span class="o">*</span><span class="p">[[</span><span class="n">formula</span> <span class="n">data</span><span class="p">]</span> <span class="mi">2</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">3</span><span class="p">]</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">2</span><span class="p">]]</span>  <span class="c1">:: Run the formula at +2 on the data at +3</span>
 </pre></div>
 </div>
 </section>
@@ -1078,7 +1070,7 @@
 <div class="highlight-nock notranslate"><div class="highlight"><pre><span></span><span class="c1">:: If 0 (true), return 10; else return 20</span>
 <span class="o">*</span><span class="p">[</span><span class="mi">0</span> <span class="mi">6</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">10</span><span class="p">]</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">20</span><span class="p">]]</span>  <span class="o">→</span> <span class="mi">10</span>
 
-<span class="c1">:: If 1 (false), return 10; else return 20</span>
+<span class="c1">:: Same test, subject 1 (false): the else branch runs</span>
 <span class="o">*</span><span class="p">[</span><span class="mi">1</span> <span class="mi">6</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">10</span><span class="p">]</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">20</span><span class="p">]]</span>  <span class="o">→</span> <span class="mi">20</span>
 
 <span class="c1">:: Conditional on cell test</span>
@@ -1096,19 +1088,16 @@
 <span class="o">*</span><span class="p">[</span><span class="n">subject</span> <span class="p">[</span><span class="mi">6</span> <span class="p">[</span><span class="mi">3</span> <span class="p">[</span><span class="mi">0</span> <span class="n">n</span><span class="p">]]</span> <span class="n">formula-cell</span> <span class="n">formula-atom</span><span class="p">]]</span>
 
 <span class="c1">:: Pattern: Guard against zero (for decrement)</span>
-<span class="o">*</span><span class="p">[</span><span class="n">n</span> <span class="p">[</span><span class="mi">6</span> <span class="p">[</span><span class="mi">5</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span><span class="p">]]</span> <span class="p">[</span><span class="mi">1</span> <span class="n">crash</span><span class="p">]</span> <span class="p">[</span><span class="n">decrement-formula</span><span class="p">]]]</span>
+<span class="o">*</span><span class="p">[</span><span class="n">n</span> <span class="p">[</span><span class="mi">6</span> <span class="p">[</span><span class="mi">5</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span><span class="p">]]</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">]</span> <span class="p">[</span><span class="n">decrement-formula</span><span class="p">]]]</span>  <span class="c1">:: [0 0] crashes</span>
 </pre></div>
 </div>
 </section>
 <section id="why-the-complex-macro">
 <h3>Why the Complex Macro?<a class="headerlink" href="#why-the-complex-macro" title="Link to this heading">#</a></h3>
-<p>The macro <code class="docutils literal notranslate"><span class="pre">*[a</span> <span class="pre">*[[c</span> <span class="pre">d]</span> <span class="pre">0</span> <span class="pre">*[[2</span> <span class="pre">3]</span> <span class="pre">0</span> <span class="pre">*[a</span> <span class="pre">4</span> <span class="pre">4</span> <span class="pre">b]]]]</span></code> works by:</p>
-<ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">*[a</span> <span class="pre">4</span> <span class="pre">4</span> <span class="pre">b]</span></code> → evaluates b, then adds 2 (so 0→2, 1→3)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">*[[2</span> <span class="pre">3]</span> <span class="pre">0</span> <span class="pre">...]</span></code> → uses result as address into <code class="docutils literal notranslate"><span class="pre">[2</span> <span class="pre">3]</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">*[[c</span> <span class="pre">d]</span> <span class="pre">0</span> <span class="pre">...]</span></code> → uses 2 or 3 as address into <code class="docutils literal notranslate"><span class="pre">[c</span> <span class="pre">d]</span></code></p></li>
-</ol>
-<p>This cleverly selects <code class="docutils literal notranslate"><span class="pre">c</span></code> (at address 2) for true, <code class="docutils literal notranslate"><span class="pre">d</span></code> (at address 3) for false.</p>
+<p>The macro is read from the inside out:</p>
+<div class="nockmark-figure docutils container">
+<div class="nockmark-wrap highlight"><div class="nockmark"><div class="nm-line"><code class="nm-code"><span class="o">*</span><span class="p">[</span><span class="n">a</span> <span class="o">*</span><span class="p">[</span><span class="nm-box" data-nm="cd"><span class="p">[</span><span class="n">c</span> <span class="n">d</span><span class="p">]</span></span> <span class="mi">0</span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">3. address 2 or 3 of <code>[c d]</code> is the formula <em>c</em> or <em>d</em>: run it on <em>a</em></div><div class="nm-line"><code class="nm-code">      <span class="o">*</span><span class="p">[</span><span class="nm-box" data-nm="tt"><span class="p">[</span><span class="mi">2</span> <span class="mi">3</span><span class="p">]</span></span> <span class="mi">0</span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">2. address 2 or 3 of <code>[2 3]</code> is 2 or 3 again; anything else crashes</div><div class="nm-line"><code class="nm-code">        <span class="nm-box nm-bol" data-nm="t"><span class="o">*</span><span class="p">[</span><span class="n">a</span> <span class="mi">4</span> <span class="mi">4</span> <span class="n">b</span><span class="p">]</span></span><span class="p">]</span><span class="p">]</span><span class="p">]</span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">1. run <em>b</em> on <em>a</em> and add 2: yes (0) becomes 2, no (1) becomes 3</div></div></div></div>
+<p>Step 2 changes nothing for a boolean; it is there to crash on any other test result.  This cleverly selects <code class="docutils literal notranslate"><span class="pre">c</span></code> (at address 2) for true, <code class="docutils literal notranslate"><span class="pre">d</span></code> (at address 3) for false.</p>
 </section>
 <section id="id36">
 <h3>LLM Implementation Notes<a class="headerlink" href="#id36" title="Link to this heading">#</a></h3>
@@ -1294,34 +1283,14 @@
 </section>
 <section id="id52">
 <h3>Examples<a class="headerlink" href="#id52" title="Link to this heading">#</a></h3>
-<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span><span class="c1">:: Simple: core with one arm that returns payload</span>
-<span class="o">*</span><span class="p">[</span><span class="mi">42</span> <span class="mi">9</span> <span class="mi">2</span> <span class="p">[</span><span class="mi">1</span> <span class="p">[[</span><span class="mi">0</span> <span class="mi">3</span><span class="p">]</span> <span class="mi">100</span><span class="p">]]]</span>
-  <span class="c1">:: Core is [[0 3] 100] (battery=[0 3], payload=100)</span>
-  <span class="c1">:: Arm at +2 is [0 3], which gets the payload</span>
-  <span class="o">→</span> <span class="mi">100</span>
-
-<span class="c1">:: Increment arm</span>
-<span class="o">*</span><span class="p">[</span><span class="mi">5</span> <span class="mi">9</span> <span class="mi">2</span> <span class="p">[</span><span class="mi">1</span> <span class="p">[[</span><span class="mi">4</span> <span class="mi">0</span> <span class="mi">3</span><span class="p">]</span> <span class="mi">5</span><span class="p">]]]</span>
-  <span class="c1">:: Core is [[4 0 3] 5]</span>
-  <span class="c1">:: Arm [4 0 3] increments slot 3 (the payload)</span>
-  <span class="o">→</span> <span class="mi">6</span>
-
-<span class="c1">:: Multi-arm core</span>
-<span class="o">*</span><span class="p">[</span><span class="mi">10</span> <span class="mi">9</span> <span class="mi">4</span> <span class="p">[</span><span class="mi">1</span> <span class="p">[[[</span><span class="mi">0</span> <span class="mi">3</span><span class="p">]</span> <span class="p">[</span><span class="mi">4</span> <span class="mi">0</span> <span class="mi">3</span><span class="p">]]</span> <span class="mi">10</span><span class="p">]]]</span>
-  <span class="c1">:: Battery has two arms: [[0 3] [4 0 3]]</span>
-  <span class="c1">:: Arm at +4 (head of head of battery... wait, +4 is head of battery head)</span>
-  <span class="c1">:: Actually: +2 = battery, +4 = head of battery = [0 3]</span>
-  <span class="o">→</span> <span class="mi">10</span>
-</pre></div>
-</div>
+<div class="nockmark-figure docutils container">
+<div class="nockmark-wrap highlight"><div class="nockmark"><div class="nm-heading">A core with one arm that returns its payload</div><div class="nm-line"><code class="nm-code"><span class="o">*</span><span class="p">[</span><span class="mi">42</span> <span class="mi">9</span> <span class="nm-box" data-nm="a1"><span class="mi">2</span></span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">run arm 2 of the core, <code>[0 3]</code>, on the core: the payload, 100</div><div class="nm-line"><code class="nm-code">       <span class="nm-box nm-bol" data-nm="c1"><span class="p">[</span><span class="mi">1</span> <span class="p">[</span><span class="p">[</span><span class="mi">0</span> <span class="mi">3</span><span class="p">]</span> <span class="mi">100</span><span class="p">]</span><span class="p">]</span></span><span class="p">]</span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">the core <code>[[0 3] 100]</code>, a constant: the subject 42 is unused</div><div class="nm-rule"></div><div class="nm-heading">An arm that increments the payload</div><div class="nm-line"><code class="nm-code"><span class="o">*</span><span class="p">[</span><span class="mi">5</span> <span class="mi">9</span> <span class="nm-box" data-nm="a2"><span class="mi">2</span></span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">run arm 2, <code>[4 0 3]</code>, on the core: the payload plus 1, 6</div><div class="nm-line"><code class="nm-code">      <span class="nm-box nm-bol" data-nm="c2"><span class="p">[</span><span class="mi">1</span> <span class="p">[</span><span class="p">[</span><span class="mi">4</span> <span class="mi">0</span> <span class="mi">3</span><span class="p">]</span> <span class="mi">5</span><span class="p">]</span><span class="p">]</span></span><span class="p">]</span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">the core <code>[[4 0 3] 5]</code>: battery <code>[4 0 3]</code>, payload 5 at address 3</div><div class="nm-rule"></div><div class="nm-heading">A battery with two arms</div><div class="nm-line"><code class="nm-code"><span class="o">*</span><span class="p">[</span><span class="mi">10</span> <span class="mi">9</span> <span class="nm-box" data-nm="a3"><span class="mi">4</span></span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">run the arm at address 4, <code>[0 3]</code>, on the core: the payload, 10</div><div class="nm-line"><code class="nm-code">       <span class="p">[</span><span class="mi">1</span> <span class="p">[</span><span class="p">[</span><span class="nm-box" data-nm="h"><span class="p">[</span><span class="mi">0</span> <span class="mi">3</span><span class="p">]</span></span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">address 4: the head of the battery (the battery is address 2)</div><div class="nm-line"><code class="nm-code">            <span class="nm-box nm-bol" data-nm="t"><span class="p">[</span><span class="mi">4</span> <span class="mi">0</span> <span class="mi">3</span><span class="p">]</span></span><span class="p">]</span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">address 5: the tail of the battery; <code>9 5</code> would give 11</div><div class="nm-line"><code class="nm-code">           <span class="mi">10</span><span class="p">]</span><span class="p">]</span><span class="p">]</span></code></div><div class="nm-note"></div></div></div></div>
 </section>
 <section id="common-pattern-the-gate-call">
 <h3>Common Pattern: The Gate Call<a class="headerlink" href="#common-pattern-the-gate-call" title="Link to this heading">#</a></h3>
 <p>A <strong>gate</strong> is a core with a specific structure for function calls:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">formula</span> <span class="p">[</span><span class="n">sample</span> <span class="n">context</span><span class="p">]]</span>
-   <span class="o">+</span><span class="mi">2</span>       <span class="o">+</span><span class="mi">6</span>     <span class="o">+</span><span class="mi">7</span>
-</pre></div>
-</div>
+<div class="nockmark-figure docutils container">
+<div class="nockmark-wrap highlight"><div class="nockmark"><div class="nm-line"><code class="nm-code"><span class="p">[</span><span class="nm-box" data-nm="f"><var class="nm-meta">formula</var></span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">address 2: the arm, the gate&#x27;s only formula (its battery)</div><div class="nm-line"><code class="nm-code"> <span class="p">[</span><span class="nm-box" data-nm="s"><var class="nm-meta">sample</var></span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">address 6: the argument, replaced before each call</div><div class="nm-line"><code class="nm-code">  <span class="nm-box nm-bol" data-nm="x"><var class="nm-meta">context</var></span><span class="p">]</span><span class="p">]</span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">address 7: the environment the gate was built in</div></div></div></div>
 <p>Calling a gate:</p>
 <div class="highlight-nock notranslate"><div class="highlight"><pre><span></span><span class="o">*</span><span class="p">[</span><span class="n">gate-core</span> <span class="mi">9</span> <span class="mi">2</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]]</span>  <span class="c1">:: Invoke arm at +2 with core as subject</span>
 </pre></div>
@@ -1367,17 +1336,13 @@
 </section>
 <section id="id57">
 <h3>Examples<a class="headerlink" href="#id57" title="Link to this heading">#</a></h3>
-<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span><span class="c1">:: Replace head of [1 2]</span>
-<span class="o">*</span><span class="p">[[[</span><span class="mi">1</span> <span class="mi">2</span><span class="p">]</span> <span class="mi">99</span><span class="p">]</span> <span class="mi">10</span> <span class="p">[</span><span class="mi">2</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">3</span><span class="p">]]</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">2</span><span class="p">]]</span>  <span class="o">→</span> <span class="p">[</span><span class="mi">99</span> <span class="mi">2</span><span class="p">]</span>
-  <span class="c1">:: b=2, c=[0 3] produces 99, d=[0 2] produces [1 2]</span>
-  <span class="c1">:: Replace address 2 of [1 2] with 99</span>
-
-<span class="c1">:: Replace tail</span>
+<div class="nockmark-figure docutils container">
+<div class="nockmark-wrap highlight"><div class="nockmark"><div class="nm-heading">Replace the head of <code>[1 2]</code></div><div class="nm-line"><code class="nm-code"><span class="o">*</span><span class="p">[</span><span class="p">[</span><span class="p">[</span><span class="mi">1</span> <span class="mi">2</span><span class="p">]</span> <span class="mi">99</span><span class="p">]</span> <span class="mi">10</span> <span class="p">[</span><span class="nm-box" data-nm="b"><span class="mi">2</span></span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note"><em>b</em>: the address to replace, 2</div><div class="nm-line"><code class="nm-code">                 <span class="nm-box nm-bol" data-nm="c"><span class="p">[</span><span class="mi">0</span> <span class="mi">3</span><span class="p">]</span></span><span class="p">]</span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note"><em>c</em>: the new value, address 3 of the subject: 99</div><div class="nm-line"><code class="nm-code">                <span class="nm-box nm-bol" data-nm="d"><span class="p">[</span><span class="mi">0</span> <span class="mi">2</span><span class="p">]</span></span><span class="p">]</span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note"><em>d</em>: the target, address 2 of the subject, <code>[1 2]</code>: result <code>[99 2]</code></div></div></div></div>
+<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span><span class="c1">:: Replace tail</span>
 <span class="o">*</span><span class="p">[[[</span><span class="mi">1</span> <span class="mi">2</span><span class="p">]</span> <span class="mi">99</span><span class="p">]</span> <span class="mi">10</span> <span class="p">[</span><span class="mi">3</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">3</span><span class="p">]]</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">2</span><span class="p">]]</span>  <span class="o">→</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">99</span><span class="p">]</span>
 
-<span class="c1">:: Replace deeply nested</span>
-<span class="o">*</span><span class="p">[[[[</span><span class="mi">1</span> <span class="mi">2</span><span class="p">]</span> <span class="mi">3</span><span class="p">]</span> <span class="mi">99</span><span class="p">]</span> <span class="mi">10</span> <span class="p">[</span><span class="mi">4</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">3</span><span class="p">]]</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">2</span><span class="p">]]</span>  <span class="o">→</span> <span class="p">[[[</span><span class="mi">99</span> <span class="mi">2</span><span class="p">]</span> <span class="mi">3</span><span class="p">]]</span>
-  <span class="c1">:: Address 4 is head of head</span>
+<span class="c1">:: Replace deeply nested: address 4 of [[1 2] 3] is the 1</span>
+<span class="o">*</span><span class="p">[[[[</span><span class="mi">1</span> <span class="mi">2</span><span class="p">]</span> <span class="mi">3</span><span class="p">]</span> <span class="mi">99</span><span class="p">]</span> <span class="mi">10</span> <span class="p">[</span><span class="mi">4</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">3</span><span class="p">]]</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">2</span><span class="p">]]</span>  <span class="o">→</span> <span class="p">[[</span><span class="mi">99</span> <span class="mi">2</span><span class="p">]</span> <span class="mi">3</span><span class="p">]</span>
 </pre></div>
 </div>
 </section>
@@ -1499,11 +1464,8 @@
 <section id="why-dynamic-hints-evaluate-the-clue">
 <h3>Why Dynamic Hints Evaluate the Clue<a class="headerlink" href="#why-dynamic-hints-evaluate-the-clue" title="Link to this heading">#</a></h3>
 <p>The clue formula might crash! A correct Nock interpreter cannot skip it:</p>
-<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span><span class="o">*</span><span class="p">[</span><span class="mi">0</span> <span class="mi">11</span> <span class="p">[</span><span class="mi">1234</span> <span class="p">[</span><span class="mi">4</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]]</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">99</span><span class="p">]]</span>
-<span class="c1">:: Must attempt to evaluate [4 0 1] against 0 (crashes)</span>
-<span class="c1">:: Even though the final result would be 99</span>
-</pre></div>
-</div>
+<div class="nockmark-figure docutils container">
+<div class="nockmark-wrap highlight"><div class="nockmark"><div class="nm-line"><code class="nm-code"><span class="o">*</span><span class="p">[</span><span class="mi">0</span> <span class="mi">11</span> <span class="p">[</span><span class="mi">1234</span> <span class="nm-box" data-nm="clue"><span class="p">[</span><span class="mi">0</span> <span class="mi">2</span><span class="p">]</span></span><span class="p">]</span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">the clue: the atom 0 has no address 2, so this crashes</div><div class="nm-line"><code class="nm-code">       <span class="nm-box nm-bol" data-nm="f"><span class="p">[</span><span class="mi">1</span> <span class="mi">99</span><span class="p">]</span></span><span class="p">]</span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">the result would be 99, but the clue is run first</div></div></div></div>
 </section>
 <section id="id63">
 <h3>LLM Implementation Notes<a class="headerlink" href="#id63" title="Link to this heading">#</a></h3>
@@ -1576,27 +1538,17 @@
 <h2>Opcode Composition Patterns<a class="headerlink" href="#opcode-composition-patterns" title="Link to this heading">#</a></h2>
 <section id="pattern-function-application">
 <h3>Pattern: Function Application<a class="headerlink" href="#pattern-function-application" title="Link to this heading">#</a></h3>
-<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span><span class="c1">:: Apply gate to argument</span>
-<span class="p">[</span><span class="mi">9</span> <span class="mi">2</span> <span class="p">[</span><span class="mi">10</span> <span class="p">[</span><span class="mi">6</span> <span class="p">[</span><span class="mi">1</span> <span class="n">arg</span><span class="p">]]</span> <span class="p">[</span><span class="mi">0</span> <span class="n">gate-slot</span><span class="p">]]]</span>
-</pre></div>
-</div>
-<ol class="arabic simple">
-<li><p>Get gate from subject</p></li>
-<li><p>Replace sample (slot 6) with argument</p></li>
-<li><p>Invoke arm at slot 2</p></li>
-</ol>
+<p>Apply a gate to an argument (read from the bottom up):</p>
+<div class="nockmark-figure docutils container">
+<div class="nockmark-wrap highlight"><div class="nockmark"><div class="nm-line"><code class="nm-code"><span class="p">[</span><span class="mi">9</span> <span class="nm-box" data-nm="arm"><span class="mi">2</span></span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">3. run arm 2 of the edited gate, with the gate as subject</div><div class="nm-line"><code class="nm-code">   <span class="p">[</span><span class="mi">10</span> <span class="p">[</span><span class="nm-box" data-nm="smp"><span class="mi">6</span></span> <span class="p">[</span><span class="mi">1</span> <var class="nm-meta">arg</var><span class="p">]</span><span class="p">]</span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">2. replace the sample (address 6) with the constant <em>arg</em></div><div class="nm-line"><code class="nm-code">       <span class="nm-box nm-bol" data-nm="g"><span class="p">[</span><span class="mi">0</span> <var class="nm-meta">gate-slot</var><span class="p">]</span></span><span class="p">]</span><span class="p">]</span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">1. fetch the gate from the subject</div></div></div></div>
+<p>For example, with the gate <code class="docutils literal notranslate"><span class="pre">[[4</span> <span class="pre">0</span> <span class="pre">6]</span> <span class="pre">0</span> <span class="pre">0]</span></code> at address 2 of the subject <code class="docutils literal notranslate"><span class="pre">[[[4</span> <span class="pre">0</span> <span class="pre">6]</span> <span class="pre">0</span> <span class="pre">0]</span> <span class="pre">7]</span></code> and <em>arg</em> = 41, this returns 42.</p>
 </section>
 <section id="pattern-loop-recursion">
 <h3>Pattern: Loop/Recursion<a class="headerlink" href="#pattern-loop-recursion" title="Link to this heading">#</a></h3>
-<div class="highlight-nock notranslate"><div class="highlight"><pre><span></span><span class="c1">:: Build core with loop body, invoke</span>
-<span class="p">[</span><span class="mi">8</span> <span class="p">[</span><span class="mi">1</span> <span class="n">loop-body</span><span class="p">]</span> <span class="p">[</span><span class="mi">9</span> <span class="mi">2</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]]]</span>
-</pre></div>
-</div>
-<ol class="arabic simple">
-<li><p>Pin loop body to subject (creates core)</p></li>
-<li><p>Invoke the body with core as subject</p></li>
-<li><p>Body can recurse via <code class="docutils literal notranslate"><span class="pre">[9</span> <span class="pre">2</span> <span class="pre">[0</span> <span class="pre">1]]</span></code></p></li>
-</ol>
+<p>Build a core around a loop body and invoke it:</p>
+<div class="nockmark-figure docutils container">
+<div class="nockmark-wrap highlight"><div class="nockmark"><div class="nm-line"><code class="nm-code"><span class="p">[</span><span class="mi">8</span> <span class="nm-box" data-nm="b"><span class="p">[</span><span class="mi">1</span> <var class="nm-meta">loop-body</var><span class="p">]</span></span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">1. pin the body as a constant: the subject is the core <code>[loop-body S]</code></div><div class="nm-line"><code class="nm-code">   <span class="nm-box nm-bol" data-nm="go"><span class="p">[</span><span class="mi">9</span> <span class="mi">2</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]</span><span class="p">]</span></span><span class="p">]</span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">2. run arm 2, the body, with the core as subject</div></div></div></div>
+<p>Inside the body the core is the subject, so the body can recurse with <code class="docutils literal notranslate"><span class="pre">[9</span> <span class="pre">2</span> <span class="pre">[0</span> <span class="pre">1]]</span></code>.</p>
 </section>
 <section id="pattern-let-binding">
 <h3>Pattern: Let Binding<a class="headerlink" href="#pattern-let-binding" title="Link to this heading">#</a></h3>

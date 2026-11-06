@@ -170,16 +170,18 @@ The "eval" of Nock. Compute a new subject from formula `b`, compute a new formul
 
 ### Examples
 
-```nock
-:: Simple: constant subject, constant formula
-*[42 2 [1 100] [1 [0 1]]]
-  → *[100 [0 1]]           :: Compute *[100 0 1]
-  → 100                     :: Returns the subject
-
-:: Dynamic formula selection
-*[[5 [4 0 1]] 2 [0 2] [0 3]]
-  → *[5 [4 0 1]]           :: New subject is 5, formula is [4 0 1]
-  → 6                       :: Increment 5
+```{nockmark}
+%% heading Constant subject, constant formula
+*[42 2 {{[1 100]|s}}
+%% note s new subject: the constant 100 (the old subject 42 is dropped)
+       {{[1 [0 1]]|f}}]
+%% note f new formula: the constant `[0 1]`; `*[100 0 1]` is 100
+%% rule
+%% heading Subject and formula both read from the subject
+*[[5 [4 0 1]] 2 {{[0 2]|s2}}
+%% note s2 new subject: address 2 of `[5 [4 0 1]]`, which is 5
+                {{[0 3]|f2}}]
+%% note f2 new formula: address 3, `[4 0 1]`; `*[5 4 0 1]` is 6
 ```
 
 ### Common Patterns
@@ -191,7 +193,7 @@ Opcode 2 is the foundation for:
 
 ```nock
 :: Pattern: Apply a stored formula to data
-*[[formula data] 2 [0 3] [0 2]]  :: Apply formula at +3 to data at +2
+*[[formula data] 2 [0 3] [0 2]]  :: Run the formula at +2 on the data at +3
 ```
 
 ### LLM Implementation Notes
@@ -391,7 +393,7 @@ The conditional branch. Evaluate test formula `b`; if true (0), evaluate and ret
 :: If 0 (true), return 10; else return 20
 *[0 6 [0 1] [1 10] [1 20]]  → 10
 
-:: If 1 (false), return 10; else return 20
+:: Same test, subject 1 (false): the else branch runs
 *[1 6 [0 1] [1 10] [1 20]]  → 20
 
 :: Conditional on cell test
@@ -409,17 +411,23 @@ The conditional branch. Evaluate test formula `b`; if true (0), evaluate and ret
 *[subject [6 [3 [0 n]] formula-cell formula-atom]]
 
 :: Pattern: Guard against zero (for decrement)
-*[n [6 [5 [0 1] [1 0]] [1 crash] [decrement-formula]]]
+*[n [6 [5 [0 1] [1 0]] [0 0] [decrement-formula]]]  :: [0 0] crashes
 ```
 
 ### Why the Complex Macro?
 
-The macro `*[a *[[c d] 0 *[[2 3] 0 *[a 4 4 b]]]]` works by:
-1. `*[a 4 4 b]` → evaluates b, then adds 2 (so 0→2, 1→3)
-2. `*[[2 3] 0 ...]` → uses result as address into `[2 3]`
-3. `*[[c d] 0 ...]` → uses 2 or 3 as address into `[c d]`
+The macro is read from the inside out:
 
-This cleverly selects `c` (at address 2) for true, `d` (at address 3) for false.
+```{nockmark}
+*[a *[{{[c d]|cd}} 0
+%% note cd 3. address 2 or 3 of `[c d]` is the formula *c* or *d*: run it on *a*
+      *[{{[2 3]|tt}} 0
+%% note tt 2. address 2 or 3 of `[2 3]` is 2 or 3 again; anything else crashes
+        {{*[a 4 4 b]|t}}]]]
+%% note t 1. run *b* on *a* and add 2: yes (0) becomes 2, no (1) becomes 3
+```
+
+Step 2 changes nothing for a boolean; it is there to crash on any other test result.  This cleverly selects `c` (at address 2) for true, `d` (at address 3) for false.
 
 ### LLM Implementation Notes
 - The test MUST produce exactly 0 or 1
@@ -578,34 +586,40 @@ Opcode 9 is how you "call" a core's arm.
 
 ### Examples
 
-```nock
-:: Simple: core with one arm that returns payload
-*[42 9 2 [1 [[0 3] 100]]]
-  :: Core is [[0 3] 100] (battery=[0 3], payload=100)
-  :: Arm at +2 is [0 3], which gets the payload
-  → 100
-
-:: Increment arm
-*[5 9 2 [1 [[4 0 3] 5]]]
-  :: Core is [[4 0 3] 5]
-  :: Arm [4 0 3] increments slot 3 (the payload)
-  → 6
-
-:: Multi-arm core
-*[10 9 4 [1 [[[0 3] [4 0 3]] 10]]]
-  :: Battery has two arms: [[0 3] [4 0 3]]
-  :: Arm at +4 (head of head of battery... wait, +4 is head of battery head)
-  :: Actually: +2 = battery, +4 = head of battery = [0 3]
-  → 10
+```{nockmark}
+%% heading A core with one arm that returns its payload
+*[42 9 {{2|a1}}
+%% note a1 run arm 2 of the core, `[0 3]`, on the core: the payload, 100
+       {{[1 [[0 3] 100]]|c1}}]
+%% note c1 the core `[[0 3] 100]`, a constant: the subject 42 is unused
+%% rule
+%% heading An arm that increments the payload
+*[5 9 {{2|a2}}
+%% note a2 run arm 2, `[4 0 3]`, on the core: the payload plus 1, 6
+      {{[1 [[4 0 3] 5]]|c2}}]
+%% note c2 the core `[[4 0 3] 5]`: battery `[4 0 3]`, payload 5 at address 3
+%% rule
+%% heading A battery with two arms
+*[10 9 {{4|a3}}
+%% note a3 run the arm at address 4, `[0 3]`, on the core: the payload, 10
+       [1 [[{{[0 3]|h}}
+%% note h address 4: the head of the battery (the battery is address 2)
+            {{[4 0 3]|t}}]
+%% note t address 5: the tail of the battery; `9 5` would give 11
+           10]]]
 ```
 
 ### Common Pattern: The Gate Call
 
 A **gate** is a core with a specific structure for function calls:
 
-```
-[formula [sample context]]
-   +2       +6     +7
+```{nockmark}
+[{{<formula>|f}}
+%% note f address 2: the arm, the gate's only formula (its battery)
+ [{{<sample>|s}}
+%% note s address 6: the argument, replaced before each call
+  {{<context>|x}}]]
+%% note x address 7: the environment the gate was built in
 ```
 
 Calling a gate:
@@ -646,18 +660,22 @@ Produce a modified copy of a noun by replacing the value at a specific address. 
 
 ### Examples
 
-```nock
-:: Replace head of [1 2]
-*[[[1 2] 99] 10 [2 [0 3]] [0 2]]  → [99 2]
-  :: b=2, c=[0 3] produces 99, d=[0 2] produces [1 2]
-  :: Replace address 2 of [1 2] with 99
+```{nockmark}
+%% heading Replace the head of `[1 2]`
+*[[[1 2] 99] 10 [{{2|b}}
+%% note b *b*: the address to replace, 2
+                 {{[0 3]|c}}]
+%% note c *c*: the new value, address 3 of the subject: 99
+                {{[0 2]|d}}]
+%% note d *d*: the target, address 2 of the subject, `[1 2]`: result `[99 2]`
+```
 
+```nock
 :: Replace tail
 *[[[1 2] 99] 10 [3 [0 3]] [0 2]]  → [1 99]
 
-:: Replace deeply nested
-*[[[[1 2] 3] 99] 10 [4 [0 3]] [0 2]]  → [[[99 2] 3]]
-  :: Address 4 is head of head
+:: Replace deeply nested: address 4 of [[1 2] 3] is the 1
+*[[[[1 2] 3] 99] 10 [4 [0 3]] [0 2]]  → [[99 2] 3]
 ```
 
 ### Common Patterns
@@ -753,10 +771,11 @@ When the second argument is a cell `[tag clue]`:
 ### Why Dynamic Hints Evaluate the Clue
 
 The clue formula might crash! A correct Nock interpreter cannot skip it:
-```nock
-*[0 11 [1234 [4 0 1]] [1 99]]
-:: Must attempt to evaluate [4 0 1] against 0 (crashes)
-:: Even though the final result would be 99
+```{nockmark}
+*[0 11 [1234 {{[0 2]|clue}}]
+%% note clue the clue: the atom 0 has no address 2, so this crashes
+       {{[1 99]|f}}]
+%% note f the result would be 99, but the clue is run first
 ```
 
 ### LLM Implementation Notes
@@ -819,23 +838,31 @@ When a formula's head is a cell (not an atom/opcode), Nock treats both parts as 
 
 ### Pattern: Function Application
 
-```nock
-:: Apply gate to argument
-[9 2 [10 [6 [1 arg]] [0 gate-slot]]]
+Apply a gate to an argument (read from the bottom up):
+
+```{nockmark}
+[9 {{2|arm}}
+%% note arm 3. run arm 2 of the edited gate, with the gate as subject
+   [10 [{{6|smp}} [1 <arg>]]
+%% note smp 2. replace the sample (address 6) with the constant *arg*
+       {{[0 <gate-slot>]|g}}]]
+%% note g 1. fetch the gate from the subject
 ```
-1. Get gate from subject
-2. Replace sample (slot 6) with argument
-3. Invoke arm at slot 2
+
+For example, with the gate `[[4 0 6] 0 0]` at address 2 of the subject `[[[4 0 6] 0 0] 7]` and *arg* = 41, this returns 42.
 
 ### Pattern: Loop/Recursion
 
-```nock
-:: Build core with loop body, invoke
-[8 [1 loop-body] [9 2 [0 1]]]
+Build a core around a loop body and invoke it:
+
+```{nockmark}
+[8 {{[1 <loop-body>]|b}}
+%% note b 1. pin the body as a constant: the subject is the core `[loop-body S]`
+   {{[9 2 [0 1]]|go}}]
+%% note go 2. run arm 2, the body, with the core as subject
 ```
-1. Pin loop body to subject (creates core)
-2. Invoke the body with core as subject
-3. Body can recurse via `[9 2 [0 1]]`
+
+Inside the body the core is the subject, so the body can recurse with `[9 2 [0 1]]`.
 
 ### Pattern: Let Binding
 

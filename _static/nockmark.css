@@ -1,0 +1,104 @@
+/* nockmark: annotated code fragments (the nockmark Sphinx extension).
+   Two columns: code lines, and notes aligned with them. */
+.nockmark {
+  display: grid;
+  grid-template-columns: max-content minmax(12rem, 1fr);
+  column-gap: 0;
+  row-gap: 0.15rem;
+  align-items: start;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+.nockmark-wrap {
+  overflow-x: auto;
+  padding: 0.9rem 1rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+}
+.nockmark .nm-line {
+  display: flex;
+  align-items: center;
+  min-height: 1.6rem;
+}
+.nockmark .nm-code {
+  white-space: pre;
+  font-family: var(--pst-font-family-monospace, monospace);
+  background: none;
+  border: 0;
+  padding: 0;
+  color: inherit;
+}
+.nockmark .nm-box {
+  border: 1.5px solid currentColor;
+  padding: 0.05rem 0.2rem;
+  margin: 0 0.15rem;
+  border-radius: 1px;
+}
+/* At the start of a line, pulled left by its padding and border, so its
+   text keeps the line's column. */
+.nockmark .nm-box.nm-bol { margin-left: calc(-0.2rem - 1.5px); }
+.nockmark .nm-box.nm-dashed { border-style: dashed; }
+.nockmark .nm-meta {
+  font-family: var(--pst-font-family-base, serif);
+  font-style: italic;
+}
+/* The arrow runs from the end of the line to the note column. */
+.nockmark .nm-arrow {
+  flex: 1 1 auto;
+  min-width: 2.5rem;
+  margin-left: 0.4rem;
+  height: 0;
+  border-top: 1px solid currentColor;
+  position: relative;
+}
+.nockmark .nm-arrow::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: -5px;
+  border: 4.5px solid transparent;
+  border-right: 8px solid currentColor;
+  border-left: 0;
+}
+.nockmark .nm-note {
+  font-size: 0.8rem;
+  line-height: 1.35;
+  padding: 0.35rem 0 0 0.4rem;
+}
+/* A below-note's indent is in ch of the code font, so the row is set in
+   that font and the text inside it in the body font. */
+.nockmark .nm-below {
+  grid-column: 1 / -1;
+  font-family: var(--pst-font-family-monospace, monospace);
+  margin: -0.2rem 0 0.3rem;
+}
+.nockmark .nm-below .nm-text {
+  display: inline-block;
+  font-family: var(--pst-font-family-base, sans-serif);
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+.nockmark .nm-note code,
+.nockmark .nm-below code { font-size: 0.95em; }
+.nockmark .nm-heading {
+  grid-column: 1 / -1;
+  font-style: italic;
+  font-size: 0.85rem;
+  margin: 0.2rem 0 0.4rem;
+}
+.nockmark .nm-heading:not(:first-child) { margin-top: 0.2rem; }
+.nockmark .nm-rule {
+  grid-column: 1 / -1;
+  border-top: 2px dotted var(--pst-color-border, #999);
+  margin: 0.6rem 0;
+}
+.nockmark .nm-skip { grid-column: 1 / -1; height: 0.6rem; }
+.nockmark-figure .nm-caption { font-size: 0.9rem; margin-top: -0.4rem; }
+
+/* Narrow screens: notes go under their line, without the arrow. */
+@media (max-width: 40rem) {
+  .nockmark { grid-template-columns: 1fr; }
+  .nockmark .nm-arrow { display: none; }
+  .nockmark .nm-note { padding: 0 0 0.3rem 1.5ch; }
+  .nockmark .nm-note:empty { display: none; }
+}

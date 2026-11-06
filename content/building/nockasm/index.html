@@ -36,6 +36,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/nockmark.css?v=f6e6dd7d" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=33ce3951" />
   
@@ -735,6 +736,9 @@ nockasm-kernel-install
 </div>
 </div>
 </div>
+<p>The expansion, laid out.  <code class="docutils literal notranslate"><span class="pre">#let</span></code> pushes one value, so every name already in the schema moves one level down the tree:</p>
+<div class="nockmark-figure docutils container">
+<div class="nockmark-wrap highlight"><div class="nockmark"><div class="nm-line"><code class="nm-code"><span class="p">[</span><span class="mi">8</span> <span class="nm-box" data-nm="v"><span class="p">[</span><span class="mi">4</span> <span class="mi">0</span> <span class="mi">6</span><span class="p">]</span></span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note"><code>(%inc .target)</code>: 41 + 1 is pushed as <code>.next</code>, so the subject is <code>[42 10 41 99]</code></div><div class="nm-line"><code class="nm-code">   <span class="nm-box nm-bol" data-nm="b"><span class="p">[</span><span class="mi">0</span> <span class="mi">6</span><span class="p">]</span></span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note"><code>.before</code>: axis 2 before the push, 6 after it</div><div class="nm-line"><code class="nm-code">   <span class="nm-box nm-bol" data-nm="n"><span class="p">[</span><span class="mi">0</span> <span class="mi">2</span><span class="p">]</span></span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note"><code>.next</code>: the new head</div><div class="nm-line"><code class="nm-code">   <span class="nm-box nm-bol" data-nm="a"><span class="mi">0</span> <span class="mi">15</span></span><span class="p">]</span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note"><code>.after</code>: axis 7 before the push, 15 after it</div></div></div></div>
 </section>
 <section id="match-expr-pat-body-default">
 <h2><code class="docutils literal notranslate"><span class="pre">#match</span> <span class="pre">EXPR</span> <span class="pre">{</span> <span class="pre">PAT</span> <span class="pre">=&gt;</span> <span class="pre">BODY</span> <span class="pre">...</span> <span class="pre">_</span> <span class="pre">=&gt;</span> <span class="pre">DEFAULT</span> <span class="pre">}</span></code><a class="headerlink" href="#match-expr-pat-body-default" title="Link to this heading">#</a></h2>
@@ -801,10 +805,13 @@ nockasm-kernel-install
 </div>
 </div>
 </div>
+<p>All three runs expand to the same formula, <code class="docutils literal notranslate"><span class="pre">[8</span> <span class="pre">[0</span> <span class="pre">2]</span> <span class="pre">6</span> <span class="pre">[5</span> <span class="pre">[1</span> <span class="pre">1]</span> <span class="pre">0</span> <span class="pre">2]</span> <span class="pre">[4</span> <span class="pre">0</span> <span class="pre">7]</span> <span class="pre">6</span> <span class="pre">[5</span> <span class="pre">[1</span> <span class="pre">2]</span> <span class="pre">0</span> <span class="pre">2]</span> <span class="pre">[0</span> <span class="pre">7]</span> <span class="pre">1</span> <span class="pre">0]</span></code>:</p>
+<div class="nockmark-figure docutils container">
+<div class="nockmark-wrap highlight"><div class="nockmark"><div class="nm-line"><code class="nm-code"><span class="p">[</span><span class="mi">8</span> <span class="nm-box" data-nm="s"><span class="p">[</span><span class="mi">0</span> <span class="mi">2</span><span class="p">]</span></span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">evaluate <code>.tag</code> once and push it: the scrutinee is at 2, and <code>.data</code> moves from 3 to 7</div><div class="nm-line"><code class="nm-code">   <span class="mi">6</span> <span class="nm-box" data-nm="p1"><span class="p">[</span><span class="mi">5</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">1</span><span class="p">]</span> <span class="mi">0</span> <span class="mi">2</span><span class="p">]</span></span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">pattern <code>1</code>: is the scrutinee 1?</div><div class="nm-line"><code class="nm-code">     <span class="nm-box nm-bol" data-nm="b1"><span class="p">[</span><span class="mi">4</span> <span class="mi">0</span> <span class="mi">7</span><span class="p">]</span></span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">then <code>(%inc .data)</code></div><div class="nm-line"><code class="nm-code">   <span class="mi">6</span> <span class="nm-box" data-nm="p2"><span class="p">[</span><span class="mi">5</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">2</span><span class="p">]</span> <span class="mi">0</span> <span class="mi">2</span><span class="p">]</span></span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">else, pattern <code>2</code>: is it 2?</div><div class="nm-line"><code class="nm-code">     <span class="nm-box nm-bol" data-nm="b2"><span class="p">[</span><span class="mi">0</span> <span class="mi">7</span><span class="p">]</span></span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">then <code>.data</code></div><div class="nm-line"><code class="nm-code">     <span class="nm-box nm-bol" data-nm="d"><span class="mi">1</span> <span class="mi">0</span></span><span class="p">]</span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">else the default arm, the constant 0</div></div></div></div>
 </section>
 <section id="combining-features">
 <h2>Combining features<a class="headerlink" href="#combining-features" title="Link to this heading">#</a></h2>
-<p>The macros compose freely.  Here is a small decrement-style program: given a subject <code class="docutils literal notranslate"><span class="pre">[n</span> <span class="pre">acc]</span></code>, match on <code class="docutils literal notranslate"><span class="pre">n</span></code> and either return <code class="docutils literal notranslate"><span class="pre">acc</span></code> when <code class="docutils literal notranslate"><span class="pre">n</span></code> is zero or recurse (expressed as <code class="docutils literal notranslate"><span class="pre">#let</span></code> + <code class="docutils literal notranslate"><span class="pre">#match</span></code>) incrementing <code class="docutils literal notranslate"><span class="pre">acc</span></code>.</p>
+<p>The macros compose freely.  Here <code class="docutils literal notranslate"><span class="pre">#let</span></code> binds the result of a comparison, and <code class="docutils literal notranslate"><span class="pre">#match</span></code> dispatches on it:  given a subject <code class="docutils literal notranslate"><span class="pre">[a</span> <span class="pre">b]</span></code>, return <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">+</span> <span class="pre">1</span></code> when <code class="docutils literal notranslate"><span class="pre">a</span></code> equals <code class="docutils literal notranslate"><span class="pre">b</span></code>, and <code class="docutils literal notranslate"><span class="pre">b</span></code> otherwise.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-nockasm notranslate"><div class="highlight"><pre><span></span>; Nested let + match: .a == .b (both 5), so equality is 0 (true),
@@ -826,6 +833,9 @@ nockasm-kernel-install
 </div>
 </div>
 </div>
+<p>Two pushes, so <code class="docutils literal notranslate"><span class="pre">.a</span></code> and <code class="docutils literal notranslate"><span class="pre">.b</span></code> each move down two levels:</p>
+<div class="nockmark-figure docutils container">
+<div class="nockmark-wrap highlight"><div class="nockmark"><div class="nm-line"><code class="nm-code"><span class="p">[</span><span class="mi">8</span> <span class="nm-box" data-nm="eq"><span class="p">[</span><span class="mi">5</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">2</span><span class="p">]</span> <span class="mi">0</span> <span class="mi">3</span><span class="p">]</span></span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note"><code>.eq</code> is <code>.a</code> == <code>.b</code>: the subject is <code>[eq a b]</code></div><div class="nm-line"><code class="nm-code">   <span class="mi">8</span> <span class="nm-box" data-nm="s"><span class="p">[</span><span class="mi">0</span> <span class="mi">2</span><span class="p">]</span></span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note"><code>#match</code> pushes its scrutinee: <code>[eq eq a b]</code>, so <code>.a</code> is at 14 and <code>.b</code> at 15</div><div class="nm-line"><code class="nm-code">     <span class="mi">6</span> <span class="nm-box" data-nm="p"><span class="p">[</span><span class="mi">5</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span><span class="p">]</span> <span class="mi">0</span> <span class="mi">2</span><span class="p">]</span></span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">pattern <code>0</code>, Nock&#x27;s true: were they equal?</div><div class="nm-line"><code class="nm-code">       <span class="nm-box nm-bol" data-nm="y"><span class="p">[</span><span class="mi">4</span> <span class="mi">0</span> <span class="mi">14</span><span class="p">]</span></span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">then <code>(%inc .a)</code></div><div class="nm-line"><code class="nm-code">       <span class="nm-box nm-bol" data-nm="n"><span class="mi">0</span> <span class="mi">15</span></span><span class="p">]</span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">else <code>.b</code></div></div></div></div>
 </section>
 <section id="hints-and-jets">
 <h2>Hints and jets<a class="headerlink" href="#hints-and-jets" title="Link to this heading">#</a></h2>
@@ -839,35 +849,21 @@ nockasm-kernel-install
 <div class="cell_input docutils container">
 <div class="highlight-nockasm notranslate"><div class="highlight"><pre><span></span>; %slog prints a tank, then produces its body.  Transparent: the value is the
 ; body's (1); a jet-aware runtime additionally logs the tank [priority tank].
+#subject 0
 (%hintd 'slog' [1 1 42] (%inc (%self)))
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Exception: fail: cell
-Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/nockasm_kernel/kernel.py", line 67, in do_execute
-    output = self._dispatch(code.strip())
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/nockasm_kernel/kernel.py", line 123, in _dispatch
-    return self._assemble_eval(code)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/nockasm_kernel/kernel.py", line 210, in _assemble_eval
-    result = _nock_eval(self.subject, formula)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/pinochle/nock.py", line 282, in nock
-    return nock(a, d)
-           ^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/pinochle/nock.py", line 181, in nock
-    return lus(result)
-           ^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/pinochle/nock.py", line 72, in lus
-    raise Exception("fail: cell")
-Exception: fail: cell
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>; [11 [1735355507 1 1 42] 4 0 1]
+1
 </pre></div>
 </div>
 </div>
 </div>
+<p>Its expansion is <code class="docutils literal notranslate"><span class="pre">[11</span> <span class="pre">[1735355507</span> <span class="pre">1</span> <span class="pre">1</span> <span class="pre">42]</span> <span class="pre">4</span> <span class="pre">0</span> <span class="pre">1]</span></code>:</p>
+<div class="nockmark-figure docutils container">
+<div class="nockmark-wrap highlight"><div class="nockmark"><div class="nm-line"><code class="nm-code"><span class="p">[</span><span class="mi">11</span> <span class="p">[</span><span class="nm-box" data-nm="tag"><span class="mi">1735355507</span></span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">the tag <code>&#x27;slog&#x27;</code>, as an atom: its bytes, least significant first</div><div class="nm-line"><code class="nm-code">     <span class="nm-box nm-bol" data-nm="clue"><span class="mi">1</span> <span class="mi">1</span> <span class="mi">42</span></span><span class="p">]</span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">the clue formula <code>[1 [1 42]]</code>: it produces the tank <code>[1 42]</code></div><div class="nm-line"><code class="nm-code">    <span class="nm-box nm-bol" data-nm="body"><span class="mi">4</span> <span class="mi">0</span> <span class="mi">1</span></span><span class="p">]</span></code><span class="nm-arrow" aria-hidden="true"></span></div><div class="nm-note">the body: increment the subject, 0 + 1</div></div></div></div>
 <section id="fast-jetting">
 <h3><code class="docutils literal notranslate"><span class="pre">%fast</span></code>: jetting<a class="headerlink" href="#fast-jetting" title="Link to this heading">#</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">%fast</span></code> tag conventionally registers a jet (short for “jet-accelerated code”), a native implementation which a runtime may run in place of a Nock formula.  It is written as a dynamic hint wrapping a core:</p>
