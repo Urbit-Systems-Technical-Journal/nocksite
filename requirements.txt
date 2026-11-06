@@ -3,3 +3,4 @@ ghp-import
 sphinxcontrib-mermaid
 sphinxcontrib-youtube
 nockasm[kernel]>=1.2.0
+nockmark>=0.1.0

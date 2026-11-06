@@ -54,6 +54,7 @@ sphinx:
   local_extensions:
     nock_lexer: _ext/
   extra_extensions:
+    - nockmark
     - sphinx_copybutton
     - sphinx_togglebutton
     - sphinxcontrib.mermaid
