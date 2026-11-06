@@ -36,24 +36,24 @@ The runtime is generally responsible to queue `cause`s and call `+poke` serially
 
 The simplest possible kernel is one that does nothing; we will write one that simply returns its state unchanged for `+load` and `+poke`, crashes on `+wish`, and returns `~`/`0` for `+peek`.
 
+```{nockmark}
+:caption: A kernel that does nothing.  `S` is the subject it is built from.
+[8 {{[1 0]|st}}
+%% note st push the state (the sample), 0 by default: the subject is `[0 S]`
+   [1
+     {{[8 [1 0] [1 0 6] 0 1]|load}}
+%% note load `+load`, axis 4: a gate whose arm `[0 6]` returns its sample, the old state
+     {{[0 0]|wish}}
+%% note wish `+wish`, axis 10: `[0 0]` crashes whenever it runs
+     {{[8 [1 0] [1 1 0] 0 1]|peek}}
+%% note peek `+peek`, axis 22: a gate whose arm `[1 0]` returns `~` for any path
+     {{8 [1 0] [1 [1 0] 0 30] 0 1|poke}}]
+%% note poke `+poke`, axis 23: a gate that returns `[~ state]` (the state is at 30 inside it)
+   {{0 1|ctx}}]
+%% note ctx the context: the core is `[battery [0 S]]`, with the state at 6 and `S` at 7
 ```
-[ 8
-  :: sample, default of constant 0
-  [1 0]
-  :: arms
-  [1 
-     :: +load, +4
-     [8 [1 0] [1 0 6] 0 1]
-     :: +wish, +10
-     [0 0]
-     :: +peek, +22
-     [8 [1 0] [1 1 0] 0 1]
-     :: +poke, +23
-     8 [1 0] [1 [1 0] 0 30] 0 1]
-  0
-  1
-]
-```
+
+Each arm is itself a gate builder:  `[8 [1 0] [1 <arm>] 0 1]` pushes a default sample of 0 and returns the gate `[<arm> 0 <kernel>]`, so the kernel sits at axis 7 of every gate it builds.  Inside the `+poke` gate the kernel's state is at axis 30 (axis 6 of the kernel at axis 7), and the arm `[[1 0] 0 30]` builds the cell `[~ state]`.
 
 <!-- 
 ```hoon
@@ -76,3 +76,20 @@ The simplest possible kernel is one that does nothing; we will write one that si
  -->
 
 A runtime would evaluate this kernel by supplying it with an actual state (sample) at axis `+6` (with context/stdlib at `+7`), then invoking its arms as needed.
+
+## Calling an Arm
+
+Here is a `+poke` as a runtime would make it, written out in Nock.  `K` is the kernel formula above, the kernel's state is set to 33, and the cause is 99:
+
+```{nockmark}
+[7 {{<K>|k}}
+%% note k build the kernel core `[battery [0 S]]`
+   7 {{[10 [6 1 33] 0 1]|s}}
+%% note s set its state (axis 6) to 33
+   8 {{[9 23 0 1]|g}}
+%% note g run arm 23 to build the `+poke` gate, and push it: the subject is `[gate kernel]`
+   9 2 {{10 [6 1 99] 0 2|c}}]
+%% note c set the gate's sample to the cause, 99, and run its arm: `[0 33]`
+```
+
+The result is `[0 33]`:  no effects (`~`), and the state 33, unchanged.  A `+peek` is made the same way with arm 22 and a path as the sample, and returns `0`, which is `~`.

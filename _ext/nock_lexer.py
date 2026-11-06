@@ -37,6 +37,8 @@ class NockLexer(RegexLexer):
             (r"[*/?=]", Operator),
             (r"<[^>\n]+>", Name.Variable),
             (r"\+\d+", Name.Builtin),
+            (r"0x[0-9a-fA-F]+(?:\.[0-9a-fA-F]+)*", Number.Hex),
+            (r"0b[01]+(?:\.[01]+)*", Number.Bin),
             (r"\d+(?:\.\d+)*", Number.Integer),
             (r"[a-zA-Z_][a-zA-Z0-9_-]*", Name),
             (r".", Text),
