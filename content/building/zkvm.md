@@ -18,7 +18,7 @@ The zkVM is a Lean 4 formalization, with native executables, carrying kernel-che
 
 ## How it works
 
-The point of this zkVM is to let a prover convince a verifier that a computation was performed correctly without the verifier re-executing it (succinctness).  The prover generates a proof that the claim `HoldsN c` is true, and the verifier checks it efficiently.  The system is not zero-knowledge: the prover is Reed–Solomon plus FRI with no masking, so the witness is not hidden — it delivers soundness and succinctness, not privacy.
+The design goal of this zkVM is to let a prover convince a verifier that a computation was performed correctly without the verifier re-executing it (succinctness).  The prover generates a proof that the claim `HoldsN c` is true, and the verifier checks it efficiently.  The system is not zero-knowledge: the prover is Reed–Solomon plus FRI with no masking, so the witness is not hidden — it delivers soundness and succinctness, not privacy.
 
 A claim `c` consists of a subject, a formula, and an expected result.  The prover's goal is to demonstrate that evaluating the formula with the given subject produces the expected result.
 
@@ -76,12 +76,12 @@ These six theorems form the backbone of the library's correctness guarantees for
 
 | # | Theorem | File:line | Says |
 |---|---|---|---|
-| 1 | `Nock.Jet.HoldsN` | `Nock/Jet/Semantics.lean:41` | The target predicate (a definition). |
-| 2 | `probJ9AL_final_clean` | `…/Handle/J9AL/ProbJ9AL.lean:550` | Library soundness, most general revision. |
-| 3 | `complJ9AL_closed` | `…/Handle/J9AL/ComplJ9ALClosed.lean:1031` | Library completeness (conditions below). |
-| 4 | `checkJ9ALX_iff` | `Nock/V1J9AL/CheckJ9ALIff.lean:644` | The executable checker equals the acceptance predicate. |
-| 5 | `nock_e2e_J9AL_succinct_B` (twin `nock_e2e_J9ALJ_succinct_B`) | `nockvm-e2e/NockvmE2E/J9AL/E2ESuccinctJ9ALB.lean:167` | End-to-end soundness, random-oracle model. |
-| 6 | `verifyBytesL_sound` (twin `verifyBytesLJ_sound`) | `nockvm-e2e/NockvmE2E/Exec/CertSound.lean:166` (`:242`) | The certified verifier: from input bytes to theorem 5's conclusion. |
+| 1 | `Nock.Jet.HoldsN` | [`Nock/Jet/Semantics.lean:41`](https://github.com/nockchain/nock-zkvm/blob/7a51d916ef29e117553d2ece2caff678c8731112/Nock/Jet/Semantics.lean#L41) | The target predicate (a definition). |
+| 2 | `probJ9AL_final_clean` | [`…/Handle/J9AL/ProbJ9AL.lean:550`](https://github.com/nockchain/nock-zkvm/blob/7a51d916ef29e117553d2ece2caff678c8731112/Nock/NockVMROM/Thm54/VclL/Handle/J9AL/ProbJ9AL.lean#L550) | Library soundness, most general revision. |
+| 3 | `complJ9AL_closed` | [`…/Handle/J9AL/ComplJ9ALClosed.lean:1031`](https://github.com/nockchain/nock-zkvm/blob/7a51d916ef29e117553d2ece2caff678c8731112/Nock/NockVMROM/Thm54/VclL/Handle/J9AL/ComplJ9ALClosed.lean#L1031) | Library completeness (conditions below). |
+| 4 | `checkJ9ALX_iff` | [`Nock/V1J9AL/CheckJ9ALIff.lean:644`](https://github.com/nockchain/nock-zkvm/blob/7a51d916ef29e117553d2ece2caff678c8731112/Nock/V1J9AL/CheckJ9ALIff.lean#L644) | The executable checker equals the acceptance predicate. |
+| 5 | `nock_e2e_J9AL_succinct_B` (twin [`nock_e2e_J9ALJ_succinct_B`](https://github.com/nockchain/nock-zkvm/blob/7a51d916ef29e117553d2ece2caff678c8731112/nockvm-e2e/NockvmE2E/Z38/E2ESuccinctJ9ALJB.lean#L168)) | [`nockvm-e2e/NockvmE2E/J9AL/E2ESuccinctJ9ALB.lean:167`](https://github.com/nockchain/nock-zkvm/blob/7a51d916ef29e117553d2ece2caff678c8731112/nockvm-e2e/NockvmE2E/J9AL/E2ESuccinctJ9ALB.lean#L167) | End-to-end soundness, random-oracle model. |
+| 6 | `verifyBytesL_sound` (twin `verifyBytesLJ_sound`) | [`nockvm-e2e/NockvmE2E/Exec/CertSound.lean:166`](https://github.com/nockchain/nock-zkvm/blob/7a51d916ef29e117553d2ece2caff678c8731112/nockvm-e2e/NockvmE2E/Exec/CertSound.lean#L166) ([`:242`](https://github.com/nockchain/nock-zkvm/blob/7a51d916ef29e117553d2ece2caff678c8731112/nockvm-e2e/NockvmE2E/Exec/CertSound.lean#L242)) | The certified verifier: from input bytes to theorem 5's conclusion. |
 
 ### The soundness statement
 
@@ -115,4 +115,4 @@ This system is not zero-knowledge today (as it does not hide the witness) and it
 3. **The headline confidence is established for the shipped examples.**  The figure of about `2⁻⁸¹·⁴` depends on side conditions proved for the `add` and `jp` fixtures and a toy.  For an arbitrary accepted instance they are hypotheses, and the executable does not check them.
 4. **The executed verifier differs from the modelled one in small ways.**  The hash in the theorem is a sampled table, not Tip5; no theorem relates the two.  Query positions are reduced modulo a power of two where the theorem samples uniformly; the per-position bias is `2⁻⁶⁴`, and the obvious way to bound its effect is vacuous at the stated query budget.  (Both are disclosed.)
 
-The certified verifier (`verify-cert`) turns an accept into the end-to-end conclusion *for the instance to which those bytes parse*.  The parser need not be correct:  a misparse would change which statement was proved, never whether it is true, and the claim printed is the parsed claim.  For that certified verifier, the trusted base is the Lean kernel, the Lean compiler and runtime, the C toolchain, `main`'s few lines of file I/O, and the random-oracle model for the hash.  (The other verifier arms — `verify` without `--vk`, and `verify-online` — print `ACCEPT-UNCOVERED`: no end-to-end theorem covers them.)
+The certified verifier (`verify-cert`) turns an accept into the end-to-end conclusion *for the instance to which those bytes parse*.  The parser need not be correct:  a misparse would change which statement was proved, never whether it is true, and the claim printed is the parsed claim.  For that certified verifier, the trusted base is the Lean kernel, the Lean compiler and runtime, the C toolchain, `main`'s few lines of file I/O, and the random-oracle model for the hash.
