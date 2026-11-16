@@ -102,6 +102,8 @@ chapters:
     title: NockApp and Nockchain
   - file: content/building/nockasm
     title: Nockasm
+  - file: content/building/zkvm
+    title: Nock zkVM
 
 - file: content/history/index
   title: History
