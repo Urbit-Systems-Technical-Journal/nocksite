@@ -1,0 +1,732 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Nock zkVM &#8212; Nock</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/nockmark.css?v=f6e6dd7d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=6a604523" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=33ce3951" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../../../_static/documentation_options.js?v=55b5f74b"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=df42334f"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script data-sd-tabs-storage-prefix="sphinx-design-tab-id-" src="../../../_static/design-tabs.js?v=fcb327ea"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/building/zkvm';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex/" />
+    <link rel="search" title="Search" href="../../../search/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../../_static/searchtools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search/"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../cool/">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.png" class="logo__image only-light" alt="Nock - Home"/>
+    <img src="../../../_static/logo.png" class="logo__image only-dark pst-js-only" alt="Nock - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../specification/">The Specification</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../specification/basic-opcodes/">Basic Opcodes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-0/">Opcode 0: Address</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-1/">Opcode 1: Constant</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-2/">Opcode 2: Evaluate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-3/">Opcode 3: Cell Check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-4/">Opcode 4: Increment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-5/">Opcode 5: Equality Check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-10/">Opcode 10: Edit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/cell-distribution/">Cell Distribution</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../specification/composite-opcodes/">Composite Opcodes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-6/">Opcode 6: Conditional</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-7/">Opcode 7: Compose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-8/">Opcode 8: Extend</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-9/">Opcode 9: Invoke</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../specification/opcode-11/">Opcode 11: Hint</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../specification/detailed-examples/">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../specification/loobeans/">Loobeans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../specification/deep-nock/">Deep Nock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../specification/verification/">Formal Verification</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../understanding/">Understanding Nock</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../understanding/combinator-approach/">The Combinator Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../understanding/turing-machine-approach/">The Turing Machine Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../understanding/lambda-approach/">The Lambda Calculus Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../understanding/assembly-language-approach/">The Assembly Language Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../understanding/cellular-automaton-approach/">The Cellular Automaton Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../understanding/alchemy-approach/">The Alchemy Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../specification/llm/">Nock for LLMs</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../examples/">Code Examples</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/nouns-and-data/">Nouns &amp; Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/combinators/">Combinators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/idioms-gates-patterns/">Idioms, Gates, &amp; Design Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/timluc-miptev--nock-for-everyday-coders/">Nock for Everyday Coders (Tutorial)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../languages/">Languages</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../languages/relationship-to-hoon/">Relationship to Hoon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../languages/relationship-to-jock/">Relationship to Jock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../languages/relationship-to-loon/">Relationship to Loon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../languages/relationship-to-north/">Relationship to North</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hints-jetting/">Hints &amp; Jetting</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../">Building</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../kernel/">Kernels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../virtualization/">Virtualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nockapp/">NockApp and Nockchain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nockasm/">Nockasm</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../history/">History</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference external" href="https://urbitsystems.tech/article/v02-i01/a-documentary-history-of-the-nock-combinator-calculus">History of Nock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-4k/">Nock 4K (current)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/u-model/">U: A Small Model (2006)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-13k/">Nock 13K (2008)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-12k/">Nock 12K (2008)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-11k/">Nock 11K (2008)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-10k/">Nock 10K (2008)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-9k/">Nock 9K (2010)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-8k/">Nock 8K (2010)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-7k/">Nock 7K (2010)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-6k/">Nock 6K (2011)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../history/nock-5k/">Nock 5K (2012)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary/">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about/">About</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/Urbit-Systems-Technical-Journal/nocksite" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/content/building/zkvm.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Nock zkVM</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-it-works">How it works</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-machine">The machine</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-the-library">Reading the library</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-soundness-statement">The soundness statement</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-the-zkvm-proves">What the zkVM proves</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-it-does-not-say">What it does not say</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="nock-zkvm">
+<h1>Nock zkVM<a class="headerlink" href="#nock-zkvm" title="Link to this heading">#</a></h1>
+<p>Nockchain is a blockchain which uses the Nock ISA as its primary instruction set.  The Nock zkVM is a STARK-based proving system that allows validators to efficiently verify off-chain computation without re-executing it (succinctness).  Despite the “zk” in its name, it is <em>not</em> yet a zero-knowledge system: it provides succinctness and soundness, not privacy, and the witness is not hidden (see <a class="reference internal" href="#what-it-does-not-say"><span class="xref myst">What it does not say</span></a>).</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/nockchain/nock-zkvm"><code class="docutils literal notranslate"><span class="pre">nockchain/nock-zkvm</span></code></a></p></li>
+<li><p><a class="reference external" href="https://nockchain.org/research/zkvm">The Open Proof Machine: a Nock zkVM with an end-to-end soundness proof (2026)</a></p></li>
+</ul>
+<blockquote>
+<div><p><strong>Status as of ~2026.11.17: the zkVM is an alpha research release.</strong>  It has not been independently audited and must not be used in production.</p>
+</div></blockquote>
+<p>How does the Nock ISA lend itself to STARK-based proofs?  The Nock ISA has several properties that make it a suitable target for STARK-based proving:</p>
+<ul class="simple">
+<li><p><strong>Small instruction set.</strong>  With only twelve opcodes, the compute chip’s state selector stays small, simplifying proof generation.</p></li>
+<li><p><strong>Deterministic behavior.</strong>  Every Nock formula has one of three outcomes — a value, a deterministic crash, or non-termination — with no undefined behavior.  The reference interpreter <code class="docutils literal notranslate"><span class="pre">evalN</span></code> is fuel-indexed and returns <code class="docutils literal notranslate"><span class="pre">none</span></code> for both a crash and fuel exhaustion.</p></li>
+<li><p><strong>Stateless evaluation.</strong>  Each Nock step is a pure function from <code class="docutils literal notranslate"><span class="pre">[subject</span> <span class="pre">formula]</span> <span class="pre">→</span> <span class="pre">noun</span></code>, which maps naturally onto a STARK execution trace.</p></li>
+<li><p><strong>No hidden state.</strong>  The only non-structural opcode is 11 (hints).  In the modelled semantics hints are pure: static and dynamic hints are transparent, and a jet hint (a registered id with the exact body formula) is checked <em>inside</em> the circuit by the J and ALU chips.  There is no side-effect channel for the prover to model.</p></li>
+</ul>
+<p>The zkVM is a Lean 4 formalization, with native executables, carrying kernel-checked soundness theorems for a STARK-based proof system over Nock.  It establishes soundness (a false claim is accepted only with negligible probability); it is not zero-knowledge, and completeness of the compiled protocol is not an end-to-end theorem.</p>
+<section id="how-it-works">
+<h2>How it works<a class="headerlink" href="#how-it-works" title="Link to this heading">#</a></h2>
+<p>The point of this zkVM is to let a prover convince a verifier that a computation was performed correctly without the verifier re-executing it (succinctness).  The prover generates a proof that the claim <code class="docutils literal notranslate"><span class="pre">HoldsN</span> <span class="pre">c</span></code> is true, and the verifier checks it efficiently.  The system is not zero-knowledge: the prover is Reed–Solomon plus FRI with no masking, so the witness is not hidden — it delivers soundness and succinctness, not privacy.</p>
+<p>A claim <code class="docutils literal notranslate"><span class="pre">c</span></code> consists of a subject, a formula, and an expected result.  The prover’s goal is to demonstrate that evaluating the formula with the given subject produces the expected result.</p>
+<p>All evaluation routes through <code class="docutils literal notranslate"><span class="pre">Nock.evalN</span></code>, which is a fuel-indexed big-step interpreter.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>evalN : ℕ → Noun → Noun → Option Noun      -- fuel, subject, formula
+</pre></div>
+</div>
+<p>A proof establishes a claim,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>HoldsN c  :=  ∃ fuel, evalN fuel c.subject c.formula = some c.result
+</pre></div>
+</div>
+<p>This definition states that a claim <code class="docutils literal notranslate"><span class="pre">c</span></code> holds if there exists some amount of fuel such that evaluating <code class="docutils literal notranslate"><span class="pre">c.formula</span></code> with <code class="docutils literal notranslate"><span class="pre">c.subject</span></code> using <code class="docutils literal notranslate"><span class="pre">evalN</span></code> produces <code class="docutils literal notranslate"><span class="pre">c.result</span></code>.  In other words, the claim is true if the formula successfully evaluates to the expected result within a finite number of steps.</p>
+<p>Let’s establish some terminology before we look at how the zkVM works:</p>
+<ul class="simple">
+<li><p>A <em>chip</em> is one table of the arithmetization.</p></li>
+<li><p>A <em>handle</em> is a reference to a noun by a <code class="docutils literal notranslate"><span class="pre">(kind,</span> <span class="pre">value)</span></code> pair rather than by content.</p></li>
+<li><p>A <em>coin</em> is a random field element the verifier draws.</p></li>
+<li><p><em>Staged</em> means a trace column may depend only on coins drawn in earlier rounds.</p></li>
+</ul>
+<section id="the-machine">
+<h3>The machine<a class="headerlink" href="#the-machine" title="Link to this heading">#</a></h3>
+<p>The point of a zkVM machine is to execute Nock formulas in a way that can be efficiently proven and verified using STARK-based proofs.  It maintains an execution trace that captures the evaluation of the formula step by step, allowing the prover to generate a proof that the computation was performed correctly.</p>
+<p>The machine consists of several components, including the execution trace, the arithmetization tables (chips), and the mechanisms for handling coins and staged computations.  Each step of the Nock evaluation is recorded in the trace, and the arithmetization ensures that the trace can be checked efficiently by the verifier.</p>
+<p>The first thing to do is convert a Nock evaluation run into a table-based execution trace.  This trace will record each step of the evaluation, including the current subject, formula, and intermediate results.  By organizing the computation in this way, we can later apply the arithmetization to generate the corresponding chips and ensure that the trace can be efficiently verified.</p>
+<p>The honest prover runs a generator that mirrors <code class="docutils literal notranslate"><span class="pre">evalN</span></code> and emits an execution tree, one node per evaluation step.  A compute chip has one row per node, with a one-hot selector over 17 states:  ten for opcodes 0–9, one for cons, three for op 10 (<code class="docutils literal notranslate"><span class="pre">s10</span></code>, <code class="docutils literal notranslate"><span class="pre">s10L</span></code>, <code class="docutils literal notranslate"><span class="pre">s10T</span></code>) and three for op 11 (static, dynamic, jet).  It names nouns by handle, never by content.  The nouns themselves live in other chips:</p>
+<ul class="simple">
+<li><p><strong>Cell table</strong>:  one row per distinct cell, hash-consed (each cell stored once).  Each row carries a fingerprint of its noun and the fingerprints of its two children.</p></li>
+<li><p><strong>Atom table</strong>:  big atoms as chains of 32-bit limbs with the <code class="docutils literal notranslate"><span class="pre">+1</span></code> carry logic for op 4 built in.</p></li>
+<li><p><strong>Walk chips</strong>:  forest walks over the cell and atom tables that turn a statement that “the noun at axis <code class="docutils literal notranslate"><span class="pre">a</span></code> of root <code class="docutils literal notranslate"><span class="pre">r</span></code>” into a record the compute chip consumes.  (This is how opcodes 0, 9 and 10 read memory.)</p></li>
+<li><p><strong>J chip</strong>:  a straight-line interpreter for compiled <a class="reference internal" href="../../specification/opcode-11/"><span class="std std-doc">jet</span></a> templates.</p></li>
+<li><p><strong>ALU chip</strong>:  checks limb-level arithmetic for the primitive jets.</p></li>
+</ul>
+<p>Tables are tied by arguments, such that one table provides records, another consumes them, and the verifier checks that the two multisets balance.  Each balance costs one coin, drawn from a quadratic extension <code class="docutils literal notranslate"><span class="pre">K′</span></code> of a cubic extension <code class="docutils literal notranslate"><span class="pre">K</span></code> of Goldilocks, so <code class="docutils literal notranslate"><span class="pre">|K′|</span> <span class="pre">=</span> <span class="pre">p⁶</span> <span class="pre">≈</span> <span class="pre">2³⁸⁴</span></code>.</p>
+<p>A noun’s fingerprint is a triple <code class="docutils literal notranslate"><span class="pre">(size,</span> <span class="pre">dyck,</span> <span class="pre">leaf)</span></code> at a random coin <code class="docutils literal notranslate"><span class="pre">z</span></code>.  The <code class="docutils literal notranslate"><span class="pre">leaf</span></code> component is <code class="docutils literal notranslate"><span class="pre">Σ</span> <span class="pre">zⁱ·vᵢ</span></code> over the noun’s leaves in in-order position—consecutive powers of <code class="docutils literal notranslate"><span class="pre">z</span></code>, linear in the leaf values. Tree shape enters only through the separate <code class="docutils literal notranslate"><span class="pre">size</span></code> and <code class="docutils literal notranslate"><span class="pre">dyck</span></code> components.  Big atoms are supported through using a second, independent coin for their limbs, with coin collision detection enabled.</p>
+<p>A jet call occurs due to a hint like <code class="docutils literal notranslate"><span class="pre">[11</span> <span class="pre">[id</span> <span class="pre">clue]</span> <span class="pre">body]</span></code>.  In the zkVM, a registry maps an id to a <em>template</em> (argument axes plus a semantic function) and the Nock formula for which the template stands.</p>
+<ul class="simple">
+<li><p>Jets are keyed on the id and the exact body formula.  If the body is not literally the registered formula, the call is evaluated as an ordinary hint.</p></li>
+<li><p>A registry entry must be <code class="docutils literal notranslate"><span class="pre">Faithful</span> <span class="pre">∧</span> <span class="pre">Complete</span></code> against <code class="docutils literal notranslate"><span class="pre">evalN</span></code>:  the template returns a value exactly when the formula does.  Off-domain, the template returns nothing and the generator falls back to running the body.</p></li>
+</ul>
+<p>The template jets are written in a tiny typed language and compiled to their Nock formula, so faithfulness is a theorem about the compiler, not a per-jet proof. The primitive arithmetic jets are hand-written guarded counting loops, proved against each specification.</p>
+</section>
+<section id="reading-the-library">
+<h3>Reading the library<a class="headerlink" href="#reading-the-library" title="Link to this heading">#</a></h3>
+<p>These six theorems form the backbone of the library’s correctness guarantees for the zkVM.  They cover the target predicate, library soundness and completeness, executable checking, and end-to-end soundness from input bytes to the final certified conclusion.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>#</p></th>
+<th class="head"><p>Theorem</p></th>
+<th class="head"><p>File:line</p></th>
+<th class="head"><p>Says</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Nock.Jet.HoldsN</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Nock/Jet/Semantics.lean:41</span></code></p></td>
+<td><p>The target predicate (a definition).</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">probJ9AL_final_clean</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">…/Handle/J9AL/ProbJ9AL.lean:550</span></code></p></td>
+<td><p>Library soundness, most general revision.</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">complJ9AL_closed</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">…/Handle/J9AL/ComplJ9ALClosed.lean:1031</span></code></p></td>
+<td><p>Library completeness (conditions below).</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">checkJ9ALX_iff</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Nock/V1J9AL/CheckJ9ALIff.lean:644</span></code></p></td>
+<td><p>The executable checker equals the acceptance predicate.</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">nock_e2e_J9AL_succinct_B</span></code> (twin <code class="docutils literal notranslate"><span class="pre">nock_e2e_J9ALJ_succinct_B</span></code>)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">nockvm-e2e/NockvmE2E/J9AL/E2ESuccinctJ9ALB.lean:167</span></code></p></td>
+<td><p>End-to-end soundness, random-oracle model.</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">verifyBytesL_sound</span></code> (twin <code class="docutils literal notranslate"><span class="pre">verifyBytesLJ_sound</span></code>)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">nockvm-e2e/NockvmE2E/Exec/CertSound.lean:166</span></code> (<code class="docutils literal notranslate"><span class="pre">:242</span></code>)</p></td>
+<td><p>The certified verifier: from input bytes to theorem 5’s conclusion.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="the-soundness-statement">
+<h3>The soundness statement<a class="headerlink" href="#the-soundness-statement" title="Link to this heading">#</a></h3>
+<p>A proof system like this must be complete (an honest prover convinces the verifier of true statements) and sound (no dishonest prover can convince the verifier of a false statement).  A <em>zero-knowledge</em> proof would add a third property — that no information beyond the claim’s truth reaches the verifier — but this system does not provide it; it targets soundness and does not hide the witness.</p>
+<p>Two separate bounds are at play.  The <code class="docutils literal notranslate"><span class="pre">2⁻¹⁵⁵</span></code> figure below is the <strong>library</strong> bound, proved with ideal coins and no commitment scheme, low-degree test, or Fiat–Shamir theorem.  The <code class="docutils literal notranslate"><span class="pre">2⁻⁸²</span></code> figure in <a class="reference internal" href="#what-the-zkvm-proves"><span class="xref myst">What the zkVM proves</span></a> is the separate, weaker <strong>end-to-end</strong> bound for the FRI/random-oracle package.</p>
+<p>For every public layout, every faithful jet registry, every claim <code class="docutils literal notranslate"><span class="pre">c</span></code>, and every staged prover strategy within the fixed row budgets, “the fraction of coin vectors at which the verifier accepts and <code class="docutils literal notranslate"><span class="pre">c</span></code> is false is below <code class="docutils literal notranslate"><span class="pre">2⁻¹⁵⁵</span></code>.”  This statement means that:</p>
+<ul class="simple">
+<li><p>The probability is a plain count over all of <code class="docutils literal notranslate"><span class="pre">K¹⁹</span></code>, nineteen coins of the cubic extension.</p></li>
+<li><p>The only restrictions on the prover’s strategy are staging (each column depending only on coins drawn before its round) and row budgets fixed in advance (<code class="docutils literal notranslate"><span class="pre">hAX</span></code>, <code class="docutils literal notranslate"><span class="pre">hSP</span></code>, <code class="docutils literal notranslate"><span class="pre">hAL</span> <span class="pre">≤</span> <span class="pre">2³¹</span></code>, <code class="docutils literal notranslate"><span class="pre">hLC…hLV</span></code>, <code class="docutils literal notranslate"><span class="pre">hk</span></code>, <code class="docutils literal notranslate"><span class="pre">hmax</span></code>).  Its public messages may depend on every coin.</p></li>
+<li><p>The claim, layout, row budgets and registry are fixed before the coins.</p></li>
+<li><p>The acceptance predicate contains no reference to <code class="docutils literal notranslate"><span class="pre">evalN</span></code>, to <code class="docutils literal notranslate"><span class="pre">HoldsN</span></code>, or to the honest generator. Every conjunct is computed from the claim and the trace.</p></li>
+<li><p>There is no low-degree assumption and none is needed, because at this layer the “verifier” inspects every row of the trace.  (That is, the library proves the constraint system is sound, not that a succinct protocol is.)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2⁻¹⁵⁵</span></code> is closed by a kernel computation at the actual field size, and is tight to within a bit (a companion lemma shows the bound is not <code class="docutils literal notranslate"><span class="pre">≤</span> <span class="pre">2⁻¹⁵⁶</span></code>).</p></li>
+</ul>
+</section>
+</section>
+<section id="what-the-zkvm-proves">
+<h2>What the zkVM proves<a class="headerlink" href="#what-the-zkvm-proves" title="Link to this heading">#</a></h2>
+<p>The fundamental claim of the Nock zkVM (in our own words):</p>
+<blockquote>
+<div><p>For an instance that passes the verifier’s gates, with the claim <code class="docutils literal notranslate"><span class="pre">c</span></code> and public input fixed before the random oracle is sampled, and for every adversary within the query budgets:</p>
+</div></blockquote>
+<blockquote>
+<div><blockquote>
+<div><p>Pr[ the verifier accepts the adversary’s output ∧ <code class="docutils literal notranslate"><span class="pre">c</span></code> is false ] ≤ <code class="docutils literal notranslate"><span class="pre">2⁻⁸²</span></code> + (three side-proof terms: <code class="docutils literal notranslate"><span class="pre">bfriErr</span></code>, a multi-checkpoint ROM term, and a collision term <code class="docutils literal notranslate"><span class="pre">(Q_Hf+Vf+T)²/2|Dg|</span></code>).</p>
+</div></blockquote>
+</div></blockquote>
+<section id="what-it-does-not-say">
+<h3>What it does not say<a class="headerlink" href="#what-it-does-not-say" title="Link to this heading">#</a></h3>
+<p>This system is not zero-knowledge today (as it does not hide the witness) and its soundness theorem is narrower than it first appears.  The two easiest ways to over-read the result are to assume it keeps the computation private (it does not) or to misunderstand what soundness and completeness establish.  Let us therefore be precise about what the claim does not establish:</p>
+<ol class="arabic simple">
+<li><p><strong>It is not about the proof that was accepted.</strong>  The theorem takes “the executable’s verdict was accept” as a hypothesis, but its proof uses only the instance’s gate checks and discards the result of checking the proof.  This is the normal shape of a soundness theorem (“this verifier, on instances like this one, is rarely fooled”) and is correct.</p></li>
+<li><p><strong>It is non-adaptive.</strong>  The adversary may not choose the claim after seeing the oracle.  The verifiers bind the public input (claim cells, pins, atoms, the primitive table and calls) into the transcript, which is what one would do to make the adaptive statement true, but the adaptive theorem is not proved.  The verification key, table sizes and chip set are not bound.</p></li>
+<li><p><strong>The headline confidence is established for the shipped examples.</strong>  The figure of about <code class="docutils literal notranslate"><span class="pre">2⁻⁸¹·⁴</span></code> depends on side conditions proved for the <code class="docutils literal notranslate"><span class="pre">add</span></code> and <code class="docutils literal notranslate"><span class="pre">jp</span></code> fixtures and a toy.  For an arbitrary accepted instance they are hypotheses, and the executable does not check them.</p></li>
+<li><p><strong>The executed verifier differs from the modelled one in small ways.</strong>  The hash in the theorem is a sampled table, not Tip5; no theorem relates the two.  Query positions are reduced modulo a power of two where the theorem samples uniformly; the per-position bias is <code class="docutils literal notranslate"><span class="pre">2⁻⁶⁴</span></code>, and the obvious way to bound its effect is vacuous at the stated query budget.  (Both are disclosed.)</p></li>
+</ol>
+<p>The certified verifier (<code class="docutils literal notranslate"><span class="pre">verify-cert</span></code>) turns an accept into the end-to-end conclusion <em>for the instance to which those bytes parse</em>.  The parser need not be correct:  a misparse would change which statement was proved, never whether it is true, and the claim printed is the parsed claim.  For that certified verifier, the trusted base is the Lean kernel, the Lean compiler and runtime, the C toolchain, <code class="docutils literal notranslate"><span class="pre">main</span></code>’s few lines of file I/O, and the random-oracle model for the hash.  (The other verifier arms — <code class="docutils literal notranslate"><span class="pre">verify</span></code> without <code class="docutils literal notranslate"><span class="pre">--vk</span></code>, and <code class="docutils literal notranslate"><span class="pre">verify-online</span></code> — print <code class="docutils literal notranslate"><span class="pre">ACCEPT-UNCOVERED</span></code>: no end-to-end theorem covers them.)</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/building"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-it-works">How it works</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-machine">The machine</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-the-library">Reading the library</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-soundness-statement">The soundness statement</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-the-zkvm-proves">What the zkVM proves</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-it-does-not-say">What it does not say</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Urbit Systems Technical Journal
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025–2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
