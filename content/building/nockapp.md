@@ -2,7 +2,7 @@
 
 NockApp is a framework for building and executing applications whose business logic is written in Nock and runs inside a Rust host runtime.  Nockchain is one such application:  a Proof-of-(Useful)-Work blockchain in which the work being done is the generation of zero-knowledge proofs over [`NockVM`](https://docs.nockchain.org/reference-runtime/nockvm) execution traces.  This page describes how those pieces fit together and which properties of Nock they rely on.  It is not a tutorial for either system; for hands-on material, see [`docs.nockchain.org`](https://docs.nockchain.org).
 
-NockApp began life as the Ares project associated with the Urbit Foundation, then became briefly Sword when Zorp Corp took over development.
+NockApp began life as the Ares runtime project under the auspices of the Urbit Foundation, then became first Sword then NockApp when Zorp Corp took over its development in 2024.
 
 ## The Two-Component Pattern
 
@@ -17,15 +17,15 @@ A kernel presents three arms that the runtime invokes:
 * `+peek` — read-only scry.  Accepts a path and returns a value (or signals absence).
 * `+poke` — state-altering event.  Accepts a noun, returns a list of effects plus the new state.
 
-This (alongside an outer wrapper for `+wish`) is the same kernel shape used by Arvo, covered on the [Kernels](kernel.md) page; NockApp standardizes it and ships a runtime that knows how to drive it.  The runtime persists state to a **Persistent Memory Arena (PMA)**—a file-backed arena that demand-pages the kernel's noun so the working set fits in memory regardless of total state size.
+This (alongside an outer wrapper for `+wish`) is the same kernel shape used by Arvo, covered on the [Kernels](kernel.md) page; NockApp standardizes it and ships a runtime that knows how to drive it.  (You can think of this as generalizing the Arvo kernel pattern for end-user applications rather than following Urbit's nested userspace design pattern.)  The runtime persists state to a **Persistent Memory Arena (PMA)**—a file-backed arena that demand-pages the kernel's noun so the working set fits in memory regardless of total state size.
 
-NockApp instances communicate via gRPC as the framework's interop layer.
+NockApp instances communicate via HTTP and gRPC as the framework's interop layer.
 
 ## Nock as a Proof Target
 
 Nockchain's central technical bet is that Nock makes a usable target for STARK-based zero-knowledge proofs.  Per the [docs](https://docs.nockchain.org/architecture/why-nockchain):
 
-> The Nock ZKVM is a STARK-based proving system over the Goldilocks field, transparent (no trusted setup), achieving approximately 121 bits of security and roughly an order of magnitude more efficiency than general-purpose ZKVMs in the RISC-V family.
+> The Nock zkVM is a STARK-based proving system over the Goldilocks field, transparent (no trusted setup), achieving approximately 121 bits of security and roughly an order of magnitude more efficiency than general-purpose zkVMs in the RISC-V family.
 
 A few properties of Nock ISA shape the proof system:
 
@@ -34,7 +34,10 @@ A few properties of Nock ISA shape the proof system:
 * **Solid-state evaluation.**  A Nock step is `[subject formula] → noun`.  A sequence of pokes against a kernel is a chain of noun→noun transitions, which maps naturally onto a STARK execution trace.
 * **Opcode 11 (hints) is the only side-effect channel** and is handled by the host, outside the circuit—see [Hints & Jetting](../hints-jetting/index.md) and [Virtualization](virtualization.md).
 
+We explain Nock as a [zkVM platform in more detail](./zkvm.md).
+
 * [Kattis, Klatt, Quirk, & Allen (2025), *A Framework for Compiling Custom Languages as Efficiently Verifiable Virtual Machines* (IACR ePrint 2025/1110)](https://eprint.iacr.org/2025/1110).
+* [The Open Proof Machine: a Nock zkVM with an end-to-end soundness proof (2026)](https://nockchain.org/research/zkvm)
 
 ## ZK-Intents and Off-Chain Execution
 
@@ -63,3 +66,4 @@ Nockchain frames its mining work as "Proof-of-Useful-Work" (PoUW):  the energy t
 * [`zorp-corp/nockchain`](https://github.com/zorp-corp/nockchain) — Rust runtime and reference NockApp implementations.
 * [Kattis, Klatt, Quirk, Allen (2025), "A Framework for Compiling Custom Languages as Efficiently Verifiable Virtual Machines"](https://eprint.iacr.org/2025/1110) — the underlying compilation framework.
 * [NockApp's reference kernel](https://docs.nockchain.org/reference-kernel/architecture#kernel-structure) — the canonical kernel layout NockApp expects.
+* [The Open Proof Machine: a Nock zkVM with an end-to-end soundness proof (2026)](https://nockchain.org/research/zkvm)

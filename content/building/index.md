@@ -6,3 +6,4 @@ While you will typically prefer to use a high-level language that compiles to No
 * [Virtualization](virtualization)
 * [NockApp and Nockchain](nockapp)
 * [Nockasm](nockasm)
+* [Nock zkVM](zkvm)
