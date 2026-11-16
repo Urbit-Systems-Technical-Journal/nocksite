@@ -492,7 +492,7 @@
 <p>The zkVM is a Lean 4 formalization, with native executables, carrying kernel-checked soundness theorems for a STARK-based proof system over Nock.  It establishes soundness (a false claim is accepted only with negligible probability); it is not zero-knowledge, and completeness of the compiled protocol is not an end-to-end theorem.</p>
 <section id="how-it-works">
 <h2>How it works<a class="headerlink" href="#how-it-works" title="Link to this heading">#</a></h2>
-<p>The point of this zkVM is to let a prover convince a verifier that a computation was performed correctly without the verifier re-executing it (succinctness).  The prover generates a proof that the claim <code class="docutils literal notranslate"><span class="pre">HoldsN</span> <span class="pre">c</span></code> is true, and the verifier checks it efficiently.  The system is not zero-knowledge: the prover is Reed–Solomon plus FRI with no masking, so the witness is not hidden — it delivers soundness and succinctness, not privacy.</p>
+<p>The design goal of this zkVM is to let a prover convince a verifier that a computation was performed correctly without the verifier re-executing it (succinctness).  The prover generates a proof that the claim <code class="docutils literal notranslate"><span class="pre">HoldsN</span> <span class="pre">c</span></code> is true, and the verifier checks it efficiently.  The system is not zero-knowledge: the prover is Reed–Solomon plus FRI with no masking, so the witness is not hidden — it delivers soundness and succinctness, not privacy.</p>
 <p>A claim <code class="docutils literal notranslate"><span class="pre">c</span></code> consists of a subject, a formula, and an expected result.  The prover’s goal is to demonstrate that evaluating the formula with the given subject produces the expected result.</p>
 <p>All evaluation routes through <code class="docutils literal notranslate"><span class="pre">Nock.evalN</span></code>, which is a fuel-indexed big-step interpreter.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>evalN : ℕ → Noun → Noun → Option Noun      -- fuel, subject, formula
@@ -546,32 +546,32 @@
 <tbody>
 <tr class="row-even"><td><p>1</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">Nock.Jet.HoldsN</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">Nock/Jet/Semantics.lean:41</span></code></p></td>
+<td><p><a class="reference external" href="https://github.com/nockchain/nock-zkvm/blob/7a51d916ef29e117553d2ece2caff678c8731112/Nock/Jet/Semantics.lean#L41"><code class="docutils literal notranslate"><span class="pre">Nock/Jet/Semantics.lean:41</span></code></a></p></td>
 <td><p>The target predicate (a definition).</p></td>
 </tr>
 <tr class="row-odd"><td><p>2</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">probJ9AL_final_clean</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">…/Handle/J9AL/ProbJ9AL.lean:550</span></code></p></td>
+<td><p><a class="reference external" href="https://github.com/nockchain/nock-zkvm/blob/7a51d916ef29e117553d2ece2caff678c8731112/Nock/NockVMROM/Thm54/VclL/Handle/J9AL/ProbJ9AL.lean#L550"><code class="docutils literal notranslate"><span class="pre">…/Handle/J9AL/ProbJ9AL.lean:550</span></code></a></p></td>
 <td><p>Library soundness, most general revision.</p></td>
 </tr>
 <tr class="row-even"><td><p>3</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">complJ9AL_closed</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">…/Handle/J9AL/ComplJ9ALClosed.lean:1031</span></code></p></td>
+<td><p><a class="reference external" href="https://github.com/nockchain/nock-zkvm/blob/7a51d916ef29e117553d2ece2caff678c8731112/Nock/NockVMROM/Thm54/VclL/Handle/J9AL/ComplJ9ALClosed.lean#L1031"><code class="docutils literal notranslate"><span class="pre">…/Handle/J9AL/ComplJ9ALClosed.lean:1031</span></code></a></p></td>
 <td><p>Library completeness (conditions below).</p></td>
 </tr>
 <tr class="row-odd"><td><p>4</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">checkJ9ALX_iff</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">Nock/V1J9AL/CheckJ9ALIff.lean:644</span></code></p></td>
+<td><p><a class="reference external" href="https://github.com/nockchain/nock-zkvm/blob/7a51d916ef29e117553d2ece2caff678c8731112/Nock/V1J9AL/CheckJ9ALIff.lean#L644"><code class="docutils literal notranslate"><span class="pre">Nock/V1J9AL/CheckJ9ALIff.lean:644</span></code></a></p></td>
 <td><p>The executable checker equals the acceptance predicate.</p></td>
 </tr>
 <tr class="row-even"><td><p>5</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">nock_e2e_J9AL_succinct_B</span></code> (twin <code class="docutils literal notranslate"><span class="pre">nock_e2e_J9ALJ_succinct_B</span></code>)</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">nockvm-e2e/NockvmE2E/J9AL/E2ESuccinctJ9ALB.lean:167</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">nock_e2e_J9AL_succinct_B</span></code> (twin <a class="reference external" href="https://github.com/nockchain/nock-zkvm/blob/7a51d916ef29e117553d2ece2caff678c8731112/nockvm-e2e/NockvmE2E/Z38/E2ESuccinctJ9ALJB.lean#L168"><code class="docutils literal notranslate"><span class="pre">nock_e2e_J9ALJ_succinct_B</span></code></a>)</p></td>
+<td><p><a class="reference external" href="https://github.com/nockchain/nock-zkvm/blob/7a51d916ef29e117553d2ece2caff678c8731112/nockvm-e2e/NockvmE2E/J9AL/E2ESuccinctJ9ALB.lean#L167"><code class="docutils literal notranslate"><span class="pre">nockvm-e2e/NockvmE2E/J9AL/E2ESuccinctJ9ALB.lean:167</span></code></a></p></td>
 <td><p>End-to-end soundness, random-oracle model.</p></td>
 </tr>
 <tr class="row-odd"><td><p>6</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">verifyBytesL_sound</span></code> (twin <code class="docutils literal notranslate"><span class="pre">verifyBytesLJ_sound</span></code>)</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">nockvm-e2e/NockvmE2E/Exec/CertSound.lean:166</span></code> (<code class="docutils literal notranslate"><span class="pre">:242</span></code>)</p></td>
+<td><p><a class="reference external" href="https://github.com/nockchain/nock-zkvm/blob/7a51d916ef29e117553d2ece2caff678c8731112/nockvm-e2e/NockvmE2E/Exec/CertSound.lean#L166"><code class="docutils literal notranslate"><span class="pre">nockvm-e2e/NockvmE2E/Exec/CertSound.lean:166</span></code></a> (<a class="reference external" href="https://github.com/nockchain/nock-zkvm/blob/7a51d916ef29e117553d2ece2caff678c8731112/nockvm-e2e/NockvmE2E/Exec/CertSound.lean#L242"><code class="docutils literal notranslate"><span class="pre">:242</span></code></a>)</p></td>
 <td><p>The certified verifier: from input bytes to theorem 5’s conclusion.</p></td>
 </tr>
 </tbody>
@@ -613,7 +613,7 @@
 <li><p><strong>The headline confidence is established for the shipped examples.</strong>  The figure of about <code class="docutils literal notranslate"><span class="pre">2⁻⁸¹·⁴</span></code> depends on side conditions proved for the <code class="docutils literal notranslate"><span class="pre">add</span></code> and <code class="docutils literal notranslate"><span class="pre">jp</span></code> fixtures and a toy.  For an arbitrary accepted instance they are hypotheses, and the executable does not check them.</p></li>
 <li><p><strong>The executed verifier differs from the modelled one in small ways.</strong>  The hash in the theorem is a sampled table, not Tip5; no theorem relates the two.  Query positions are reduced modulo a power of two where the theorem samples uniformly; the per-position bias is <code class="docutils literal notranslate"><span class="pre">2⁻⁶⁴</span></code>, and the obvious way to bound its effect is vacuous at the stated query budget.  (Both are disclosed.)</p></li>
 </ol>
-<p>The certified verifier (<code class="docutils literal notranslate"><span class="pre">verify-cert</span></code>) turns an accept into the end-to-end conclusion <em>for the instance to which those bytes parse</em>.  The parser need not be correct:  a misparse would change which statement was proved, never whether it is true, and the claim printed is the parsed claim.  For that certified verifier, the trusted base is the Lean kernel, the Lean compiler and runtime, the C toolchain, <code class="docutils literal notranslate"><span class="pre">main</span></code>’s few lines of file I/O, and the random-oracle model for the hash.  (The other verifier arms — <code class="docutils literal notranslate"><span class="pre">verify</span></code> without <code class="docutils literal notranslate"><span class="pre">--vk</span></code>, and <code class="docutils literal notranslate"><span class="pre">verify-online</span></code> — print <code class="docutils literal notranslate"><span class="pre">ACCEPT-UNCOVERED</span></code>: no end-to-end theorem covers them.)</p>
+<p>The certified verifier (<code class="docutils literal notranslate"><span class="pre">verify-cert</span></code>) turns an accept into the end-to-end conclusion <em>for the instance to which those bytes parse</em>.  The parser need not be correct:  a misparse would change which statement was proved, never whether it is true, and the claim printed is the parsed claim.  For that certified verifier, the trusted base is the Lean kernel, the Lean compiler and runtime, the C toolchain, <code class="docutils literal notranslate"><span class="pre">main</span></code>’s few lines of file I/O, and the random-oracle model for the hash.</p>
 </section>
 </section>
 </section>
