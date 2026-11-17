@@ -2,7 +2,7 @@
 
 Nockchain is a blockchain which uses the Nock ISA as its primary instruction set.  The Nock zkVM is a STARK-based proving system that allows validators to efficiently verify off-chain computation without re-executing it (succinctness).  Despite the "zk" in its name, it is *not* yet a zero-knowledge system: it provides succinctness and soundness, not privacy, and the witness is not hidden (see [What it does not say](#what-it-does-not-say)).
 
-This article is a short overview of the Nock zkVM, primarily of interest for how it intersects with Nock nouns and the formal verification of Nock-based computations.  The [“Open Proof Machine” page](https://nockchain.org/research/zkvm) has a comprehensive and widget-enabled explanation of the entire system.
+This article is a short overview of the bottom layers of the Nock zkVM, primarily of interest for how it represents and interacts with Nock nouns and the formal verification of Nock-based computations.  The [“Open Proof Machine” page](https://nockchain.org/research/zkvm) has a comprehensive and widget-enabled explanation of the entire system.
 
 * [`nockchain/nock-zkvm`](https://github.com/nockchain/nock-zkvm)
 * [The Open Proof Machine: a Nock zkVM with an end-to-end soundness proof (2026)](https://nockchain.org/research/zkvm)
@@ -72,7 +72,9 @@ A jet call occurs due to a hint like `[11 [id clue] body]`.  In the zkVM, a regi
 
 The template jets are written in a tiny typed language and compiled to their Nock formula, so faithfulness is a theorem about the compiler, not a per-jet proof. The primitive arithmetic jets are hand-written guarded counting loops, proved against each specification.
 
-### Reading the library
+The remainder of the Nock zkVM stack consists of the proof generation and verification layers, which go far beyond Nock evaluation as such.  We recommend the [“Open Proof Machine” page](https://nockchain.org/research/zkvm) for a comprehensive explanation of these layers.
+
+<!-- ### Reading the library
 
 These six theorems form the backbone of the library's correctness guarantees for the zkVM.  They cover the target predicate, library soundness and completeness, executable checking, and end-to-end soundness from input bytes to the final certified conclusion.
 
@@ -117,4 +119,4 @@ This system is not zero-knowledge today (as it does not hide the witness) and it
 3. **The headline confidence is established for the shipped examples.**  The figure of about `2⁻⁸¹·⁴` depends on side conditions proved for the `add` and `jp` fixtures and a toy.  For an arbitrary accepted instance they are hypotheses, and the executable does not check them.
 4. **The executed verifier differs from the modelled one in small ways.**  The hash in the theorem is a sampled table, not Tip5; no theorem relates the two.  Query positions are reduced modulo a power of two where the theorem samples uniformly; the per-position bias is `2⁻⁶⁴`, and the obvious way to bound its effect is vacuous at the stated query budget.  (Both are disclosed.)
 
-The certified verifier (`verify-cert`) turns an accept into the end-to-end conclusion *for the instance to which those bytes parse*.  The parser need not be correct:  a misparse would change which statement was proved, never whether it is true, and the claim printed is the parsed claim.  For that certified verifier, the trusted base is the Lean kernel, the Lean compiler and runtime, the C toolchain, `main`'s few lines of file I/O, and the random-oracle model for the hash.
+The certified verifier (`verify-cert`) turns an accept into the end-to-end conclusion *for the instance to which those bytes parse*.  The parser need not be correct:  a misparse would change which statement was proved, never whether it is true, and the claim printed is the parsed claim.  For that certified verifier, the trusted base is the Lean kernel, the Lean compiler and runtime, the C toolchain, `main`'s few lines of file I/O, and the random-oracle model for the hash. -->
