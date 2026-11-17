@@ -1,6 +1,6 @@
 # Nock zkVM
 
-Nockchain is a blockchain which uses the Nock ISA as its primary instruction set.  The Nock zkVM is a STARK-based proving system that allows validators to efficiently verify off-chain computation without re-executing it (succinctness).  Despite the "zk" in its name, it is *not* yet a zero-knowledge system: it provides succinctness and soundness, not privacy, and the witness is not hidden (see [What it does not say](#what-it-does-not-say)).
+Nockchain is a blockchain which uses the Nock ISA as its primary instruction set.  The Nock zkVM is a STARK-based proving system that allows validators to efficiently verify off-chain computation without re-executing it (succinctness).  Despite the "zk" in its name, it is *not* yet a zero-knowledge system: it provides succinctness and soundness, not privacy, and the witness is not hidden.
 
 This article is a short overview of the bottom layers of the Nock zkVM, primarily of interest for how it represents and interacts with Nock nouns and the formal verification of Nock-based computations.  The [“Open Proof Machine” page](https://nockchain.org/research/zkvm) has a comprehensive and widget-enabled explanation of the entire system.
 
